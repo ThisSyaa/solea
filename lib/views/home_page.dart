@@ -1,27 +1,16 @@
 import 'dart:async';
 
-import '../models/product.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/product_controller.dart';
+
 import '../core/app_theme.dart';
+
+import '../models/product.dart';
+
 import 'login_page.dart';
+
 import 'profile_page.dart';
-
-// ============================================================
-// GENERAL HELPER
-// ============================================================
-
-void _showComingSoon(BuildContext context, String label) {
-  ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(
-      SnackBar(
-        content: Text('Halaman "$label" belum tersedia.'),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-}
 
 // ============================================================
 // BANNER DATA
@@ -44,21 +33,27 @@ class _BannerData {
 const List<_BannerData> _banners = [
   _BannerData(
     title: 'Step Into\nYour Style',
-    subtitle: 'Koleksi sepatu terbaru untuk langkah yang lebih percaya diri.',
+    subtitle:
+        'Koleksi sepatu terbaru untuk langkah yang lebih percaya diri.',
     cta: 'Belanja sekarang',
-    imageUrl: 'https://images.unsplash.com/photo-1512374382149-233c42b6a83b?auto=format&fit=crop&w=1600&q=90',
+    imageUrl:
+        'https://images.unsplash.com/photo-1512374382149-233c42b6a83b?auto=format&fit=crop&w=1600&q=90',
   ),
   _BannerData(
     title: 'Fresh Kicks,\nFresh Start',
-    subtitle: 'Temukan sneakers pilihan dengan harga spesial minggu ini.',
+    subtitle:
+        'Temukan sneakers pilihan dengan harga spesial minggu ini.',
     cta: 'Lihat koleksi',
-    imageUrl: 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=1600&q=90',
+    imageUrl:
+        'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=1600&q=90',
   ),
   _BannerData(
     title: 'Move\nWithout Limits',
-    subtitle: 'Performa ringan, nyaman dipakai sepanjang hari.',
+    subtitle:
+        'Performa ringan, nyaman dipakai sepanjang hari.',
     cta: 'Jelajahi sepatu',
-    imageUrl: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1600&q=90',
+    imageUrl:
+        'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1600&q=90',
   ),
 ];
 
@@ -66,11 +61,508 @@ const List<_BannerData> _banners = [
 // HOME PAGE
 // ============================================================
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final String name;
   final String email;
 
-  const HomePage({super.key, required this.name, required this.email});
+  const HomePage({
+    super.key,
+    required this.name,
+    required this.email,
+  });
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String _selectedCategory = 'Semua';
+
+  final Set<String> _wishlist = {};
+  final Map<String, int> _cart = {};
+
+  final ScrollController _scrollController = ScrollController();
+
+  List<Product> get _filteredProducts {
+    if (_selectedCategory == 'Semua') {
+      return ProductController.products;
+    }
+
+    return ProductController.products
+        .where((product) => product.category == _selectedCategory)
+        .toList();
+  }
+
+  List<Product> get _wishlistProducts {
+    return ProductController.products
+        .where((product) => _wishlist.contains(product.name))
+        .toList();
+  }
+
+  List<Product> get _cartProducts {
+    return ProductController.products
+        .where((product) => _cart.containsKey(product.name))
+        .toList();
+  }
+
+  int get _cartTotalItems {
+    return _cart.values.fold(0, (sum, quantity) => sum + quantity);
+  }
+
+  void _selectCategory(String category) {
+    setState(() {
+      _selectedCategory = category;
+    });
+  }
+
+  void _toggleWishlist(Product product) {
+    setState(() {
+      if (_wishlist.contains(product.name)) {
+        _wishlist.remove(product.name);
+      } else {
+        _wishlist.add(product.name);
+      }
+    });
+
+    _showSnackBar(
+      _wishlist.contains(product.name)
+          ? '${product.name} ditambahkan ke wishlist.'
+          : '${product.name} dihapus dari wishlist.',
+    );
+  }
+
+  void _addToCart(Product product) {
+    setState(() {
+      _cart[product.name] = (_cart[product.name] ?? 0) + 1;
+    });
+
+    _showSnackBar(
+      '${product.name} ditambahkan ke keranjang.',
+    );
+  }
+
+  void _removeFromCart(Product product) {
+    setState(() {
+      final current = _cart[product.name] ?? 0;
+
+      if (current <= 1) {
+        _cart.remove(product.name);
+      } else {
+        _cart[product.name] = current - 1;
+      }
+    });
+  }
+
+  void _deleteFromCart(Product product) {
+    setState(() {
+      _cart.remove(product.name);
+    });
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(message),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(milliseconds: 900),
+        ),
+      );
+  }
+
+  void _openWishlist() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(24),
+        ),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 18, 20, 25),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 42,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: AppColors.line,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 18),
+                const Text(
+                  'Wishlist',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.ink,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                if (_wishlistProducts.isEmpty)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    child: Center(
+                      child: Text(
+                        'Wishlist masih kosong.',
+                        style: TextStyle(
+                          color: AppColors.muted,
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  Flexible(
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: _wishlistProducts.length,
+                      separatorBuilder: (_, __) =>
+                          const SizedBox(height: 10),
+                      itemBuilder: (context, index) {
+                        final product = _wishlistProducts[index];
+
+                        return _WishlistTile(
+                          product: product,
+                          onRemove: () {
+                            _toggleWishlist(product);
+                            Navigator.pop(context);
+                            Future.delayed(
+                              const Duration(milliseconds: 150),
+                              _openWishlist,
+                            );
+                          },
+                          onAddToCart: () {
+                            _addToCart(product);
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _openCart() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(24),
+        ),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 18, 20, 25),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 42,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: AppColors.line,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 18),
+                Row(
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        'Keranjang',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.ink,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '$_cartTotalItems item',
+                      style: const TextStyle(
+                        color: AppColors.muted,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                if (_cartProducts.isEmpty)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30),
+                    child: Center(
+                      child: Text(
+                        'Keranjang masih kosong.',
+                        style: TextStyle(
+                          color: AppColors.muted,
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  Flexible(
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: _cartProducts.length,
+                      separatorBuilder: (_, __) =>
+                          const SizedBox(height: 10),
+                      itemBuilder: (context, index) {
+                        final product = _cartProducts[index];
+
+                        return _CartTile(
+                          product: product,
+                          quantity: _cart[product.name] ?? 1,
+                          onAdd: () => _addToCart(product),
+                          onRemove: () => _removeFromCart(product),
+                          onDelete: () => _deleteFromCart(product),
+                        );
+                      },
+                    ),
+                  ),
+                if (_cartProducts.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+
+                        _showSnackBar(
+                          'Checkout belum terhubung ke pembayaran.',
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.ink,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text(
+                        'CHECKOUT',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showProductDetail(Product product) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(24),
+        ),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 18, 20, 28),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 42,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: AppColors.line,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(18),
+                  child: AspectRatio(
+                    aspectRatio: 1.25,
+                    child: Image.network(
+                      product.imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) {
+                        return Container(
+                          color: AppColors.sand,
+                          child: const Icon(
+                            Icons.image_not_supported_outlined,
+                            size: 50,
+                            color: AppColors.muted,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 18),
+                Text(
+                  product.category.toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    letterSpacing: 1.3,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.muted,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  product.name,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.ink,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Text(
+                      product.price,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.forestDeep,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    const Icon(
+                      Icons.star_rounded,
+                      size: 18,
+                      color: Color(0xFFE1A12B),
+                    ),
+                    const SizedBox(width: 3),
+                    Text(
+                      product.rating.toString(),
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.muted,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'Sepatu nyaman dengan desain modern untuk menemani aktivitas sehari-hari.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    height: 1.55,
+                    color: AppColors.muted,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () {
+                          _toggleWishlist(product);
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          _wishlist.contains(product.name)
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_border_rounded,
+                        ),
+                        label: const Text(
+                          'Wishlist',
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.ink,
+                          minimumSize: const Size.fromHeight(52),
+                          side: const BorderSide(
+                            color: AppColors.line,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _addToCart(product);
+                          Navigator.pop(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.ink,
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          minimumSize: const Size.fromHeight(52),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text(
+                          'TAMBAH KE KERANJANG',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 0.8,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _scrollToProducts() {
+    _scrollController.animateTo(
+      520,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,20 +571,27 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            _NavBar(name: name, email: email),
-
+            _NavBar(
+              name: widget.name,
+              email: widget.email,
+              wishlistCount: _wishlist.length,
+              cartCount: _cartTotalItems,
+              onWishlistTap: _openWishlist,
+              onCartTap: _openCart,
+            ),
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final contentMaxWidth = constraints.maxWidth > 1200
+                  final maxWidth = constraints.maxWidth > 1200
                       ? 1180.0
                       : 1000.0;
 
-                  final horizontalPadding = constraints.maxWidth < 700
-                      ? 16.0
-                      : 24.0;
+                  final horizontalPadding =
+                      constraints.maxWidth < 700 ? 16.0 : 24.0;
 
                   return SingleChildScrollView(
+                    controller: _scrollController,
+                    physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.fromLTRB(
                       horizontalPadding,
                       20,
@@ -101,44 +600,61 @@ class HomePage extends StatelessWidget {
                     ),
                     child: Center(
                       child: ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: contentMaxWidth),
-                        child: const Column(
+                        constraints: BoxConstraints(
+                          maxWidth: maxWidth,
+                        ),
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _HeroCarousel(),
-
-                            SizedBox(height: 28),
-
+                            _HeroCarousel(
+                              onAction: _scrollToProducts,
+                            ),
+                            const SizedBox(height: 28),
                             _SectionHeader(
                               title: 'Kategori',
                               action: 'Lihat semua',
+                              onAction: () {
+                                _selectCategory('Semua');
+                                _scrollToProducts();
+                              },
                             ),
-
-                            SizedBox(height: 12),
-
-                            _CategoryList(),
-
-                            SizedBox(height: 30),
-
+                            const SizedBox(height: 12),
+                            _CategoryList(
+                              selectedCategory: _selectedCategory,
+                              onSelected: _selectCategory,
+                            ),
+                            const SizedBox(height: 30),
                             _SectionHeader(
-                              title: 'Sepatu Pilihan',
+                              title: _selectedCategory == 'Semua'
+                                  ? 'Sepatu Pilihan'
+                                  : '$_selectedCategory',
                               action: 'Lihat semua',
+                              onAction: () {
+                                _selectCategory('Semua');
+                              },
                             ),
-
-                            SizedBox(height: 14),
-
-                            ProductList(title: 'Sepatu Pilihan'),
-
-                            SizedBox(height: 30),
-
+                            const SizedBox(height: 14),
+                            ProductList(
+                              products: _filteredProducts,
+                              wishlist: _wishlist,
+                              onWishlistTap: _toggleWishlist,
+                              onProductTap: _showProductDetail,
+                            ),
+                            const SizedBox(height: 30),
                             _SectionHeader(
                               title: 'Popular Sekarang',
                               action: 'Lihat semua',
+                              onAction: () {
+                                _selectCategory('Semua');
+                              },
                             ),
-
-                            SizedBox(height: 14),
-
-                            ProductList(title: 'Popular Sekarang'),
+                            const SizedBox(height: 14),
+                            ProductList(
+                              products: ProductController.products,
+                              wishlist: _wishlist,
+                              onWishlistTap: _toggleWishlist,
+                              onProductTap: _showProductDetail,
+                            ),
                           ],
                         ),
                       ),
@@ -159,7 +675,11 @@ class HomePage extends StatelessWidget {
 // ============================================================
 
 class _HeroCarousel extends StatefulWidget {
-  const _HeroCarousel();
+  final VoidCallback onAction;
+
+  const _HeroCarousel({
+    required this.onAction,
+  });
 
   @override
   State<_HeroCarousel> createState() => _HeroCarouselState();
@@ -177,17 +697,20 @@ class _HeroCarouselState extends State<_HeroCarousel> {
 
     _pageController = PageController();
 
-    _timer = Timer.periodic(const Duration(seconds: 4), (_) {
-      if (!_pageController.hasClients) return;
+    _timer = Timer.periodic(
+      const Duration(seconds: 4),
+      (_) {
+        if (!_pageController.hasClients) return;
 
-      final nextPage = (_currentIndex + 1) % _banners.length;
+        final nextPage = (_currentIndex + 1) % _banners.length;
 
-      _pageController.animateToPage(
-        nextPage,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    });
+        _pageController.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      },
+    );
   }
 
   @override
@@ -195,14 +718,6 @@ class _HeroCarouselState extends State<_HeroCarousel> {
     _timer?.cancel();
     _pageController.dispose();
     super.dispose();
-  }
-
-  void _onPageChanged(int index) {
-    if (!mounted) return;
-
-    setState(() {
-      _currentIndex = index;
-    });
   }
 
   @override
@@ -215,33 +730,44 @@ class _HeroCarouselState extends State<_HeroCarousel> {
             borderRadius: BorderRadius.circular(22),
             child: PageView.builder(
               controller: _pageController,
-              onPageChanged: _onPageChanged,
               itemCount: _banners.length,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
               itemBuilder: (context, index) {
-                return _HeroBanner(data: _banners[index]);
+                return _HeroBanner(
+                  data: _banners[index],
+                  onAction: widget.onAction,
+                );
               },
             ),
           ),
         ),
-
         const SizedBox(height: 12),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(_banners.length, (index) {
-            final active = index == _currentIndex;
+          children: List.generate(
+            _banners.length,
+            (index) {
+              final active = index == _currentIndex;
 
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 250),
-              margin: const EdgeInsets.symmetric(horizontal: 3),
-              width: active ? 22 : 7,
-              height: 7,
-              decoration: BoxDecoration(
-                color: active ? AppColors.forest : AppColors.line,
-                borderRadius: BorderRadius.circular(20),
-              ),
-            );
-          }),
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 3),
+                width: active ? 22 : 7,
+                height: 7,
+                decoration: BoxDecoration(
+                  color: active
+                      ? AppColors.forest
+                      : AppColors.line,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              );
+            },
+          ),
         ),
       ],
     );
@@ -254,13 +780,16 @@ class _HeroCarouselState extends State<_HeroCarousel> {
 
 class _HeroBanner extends StatelessWidget {
   final _BannerData data;
+  final VoidCallback onAction;
 
-  const _HeroBanner({required this.data});
+  const _HeroBanner({
+    required this.data,
+    required this.onAction,
+  });
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
-
     final isSmall = width < 560;
 
     return Stack(
@@ -270,10 +799,11 @@ class _HeroBanner extends StatelessWidget {
           data.imageUrl,
           fit: BoxFit.cover,
           errorBuilder: (_, __, ___) {
-            return Container(color: AppColors.forestDeep);
+            return Container(
+              color: AppColors.forestDeep,
+            );
           },
         ),
-
         DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -288,16 +818,20 @@ class _HeroBanner extends StatelessWidget {
             ),
           ),
         ),
-
         Padding(
-          padding: EdgeInsets.all(isSmall ? 24 : 38),
+          padding: EdgeInsets.all(
+            isSmall ? 24 : 38,
+          ),
           child: Align(
             alignment: Alignment.centerLeft,
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: isSmall ? 250 : 430),
+              constraints: BoxConstraints(
+                maxWidth: isSmall ? 250 : 430,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   Text(
                     data.title,
@@ -309,9 +843,7 @@ class _HeroBanner extends StatelessWidget {
                       letterSpacing: -1,
                     ),
                   ),
-
                   const SizedBox(height: 12),
-
                   Text(
                     data.subtitle,
                     maxLines: isSmall ? 2 : 3,
@@ -322,13 +854,9 @@ class _HeroBanner extends StatelessWidget {
                       height: 1.45,
                     ),
                   ),
-
                   const SizedBox(height: 18),
-
                   ElevatedButton(
-                    onPressed: () {
-                      _showComingSoon(context, data.cta);
-                    },
+                    onPressed: onAction,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: AppColors.ink,
@@ -361,8 +889,13 @@ class _HeroBanner extends StatelessWidget {
 class _SectionHeader extends StatelessWidget {
   final String title;
   final String action;
+  final VoidCallback onAction;
 
-  const _SectionHeader({required this.title, required this.action});
+  const _SectionHeader({
+    required this.title,
+    required this.action,
+    required this.onAction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -378,13 +911,11 @@ class _SectionHeader extends StatelessWidget {
             color: AppColors.ink,
           ),
         ),
-
         TextButton(
-          onPressed: () {
-            _showComingSoon(context, title);
-          },
+          onPressed: onAction,
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 4),
             foregroundColor: AppColors.forest,
           ),
           child: Text(action),
@@ -395,18 +926,17 @@ class _SectionHeader extends StatelessWidget {
 }
 
 // ============================================================
-// CATEGORY LIST - REAL INTERACTION
+// CATEGORY LIST
 // ============================================================
 
-class _CategoryList extends StatefulWidget {
-  const _CategoryList();
+class _CategoryList extends StatelessWidget {
+  final String selectedCategory;
+  final ValueChanged<String> onSelected;
 
-  @override
-  State<_CategoryList> createState() => _CategoryListState();
-}
-
-class _CategoryListState extends State<_CategoryList> {
-  int _selectedIndex = 0;
+  const _CategoryList({
+    required this.selectedCategory,
+    required this.onSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -414,51 +944,42 @@ class _CategoryListState extends State<_CategoryList> {
       height: 44,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        primary: false,
+        physics: const BouncingScrollPhysics(),
         itemCount: ProductController.categories.length,
         itemBuilder: (context, index) {
-          final isActive = index == _selectedIndex;
+          final category =
+              ProductController.categories[index];
+
+          final isActive =
+              category == selectedCategory;
 
           return Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding:
+                const EdgeInsets.only(right: 10),
             child: ChoiceChip(
               selected: isActive,
-
               onSelected: (_) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Kategori "${ProductController.categories[index]}" dipilih.',
-                      ),
-                      behavior: SnackBarBehavior.floating,
-                      duration: const Duration(milliseconds: 900),
-                    ),
-                  );
+                onSelected(category);
               },
-
-              label: Text(ProductController.categories[index]),
-
+              label: Text(category),
               selectedColor: AppColors.forest,
-
               backgroundColor: Colors.white,
-
               side: BorderSide(
-                color: isActive ? AppColors.forest : AppColors.line,
+                color: isActive
+                    ? AppColors.forest
+                    : AppColors.line,
               ),
-
               labelStyle: TextStyle(
-                color: isActive ? Colors.white : AppColors.muted,
+                color: isActive
+                    ? Colors.white
+                    : AppColors.muted,
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
               ),
-
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
+                borderRadius:
+                    BorderRadius.circular(14),
               ),
             ),
           );
@@ -468,10 +989,23 @@ class _CategoryListState extends State<_CategoryList> {
   }
 }
 
-class ProductList extends StatelessWidget {
-  final String title;
+// ============================================================
+// PRODUCT LIST
+// ============================================================
 
-  const ProductList({super.key, required this.title});
+class ProductList extends StatelessWidget {
+  final List<Product> products;
+  final Set<String> wishlist;
+  final ValueChanged<Product> onWishlistTap;
+  final ValueChanged<Product> onProductTap;
+
+  const ProductList({
+    super.key,
+    required this.products,
+    required this.wishlist,
+    required this.onWishlistTap,
+    required this.onProductTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -480,26 +1014,54 @@ class ProductList extends StatelessWidget {
     final cardWidth = width < 500
         ? 168.0
         : width < 800
-        ? 205.0
-        : 224.0;
+            ? 205.0
+            : 224.0;
+
+    if (products.isEmpty) {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(
+          vertical: 35,
+        ),
+        child: const Center(
+          child: Text(
+            'Belum ada produk di kategori ini.',
+            style: TextStyle(
+              color: AppColors.muted,
+            ),
+          ),
+        ),
+      );
+    }
 
     return SizedBox(
       height: cardWidth + 150,
-
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-
-        itemCount: ProductController.products.length,
-
+        primary: false,
+        physics:
+            const BouncingScrollPhysics(),
+        itemCount: products.length,
         itemBuilder: (context, index) {
-          final product = ProductController.products[index];
+          final product = products[index];
 
           return Padding(
             padding: EdgeInsets.only(
-              right: index == ProductController.products.length - 1 ? 0 : 14,
+              right: index ==
+                      products.length - 1
+                  ? 0
+                  : 14,
             ),
-
-            child: ProductCard(product: product, width: cardWidth),
+            child: ProductCard(
+              product: product,
+              width: cardWidth,
+              isFavorite:
+                  wishlist.contains(product.name),
+              onFavoriteTap: () =>
+                  onWishlistTap(product),
+              onTap: () =>
+                  onProductTap(product),
+            ),
           );
         },
       ),
@@ -508,126 +1070,101 @@ class ProductList extends StatelessWidget {
 }
 
 // ============================================================
-// PRODUCT CARD - CLICKABLE
+// PRODUCT CARD
 // ============================================================
 
-class ProductCard extends StatefulWidget {
+class ProductCard extends StatelessWidget {
   final Product product;
   final double width;
+  final bool isFavorite;
+  final VoidCallback onFavoriteTap;
+  final VoidCallback onTap;
 
-  const ProductCard({required this.product, required this.width});
-
-  @override
-  State<ProductCard> createState() => ProductCardState();
-}
-
-class ProductCardState extends State<ProductCard> {
-  bool _isFavorite = false;
+  const ProductCard({
+    super.key,
+    required this.product,
+    required this.width,
+    required this.isFavorite,
+    required this.onFavoriteTap,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final product = widget.product;
-
     return SizedBox(
-      width: widget.width,
-
+      width: width,
       child: Material(
         color: Colors.white,
-
-        borderRadius: BorderRadius.circular(18),
-
+        borderRadius:
+            BorderRadius.circular(18),
         child: InkWell(
-          borderRadius: BorderRadius.circular(18),
-
-          onTap: () {
-            _showProductDetail(context, product);
-          },
-
+          borderRadius:
+              BorderRadius.circular(18),
+          onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
-
+            padding:
+                const EdgeInsets.fromLTRB(
+              10,
+              10,
+              10,
+              12,
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
               children: [
-                // ==================================================
-                // PRODUCT IMAGE
-                // ==================================================
-
                 Expanded(
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-
+                    borderRadius:
+                        BorderRadius.circular(14),
                     child: Stack(
                       fit: StackFit.expand,
-
                       children: [
                         Container(
                           color: AppColors.sand,
-
                           child: Image.network(
                             product.imageUrl,
                             fit: BoxFit.cover,
-
-                            errorBuilder: (_, __, ___) {
+                            errorBuilder:
+                                (_, __, ___) {
                               return const Center(
                                 child: Icon(
-                                  Icons.image_not_supported_outlined,
-                                  color: AppColors.muted,
+                                  Icons
+                                      .image_not_supported_outlined,
+                                  color:
+                                      AppColors.muted,
                                   size: 34,
                                 ),
                               );
                             },
                           ),
                         ),
-
-                        // ==================================================
-                        // FAVORITE BUTTON
-                        // ==================================================
                         Positioned(
                           top: 8,
                           right: 8,
-
                           child: Material(
-                            color: Colors.white.withOpacity(0.94),
-                            shape: const CircleBorder(),
-
+                            color: Colors.white
+                                .withOpacity(0.94),
+                            shape:
+                                const CircleBorder(),
                             child: InkWell(
-                              customBorder: const CircleBorder(),
-
-                              onTap: () {
-                                setState(() {
-                                  _isFavorite = !_isFavorite;
-                                });
-
-                                ScaffoldMessenger.of(context)
-                                  ..hideCurrentSnackBar()
-                                  ..showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        _isFavorite
-                                            ? '${product.name} ditambahkan ke wishlist.'
-                                            : '${product.name} dihapus dari wishlist.',
-                                      ),
-                                      behavior: SnackBarBehavior.floating,
-                                      duration: const Duration(
-                                        milliseconds: 900,
-                                      ),
-                                    ),
-                                  );
-                              },
-
+                              customBorder:
+                                  const CircleBorder(),
+                              onTap:
+                                  onFavoriteTap,
                               child: Padding(
-                                padding: const EdgeInsets.all(7),
-
+                                padding:
+                                    const EdgeInsets.all(
+                                  7,
+                                ),
                                 child: Icon(
-                                  _isFavorite
-                                      ? Icons.favorite_rounded
-                                      : Icons.favorite_border_rounded,
-
+                                  isFavorite
+                                      ? Icons
+                                          .favorite_rounded
+                                      : Icons
+                                          .favorite_border_rounded,
                                   size: 17,
-
-                                  color: _isFavorite
+                                  color: isFavorite
                                       ? AppColors.danger
                                       : AppColors.ink,
                                 ),
@@ -639,73 +1176,63 @@ class ProductCardState extends State<ProductCard> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 11),
-
-                // ==================================================
-                // CATEGORY
-                // ==================================================
                 Text(
                   product.category,
                   style: const TextStyle(
                     fontSize: 11.5,
                     color: AppColors.muted,
-                    fontWeight: FontWeight.w600,
+                    fontWeight:
+                        FontWeight.w600,
                   ),
                 ),
-
                 const SizedBox(height: 3),
-
-                // ==================================================
-                // PRODUCT NAME
-                // ==================================================
                 Text(
                   product.name,
                   maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  overflow:
+                      TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 14,
                     color: AppColors.ink,
-                    fontWeight: FontWeight.w700,
+                    fontWeight:
+                        FontWeight.w700,
                   ),
                 ),
-
                 const SizedBox(height: 6),
-
-                // ==================================================
-                // PRICE + RATING
-                // ==================================================
                 Row(
                   children: [
                     Expanded(
                       child: Text(
                         product.price,
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        overflow:
+                            TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 13.5,
-                          color: AppColors.forestDeep,
-                          fontWeight: FontWeight.w800,
+                          color:
+                              AppColors.forestDeep,
+                          fontWeight:
+                              FontWeight.w800,
                         ),
                       ),
                     ),
-
                     const SizedBox(width: 6),
-
                     const Icon(
                       Icons.star_rounded,
                       size: 15,
-                      color: Color(0xFFE1A12B),
+                      color:
+                          Color(0xFFE1A12B),
                     ),
-
                     const SizedBox(width: 2),
-
                     Text(
                       product.rating.toString(),
                       style: const TextStyle(
                         fontSize: 11.5,
-                        color: AppColors.muted,
-                        fontWeight: FontWeight.w600,
+                        color:
+                            AppColors.muted,
+                        fontWeight:
+                            FontWeight.w600,
                       ),
                     ),
                   ],
@@ -720,199 +1247,255 @@ class ProductCardState extends State<ProductCard> {
 }
 
 // ============================================================
-// PRODUCT DETAIL
+// WISHLIST TILE
 // ============================================================
 
-void _showProductDetail(BuildContext context, Product product) {
-  showModalBottomSheet(
-    context: context,
+class _WishlistTile extends StatelessWidget {
+  final Product product;
+  final VoidCallback onRemove;
+  final VoidCallback onAddToCart;
 
-    backgroundColor: Colors.white,
+  const _WishlistTile({
+    required this.product,
+    required this.onRemove,
+    required this.onAddToCart,
+  });
 
-    isScrollControlled: true,
-
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-    ),
-
-    builder: (context) {
-      return SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(20, 18, 20, 28),
-
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-
-            crossAxisAlignment: CrossAxisAlignment.start,
-
-            children: [
-              // HANDLE
-
-              Center(
-                child: Container(
-                  width: 42,
-                  height: 4,
-
-                  decoration: BoxDecoration(
-                    color: AppColors.line,
-                    borderRadius: BorderRadius.circular(20),
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppColors.sand,
+        borderRadius:
+            BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius:
+                BorderRadius.circular(10),
+            child: Image.network(
+              product.imageUrl,
+              width: 64,
+              height: 64,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) {
+                return Container(
+                  width: 64,
+                  height: 64,
+                  color: AppColors.line,
+                );
+              },
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.name,
+                  maxLines: 1,
+                  overflow:
+                      TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight:
+                        FontWeight.w700,
+                    color: AppColors.ink,
                   ),
                 ),
-              ),
+                const SizedBox(height: 4),
+                Text(
+                  product.price,
+                  style: const TextStyle(
+                    fontWeight:
+                        FontWeight.w800,
+                    color:
+                        AppColors.forestDeep,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: onAddToCart,
+            icon: const Icon(
+              Icons.shopping_bag_outlined,
+            ),
+            color: AppColors.ink,
+          ),
+          IconButton(
+            onPressed: onRemove,
+            icon: const Icon(
+              Icons.favorite_rounded,
+            ),
+            color: AppColors.danger,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-              const SizedBox(height: 20),
+// ============================================================
+// CART TILE
+// ============================================================
 
-              // IMAGE
-              ClipRRect(
-                borderRadius: BorderRadius.circular(18),
+class _CartTile extends StatelessWidget {
+  final Product product;
+  final int quantity;
+  final VoidCallback onAdd;
+  final VoidCallback onRemove;
+  final VoidCallback onDelete;
 
-                child: AspectRatio(
-                  aspectRatio: 1.25,
+  const _CartTile({
+    required this.product,
+    required this.quantity,
+    required this.onAdd,
+    required this.onRemove,
+    required this.onDelete,
+  });
 
-                  child: Image.network(
-                    product.imageUrl,
-                    fit: BoxFit.cover,
-
-                    errorBuilder: (_, __, ___) {
-                      return Container(
-                        color: AppColors.sand,
-
-                        child: const Icon(
-                          Icons.image_not_supported_outlined,
-                          size: 50,
-                          color: AppColors.muted,
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppColors.sand,
+        borderRadius:
+            BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius:
+                BorderRadius.circular(10),
+            child: Image.network(
+              product.imageUrl,
+              width: 64,
+              height: 64,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) {
+                return Container(
+                  width: 64,
+                  height: 64,
+                  color: AppColors.line,
+                );
+              },
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.name,
+                  maxLines: 1,
+                  overflow:
+                      TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight:
+                        FontWeight.w700,
+                    color: AppColors.ink,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  product.price,
+                  style: const TextStyle(
+                    fontWeight:
+                        FontWeight.w800,
+                    color:
+                        AppColors.forestDeep,
+                  ),
+                ),
+                const SizedBox(height: 7),
+                Row(
+                  children: [
+                    _QtyButton(
+                      icon:
+                          Icons.remove_rounded,
+                      onTap: onRemove,
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      child: Text(
+                        quantity.toString(),
+                        style: const TextStyle(
+                          fontWeight:
+                              FontWeight.w800,
+                          color:
+                              AppColors.ink,
                         ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 18),
-
-              // CATEGORY
-              Text(
-                product.category.toUpperCase(),
-
-                style: const TextStyle(
-                  fontSize: 11,
-                  letterSpacing: 1.3,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.muted,
-                ),
-              ),
-
-              const SizedBox(height: 5),
-
-              // NAME
-              Text(
-                product.name,
-
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.ink,
-                ),
-              ),
-
-              const SizedBox(height: 8),
-
-              // PRICE + RATING
-              Row(
-                children: [
-                  Text(
-                    product.price,
-
-                    style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.forestDeep,
+                      ),
                     ),
-                  ),
-
-                  const SizedBox(width: 12),
-
-                  const Icon(
-                    Icons.star_rounded,
-                    size: 18,
-                    color: Color(0xFFE1A12B),
-                  ),
-
-                  const SizedBox(width: 3),
-
-                  Text(
-                    product.rating.toString(),
-
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.muted,
+                    _QtyButton(
+                      icon:
+                          Icons.add_rounded,
+                      onTap: onAdd,
                     ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 12),
-
-              const Text(
-                'Sepatu nyaman dengan desain modern untuk menemani aktivitas sehari-hari.',
-                style: TextStyle(
-                  fontSize: 13,
-                  height: 1.55,
-                  color: AppColors.muted,
+                  ],
                 ),
-              ),
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: onDelete,
+            icon: const Icon(
+              Icons.delete_outline_rounded,
+              color: AppColors.danger,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-              const SizedBox(height: 22),
+// ============================================================
+// QTY BUTTON
+// ============================================================
 
-              // ADD TO CART
-              SizedBox(
-                width: double.infinity,
+class _QtyButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
 
-                height: 52,
+  const _QtyButton({
+    required this.icon,
+    required this.onTap,
+  });
 
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            '${product.name} ditambahkan ke keranjang.',
-                          ),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
-                  },
-
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.ink,
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-
-                  child: const Text(
-                    'TAMBAH KE KERANJANG',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      borderRadius:
+          BorderRadius.circular(8),
+      child: InkWell(
+        borderRadius:
+            BorderRadius.circular(8),
+        onTap: onTap,
+        child: SizedBox(
+          width: 28,
+          height: 28,
+          child: Center(
+            child: Icon(
+              icon,
+              size: 16,
+              color: AppColors.ink,
+            ),
           ),
         ),
-      );
-    },
-  );
+      ),
+    );
+  }
 }
 
 // ============================================================
@@ -922,118 +1505,157 @@ void _showProductDetail(BuildContext context, Product product) {
 class _NavBar extends StatelessWidget {
   final String name;
   final String email;
+  final int wishlistCount;
+  final int cartCount;
+  final VoidCallback onWishlistTap;
+  final VoidCallback onCartTap;
 
-  const _NavBar({required this.name, required this.email});
+  const _NavBar({
+    required this.name,
+    required this.email,
+    required this.wishlistCount,
+    required this.cartCount,
+    required this.onWishlistTap,
+    required this.onCartTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 64,
-
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-
+      padding:
+          const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
       decoration: const BoxDecoration(
         color: Colors.white,
-
-        border: Border(bottom: BorderSide(color: AppColors.line)),
+        border: Border(
+          bottom: BorderSide(
+            color: AppColors.line,
+          ),
+        ),
       ),
-
       child: Row(
         children: [
-          // ==================================================
-          // BRAND
-          // ==================================================
-
           Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize:
+                MainAxisSize.min,
             children: [
               Container(
                 width: 34,
                 height: 34,
-
-                alignment: Alignment.center,
-
+                alignment:
+                    Alignment.center,
                 decoration: BoxDecoration(
                   color: Colors.black,
-                  borderRadius: BorderRadius.circular(9),
+                  borderRadius:
+                      BorderRadius.circular(9),
                 ),
-
                 child: const Icon(
-                  Icons.directions_run_rounded,
+                  Icons
+                      .directions_run_rounded,
                   size: 18,
                   color: Colors.white,
                 ),
               ),
-
               const SizedBox(width: 10),
-
               const Text(
                 'SOLEA',
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w800,
+                  fontWeight:
+                      FontWeight.w800,
                   letterSpacing: 1.4,
                   color: AppColors.ink,
                 ),
               ),
             ],
           ),
-
-          // ==================================================
-          // NAVIGATION
-          // ==================================================
           Expanded(
             child: LayoutBuilder(
-              builder: (context, constraints) {
-                final isWide = constraints.maxWidth > 320;
+              builder:
+                  (context, constraints) {
+                final isWide =
+                    constraints.maxWidth >
+                        420;
 
                 return Align(
-                  alignment: Alignment.center,
-
+                  alignment:
+                      Alignment.center,
                   child: isWide
                       ? Row(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisSize:
+                              MainAxisSize.min,
                           children: [
-                            _NavLink(label: 'Home', active: true, onTap: () {}),
-
+                            _NavLink(
+                              label: 'Home',
+                              active: true,
+                              onTap: () {},
+                            ),
                             _NavLink(
                               label: 'Contact',
-                              onTap: () => _showComingSoon(context, 'Contact'),
+                              onTap: () =>
+                                  _showComingSoon(
+                                context,
+                                'Contact',
+                              ),
                             ),
-
                             _NavLink(
                               label: 'Layanan',
-                              onTap: () => _showComingSoon(context, 'Layanan'),
+                              onTap: () =>
+                                  _showComingSoon(
+                                context,
+                                'Layanan',
+                              ),
                             ),
-
                             _NavLink(
                               label: 'Tentang',
-                              onTap: () => _showComingSoon(context, 'Tentang'),
+                              onTap: () =>
+                                  _showComingSoon(
+                                context,
+                                'Tentang',
+                              ),
                             ),
                           ],
                         )
                       : PopupMenuButton<String>(
-                          icon: const Icon(Icons.menu, color: AppColors.ink),
-
-                          onSelected: (label) {
-                            if (label != 'Home') {
-                              _showComingSoon(context, label);
+                          icon: const Icon(
+                            Icons.menu,
+                            color:
+                                AppColors.ink,
+                          ),
+                          onSelected:
+                              (label) {
+                            if (label !=
+                                'Home') {
+                              _showComingSoon(
+                                context,
+                                label,
+                              );
                             }
                           },
-
-                          itemBuilder: (context) => const [
-                            PopupMenuItem(value: 'Home', child: Text('Home')),
+                          itemBuilder:
+                              (context) =>
+                                  const [
+                            PopupMenuItem(
+                              value: 'Home',
+                              child:
+                                  Text('Home'),
+                            ),
                             PopupMenuItem(
                               value: 'Contact',
-                              child: Text('Contact'),
+                              child: Text(
+                                  'Contact'),
                             ),
                             PopupMenuItem(
                               value: 'Layanan',
-                              child: Text('Layanan'),
+                              child: Text(
+                                  'Layanan'),
                             ),
                             PopupMenuItem(
                               value: 'Tentang',
-                              child: Text('Tentang'),
+                              child: Text(
+                                  'Tentang'),
                             ),
                           ],
                         ),
@@ -1041,11 +1663,23 @@ class _NavBar extends StatelessWidget {
               },
             ),
           ),
-
-          // ==================================================
-          // PROFILE
-          // ==================================================
-          _ProfileMenu(name: name, email: email),
+          _CounterIcon(
+            icon:
+                Icons.favorite_border_rounded,
+            count: wishlistCount,
+            onTap: onWishlistTap,
+          ),
+          _CounterIcon(
+            icon:
+                Icons.shopping_bag_outlined,
+            count: cartCount,
+            onTap: onCartTap,
+          ),
+          const SizedBox(width: 4),
+          _ProfileMenu(
+            name: name,
+            email: email,
+          ),
         ],
       ),
     );
@@ -1070,22 +1704,93 @@ class _NavLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
-
+      padding:
+          const EdgeInsets.symmetric(
+        horizontal: 6,
+      ),
       child: TextButton(
         onPressed: onTap,
-
         style: TextButton.styleFrom(
-          foregroundColor: active ? AppColors.forest : AppColors.muted,
-
+          foregroundColor: active
+              ? AppColors.forest
+              : AppColors.muted,
           textStyle: TextStyle(
             fontSize: 14,
-            fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+            fontWeight: active
+                ? FontWeight.w700
+                : FontWeight.w500,
           ),
         ),
-
         child: Text(label),
       ),
+    );
+  }
+}
+
+// ============================================================
+// COUNTER ICON
+// ============================================================
+
+class _CounterIcon extends StatelessWidget {
+  final IconData icon;
+  final int count;
+  final VoidCallback onTap;
+
+  const _CounterIcon({
+    required this.icon,
+    required this.count,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        IconButton(
+          onPressed: onTap,
+          icon: Icon(
+            icon,
+            color: AppColors.ink,
+          ),
+        ),
+        if (count > 0)
+          Positioned(
+            top: 4,
+            right: 2,
+            child: Container(
+              constraints:
+                  const BoxConstraints(
+                minWidth: 16,
+                minHeight: 16,
+              ),
+              padding:
+                  const EdgeInsets.symmetric(
+                horizontal: 4,
+              ),
+              decoration:
+                  const BoxDecoration(
+                color:
+                    AppColors.danger,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Text(
+                  count > 99
+                      ? '99+'
+                      : count.toString(),
+                  style:
+                      const TextStyle(
+                    fontSize: 8,
+                    fontWeight:
+                        FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }
@@ -1098,21 +1803,29 @@ class _ProfileMenu extends StatelessWidget {
   final String name;
   final String email;
 
-  const _ProfileMenu({required this.name, required this.email});
+  const _ProfileMenu({
+    required this.name,
+    required this.email,
+  });
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       tooltip: 'Akun',
-
-      offset: const Offset(0, 46),
-
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-
+      offset:
+          const Offset(0, 46),
+      shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.circular(12),
+      ),
       onSelected: (value) {
         if (value == 'logout') {
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (_) => const LoginPage()),
+          Navigator.of(context)
+              .pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (_) =>
+                  const LoginPage(),
+            ),
             (route) => false,
           );
         }
@@ -1120,103 +1833,139 @@ class _ProfileMenu extends StatelessWidget {
         if (value == 'profile') {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => ProfilePage(name: name, email: email),
+              builder: (_) =>
+                  ProfilePage(
+                name: name,
+                email: email,
+              ),
             ),
           );
         }
       },
-
       itemBuilder: (context) => [
         PopupMenuItem<String>(
           enabled: false,
-
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-
-            mainAxisSize: MainAxisSize.min,
-
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
+            mainAxisSize:
+                MainAxisSize.min,
             children: [
               Text(
                 name,
-
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
+                style:
+                    const TextStyle(
+                  fontWeight:
+                      FontWeight.w700,
                   fontSize: 14,
-                  color: AppColors.ink,
+                  color:
+                      AppColors.ink,
                 ),
               ),
-
               const SizedBox(height: 2),
-
               Text(
                 email,
-
-                style: const TextStyle(fontSize: 12, color: AppColors.muted),
+                style:
+                    const TextStyle(
+                  fontSize: 12,
+                  color:
+                      AppColors.muted,
+                ),
               ),
             ],
           ),
         ),
-
         const PopupMenuDivider(),
-
         const PopupMenuItem<String>(
           value: 'profile',
-
           child: Row(
             children: [
               Icon(
-                Icons.person_outline_rounded,
+                Icons
+                    .person_outline_rounded,
                 size: 18,
-                color: AppColors.muted,
+                color:
+                    AppColors.muted,
               ),
               SizedBox(width: 10),
               Text('Profil'),
             ],
           ),
         ),
-
         const PopupMenuItem<String>(
           value: 'logout',
-
           child: Row(
             children: [
-              Icon(Icons.logout_rounded, size: 18, color: AppColors.danger),
+              Icon(
+                Icons.logout_rounded,
+                size: 18,
+                color:
+                    AppColors.danger,
+              ),
               SizedBox(width: 10),
-              Text('Logout', style: TextStyle(color: AppColors.danger)),
+              Text(
+                'Logout',
+                style: TextStyle(
+                  color:
+                      AppColors.danger,
+                ),
+              ),
             ],
           ),
         ),
       ],
-
       child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4),
-
+        padding:
+            EdgeInsets.symmetric(
+          horizontal: 4,
+        ),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
-
+          mainAxisSize:
+              MainAxisSize.min,
           children: [
             CircleAvatar(
               radius: 17,
-
-              backgroundColor: Color(0xFFE8F0EC),
-
+              backgroundColor:
+                  Color(0xFFE8F0EC),
               child: Icon(
                 Icons.person_rounded,
                 size: 19,
-                color: AppColors.forest,
+                color:
+                    AppColors.forest,
               ),
             ),
-
             SizedBox(width: 4),
-
             Icon(
-              Icons.keyboard_arrow_down_rounded,
+              Icons
+                  .keyboard_arrow_down_rounded,
               size: 18,
-              color: AppColors.muted,
+              color:
+                  AppColors.muted,
             ),
           ],
         ),
       ),
     );
   }
+}
+
+// ============================================================
+// COMING SOON
+// ============================================================
+
+void _showComingSoon(
+  BuildContext context,
+  String label,
+) {
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        content: Text(
+          'Halaman "$label" belum tersedia.',
+        ),
+        behavior:
+            SnackBarBehavior.floating,
+      ),
+    );
 }
