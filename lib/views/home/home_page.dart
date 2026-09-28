@@ -1340,7 +1340,7 @@ class _ProfileMenu extends StatelessWidget {
                     AppColors.muted,
               ),
               SizedBox(width: 10),
-              Text('Profil'),
+              Text('Profile'),
             ],
           ),
         ),
