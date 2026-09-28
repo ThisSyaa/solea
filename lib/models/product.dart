@@ -3,11 +3,13 @@
 // ============================================================
 
 class Product {
-  final String name; 
+  final String name;
   final String category;
-  final String price;
+  final int price;
   final String imageUrl;
   final double rating;
+  final String description;
+  final List<int> sizes;
 
   const Product({
     required this.name,
@@ -15,5 +17,8 @@ class Product {
     required this.price,
     required this.imageUrl,
     required this.rating,
+    this.description =
+        'Sepatu nyaman dengan desain modern untuk menemani aktivitas sehari-hari.',
+    this.sizes = const [39, 40, 41, 42, 43],
   });
 }

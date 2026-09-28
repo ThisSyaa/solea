@@ -127,3 +127,43 @@ class FieldLabel extends StatelessWidget {
     );
   }
 }
+
+class SoleaLogo extends StatelessWidget {
+  final double iconSize;
+
+  const SoleaLogo({super.key, this.iconSize = 34});
+
+  @override
+  Widget build(BuildContext context) {
+    final boxSize = iconSize + 6;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: boxSize,
+          height: boxSize,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(9),
+          ),
+          child: Icon(
+            Icons.directions_run_rounded,
+            size: iconSize * 0.58,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(width: 9),
+        const Text(
+          'SOLEA',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 1.3,
+            color: AppColors.ink,
+          ),
+        ),
+      ],
+    );
+  }
+}

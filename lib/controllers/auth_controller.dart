@@ -1,24 +1,26 @@
 class AuthController {
-  static const String demoEmail = 'Syaaxi@gmail.com';
-  static const String demoPassword = '123456';
-  static const String demoName = 'Syaaxi';
+  static String? currentName;
+  static String? currentEmail;
 
-  bool login({required String email, required String password}) {
-    return email.trim() == demoEmail && password == demoPassword;
+  static bool login(String email, String password) {
+    const demoEmail = 'Syaaxi@gmail.com';
+    const demoPassword = '123456';
+
+    if (email.trim() == demoEmail && password == demoPassword) {
+      currentName = 'Syaaxi';
+      currentEmail = demoEmail;
+      return true;
+    }
+    return false;
   }
 
-  Future<void> simulateRequest() async {
-    await Future.delayed(const Duration(seconds: 1));
+  static void register(String name, String email) {
+    currentName = name.trim();
+    currentEmail = email.trim();
   }
 
-  Future<bool> register({
-    required String name,
-    required String email,
-    required String password,
-  }) async {
-    await simulateRequest();
-    return name.trim().isNotEmpty &&
-        email.trim().isNotEmpty &&
-        password.isNotEmpty;
+  static void logout() {
+    currentName = null;
+    currentEmail = null;
   }
 }

@@ -1,38 +1,52 @@
 import 'package:flutter/material.dart';
+import '../../core/app_theme.dart';
+import '../home/home_page.dart';
 
-import '../controllers/auth_controller.dart';
-import '../core/app_theme.dart';
-import 'home_page.dart';
-import 'register_page.dart';
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   bool _isLoading = false;
   bool _obscurePassword = true;
-  bool _rememberMe = false;
+  bool _obscureConfirmPassword = true;
+  bool _agreeTerms = false;
 
-  final AuthController _authController = AuthController();
+  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
-  // Foto sneaker untuk tampilan hero.
   static const String _shoeImage =
       'https://images.unsplash.com/photo-1542291026-7eec264c27ff'
       '?auto=format&fit=crop&w=1200&q=85';
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  String? _validateName(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Nama tidak boleh kosong';
+    }
+
+    if (value.trim().length < 3) {
+      return 'Nama minimal 3 karakter';
+    }
+
+    return null;
   }
 
   String? _validateEmail(String? value) {
@@ -40,7 +54,9 @@ class _LoginPageState extends State<LoginPage> {
       return 'Email tidak boleh kosong';
     }
 
-    final emailRegex = RegExp(r'^[\w.\-+]+@([\w-]+\.)+[a-zA-Z]{2,}$');
+    final emailRegex = RegExp(
+      r'^[\w.\-+]+@([\w-]+\.)+[a-zA-Z]{2,}$',
+    );
 
     if (!emailRegex.hasMatch(value.trim())) {
       return 'Format email tidak valid';
@@ -61,49 +77,60 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
-  Future<void> _handleLogin() async {
+  String? _validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Konfirmasi password tidak boleh kosong';
+    }
+
+    if (value != _passwordController.text) {
+      return 'Password tidak sama';
+    }
+
+    return null;
+  }
+
+  Future<void> _handleRegister() async {
     FocusScope.of(context).unfocus();
+
+    setState(() {
+      _autovalidate = AutovalidateMode.onUserInteraction;
+    });
 
     if (!_formKey.currentState!.validate()) return;
 
+    if (!_agreeTerms) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Centang persetujuan syarat & ketentuan terlebih dahulu.',
+            ),
+            backgroundColor: AppColors.danger,
+          ),
+        );
+      return;
+    }
+
     setState(() => _isLoading = true);
 
-    await _authController.simulateRequest();
+    await Future.delayed(const Duration(seconds: 1));
 
     if (!mounted) return;
 
     setState(() => _isLoading = false);
 
-    String email = _emailController.text.trim();
-    String password = _passwordController.text;
+    final name = _nameController.text.trim();
+    final email = _emailController.text.trim();
 
-    if (_authController.login(email: email, password: password)) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => const HomePage(
-            name: AuthController.demoName,
-            email: AuthController.demoEmail,
-          ),
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => HomePage(
+          name: name,
+          email: email,
         ),
-      );
-    } else {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          const SnackBar(
-            content: Text('Email atau password salah.'),
-            backgroundColor: AppColors.danger,
-          ),
-        );
-    }
-  }
-
-  void _showForgotPassword() {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        const SnackBar(content: Text('Fitur lupa password belum tersedia.')),
-      );
+      ),
+    );
   }
 
   @override
@@ -120,42 +147,50 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Expanded(
                     flex: 6,
-                    child: _ShoeVisual(
+                    child: _RegisterVisual(
                       imageUrl: _shoeImage,
-                      eyebrow: 'NEW COLLECTION',
-                      title: 'Step into\nsomething new.',
                     ),
                   ),
                   Expanded(
                     flex: 5,
-                    child: _LoginForm(
+                    child: _RegisterForm(
                       formKey: _formKey,
+                      nameController: _nameController,
                       emailController: _emailController,
                       passwordController: _passwordController,
+                      confirmPasswordController:
+                          _confirmPasswordController,
+                      autovalidate: _autovalidate,
                       isLoading: _isLoading,
                       obscurePassword: _obscurePassword,
-                      rememberMe: _rememberMe,
+                      obscureConfirmPassword:
+                          _obscureConfirmPassword,
+                      agreeTerms: _agreeTerms,
                       onTogglePassword: () {
                         setState(() {
                           _obscurePassword = !_obscurePassword;
                         });
                       },
-                      onRememberChanged: (value) {
+                      onToggleConfirmPassword: () {
                         setState(() {
-                          _rememberMe = value;
+                          _obscureConfirmPassword =
+                              !_obscureConfirmPassword;
                         });
                       },
-                      onForgotPassword: _showForgotPassword,
-                      onLogin: _handleLogin,
-                      onRegister: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => const RegisterPage(),
-                          ),
-                        );
+                      onAgreeTerms: (value) {
+                        setState(() {
+                          _agreeTerms = value;
+                        });
                       },
+                      onRegister: _handleRegister,
+                      onBack: () {
+                        Navigator.of(context).pop();
+                      },
+                      validateName: _validateName,
                       validateEmail: _validateEmail,
                       validatePassword: _validatePassword,
+                      validateConfirmPassword:
+                          _validateConfirmPassword,
                     ),
                   ),
                 ],
@@ -166,39 +201,91 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 30),
               child: Column(
                 children: [
-                  const _MobileLogo(),
-                  const SizedBox(height: 18),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _isLoading
+                            ? null
+                            : () {
+                                Navigator.of(context).pop();
+                              },
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          size: 18,
+                        ),
+                      ),
+                      const Spacer(),
+                      const _Logo(),
+                      const Spacer(),
+                      const SizedBox(width: 48),
+                    ],
+                  ),
 
-                  _MobileShoeImage(imageUrl: _shoeImage),
+                  const SizedBox(height: 16),
+
+                  Container(
+                    height: 190,
+                    width: double.infinity,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE8E4DC),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Image.network(
+                      _shoeImage,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) {
+                        return const Center(
+                          child: Icon(
+                            Icons.shopping_bag_outlined,
+                            size: 65,
+                            color: Color(0xFF77736B),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
 
                   const SizedBox(height: 26),
 
-                  _LoginForm(
+                  _RegisterForm(
                     formKey: _formKey,
+                    nameController: _nameController,
                     emailController: _emailController,
                     passwordController: _passwordController,
+                    confirmPasswordController:
+                        _confirmPasswordController,
+                    autovalidate: _autovalidate,
                     isLoading: _isLoading,
                     obscurePassword: _obscurePassword,
-                    rememberMe: _rememberMe,
+                    obscureConfirmPassword:
+                        _obscureConfirmPassword,
+                    agreeTerms: _agreeTerms,
                     onTogglePassword: () {
                       setState(() {
                         _obscurePassword = !_obscurePassword;
                       });
                     },
-                    onRememberChanged: (value) {
+                    onToggleConfirmPassword: () {
                       setState(() {
-                        _rememberMe = value;
+                        _obscureConfirmPassword =
+                            !_obscureConfirmPassword;
                       });
                     },
-                    onForgotPassword: _showForgotPassword,
-                    onLogin: _handleLogin,
-                    onRegister: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const RegisterPage()),
-                      );
+                    onAgreeTerms: (value) {
+                      setState(() {
+                        _agreeTerms = value;
+                      });
                     },
+                    onRegister: _handleRegister,
+                    onBack: () {
+                      Navigator.of(context).pop();
+                    },
+                    validateName: _validateName,
                     validateEmail: _validateEmail,
                     validatePassword: _validatePassword,
+                    validateConfirmPassword:
+                        _validateConfirmPassword,
                   ),
                 ],
               ),
@@ -211,18 +298,14 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 // ============================================================
-// DESKTOP - VISUAL PANEL
+// VISUAL
 // ============================================================
 
-class _ShoeVisual extends StatelessWidget {
+class _RegisterVisual extends StatelessWidget {
   final String imageUrl;
-  final String eyebrow;
-  final String title;
 
-  const _ShoeVisual({
+  const _RegisterVisual({
     required this.imageUrl,
-    required this.eyebrow,
-    required this.title,
   });
 
   @override
@@ -231,7 +314,7 @@ class _ShoeVisual extends StatelessWidget {
       margin: const EdgeInsets.all(18),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: const Color(0xFFE9E5DD),
+        color: const Color(0xFFE8E4DC),
         borderRadius: BorderRadius.circular(28),
       ),
       child: Stack(
@@ -251,15 +334,14 @@ class _ShoeVisual extends StatelessWidget {
             },
           ),
 
-          // Overlay halus
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withOpacity(0.08),
-                  Colors.black.withOpacity(0.55),
+                  Colors.black.withOpacity(0.05),
+                  Colors.black.withOpacity(0.58),
                 ],
               ),
             ),
@@ -303,20 +385,20 @@ class _ShoeVisual extends StatelessWidget {
             bottom: 38,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 Text(
-                  eyebrow,
-                  style: const TextStyle(
+                  'FIND YOUR PAIR',
+                  style: TextStyle(
                     color: Colors.white70,
                     fontSize: 11,
                     letterSpacing: 2.5,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10),
                 Text(
-                  title,
-                  style: const TextStyle(
+                  'Create your\nSolea account.',
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 42,
                     height: 1.03,
@@ -334,60 +416,105 @@ class _ShoeVisual extends StatelessWidget {
 }
 
 // ============================================================
-// LOGIN FORM
+// REGISTER FORM
 // ============================================================
 
-class _LoginForm extends StatelessWidget {
+class _RegisterForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+
+  final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
+
+  final AutovalidateMode autovalidate;
+
   final bool isLoading;
   final bool obscurePassword;
-  final bool rememberMe;
+  final bool obscureConfirmPassword;
+  final bool agreeTerms;
 
   final VoidCallback onTogglePassword;
-  final ValueChanged<bool> onRememberChanged;
-  final VoidCallback onForgotPassword;
-  final VoidCallback onLogin;
-  final VoidCallback onRegister;
+  final VoidCallback onToggleConfirmPassword;
+  final ValueChanged<bool> onAgreeTerms;
 
+  final VoidCallback onRegister;
+  final VoidCallback onBack;
+
+  final String? Function(String?) validateName;
   final String? Function(String?) validateEmail;
   final String? Function(String?) validatePassword;
+  final String? Function(String?) validateConfirmPassword;
 
-  const _LoginForm({
+  const _RegisterForm({
     required this.formKey,
+    required this.nameController,
     required this.emailController,
     required this.passwordController,
+    required this.confirmPasswordController,
+    required this.autovalidate,
     required this.isLoading,
     required this.obscurePassword,
-    required this.rememberMe,
+    required this.obscureConfirmPassword,
+    required this.agreeTerms,
     required this.onTogglePassword,
-    required this.onRememberChanged,
-    required this.onForgotPassword,
-    required this.onLogin,
+    required this.onToggleConfirmPassword,
+    required this.onAgreeTerms,
     required this.onRegister,
+    required this.onBack,
+    required this.validateName,
     required this.validateEmail,
     required this.validatePassword,
+    required this.validateConfirmPassword,
   });
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 32),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 44,
+          vertical: 30,
+        ),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 430),
           child: Form(
             key: formKey,
+            autovalidateMode: autovalidate,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const _DesktopMiniLogo(),
+                if (MediaQuery.of(context).size.width >= 900) ...[
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: isLoading ? null : onBack,
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          size: 18,
+                        ),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(
+                          minWidth: 34,
+                          minHeight: 34,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'Back to sign in',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF77736B),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
 
-                const SizedBox(height: 58),
+                const SizedBox(height: 20),
 
                 const Text(
-                  'Welcome back',
+                  'Create account',
                   style: TextStyle(
                     fontSize: 38,
                     fontWeight: FontWeight.w700,
@@ -399,7 +526,7 @@ class _LoginForm extends StatelessWidget {
                 const SizedBox(height: 9),
 
                 const Text(
-                  'Sign in to continue shopping your favorite sneakers.',
+                  'Create your account and start discovering your next pair.',
                   style: TextStyle(
                     fontSize: 14,
                     height: 1.55,
@@ -407,13 +534,27 @@ class _LoginForm extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 38),
+                const SizedBox(height: 36),
+
+                const _CleanLabel('Full name'),
+
+                const SizedBox(height: 9),
+
+                _RegisterTextField(
+                  controller: nameController,
+                  hintText: 'Your name',
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
+                  validator: validateName,
+                ),
+
+                const SizedBox(height: 20),
 
                 const _CleanLabel('Email'),
 
                 const SizedBox(height: 9),
 
-                _CleanTextField(
+                _RegisterTextField(
                   controller: emailController,
                   hintText: 'you@example.com',
                   keyboardType: TextInputType.emailAddress,
@@ -421,21 +562,18 @@ class _LoginForm extends StatelessWidget {
                   validator: validateEmail,
                 ),
 
-                const SizedBox(height: 23),
+                const SizedBox(height: 20),
 
                 const _CleanLabel('Password'),
 
                 const SizedBox(height: 9),
 
-                _CleanTextField(
+                _RegisterTextField(
                   controller: passwordController,
-                  hintText: 'Enter your password',
+                  hintText: 'Minimum 6 characters',
                   obscureText: obscurePassword,
-                  textInputAction: TextInputAction.done,
+                  textInputAction: TextInputAction.next,
                   validator: validatePassword,
-                  onSubmitted: (_) {
-                    if (!isLoading) onLogin();
-                  },
                   suffix: IconButton(
                     onPressed: onTogglePassword,
                     icon: Icon(
@@ -448,61 +586,85 @@ class _LoginForm extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 11),
+                const SizedBox(height: 20),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+                const _CleanLabel('Confirm password'),
+
+                const SizedBox(height: 9),
+
+                _RegisterTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Repeat your password',
+                  obscureText: obscureConfirmPassword,
+                  textInputAction: TextInputAction.done,
+                  validator: validateConfirmPassword,
+                  suffix: IconButton(
+                    onPressed: onToggleConfirmPassword,
+                    icon: Icon(
+                      obscureConfirmPassword
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      size: 20,
+                    ),
+                    color: const Color(0xFF77736B),
+                  ),
+                  onSubmitted: (_) {
+                    if (!isLoading) onRegister();
+                  },
+                ),
+
+                const SizedBox(height: 16),
+
+                InkWell(
+                  borderRadius: BorderRadius.circular(6),
+                  onTap: () {
+                    onAgreeTerms(!agreeTerms);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                           width: 20,
                           height: 20,
                           child: Checkbox(
-                            value: rememberMe,
+                            value: agreeTerms,
                             onChanged: (value) {
-                              onRememberChanged(value ?? false);
+                              onAgreeTerms(value ?? false);
                             },
-                            side: const BorderSide(color: Color(0xFFBDB8AE)),
                             activeColor: Colors.black,
                             checkColor: Colors.white,
+                            side: const BorderSide(
+                              color: Color(0xFFBDB8AE),
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        const Text(
-                          'Remember me',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Color(0xFF66625C),
+                        const SizedBox(width: 9),
+                        const Expanded(
+                          child: Text(
+                            'I agree to the terms and conditions.',
+                            style: TextStyle(
+                              fontSize: 12.5,
+                              height: 1.45,
+                              color: Color(0xFF77736B),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    TextButton(
-                      onPressed: onForgotPassword,
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: const Size(0, 36),
-                        foregroundColor: Colors.black,
-                      ),
-                      child: const Text(
-                        'Forgot password?',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 22),
 
                 SizedBox(
                   width: double.infinity,
                   height: 54,
                   child: ElevatedButton(
-                    onPressed: isLoading ? null : onLogin,
+                    onPressed: isLoading ? null : onRegister,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       foregroundColor: Colors.white,
@@ -523,53 +685,36 @@ class _LoginForm extends StatelessWidget {
                             ),
                           )
                         : const Text(
-                            'SIGN IN',
+                            'CREATE ACCOUNT',
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w800,
-                              letterSpacing: 1.3,
+                              letterSpacing: 1.2,
                             ),
                           ),
                   ),
                 ),
 
-                const SizedBox(height: 28),
-
-                Row(
-                  children: [
-                    const Expanded(child: Divider(color: Color(0xFFE0DDD6))),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        'OR',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Color(0xFFA19C93),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    const Expanded(child: Divider(color: Color(0xFFE0DDD6))),
-                  ],
-                ),
-
-                const SizedBox(height: 26),
+                const SizedBox(height: 25),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Don't have an account?",
-                      style: TextStyle(fontSize: 13, color: Color(0xFF77736B)),
+                      'Already have an account?',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Color(0xFF77736B),
+                      ),
                     ),
                     TextButton(
-                      onPressed: isLoading ? null : onRegister,
+                      onPressed: isLoading ? null : onBack,
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.black,
                         padding: const EdgeInsets.only(left: 5),
                       ),
                       child: const Text(
-                        'Sign up',
+                        'Sign in',
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w800,
@@ -578,25 +723,6 @@ class _LoginForm extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-
-                const SizedBox(height: 24),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEFEEE9),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Text(
-                    'Demo account  •  Syaaxi@gmail.com  •  123456',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 11.5, color: Color(0xFF77736B)),
-                  ),
                 ),
               ],
             ),
@@ -608,24 +734,111 @@ class _LoginForm extends StatelessWidget {
 }
 
 // ============================================================
-// REGISTER PAGE
+// COMMON WIDGET
 // ============================================================
 
-class _MobileLogo extends StatelessWidget {
-  const _MobileLogo();
+class _CleanLabel extends StatelessWidget {
+  final String text;
+
+  const _CleanLabel(this.text);
 
   @override
   Widget build(BuildContext context) {
-    return const _Logo();
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF1C1C1C),
+      ),
+    );
   }
 }
 
-class _DesktopMiniLogo extends StatelessWidget {
-  const _DesktopMiniLogo();
+class _RegisterTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+
+  final bool obscureText;
+  final Widget? suffix;
+
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+
+  final String? Function(String?)? validator;
+  final ValueChanged<String>? onSubmitted;
+
+  const _RegisterTextField({
+    required this.controller,
+    required this.hintText,
+    this.obscureText = false,
+    this.suffix,
+    this.keyboardType,
+    this.textInputAction,
+    this.validator,
+    this.onSubmitted,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const _Logo();
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      validator: validator,
+      onFieldSubmitted: onSubmitted,
+      style: const TextStyle(
+        fontSize: 14,
+        color: Colors.black,
+      ),
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: const TextStyle(
+          fontSize: 14,
+          color: Color(0xFFA09B92),
+        ),
+        suffixIcon: suffix,
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 17,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: Color(0xFFD8D4CC),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: Color(0xFFD8D4CC),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: Colors.black,
+            width: 1.3,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: AppColors.danger,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            color: AppColors.danger,
+            width: 1.2,
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -661,123 +874,6 @@ class _Logo extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _MobileShoeImage extends StatelessWidget {
-  final String imageUrl;
-
-  const _MobileShoeImage({required this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 215,
-      width: double.infinity,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: const Color(0xFFE8E4DC),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) {
-          return const Center(
-            child: Icon(
-              Icons.shopping_bag_outlined,
-              size: 70,
-              color: Color(0xFF77736B),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _CleanLabel extends StatelessWidget {
-  final String text;
-
-  const _CleanLabel(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 13,
-        fontWeight: FontWeight.w700,
-        color: Color(0xFF1C1C1C),
-      ),
-    );
-  }
-}
-
-class _CleanTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final bool obscureText;
-  final Widget? suffix;
-
-  final TextInputType? keyboardType;
-  final TextInputAction? textInputAction;
-  final String? Function(String?)? validator;
-  final ValueChanged<String>? onSubmitted;
-
-  const _CleanTextField({
-    required this.controller,
-    required this.hintText,
-    this.obscureText = false,
-    this.suffix,
-    this.keyboardType,
-    this.textInputAction,
-    this.validator,
-    this.onSubmitted,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      validator: validator,
-      onFieldSubmitted: onSubmitted,
-      style: const TextStyle(fontSize: 14, color: Colors.black),
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: const TextStyle(fontSize: 14, color: Color(0xFFA09B92)),
-        suffixIcon: suffix,
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 17,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color(0xFFD8D4CC)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color(0xFFD8D4CC)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.black, width: 1.3),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.danger),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.danger, width: 1.2),
-        ),
-      ),
     );
   }
 }
