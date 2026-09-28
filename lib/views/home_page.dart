@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:demo/model/product.dart';
+import '../models/product.dart';
 import 'package:flutter/material.dart';
 
-import 'app_theme.dart';
+import '../controllers/product_controller.dart';
+import '../core/app_theme.dart';
 import 'login_page.dart';
 import 'profile_page.dart';
 
@@ -21,77 +22,6 @@ void _showComingSoon(BuildContext context, String label) {
       ),
     );
 }
-
-const List<Product> products = [
-  Product(
-    name: 'Air Runner Pro',
-    category: 'Running',
-    price: 'Rp 1.299.000',
-    rating: 4.9,
-    imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85',
-  ),
-  Product(
-    name: 'Street Classic',
-    category: 'Lifestyle',
-    price: 'Rp 899.000',
-    rating: 4.8,
-    imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=85',
-  ),
-  Product(
-    name: 'Court Vision',
-    category: 'Basketball',
-    price: 'Rp 1.049.000',
-    rating: 4.7,
-    imageUrl: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=900&q=85',
-  ),
-  Product(
-    name: 'Urban White',
-    category: 'Casual',
-    price: 'Rp 749.000',
-    rating: 4.8,
-    imageUrl: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=85',
-  ),
-  Product(
-    name: 'Trail Max',
-    category: 'Outdoor',
-    price: 'Rp 1.499.000',
-    rating: 4.9,
-    imageUrl: 'https://images.unsplash.com/photo-1518002171953-a080ee817e1f?auto=format&fit=crop&w=900&q=85',
-  ),
-  Product(
-    name: 'Daily Flex',
-    category: 'Training',
-    price: 'Rp 999.000',
-    rating: 4.6,
-    imageUrl: 'https://images.unsplash.com/photo-1520256862855-398228c41684?auto=format&fit=crop&w=900&q=85',
-  ),
-
-  Product(
-    name: 'Daily Flex 2',
-    category: 'Training',
-    price: 'Rp 999.000',
-    rating: 4.6,
-    imageUrl: 'https://images.unsplash.com/photo-1520256862855-398228c41684?auto=format&fit=crop&w=900&q=85',
-  ),
-
-  Product(
-    name: 'Daily Flex 3',
-    category: 'Training',
-    price: 'Rp 999.000',
-    rating: 4.6,
-    imageUrl: 'https://images.unsplash.com/photo-1520256862855-398228c41684?auto=format&fit=crop&w=900&q=85',
-  ),
-];
-
-const List<String> _categories = [
-  'Semua',
-  'Running',
-  'Lifestyle',
-  'Basketball',
-  'Casual',
-  'Outdoor',
-  'Training',
-];
 
 // ============================================================
 // BANNER DATA
@@ -484,7 +414,7 @@ class _CategoryListState extends State<_CategoryList> {
       height: 44,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: _categories.length,
+        itemCount: ProductController.categories.length,
         itemBuilder: (context, index) {
           final isActive = index == _selectedIndex;
 
@@ -503,7 +433,7 @@ class _CategoryListState extends State<_CategoryList> {
                   ..showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Kategori "${_categories[index]}" dipilih.',
+                        'Kategori "${ProductController.categories[index]}" dipilih.',
                       ),
                       behavior: SnackBarBehavior.floating,
                       duration: const Duration(milliseconds: 900),
@@ -511,7 +441,7 @@ class _CategoryListState extends State<_CategoryList> {
                   );
               },
 
-              label: Text(_categories[index]),
+              label: Text(ProductController.categories[index]),
 
               selectedColor: AppColors.forest,
 
@@ -559,14 +489,14 @@ class ProductList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
 
-        itemCount: products.length,
+        itemCount: ProductController.products.length,
 
         itemBuilder: (context, index) {
-          final product = products[index];
+          final product = ProductController.products[index];
 
           return Padding(
             padding: EdgeInsets.only(
-              right: index == products.length - 1 ? 0 : 14,
+              right: index == ProductController.products.length - 1 ? 0 : 14,
             ),
 
             child: ProductCard(product: product, width: cardWidth),
