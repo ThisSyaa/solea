@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../controllers/auth_controller.dart';
 import '../../core/app_theme.dart';
 import '../../core/auth_feedback_dialog.dart';
-import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -58,12 +57,12 @@ class _RegisterPageState extends State<RegisterPage> {
     if (value == null || value.trim().isEmpty) {
       return 'Username tidak boleh kosong';
     }
-  
+
     if (!RegExp(r'^[a-zA-Z0-9._]{3,20}$')
         .hasMatch(value.trim())) {
       return 'Username harus 3–20 karakter: huruf, angka, titik, atau underscore';
     }
-  
+
     return null;
   }
 
@@ -104,82 +103,84 @@ class _RegisterPageState extends State<RegisterPage> {
     return null;
   }
 
-Future<void> _handleRegister() async {
-  FocusScope.of(context).unfocus();
+  Future<void> _handleRegister() async {
+    FocusScope.of(context).unfocus();
 
-  setState(() {
-    _autovalidate = AutovalidateMode.onUserInteraction;
-  });
+    setState(() {
+      _autovalidate = AutovalidateMode.onUserInteraction;
+    });
 
-  if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
-  if (!_agreeTerms) {
+    if (!_agreeTerms) {
+      await showAuthFeedbackDialog(
+        context: context,
+        type: AuthFeedbackType.warning,
+        title: 'Satu langkah lagi',
+        message:
+            'Setujui syarat dan ketentuan terlebih dahulu '
+            'sebelum membuat akun SOLEA.',
+        primaryLabel: 'Oke, mengerti',
+      );
+
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    final error = await AuthController.registerWithFirebase(
+      name: _nameController.text.trim(),
+      username: _usernameController.text.trim(),
+      email: _emailController.text.trim(),
+      password: _passwordController.text,
+    );
+
+    if (!mounted) return;
+
+    setState(() => _isLoading = false);
+
+    if (error != null) {
+      await showAuthFeedbackDialog(
+        context: context,
+        type: AuthFeedbackType.error,
+        title: 'Registrasi belum berhasil',
+        message: error,
+        primaryLabel: 'Periksa lagi',
+      );
+
+      return;
+    }
+
+    final email = _emailController.text.trim();
+    final sent = AuthController.lastVerificationEmailSent;
+
     await showAuthFeedbackDialog(
       context: context,
-      type: AuthFeedbackType.warning,
-      title: 'Satu langkah lagi',
-      message:
-          'Setujui syarat dan ketentuan terlebih dahulu '
-          'sebelum membuat akun SOLEA.',
-      primaryLabel: 'Oke, mengerti',
+      type: sent
+          ? AuthFeedbackType.success
+          : AuthFeedbackType.warning,
+      title: sent
+          ? 'Cek email kamu!'
+          : 'Akun berhasil dibuat',
+      message: sent
+          ? 'Tautan verifikasi telah dikirim ke $email. '
+              'Buka email tersebut dan klik tautannya. '
+              'Setelah terverifikasi, kamu bisa login ke SOLEA.'
+          : 'Akun berhasil dibuat, tetapi email verifikasi '
+              'belum berhasil dikirim. Kembali ke Login dan '
+              'coba lagi untuk meminta tautan verifikasi.',
+      primaryLabel: 'Ke halaman Login',
     );
-    return;
-  }
 
-  setState(() => _isLoading = true);
+    if (!mounted) return;
 
-  final error = await AuthController.registerWithFirebase(
-    name: _nameController.text.trim(),
-    username: _usernameController.text.trim(),
-    email: _emailController.text.trim(),
-    password: _passwordController.text,
-  );
-
-  if (!mounted) return;
-
-  setState(() => _isLoading = false);
-
-  if (error != null) {
-    await showAuthFeedbackDialog(
-      context: context,
-      type: AuthFeedbackType.error,
-      title: 'Registrasi belum berhasil',
-      message: error,
-      primaryLabel: 'Periksa lagi',
+    // Kembali ke root route (AuthGate).
+    // Karena sesi Firebase sudah diakhiri setelah register,
+    // AuthGate akan menampilkan LoginPage.
+    Navigator.of(context).popUntil(
+      (route) => route.isFirst,
     );
-    return;
   }
-
-  final email = _emailController.text.trim();
-  final sent = AuthController.lastVerificationEmailSent;
-
-  await showAuthFeedbackDialog(
-    context: context,
-    type: sent
-        ? AuthFeedbackType.success
-        : AuthFeedbackType.warning,
-    title: sent
-        ? 'Cek email kamu!'
-        : 'Akun berhasil dibuat',
-    message: sent
-        ? 'Tautan verifikasi telah dikirim ke $email. '
-          'Buka email tersebut dan klik tautannya. '
-          'Setelah terverifikasi, kamu bisa login ke SOLEA.'
-        : 'Akun berhasil dibuat, tetapi email verifikasi '
-          'belum berhasil dikirim. Kembali ke Login dan '
-          'coba lagi untuk meminta tautan verifikasi.',
-    primaryLabel: 'Ke halaman Login',
-  );
-
-  if (!mounted) return;
-
-  Navigator.of(context).pushAndRemoveUntil(
-    MaterialPageRoute(
-      builder: (_) => const LoginPage(),
-    ),
-    (route) => false,
-  );
-}
 
   @override
   Widget build(BuildContext context) {
@@ -791,13 +792,10 @@ class _CleanLabel extends StatelessWidget {
 class _RegisterTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-
   final bool obscureText;
   final Widget? suffix;
-
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
-
   final String? Function(String?)? validator;
   final ValueChanged<String>? onSubmitted;
 

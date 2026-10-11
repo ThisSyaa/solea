@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 
-import 'firebase_options.dart';
+import 'core/auth_gate.dart';
 import 'core/app_theme.dart';
-import 'views/auth/login_page.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'SOLEA',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: const LoginPage(),
+      home: const AuthGate(),
     );
   }
 }

@@ -6,7 +6,6 @@ import '../../controllers/wishlist_controller.dart';
 import '../../core/app_theme.dart';
 import '../order/order_page.dart';
 import '../shopping/wishlist_page.dart';
-import '../auth/login_page.dart';
 
 import 'personal_info_page.dart';
 import 'security_page.dart';
@@ -90,10 +89,16 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  // ============================================================
+  // FIREBASE LOGOUT
+  // ============================================================
+
   void _showLogoutDialog() {
-    showDialog(
+    final navigator = Navigator.of(context);
+
+    showDialog<void>(
       context: context,
-      builder: (context) {
+      builder: (dialogContext) {
         return AlertDialog(
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
@@ -111,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(dialogContext);
               },
               child: const Text(
                 'Batal',
@@ -121,15 +126,26 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
-                AuthController.logout();
+              onPressed: () async {
+                // Tutup dialog konfirmasi.
+                navigator.pop();
 
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (_) => const LoginPage(),
-                  ),
-                  (route) => false,
-                );
+                try {
+                  // Keluar dari sesi Firebase yang aktif.
+                  await AuthController.logoutFromFirebase();
+
+                  if (!mounted) return;
+
+                  // Kembali ke root.
+                  // AuthGate akan menampilkan LoginPage secara otomatis.
+                  navigator.popUntil((route) => route.isFirst);
+                } catch (_) {
+                  if (!mounted) return;
+
+                  _showMessage(
+                    'Logout gagal. Coba lagi.',
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.danger,
@@ -231,8 +247,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) =>
-                              const AddressPage(),
+                          builder: (_) => const AddressPage(),
                         ),
                       );
                     },
@@ -249,8 +264,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) =>
-                              const FaqPage(),
+                          builder: (_) => const FaqPage(),
                         ),
                       );
                     },
@@ -258,8 +272,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) =>
-                              const AboutPage(),
+                          builder: (_) => const AboutPage(),
                         ),
                       );
                     },
@@ -338,7 +351,7 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 // ============================================================
-// DESKTOP
+// DESKTOP PROFILE
 // ============================================================
 
 class _DesktopProfile extends StatelessWidget {
@@ -390,8 +403,7 @@ class _DesktopProfile extends StatelessWidget {
             32,
           ),
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _ProfileHeader(
                 name: name,
@@ -401,8 +413,7 @@ class _DesktopProfile extends StatelessWidget {
               ),
               const SizedBox(height: 22),
               Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     flex: 4,
@@ -414,8 +425,7 @@ class _DesktopProfile extends StatelessWidget {
                         const SizedBox(height: 11),
                         _StatsCard(
                           orderCount: orderCount,
-                          wishlistCount:
-                              wishlistCount,
+                          wishlistCount: wishlistCount,
                         ),
                         const SizedBox(height: 22),
                         const _SectionTitle(
@@ -425,36 +435,24 @@ class _DesktopProfile extends StatelessWidget {
                         _MenuCard(
                           children: [
                             _MenuTile(
-                              icon: Icons
-                                  .person_outline_rounded,
-                              title:
-                                  'Informasi pribadi',
-                              subtitle:
-                                  'Nama, email, dan detail akun',
-                              onTap:
-                                  onEditProfile,
+                              icon: Icons.person_outline_rounded,
+                              title: 'Informasi pribadi',
+                              subtitle: 'Nama, email, dan detail akun',
+                              onTap: onEditProfile,
                             ),
                             const _MenuDivider(),
                             _MenuTile(
-                              icon: Icons
-                                  .lock_outline_rounded,
-                              title:
-                                  'Keamanan akun',
-                              subtitle:
-                                  'Password dan keamanan login',
-                              onTap:
-                                  onSecurityTap,
+                              icon: Icons.lock_outline_rounded,
+                              title: 'Keamanan akun',
+                              subtitle: 'Password dan keamanan login',
+                              onTap: onSecurityTap,
                             ),
                             const _MenuDivider(),
                             _MenuTile(
-                              icon: Icons
-                                  .notifications_none_rounded,
-                              title:
-                                  'Notifikasi',
-                              subtitle:
-                                  'Kelola notifikasi aplikasi',
-                              onTap:
-                                  onNotificationTap,
+                              icon: Icons.notifications_none_rounded,
+                              title: 'Notifikasi',
+                              subtitle: 'Kelola notifikasi aplikasi',
+                              onTap: onNotificationTap,
                             ),
                           ],
                         ),
@@ -465,8 +463,7 @@ class _DesktopProfile extends StatelessWidget {
                   Expanded(
                     flex: 6,
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const _SectionTitle(
                           title: 'Belanja',
@@ -475,47 +472,32 @@ class _DesktopProfile extends StatelessWidget {
                         _MenuCard(
                           children: [
                             _MenuTile(
-                              icon: Icons
-                                  .inventory_2_outlined,
-                              title:
-                                  'Pesanan Saya',
+                              icon: Icons.inventory_2_outlined,
+                              title: 'Pesanan Saya',
                               subtitle:
                                   'Lihat riwayat dan status pesanan',
-                              onTap:
-                                  onOrdersTap,
+                              onTap: onOrdersTap,
                             ),
                             const _MenuDivider(),
                             _MenuTile(
-                              icon: Icons
-                                  .favorite_border_rounded,
-                              title:
-                                  'Wishlist',
-                              subtitle:
-                                  'Sepatu yang kamu simpan',
-                              onTap:
-                                  onWishlistTap,
+                              icon: Icons.favorite_border_rounded,
+                              title: 'Wishlist',
+                              subtitle: 'Sepatu yang kamu simpan',
+                              onTap: onWishlistTap,
                             ),
                             const _MenuDivider(),
                             _MenuTile(
-                              icon: Icons
-                                  .location_on_outlined,
-                              title:
-                                  'Alamat Saya',
-                              subtitle:
-                                  'Kelola alamat pengiriman',
-                              onTap:
-                                  onAddressTap,
+                              icon: Icons.location_on_outlined,
+                              title: 'Alamat Saya',
+                              subtitle: 'Kelola alamat pengiriman',
+                              onTap: onAddressTap,
                             ),
                             const _MenuDivider(),
                             _MenuTile(
-                              icon: Icons
-                                  .credit_card_outlined,
-                              title:
-                                  'Metode Pembayaran',
-                              subtitle:
-                                  'Kelola pembayaran kamu',
-                              onTap:
-                                  onPaymentTap,
+                              icon: Icons.credit_card_outlined,
+                              title: 'Metode Pembayaran',
+                              subtitle: 'Kelola pembayaran kamu',
+                              onTap: onPaymentTap,
                             ),
                           ],
                         ),
@@ -527,25 +509,17 @@ class _DesktopProfile extends StatelessWidget {
                         _MenuCard(
                           children: [
                             _MenuTile(
-                              icon: Icons
-                                  .help_outline_rounded,
-                              title:
-                                  'Bantuan & FAQ',
-                              subtitle:
-                                  'Cari jawaban dan bantuan',
-                              onTap:
-                                  onFaqTap,
+                              icon: Icons.help_outline_rounded,
+                              title: 'Bantuan & FAQ',
+                              subtitle: 'Cari jawaban dan bantuan',
+                              onTap: onFaqTap,
                             ),
                             const _MenuDivider(),
                             _MenuTile(
-                              icon: Icons
-                                  .info_outline_rounded,
-                              title:
-                                  'Tentang aplikasi',
-                              subtitle:
-                                  'Solea Store v1.0.0',
-                              onTap:
-                                  onAboutTap,
+                              icon: Icons.info_outline_rounded,
+                              title: 'Tentang aplikasi',
+                              subtitle: 'Solea Store v1.0.0',
+                              onTap: onAboutTap,
                             ),
                           ],
                         ),
@@ -562,27 +536,16 @@ class _DesktopProfile extends StatelessWidget {
                             label: const Text(
                               'Logout',
                               style: TextStyle(
-                                fontWeight:
-                                    FontWeight.w700,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                            style:
-                                OutlinedButton.styleFrom(
-                              foregroundColor:
-                                  AppColors.danger,
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: AppColors.danger,
                               side: BorderSide(
-                                color: AppColors
-                                    .danger
-                                    .withOpacity(
-                                  0.25,
-                                ),
+                                color: AppColors.danger.withOpacity(0.25),
                               ),
-                              shape:
-                                  RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(
-                                  9,
-                                ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(9),
                               ),
                             ),
                           ),
@@ -601,7 +564,7 @@ class _DesktopProfile extends StatelessWidget {
 }
 
 // ============================================================
-// MOBILE / TABLET
+// MOBILE / TABLET PROFILE
 // ============================================================
 
 class _MobileProfile extends StatelessWidget {
@@ -649,26 +612,22 @@ class _MobileProfile extends StatelessWidget {
         ),
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
-            horizontal:
-                isTablet ? 28 : 18,
+            horizontal: isTablet ? 28 : 18,
             vertical: 16,
           ),
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _ProfileHeader(
                 name: name,
                 email: email,
-                radius:
-                    isTablet ? 47 : 42,
+                radius: isTablet ? 47 : 42,
                 onEdit: onEditProfile,
               ),
               const SizedBox(height: 18),
               _StatsCard(
                 orderCount: orderCount,
-                wishlistCount:
-                    wishlistCount,
+                wishlistCount: wishlistCount,
               ),
               const SizedBox(height: 22),
               const _SectionTitle(
@@ -678,39 +637,30 @@ class _MobileProfile extends StatelessWidget {
               _MenuCard(
                 children: [
                   _MenuTile(
-                    icon: Icons
-                        .inventory_2_outlined,
+                    icon: Icons.inventory_2_outlined,
                     title: 'Pesanan Saya',
-                    subtitle:
-                        'Lihat riwayat dan status pesanan',
+                    subtitle: 'Lihat riwayat dan status pesanan',
                     onTap: onOrdersTap,
                   ),
                   const _MenuDivider(),
                   _MenuTile(
-                    icon: Icons
-                        .favorite_border_rounded,
+                    icon: Icons.favorite_border_rounded,
                     title: 'Wishlist',
-                    subtitle:
-                        'Sepatu yang kamu simpan',
+                    subtitle: 'Sepatu yang kamu simpan',
                     onTap: onWishlistTap,
                   ),
                   const _MenuDivider(),
                   _MenuTile(
-                    icon: Icons
-                        .location_on_outlined,
+                    icon: Icons.location_on_outlined,
                     title: 'Alamat Saya',
-                    subtitle:
-                        'Kelola alamat pengiriman',
+                    subtitle: 'Kelola alamat pengiriman',
                     onTap: onAddressTap,
                   ),
                   const _MenuDivider(),
                   _MenuTile(
-                    icon: Icons
-                        .credit_card_outlined,
-                    title:
-                        'Metode Pembayaran',
-                    subtitle:
-                        'Kelola pembayaran kamu',
+                    icon: Icons.credit_card_outlined,
+                    title: 'Metode Pembayaran',
+                    subtitle: 'Kelola pembayaran kamu',
                     onTap: onPaymentTap,
                   ),
                 ],
@@ -723,36 +673,24 @@ class _MobileProfile extends StatelessWidget {
               _MenuCard(
                 children: [
                   _MenuTile(
-                    icon: Icons
-                        .person_outline_rounded,
-                    title:
-                        'Informasi pribadi',
-                    subtitle:
-                        'Nama, email, dan detail akun',
-                    onTap:
-                        onEditProfile,
+                    icon: Icons.person_outline_rounded,
+                    title: 'Informasi pribadi',
+                    subtitle: 'Nama, email, dan detail akun',
+                    onTap: onEditProfile,
                   ),
                   const _MenuDivider(),
                   _MenuTile(
-                    icon: Icons
-                        .lock_outline_rounded,
-                    title:
-                        'Keamanan akun',
-                    subtitle:
-                        'Password dan keamanan login',
-                    onTap:
-                        onSecurityTap,
+                    icon: Icons.lock_outline_rounded,
+                    title: 'Keamanan akun',
+                    subtitle: 'Password dan keamanan login',
+                    onTap: onSecurityTap,
                   ),
                   const _MenuDivider(),
                   _MenuTile(
-                    icon: Icons
-                        .notifications_none_rounded,
-                    title:
-                        'Notifikasi',
-                    subtitle:
-                        'Kelola notifikasi aplikasi',
-                    onTap:
-                        onNotificationTap,
+                    icon: Icons.notifications_none_rounded,
+                    title: 'Notifikasi',
+                    subtitle: 'Kelola notifikasi aplikasi',
+                    onTap: onNotificationTap,
                   ),
                 ],
               ),
@@ -764,25 +702,17 @@ class _MobileProfile extends StatelessWidget {
               _MenuCard(
                 children: [
                   _MenuTile(
-                    icon: Icons
-                        .help_outline_rounded,
-                    title:
-                        'Bantuan & FAQ',
-                    subtitle:
-                        'Cari jawaban dan bantuan',
-                    onTap:
-                        onFaqTap,
+                    icon: Icons.help_outline_rounded,
+                    title: 'Bantuan & FAQ',
+                    subtitle: 'Cari jawaban dan bantuan',
+                    onTap: onFaqTap,
                   ),
                   const _MenuDivider(),
                   _MenuTile(
-                    icon: Icons
-                        .info_outline_rounded,
-                    title:
-                        'Tentang aplikasi',
-                    subtitle:
-                        'Solea Store v1.0.0',
-                    onTap:
-                        onAboutTap,
+                    icon: Icons.info_outline_rounded,
+                    title: 'Tentang aplikasi',
+                    subtitle: 'Solea Store v1.0.0',
+                    onTap: onAboutTap,
                   ),
                 ],
               ),
@@ -799,27 +729,16 @@ class _MobileProfile extends StatelessWidget {
                   label: const Text(
                     'Logout',
                     style: TextStyle(
-                      fontWeight:
-                          FontWeight.w700,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                  style:
-                      OutlinedButton.styleFrom(
-                    foregroundColor:
-                        AppColors.danger,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.danger,
                     side: BorderSide(
-                      color: AppColors
-                          .danger
-                          .withOpacity(
-                        0.25,
-                      ),
+                      color: AppColors.danger.withOpacity(0.25),
                     ),
-                    shape:
-                        RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(
-                        9,
-                      ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(9),
                     ),
                   ),
                 ),
@@ -851,32 +770,24 @@ class _ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final desktop =
-        MediaQuery.sizeOf(context).width >= 1000;
+    final desktop = MediaQuery.sizeOf(context).width >= 1000;
 
     return Container(
-      padding:
-          EdgeInsets.all(
-        desktop ? 26 : 20,
-      ),
+      padding: EdgeInsets.all(desktop ? 26 : 20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius:
-            BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(
           color: AppColors.line,
         ),
       ),
       child: Row(
         children: [
-          _ProfileAvatar(
-            radius: radius,
-          ),
+          _ProfileAvatar(radius: radius),
           const SizedBox(width: 18),
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -884,17 +795,12 @@ class _ProfileHeader extends StatelessWidget {
                       child: Text(
                         name,
                         maxLines: 1,
-                        overflow:
-                            TextOverflow.ellipsis,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize:
-                              desktop ? 26 : 20,
-                          fontWeight:
-                              FontWeight.w700,
-                          color:
-                              AppColors.ink,
-                          letterSpacing:
-                              -0.5,
+                          fontSize: desktop ? 26 : 20,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.ink,
+                          letterSpacing: -0.5,
                         ),
                       ),
                     ),
@@ -906,23 +812,18 @@ class _ProfileHeader extends StatelessWidget {
                 Text(
                   email,
                   maxLines: 1,
-                  overflow:
-                      TextOverflow.ellipsis,
-                  style:
-                      const TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
                     fontSize: 13,
-                    color:
-                        AppColors.muted,
+                    color: AppColors.muted,
                   ),
                 ),
                 const SizedBox(height: 9),
                 const Text(
                   'Kelola akun dan aktivitas belanja kamu.',
-                  style:
-                      TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
-                    color:
-                        AppColors.muted,
+                    color: AppColors.muted,
                   ),
                 ),
               ],
@@ -936,42 +837,26 @@ class _ProfileHeader extends StatelessWidget {
                 Icons.edit_outlined,
                 size: 17,
               ),
-              label:
-                  const Text(
-                'Edit Profile',
-              ),
-              style:
-                  OutlinedButton.styleFrom(
-                foregroundColor:
-                    AppColors.ink,
-                side:
-                    const BorderSide(
-                  color:
-                      AppColors.line,
+              label: const Text('Edit Profile'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppColors.ink,
+                side: const BorderSide(
+                  color: AppColors.line,
                 ),
-                padding:
-                    const EdgeInsets
-                        .symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 13,
                 ),
-                shape:
-                    RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(
-                    9,
-                  ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(9),
                 ),
               ),
             )
           else
             IconButton(
               onPressed: onEdit,
-              icon: const Icon(
-                Icons.edit_outlined,
-              ),
-              color:
-                  AppColors.ink,
+              icon: const Icon(Icons.edit_outlined),
+              color: AppColors.ink,
             ),
         ],
       ),
@@ -983,8 +868,7 @@ class _ProfileHeader extends StatelessWidget {
 // AVATAR
 // ============================================================
 
-class _ProfileAvatar
-    extends StatelessWidget {
+class _ProfileAvatar extends StatelessWidget {
   final double radius;
 
   const _ProfileAvatar({
@@ -997,28 +881,18 @@ class _ProfileAvatar
       clipBehavior: Clip.none,
       children: [
         Container(
-          padding:
-              const EdgeInsets.all(3),
-          decoration:
-              BoxDecoration(
-            shape:
-                BoxShape.circle,
-            border:
-                Border.all(
-              color:
-                  AppColors.line,
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: AppColors.line,
               width: 1.4,
             ),
           ),
-          child:
-              CircleAvatar(
+          child: CircleAvatar(
             radius: radius,
-            backgroundColor:
-                const Color(
-              0xFFE8E4DA,
-            ),
-            backgroundImage:
-                const NetworkImage(
+            backgroundColor: const Color(0xFFE8E4DA),
+            backgroundImage: const NetworkImage(
               ProfilePage.urlFoto,
             ),
           ),
@@ -1026,29 +900,20 @@ class _ProfileAvatar
         Positioned(
           right: -1,
           bottom: -1,
-          child:
-              Container(
+          child: Container(
             width: 30,
             height: 30,
-            decoration:
-                BoxDecoration(
-              color:
-                  Colors.black,
-              shape:
-                  BoxShape.circle,
-              border:
-                  Border.all(
-                color:
-                    Colors.white,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white,
                 width: 3,
               ),
             ),
-            child:
-                const Icon(
-              Icons
-                  .camera_alt_outlined,
-              color:
-                  Colors.white,
+            child: const Icon(
+              Icons.camera_alt_outlined,
+              color: Colors.white,
               size: 14,
             ),
           ),
@@ -1062,51 +927,35 @@ class _ProfileAvatar
 // MEMBER BADGE
 // ============================================================
 
-class _MemberBadge
-    extends StatelessWidget {
+class _MemberBadge extends StatelessWidget {
   const _MemberBadge();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 9,
         vertical: 6,
       ),
-      decoration:
-          BoxDecoration(
-        color:
-            const Color(
-          0xFFF0EEE8,
-        ),
-        borderRadius:
-            BorderRadius.circular(
-          999,
-        ),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF0EEE8),
+        borderRadius: BorderRadius.circular(999),
       ),
-      child:
-          const Row(
-        mainAxisSize:
-            MainAxisSize.min,
+      child: const Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            Icons
-                .workspace_premium_outlined,
+            Icons.workspace_premium_outlined,
             size: 14,
-            color:
-                AppColors.ink,
+            color: AppColors.ink,
           ),
           SizedBox(width: 5),
           Text(
             'Member',
-            style:
-                TextStyle(
+            style: TextStyle(
               fontSize: 11,
-              fontWeight:
-                  FontWeight.w700,
-              color:
-                  AppColors.ink,
+              fontWeight: FontWeight.w700,
+              color: AppColors.ink,
             ),
           ),
         ],
@@ -1119,8 +968,7 @@ class _MemberBadge
 // STATS
 // ============================================================
 
-class _StatsCard
-    extends StatelessWidget {
+class _StatsCard extends StatelessWidget {
   final int orderCount;
   final int wishlistCount;
 
@@ -1132,52 +980,37 @@ class _StatsCard
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: 19,
         horizontal: 10,
       ),
-      decoration:
-          BoxDecoration(
-        color:
-            Colors.white,
-        borderRadius:
-            BorderRadius.circular(
-          15,
-        ),
-        border:
-            Border.all(
-          color:
-              AppColors.line,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(
+          color: AppColors.line,
         ),
       ),
-      child:
-          Row(
+      child: Row(
         children: [
           Expanded(
             child: _StatItem(
-              number:
-                  orderCount.toString(),
-              label:
-                  'Pesanan',
+              number: orderCount.toString(),
+              label: 'Pesanan',
             ),
           ),
           const _StatDivider(),
           Expanded(
             child: _StatItem(
-              number:
-                  wishlistCount.toString(),
-              label:
-                  'Wishlist',
+              number: wishlistCount.toString(),
+              label: 'Wishlist',
             ),
           ),
           const _StatDivider(),
           const Expanded(
             child: _StatItem(
-              number:
-                  '320',
-              label:
-                  'Poin',
+              number: '320',
+              label: 'Poin',
             ),
           ),
         ],
@@ -1186,8 +1019,7 @@ class _StatsCard
   }
 }
 
-class _StatItem
-    extends StatelessWidget {
+class _StatItem extends StatelessWidget {
   final String number;
   final String label;
 
@@ -1202,23 +1034,18 @@ class _StatItem
       children: [
         Text(
           number,
-          style:
-              const TextStyle(
+          style: const TextStyle(
             fontSize: 21,
-            fontWeight:
-                FontWeight.w800,
-            color:
-                AppColors.ink,
+            fontWeight: FontWeight.w800,
+            color: AppColors.ink,
           ),
         ),
         const SizedBox(height: 4),
         Text(
           label,
-          style:
-              const TextStyle(
+          style: const TextStyle(
             fontSize: 12,
-            color:
-                AppColors.muted,
+            color: AppColors.muted,
           ),
         ),
       ],
@@ -1226,8 +1053,7 @@ class _StatItem
   }
 }
 
-class _StatDivider
-    extends StatelessWidget {
+class _StatDivider extends StatelessWidget {
   const _StatDivider();
 
   @override
@@ -1235,8 +1061,7 @@ class _StatDivider
     return Container(
       height: 34,
       width: 1,
-      color:
-          AppColors.line,
+      color: AppColors.line,
     );
   }
 }
@@ -1245,8 +1070,7 @@ class _StatDivider
 // SECTION TITLE
 // ============================================================
 
-class _SectionTitle
-    extends StatelessWidget {
+class _SectionTitle extends StatelessWidget {
   final String title;
 
   const _SectionTitle({
@@ -1257,13 +1081,10 @@ class _SectionTitle
   Widget build(BuildContext context) {
     return Text(
       title,
-      style:
-          const TextStyle(
+      style: const TextStyle(
         fontSize: 15,
-        fontWeight:
-            FontWeight.w800,
-        color:
-            AppColors.ink,
+        fontWeight: FontWeight.w800,
+        color: AppColors.ink,
       ),
     );
   }
@@ -1273,8 +1094,7 @@ class _SectionTitle
 // MENU CARD
 // ============================================================
 
-class _MenuCard
-    extends StatelessWidget {
+class _MenuCard extends StatelessWidget {
   final List<Widget> children;
 
   const _MenuCard({
@@ -1284,24 +1104,15 @@ class _MenuCard
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          BoxDecoration(
-        color:
-            Colors.white,
-        borderRadius:
-            BorderRadius.circular(
-          15,
-        ),
-        border:
-            Border.all(
-          color:
-              AppColors.line,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(
+          color: AppColors.line,
         ),
       ),
-      child:
-          Column(
-        children:
-            children,
+      child: Column(
+        children: children,
       ),
     );
   }
@@ -1311,8 +1122,7 @@ class _MenuCard
 // MENU TILE
 // ============================================================
 
-class _MenuTile
-    extends StatelessWidget {
+class _MenuTile extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subtitle;
@@ -1328,108 +1138,62 @@ class _MenuTile
   @override
   Widget build(BuildContext context) {
     return Material(
-      color:
-          Colors.transparent,
-      child:
-          InkWell(
-        onTap:
-            onTap,
-        borderRadius:
-            BorderRadius.circular(
-          15,
-        ),
-        child:
-            Padding(
-          padding:
-              const EdgeInsets.symmetric(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(15),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
             horizontal: 17,
             vertical: 14,
           ),
-          child:
-              Row(
+          child: Row(
             children: [
               Container(
                 width: 40,
                 height: 40,
-                decoration:
-                    BoxDecoration(
-                  color:
-                      const Color(
-                    0xFFF3F1EC,
-                  ),
-                  borderRadius:
-                      BorderRadius.circular(
-                    10,
-                  ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF3F1EC),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child:
-                    Icon(
+                child: Icon(
                   icon,
                   size: 19,
-                  color:
-                      AppColors.ink,
+                  color: AppColors.ink,
                 ),
               ),
-              const SizedBox(
-                width: 13,
-              ),
+              const SizedBox(width: 13),
               Expanded(
-                child:
-                    Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
-                      maxLines:
-                          1,
-                      overflow:
-                          TextOverflow
-                              .ellipsis,
-                      style:
-                          const TextStyle(
-                        fontSize:
-                            13.5,
-                        fontWeight:
-                            FontWeight
-                                .w700,
-                        color:
-                            AppColors
-                                .ink,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.ink,
                       ),
                     ),
-                    const SizedBox(
-                      height: 3,
-                    ),
+                    const SizedBox(height: 3),
                     Text(
                       subtitle,
-                      maxLines:
-                          1,
-                      overflow:
-                          TextOverflow
-                              .ellipsis,
-                      style:
-                          const TextStyle(
-                        fontSize:
-                            11.5,
-                        color:
-                            AppColors
-                                .muted,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        color: AppColors.muted,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               const Icon(
-                Icons
-                    .chevron_right_rounded,
-                color:
-                    Color(
-                  0xFFAAA69E,
-                ),
+                Icons.chevron_right_rounded,
+                color: Color(0xFFAAA69E),
                 size: 20,
               ),
             ],
@@ -1444,23 +1208,19 @@ class _MenuTile
 // DIVIDER
 // ============================================================
 
-class _MenuDivider
-    extends StatelessWidget {
+class _MenuDivider extends StatelessWidget {
   const _MenuDivider();
 
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding:
-          EdgeInsets.only(
+      padding: EdgeInsets.only(
         left: 70,
       ),
-      child:
-          Divider(
+      child: Divider(
         height: 1,
         thickness: 1,
-        color:
-            AppColors.line,
+        color: AppColors.line,
       ),
     );
   }
