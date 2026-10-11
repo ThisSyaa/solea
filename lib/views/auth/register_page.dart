@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../core/app_theme.dart';
-import '../home/home_page.dart';
 import '../../core/auth_feedback_dialog.dart';
+import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -56,17 +56,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String? _validateUsername(String? value) {
     if (value == null || value.trim().isEmpty) {
-    return 'Username tidak boleh kosong';
+      return 'Username tidak boleh kosong';
     }
-
-    final usernameRegex = RegExp(
-      r'^[a-zA-Z0-9._]{3,20}$',
-    );
-
-    if (!usernameRegex.hasMatch(value.trim())) {
-      return 'Gunakan 3–20 karakter: huruf, angka, titik, atau underscore';
+  
+    if (!RegExp(r'^[a-zA-Z0-9._]{3,20}$')
+        .hasMatch(value.trim())) {
+      return 'Username harus 3–20 karakter: huruf, angka, titik, atau underscore';
     }
-
+  
     return null;
   }
 
@@ -75,11 +72,8 @@ class _RegisterPageState extends State<RegisterPage> {
       return 'Email tidak boleh kosong';
     }
 
-    final emailRegex = RegExp(
-      r'^[\w.\-+]+@([\w-]+\.)+[a-zA-Z]{2,}$',
-    );
-
-    if (!emailRegex.hasMatch(value.trim())) {
+    if (!RegExp(r'^[\w.\-+]+@([\w-]+\.)+[a-zA-Z]{2,}$')
+        .hasMatch(value.trim())) {
       return 'Format email tidak valid';
     }
 
@@ -125,27 +119,20 @@ Future<void> _handleRegister() async {
       type: AuthFeedbackType.warning,
       title: 'Satu langkah lagi',
       message:
-          'Centang persetujuan syarat dan ketentuan '
+          'Setujui syarat dan ketentuan terlebih dahulu '
           'sebelum membuat akun SOLEA.',
       primaryLabel: 'Oke, mengerti',
     );
-
     return;
   }
 
   setState(() => _isLoading = true);
 
-  await Future.delayed(
-    const Duration(milliseconds: 350),
-  );
-
-  if (!mounted) return;
-
-  final error = AuthController.register(
-    _nameController.text.trim(),
-    _emailController.text.trim(),
-    _passwordController.text,
+  final error = await AuthController.registerWithFirebase(
+    name: _nameController.text.trim(),
     username: _usernameController.text.trim(),
+    email: _emailController.text.trim(),
+    password: _passwordController.text,
   );
 
   if (!mounted) return;
@@ -153,45 +140,42 @@ Future<void> _handleRegister() async {
   setState(() => _isLoading = false);
 
   if (error != null) {
-    final normalizedError = error.toLowerCase();
-
-    final isDuplicate =
-        normalizedError.contains('sudah terdaftar') ||
-        normalizedError.contains('sudah digunakan');
-
     await showAuthFeedbackDialog(
       context: context,
       type: AuthFeedbackType.error,
-      title: isDuplicate
-          ? 'Data sudah digunakan'
-          : 'Registrasi belum berhasil',
+      title: 'Registrasi belum berhasil',
       message: error,
       primaryLabel: 'Periksa lagi',
-      secondaryLabel: 'Tutup',
     );
-
     return;
   }
 
+  final email = _emailController.text.trim();
+  final sent = AuthController.lastVerificationEmailSent;
+
   await showAuthFeedbackDialog(
     context: context,
-    type: AuthFeedbackType.success,
-    title: 'Welcome to SOLEA!',
-    message:
-        'Akun @${_usernameController.text.trim()} '
-        'berhasil dibuat. Saatnya temukan sepatu '
-        'favoritmu.',
-    primaryLabel: 'Mulai belanja',
+    type: sent
+        ? AuthFeedbackType.success
+        : AuthFeedbackType.warning,
+    title: sent
+        ? 'Cek email kamu!'
+        : 'Akun berhasil dibuat',
+    message: sent
+        ? 'Tautan verifikasi telah dikirim ke $email. '
+          'Buka email tersebut dan klik tautannya. '
+          'Setelah terverifikasi, kamu bisa login ke SOLEA.'
+        : 'Akun berhasil dibuat, tetapi email verifikasi '
+          'belum berhasil dikirim. Kembali ke Login dan '
+          'coba lagi untuk meminta tautan verifikasi.',
+    primaryLabel: 'Ke halaman Login',
   );
 
   if (!mounted) return;
 
   Navigator.of(context).pushAndRemoveUntil(
     MaterialPageRoute(
-      builder: (_) => HomePage(
-        name: AuthController.currentName!,
-        email: AuthController.currentEmail!,
-      ),
+      builder: (_) => const LoginPage(),
     ),
     (route) => false,
   );

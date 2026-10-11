@@ -53,60 +53,93 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
-  Future<void> _handleLogin() async {
-    FocusScope.of(context).unfocus();
+Future<void> _handleLogin() async {
+  FocusScope.of(context).unfocus();
 
-    if (!_formKey.currentState!.validate()) return;
+  if (!_formKey.currentState!.validate()) return;
 
-    setState(() => _isLoading = true);
+  setState(() => _isLoading = true);
 
-    await Future.delayed(
-      const Duration(milliseconds: 350),
-    );
+  final error = await AuthController.loginWithFirebase(
+    email: _identifierController.text.trim(),
+    password: _passwordController.text,
+  );
 
-    if (!mounted) return;
+  if (!mounted) return;
 
-    final success = AuthController.login(
-      _identifierController.text.trim(),
-      _passwordController.text,
-    );
+  setState(() => _isLoading = false);
 
-    setState(() => _isLoading = false);
+  if (error != null) {
+    final needsVerification =
+        error.startsWith('EMAIL_BELUM_DIVERIFIKASI:');
 
-    if (success) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => HomePage(
-            name: AuthController.currentName!,
-            email: AuthController.currentEmail!,
-          ),
-        ),
-      );
-
-      return;
-    }
+    final message = needsVerification
+        ? error.replaceFirst(
+            'EMAIL_BELUM_DIVERIFIKASI:',
+            '',
+          ).trim()
+        : error;
 
     await showAuthFeedbackDialog(
       context: context,
-      type: AuthFeedbackType.error,
-      title: 'Belum bisa masuk',
-      message:
-          'Email, username, atau password belum sesuai. '
-          'Coba periksa kembali informasi akunmu.',
-      primaryLabel: 'Coba lagi',
-      secondaryLabel: 'Tutup',
+      type: needsVerification
+          ? AuthFeedbackType.info
+          : AuthFeedbackType.error,
+      title: needsVerification
+          ? 'Verifikasi email dulu'
+          : 'Login gagal',
+      message: message,
+      primaryLabel: needsVerification
+          ? 'Cek emailmu'
+          : 'Coba lagi',
     );
+
+    return;
   }
 
-  void _showForgotPassword() {
-  showAuthFeedbackDialog(
+  Navigator.of(context).pushReplacement(
+    MaterialPageRoute(
+      builder: (_) => HomePage(
+        name: AuthController.currentName!,
+        email: AuthController.currentEmail!,
+      ),
+    ),
+  );
+}
+
+Future<void> _showForgotPassword() async {
+  final email = _identifierController.text.trim();
+
+  if (email.isEmpty) {
+    await showAuthFeedbackDialog(
+      context: context,
+      type: AuthFeedbackType.info,
+      title: 'Masukkan email dulu',
+      message:
+          'Isi email akun SOLEA pada kolom Email, '
+          'lalu pilih Forgot password lagi.',
+      primaryLabel: 'Oke',
+    );
+    return;
+  }
+
+  final error =
+      await AuthController.sendFirebasePasswordResetEmail(email);
+
+  if (!mounted) return;
+
+  await showAuthFeedbackDialog(
     context: context,
-    type: AuthFeedbackType.info,
-    title: 'Fitur segera hadir',
-    message:
-        'Fitur lupa password belum tersedia pada versi '
-        'SOLEA saat ini.',
-    primaryLabel: 'Oke, mengerti',
+    type: error == null
+        ? AuthFeedbackType.success
+        : AuthFeedbackType.error,
+    title: error == null
+        ? 'Periksa email kamu'
+        : 'Email reset belum terkirim',
+    message: error ??
+        'Jika alamat tersebut terdaftar, ikuti tautan '
+        'reset password yang dikirim melalui email.',
+    primaryLabel: 'Mengerti',
   );
 }
 
@@ -401,11 +434,11 @@ class _LoginForm extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 38),
-                const _CleanLabel('Email atau Username'),
+                const _CleanLabel('Email'),
                 const SizedBox(height: 9),
                 _CleanTextField(
                   controller: identifierController,
-                  hintText: 'Masukkan email atau username',
+                  hintText: 'Masukkan email',
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   validator: validateIdentifier,
@@ -578,7 +611,7 @@ class _LoginForm extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Text(
-                    'Demo account  •  syaaxi / Syaaxi@gmail.com  •  123456',
+                    'Gunakan email dan password akun SOLEA yang sudah diverifikasi.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 11.5,
