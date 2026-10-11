@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/auth_controller.dart';
+import '../controllers/cart_controller.dart';
+import '../controllers/wishlist_controller.dart';
 import '../views/auth/login_page.dart';
 import '../views/home/home_page.dart';
 
@@ -50,12 +52,16 @@ class _AuthGateState extends State<AuthGate> {
     if (!mounted) return;
 
     if (user == null) {
+      CartController.instance.resetForSignedOut();
+      WishlistController.instance.resetForSignedOut();
+
       setState(() {
         _user = null;
         _isChecking = false;
         _needsVerification = false;
         _error = null;
       });
+
       return;
     }
 
@@ -77,7 +83,6 @@ class _AuthGateState extends State<AuthGate> {
     });
 
     try {
-      // Muat ulang status terbaru dari Firebase.
       await incomingUser.reload();
 
       if (!mounted || requestId != _requestId) return;
@@ -85,30 +90,50 @@ class _AuthGateState extends State<AuthGate> {
       final user = AuthController.firebaseUser;
 
       if (user == null) {
+        CartController.instance.resetForSignedOut();
+        WishlistController.instance.resetForSignedOut();
+
         setState(() {
           _user = null;
           _isChecking = false;
         });
+
         return;
       }
 
-      // Refresh token agar klaim email_verified terbaru digunakan.
       await user.getIdToken(true);
 
       if (!mounted || requestId != _requestId) return;
 
       if (!user.emailVerified) {
-        // Jangan tampilkan Home bagi akun yang belum terverifikasi.
+        CartController.instance.resetForSignedOut();
+        WishlistController.instance.resetForSignedOut();
+
         setState(() {
           _user = user;
           _needsVerification = true;
           _isChecking = false;
         });
+
         return;
       }
 
-      // Profil wajib tersedia sebelum pengguna masuk Home.
+      // Muat profil pengguna terlebih dahulu.
       await AuthController.loadFirebaseProfile();
+
+      if (!mounted || requestId != _requestId) return;
+
+      // Muat cart dan wishlist untuk UID terverifikasi.
+      // Kegagalan baca ditangani oleh masing-masing controller,
+      // sehingga tidak menggagalkan seluruh halaman login.
+      await Future.wait<void>([
+        CartController.instance.loadFromFirebase(
+          forceRefresh: true,
+        ),
+        WishlistController.instance.loadFromFirebase(
+          forceRefresh: true,
+        ),
+      ]);
 
       if (!mounted || requestId != _requestId) return;
 
