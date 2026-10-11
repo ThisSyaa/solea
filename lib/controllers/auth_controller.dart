@@ -16,6 +16,68 @@ class AuthController {
   static bool lastVerificationEmailSent = false;
 
   static User? get firebaseUser => _auth.currentUser;
+  // =========================================================
+  // MEMPERBARUI NAMA PROFIL FIREBASE
+  // =========================================================
+
+  static Future<String?> updateFirebaseProfile({
+    required String name,
+  }) async {
+    final cleanName = name.trim();
+
+    if (cleanName.length < 3) {
+      return 'Nama minimal 3 karakter.';
+    }
+
+    final user = _auth.currentUser;
+
+    if (user == null) {
+      return 'Sesi login tidak ditemukan. Silakan login kembali.';
+    }
+
+    if (!user.emailVerified) {
+      return 'Verifikasi email terlebih dahulu.';
+    }
+
+    try {
+      // Simpan nama baru ke dokumen users/{uid} di Firestore.
+      await _db.collection('users').doc(user.uid).update({
+        'name': cleanName,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+
+      // Selaraskan nama profil Firebase Authentication.
+      // Firestore tetap menjadi sumber utama nama profil SOLEA.
+      try {
+        await user.updateDisplayName(cleanName);
+      } on FirebaseAuthException {
+        // Kegagalan sinkronisasi display name tidak membatalkan
+        // penyimpanan nama yang sudah berhasil di Firestore.
+      }
+
+      currentName = cleanName;
+      currentEmail = user.email;
+
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return _authErrorMessage(e);
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'Perubahan nama ditolak Firestore Rules. '
+            'Pastikan kamu sudah login, email terverifikasi, '
+            'dan aturan update mengizinkan field name serta updatedAt.';
+      }
+
+      if (e.code == 'not-found') {
+        return 'Dokumen profil tidak ditemukan di Firestore.';
+      }
+
+      return 'Gagal menyimpan nama ke Firestore (${e.code}).';
+    } catch (_) {
+      return 'Terjadi kesalahan saat menyimpan profil. Coba lagi.';
+    }
+  }
+
   static String? get currentUid => _auth.currentUser?.uid;
 
   static Stream<User?> get authStateChanges =>

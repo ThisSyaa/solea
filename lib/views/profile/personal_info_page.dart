@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../../controllers/auth_controller.dart';
@@ -19,21 +20,20 @@ class PersonalInfoPage extends StatefulWidget {
       _PersonalInfoPageState();
 }
 
-class _PersonalInfoPageState
-    extends State<PersonalInfoPage> {
+class _PersonalInfoPageState extends State<PersonalInfoPage> {
   final _formKey = GlobalKey<FormState>();
 
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
 
+  bool _isSaving = false;
+
   @override
   void initState() {
     super.initState();
 
-    _nameController =
-        TextEditingController(text: widget.name);
-    _emailController =
-        TextEditingController(text: widget.email);
+    _nameController = TextEditingController(text: widget.name);
+    _emailController = TextEditingController(text: widget.email);
   }
 
   @override
@@ -43,24 +43,50 @@ class _PersonalInfoPageState
     super.dispose();
   }
 
-  void _save() {
+  Future<void> _save() async {
+    if (_isSaving) return;
+
+    FocusScope.of(context).unfocus();
+
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    final name = _nameController.text.trim();
-    final email = _emailController.text.trim();
+    setState(() {
+      _isSaving = true;
+    });
 
-    AuthController.updateProfile(
-      name,
-      email,
+    final error = await AuthController.updateFirebaseProfile(
+      name: _nameController.text.trim(),
     );
 
+    if (!mounted) return;
+
+    setState(() {
+      _isSaving = false;
+    });
+
+    if (error != null) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(error),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+
+      return;
+    }
+
+    // Kembalikan data terbaru ke ProfilePage.
     Navigator.pop(
       context,
       {
-        'name': name,
-        'email': email,
+        'name': AuthController.currentName ??
+            _nameController.text.trim(),
+        'email': AuthController.currentEmail ??
+            widget.email,
       },
     );
   }
@@ -72,6 +98,7 @@ class _PersonalInfoPageState
       appBar: AppBar(
         backgroundColor: AppColors.sand,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         title: const Text(
           'Informasi Pribadi',
           style: TextStyle(
@@ -84,8 +111,7 @@ class _PersonalInfoPageState
         ],
       ),
       body: SingleChildScrollView(
-        padding:
-            const EdgeInsets.fromLTRB(
+        padding: const EdgeInsets.fromLTRB(
           20,
           10,
           20,
@@ -93,118 +119,97 @@ class _PersonalInfoPageState
         ),
         child: Center(
           child: ConstrainedBox(
-            constraints:
-                const BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 620,
             ),
             child: Form(
               key: _formKey,
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.all(20),
-                    decoration:
-                        BoxDecoration(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius:
-                          BorderRadius.circular(
-                        20,
-                      ),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
                       children: [
                         const CircleAvatar(
                           radius: 45,
-                          backgroundColor:
-                              Color(0xFFE8E4DA),
-                          backgroundImage:
-                              NetworkImage(
+                          backgroundColor: Color(0xFFE8E4DA),
+                          backgroundImage: NetworkImage(
                             'https://avatars.githubusercontent.com/u/174694675?v=4',
                           ),
                         ),
                         const SizedBox(height: 20),
+
+                        // Nama bisa diedit dan disimpan ke Firestore.
                         TextFormField(
-                          controller:
-                              _nameController,
-                          decoration:
-                              const InputDecoration(
+                          controller: _nameController,
+                          textCapitalization:
+                              TextCapitalization.words,
+                          decoration: const InputDecoration(
                             labelText: 'Nama',
-                            prefixIcon:
-                                Icon(
-                              Icons
-                                  .person_outline_rounded,
+                            prefixIcon: Icon(
+                              Icons.person_outline_rounded,
                             ),
                           ),
                           validator: (value) {
                             if (value == null ||
-                                value
-                                    .trim()
-                                    .isEmpty) {
+                                value.trim().isEmpty) {
                               return 'Nama wajib diisi';
                             }
 
-                            if (value.trim().length <
-                                3) {
+                            if (value.trim().length < 3) {
                               return 'Nama minimal 3 karakter';
                             }
 
                             return null;
                           },
                         ),
+
                         const SizedBox(height: 15),
+
+                        // Email mengikuti Firebase Authentication.
+                        // Perubahan email memerlukan proses tersendiri.
                         TextFormField(
-                          controller:
-                              _emailController,
+                          controller: _emailController,
+                          readOnly: true,
                           keyboardType:
                               TextInputType.emailAddress,
-                          decoration:
-                              const InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Email',
-                            prefixIcon:
-                                Icon(
-                              Icons
-                                  .email_outlined,
+                            prefixIcon: Icon(
+                              Icons.email_outlined,
                             ),
+                            helperText:
+                                'Email akun tidak dapat diubah dari halaman ini.',
                           ),
-                          validator: (value) {
-                            if (value == null ||
-                                value
-                                    .trim()
-                                    .isEmpty) {
-                              return 'Email wajib diisi';
-                            }
-
-                            final regex = RegExp(
-                              r'^[\w.\-+]+@([\w-]+\.)+[a-zA-Z]{2,}$',
-                            );
-
-                            if (!regex.hasMatch(
-                              value.trim(),
-                            )) {
-                              return 'Format email tidak valid';
-                            }
-
-                            return null;
-                          },
                         ),
                       ],
                     ),
                   ),
+
                   const SizedBox(height: 18),
+
                   SizedBox(
-                    width:
-                        double.infinity,
+                    width: double.infinity,
                     height: 52,
-                    child:
-                        ElevatedButton(
-                      onPressed: _save,
-                      child:
-                          const Text(
-                        'Simpan Perubahan',
-                      ),
+                    child: ElevatedButton(
+                      onPressed: _isSaving ? null : _save,
+                      child: _isSaving
+                          ? const SizedBox(
+                              width: 22,
+                              height: 22,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.2,
+                                color: Colors.white,
+                              ),
+                            )
+                          : const Text(
+                              'Simpan Perubahan',
+                            ),
                     ),
                   ),
                 ],
