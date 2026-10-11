@@ -1,7 +1,5 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class AuthController {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -16,68 +14,6 @@ class AuthController {
   static bool lastVerificationEmailSent = false;
 
   static User? get firebaseUser => _auth.currentUser;
-  // =========================================================
-  // MEMPERBARUI NAMA PROFIL FIREBASE
-  // =========================================================
-
-  static Future<String?> updateFirebaseProfile({
-    required String name,
-  }) async {
-    final cleanName = name.trim();
-
-    if (cleanName.length < 3) {
-      return 'Nama minimal 3 karakter.';
-    }
-
-    final user = _auth.currentUser;
-
-    if (user == null) {
-      return 'Sesi login tidak ditemukan. Silakan login kembali.';
-    }
-
-    if (!user.emailVerified) {
-      return 'Verifikasi email terlebih dahulu.';
-    }
-
-    try {
-      // Simpan nama baru ke dokumen users/{uid} di Firestore.
-      await _db.collection('users').doc(user.uid).update({
-        'name': cleanName,
-        'updatedAt': FieldValue.serverTimestamp(),
-      });
-
-      // Selaraskan nama profil Firebase Authentication.
-      // Firestore tetap menjadi sumber utama nama profil SOLEA.
-      try {
-        await user.updateDisplayName(cleanName);
-      } on FirebaseAuthException {
-        // Kegagalan sinkronisasi display name tidak membatalkan
-        // penyimpanan nama yang sudah berhasil di Firestore.
-      }
-
-      currentName = cleanName;
-      currentEmail = user.email;
-
-      return null;
-    } on FirebaseAuthException catch (e) {
-      return _authErrorMessage(e);
-    } on FirebaseException catch (e) {
-      if (e.code == 'permission-denied') {
-        return 'Perubahan nama ditolak Firestore Rules. '
-            'Pastikan kamu sudah login, email terverifikasi, '
-            'dan aturan update mengizinkan field name serta updatedAt.';
-      }
-
-      if (e.code == 'not-found') {
-        return 'Dokumen profil tidak ditemukan di Firestore.';
-      }
-
-      return 'Gagal menyimpan nama ke Firestore (${e.code}).';
-    } catch (_) {
-      return 'Terjadi kesalahan saat menyimpan profil. Coba lagi.';
-    }
-  }
-
   static String? get currentUid => _auth.currentUser?.uid;
 
   static Stream<User?> get authStateChanges =>
@@ -94,6 +30,10 @@ class AuthController {
 
   static String _usernameKey(String username) =>
       username.trim().toLowerCase();
+
+  // =========================================================
+  // REGISTER FIREBASE
+  // =========================================================
 
   static Future<String?> registerWithFirebase({
     required String name,
@@ -130,7 +70,6 @@ class AuthController {
     bool profileSaved = false;
 
     try {
-      // Buat akun Firebase Authentication.
       final credential =
           await _auth.createUserWithEmailAndPassword(
         email: cleanEmail,
@@ -152,7 +91,7 @@ class AuthController {
       final usernameRef =
           _db.collection('usernames').doc(usernameLower);
 
-      // Kedua dokumen ditulis secara atomik.
+      // Simpan profil dan indeks username dalam satu batch.
       final batch = _db.batch();
 
       batch.set(userRef, {
@@ -186,9 +125,6 @@ class AuthController {
 
       return null;
     } on FirebaseAuthException catch (e) {
-      // Akun yang gagal menyelesaikan proses profil dicoba
-      // untuk dihapus. Jika penghapusan gagal, akun mungkin
-      // perlu diperiksa melalui Firebase Console.
       if (newUser != null && !profileSaved) {
         try {
           await newUser.delete();
@@ -239,7 +175,6 @@ class AuthController {
 
   // =========================================================
   // LOGIN FIREBASE
-  // Email + password; email belum terverifikasi ditolak.
   // =========================================================
 
   static Future<String?> loginWithFirebase({
@@ -261,7 +196,6 @@ class AuthController {
         return 'Login gagal. Silakan coba lagi.';
       }
 
-      // Ambil status email terverifikasi yang terbaru.
       await user.reload();
 
       final refreshedUser = _auth.currentUser;
@@ -293,7 +227,6 @@ class AuthController {
         return 'EMAIL_BELUM_DIVERIFIKASI: Email belum terverifikasi dan tautan verifikasi gagal dikirim. Coba lagi nanti.';
       }
 
-      // Jangan masuk Home jika profil belum bisa dimuat.
       await loadFirebaseProfile();
 
       return null;
@@ -357,6 +290,170 @@ class AuthController {
 
     currentUsername = data['username'] as String?;
     currentEmail = user.email;
+  }
+
+  // =========================================================
+  // MEMPERBARUI NAMA PROFIL FIREBASE
+  // =========================================================
+
+  static Future<String?> updateFirebaseProfile({
+    required String name,
+  }) async {
+    final cleanName = name.trim();
+
+    if (cleanName.length < 3) {
+      return 'Nama minimal 3 karakter.';
+    }
+
+    final user = _auth.currentUser;
+
+    if (user == null) {
+      return 'Sesi login tidak ditemukan. Silakan login kembali.';
+    }
+
+    if (!user.emailVerified) {
+      return 'Verifikasi email terlebih dahulu.';
+    }
+
+    try {
+      await _db.collection('users').doc(user.uid).update({
+        'name': cleanName,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+
+      try {
+        await user.updateDisplayName(cleanName);
+      } on FirebaseAuthException {
+        // Profil utama tetap menggunakan data Firestore.
+      }
+
+      currentName = cleanName;
+      currentEmail = user.email;
+
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return _authErrorMessage(e);
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'Perubahan nama ditolak Firestore Rules. Pastikan pengguna sudah login, email terverifikasi, dan aturan update users mengizinkan field name serta updatedAt.';
+      }
+
+      if (e.code == 'not-found') {
+        return 'Dokumen profil tidak ditemukan di Firestore.';
+      }
+
+      return 'Gagal menyimpan nama ke Firestore (${e.code}).';
+    } catch (_) {
+      return 'Terjadi kesalahan saat menyimpan profil. Coba lagi.';
+    }
+  }
+
+  // =========================================================
+  // MEMUAT ALAMAT DARI FIRESTORE
+  // =========================================================
+
+  static Future<Map<String, String>?> loadFirebaseAddress() async {
+    final user = _auth.currentUser;
+
+    if (user == null) {
+      throw StateError('Silakan login kembali.');
+    }
+
+    if (!user.emailVerified) {
+      throw StateError('Verifikasi email terlebih dahulu.');
+    }
+
+    final snapshot = await _db
+        .collection('users')
+        .doc(user.uid)
+        .collection('addresses')
+        .doc('primary')
+        .get();
+
+    if (!snapshot.exists) return null;
+
+    final data = snapshot.data();
+
+    if (data == null) return null;
+
+    return {
+      'name': data['name']?.toString() ?? '',
+      'phone': data['phone']?.toString() ?? '',
+      'address': data['address']?.toString() ?? '',
+    };
+  }
+
+  // =========================================================
+  // MENYIMPAN ALAMAT KE FIRESTORE
+  // =========================================================
+
+  static Future<String?> saveFirebaseAddress({
+    required String name,
+    required String phone,
+    required String address,
+  }) async {
+    final user = _auth.currentUser;
+
+    if (user == null) {
+      return 'Sesi login tidak ditemukan. Silakan login kembali.';
+    }
+
+    if (!user.emailVerified) {
+      return 'Verifikasi email terlebih dahulu.';
+    }
+
+    final cleanName = name.trim();
+    final cleanPhone = phone.trim();
+    final cleanAddress = address.trim();
+
+    if (cleanName.length < 3) {
+      return 'Nama penerima minimal 3 karakter.';
+    }
+
+    if (cleanPhone.length < 8) {
+      return 'Nomor HP minimal 8 karakter.';
+    }
+
+    if (cleanAddress.length < 10) {
+      return 'Alamat lengkap minimal 10 karakter.';
+    }
+
+    try {
+      final addressRef = _db
+          .collection('users')
+          .doc(user.uid)
+          .collection('addresses')
+          .doc('primary');
+
+      final snapshot = await addressRef.get();
+
+      final data = <String, dynamic>{
+        'uid': user.uid,
+        'name': cleanName,
+        'phone': cleanPhone,
+        'address': cleanAddress,
+        'updatedAt': FieldValue.serverTimestamp(),
+      };
+
+      if (!snapshot.exists) {
+        data['createdAt'] = FieldValue.serverTimestamp();
+      }
+
+      await addressRef.set(
+        data,
+        SetOptions(merge: true),
+      );
+
+      return null;
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'Akses alamat ditolak Firestore Rules. Periksa aturan akses alamat.';
+      }
+
+      return 'Gagal menyimpan alamat (${e.code}).';
+    } catch (_) {
+      return 'Terjadi kesalahan saat menyimpan alamat.';
+    }
   }
 
   // =========================================================
@@ -439,7 +536,6 @@ class AuthController {
     await _auth.signOut();
   }
 
-  // Kompatibilitas untuk halaman lama yang memanggil logout().
   static Future<void> logout() => logoutFromFirebase();
 
   // =========================================================
@@ -478,6 +574,10 @@ class AuthController {
         return 'Autentikasi gagal (${e.code}).';
     }
   }
+
+  // =========================================================
+  // KOMPATIBILITAS AKUN LOKAL LAMA
+  // =========================================================
 
   static final Map<String, Map<String, String>> _localAccounts = {
     'syaaxi@gmail.com': {
@@ -522,12 +622,14 @@ class AuthController {
   }) {
     final cleanName = name.trim();
     final cleanEmail = email.trim();
-    final cleanUsername = username?.trim().isNotEmpty == true
-        ? username!.trim()
-        : cleanName.toLowerCase().replaceAll(
-              RegExp(r'[^a-z0-9._]'),
-              '',
-            );
+
+    final cleanUsername =
+        username?.trim().isNotEmpty == true
+            ? username!.trim()
+            : cleanName.toLowerCase().replaceAll(
+                  RegExp(r'[^a-z0-9._]'),
+                  '',
+                );
 
     if (cleanName.length < 3) {
       return 'Nama minimal 3 karakter.';
