@@ -1,9 +1,10 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'core/auth_gate.dart';
 import 'core/app_theme.dart';
 import 'firebase_options.dart';
+import 'views/landing/landing_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'SOLEA',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: const AuthGate(),
+      home: const LandingPage(),
     );
   }
 }
