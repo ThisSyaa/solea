@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
+import '../../controllers/auth_controller.dart';
 import '../../core/app_theme.dart';
 import '../home/home_page.dart';
+import '../../core/auth_feedback_dialog.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -13,6 +16,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -31,6 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void dispose() {
     _nameController.dispose();
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -44,6 +49,22 @@ class _RegisterPageState extends State<RegisterPage> {
 
     if (value.trim().length < 3) {
       return 'Nama minimal 3 karakter';
+    }
+
+    return null;
+  }
+
+  String? _validateUsername(String? value) {
+    if (value == null || value.trim().isEmpty) {
+    return 'Username tidak boleh kosong';
+    }
+
+    final usernameRegex = RegExp(
+      r'^[a-zA-Z0-9._]{3,20}$',
+    );
+
+    if (!usernameRegex.hasMatch(value.trim())) {
+      return 'Gunakan 3–20 karakter: huruf, angka, titik, atau underscore';
     }
 
     return null;
@@ -89,49 +110,92 @@ class _RegisterPageState extends State<RegisterPage> {
     return null;
   }
 
-  Future<void> _handleRegister() async {
-    FocusScope.of(context).unfocus();
+Future<void> _handleRegister() async {
+  FocusScope.of(context).unfocus();
 
-    setState(() {
-      _autovalidate = AutovalidateMode.onUserInteraction;
-    });
+  setState(() {
+    _autovalidate = AutovalidateMode.onUserInteraction;
+  });
 
-    if (!_formKey.currentState!.validate()) return;
+  if (!_formKey.currentState!.validate()) return;
 
-    if (!_agreeTerms) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Centang persetujuan syarat & ketentuan terlebih dahulu.',
-            ),
-            backgroundColor: AppColors.danger,
-          ),
-        );
-      return;
-    }
-
-    setState(() => _isLoading = true);
-
-    await Future.delayed(const Duration(seconds: 1));
-
-    if (!mounted) return;
-
-    setState(() => _isLoading = false);
-
-    final name = _nameController.text.trim();
-    final email = _emailController.text.trim();
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => HomePage(
-          name: name,
-          email: email,
-        ),
-      ),
+  if (!_agreeTerms) {
+    await showAuthFeedbackDialog(
+      context: context,
+      type: AuthFeedbackType.warning,
+      title: 'Satu langkah lagi',
+      message:
+          'Centang persetujuan syarat dan ketentuan '
+          'sebelum membuat akun SOLEA.',
+      primaryLabel: 'Oke, mengerti',
     );
+
+    return;
   }
+
+  setState(() => _isLoading = true);
+
+  await Future.delayed(
+    const Duration(milliseconds: 350),
+  );
+
+  if (!mounted) return;
+
+  final error = AuthController.register(
+    _nameController.text.trim(),
+    _emailController.text.trim(),
+    _passwordController.text,
+    username: _usernameController.text.trim(),
+  );
+
+  if (!mounted) return;
+
+  setState(() => _isLoading = false);
+
+  if (error != null) {
+    final normalizedError = error.toLowerCase();
+
+    final isDuplicate =
+        normalizedError.contains('sudah terdaftar') ||
+        normalizedError.contains('sudah digunakan');
+
+    await showAuthFeedbackDialog(
+      context: context,
+      type: AuthFeedbackType.error,
+      title: isDuplicate
+          ? 'Data sudah digunakan'
+          : 'Registrasi belum berhasil',
+      message: error,
+      primaryLabel: 'Periksa lagi',
+      secondaryLabel: 'Tutup',
+    );
+
+    return;
+  }
+
+  await showAuthFeedbackDialog(
+    context: context,
+    type: AuthFeedbackType.success,
+    title: 'Welcome to SOLEA!',
+    message:
+        'Akun @${_usernameController.text.trim()} '
+        'berhasil dibuat. Saatnya temukan sepatu '
+        'favoritmu.',
+    primaryLabel: 'Mulai belanja',
+  );
+
+  if (!mounted) return;
+
+  Navigator.of(context).pushAndRemoveUntil(
+    MaterialPageRoute(
+      builder: (_) => HomePage(
+        name: AuthController.currentName!,
+        email: AuthController.currentEmail!,
+      ),
+    ),
+    (route) => false,
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -156,6 +220,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: _RegisterForm(
                       formKey: _formKey,
                       nameController: _nameController,
+                      usernameController: _usernameController,
                       emailController: _emailController,
                       passwordController: _passwordController,
                       confirmPasswordController:
@@ -187,6 +252,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         Navigator.of(context).pop();
                       },
                       validateName: _validateName,
+                      validateUsername: _validateUsername,
                       validateEmail: _validateEmail,
                       validatePassword: _validatePassword,
                       validateConfirmPassword:
@@ -220,9 +286,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(width: 48),
                     ],
                   ),
-
                   const SizedBox(height: 16),
-
                   Container(
                     height: 190,
                     width: double.infinity,
@@ -245,12 +309,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       },
                     ),
                   ),
-
                   const SizedBox(height: 26),
-
                   _RegisterForm(
                     formKey: _formKey,
                     nameController: _nameController,
+                    usernameController: _usernameController,
                     emailController: _emailController,
                     passwordController: _passwordController,
                     confirmPasswordController:
@@ -282,6 +345,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Navigator.of(context).pop();
                     },
                     validateName: _validateName,
+                    validateUsername: _validateUsername,
                     validateEmail: _validateEmail,
                     validatePassword: _validatePassword,
                     validateConfirmPassword:
@@ -333,7 +397,6 @@ class _RegisterVisual extends StatelessWidget {
               );
             },
           ),
-
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -346,7 +409,6 @@ class _RegisterVisual extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             top: 34,
             left: 36,
@@ -378,7 +440,6 @@ class _RegisterVisual extends StatelessWidget {
               ],
             ),
           ),
-
           Positioned(
             left: 36,
             right: 36,
@@ -423,6 +484,7 @@ class _RegisterForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
 
   final TextEditingController nameController;
+  final TextEditingController usernameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
@@ -442,6 +504,7 @@ class _RegisterForm extends StatelessWidget {
   final VoidCallback onBack;
 
   final String? Function(String?) validateName;
+  final String? Function(String?) validateUsername;
   final String? Function(String?) validateEmail;
   final String? Function(String?) validatePassword;
   final String? Function(String?) validateConfirmPassword;
@@ -449,6 +512,7 @@ class _RegisterForm extends StatelessWidget {
   const _RegisterForm({
     required this.formKey,
     required this.nameController,
+    required this.usernameController,
     required this.emailController,
     required this.passwordController,
     required this.confirmPasswordController,
@@ -463,6 +527,7 @@ class _RegisterForm extends StatelessWidget {
     required this.onRegister,
     required this.onBack,
     required this.validateName,
+    required this.validateUsername,
     required this.validateEmail,
     required this.validatePassword,
     required this.validateConfirmPassword,
@@ -510,9 +575,7 @@ class _RegisterForm extends StatelessWidget {
                     ],
                   ),
                 ],
-
                 const SizedBox(height: 20),
-
                 const Text(
                   'Create account',
                   style: TextStyle(
@@ -522,9 +585,7 @@ class _RegisterForm extends StatelessWidget {
                     color: Color(0xFF111111),
                   ),
                 ),
-
                 const SizedBox(height: 9),
-
                 const Text(
                   'Create your account and start discovering your next pair.',
                   style: TextStyle(
@@ -533,13 +594,9 @@ class _RegisterForm extends StatelessWidget {
                     color: Color(0xFF77736B),
                   ),
                 ),
-
                 const SizedBox(height: 36),
-
                 const _CleanLabel('Full name'),
-
                 const SizedBox(height: 9),
-
                 _RegisterTextField(
                   controller: nameController,
                   hintText: 'Your name',
@@ -547,13 +604,19 @@ class _RegisterForm extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                   validator: validateName,
                 ),
-
                 const SizedBox(height: 20),
-
-                const _CleanLabel('Email'),
-
+                const _CleanLabel('Username'),
                 const SizedBox(height: 9),
-
+                _RegisterTextField(
+                  controller: usernameController,
+                  hintText: 'contoh: syaaxi',
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                  validator: validateUsername,
+                ),
+                const SizedBox(height: 20),
+                const _CleanLabel('Email'),
+                const SizedBox(height: 9),
                 _RegisterTextField(
                   controller: emailController,
                   hintText: 'you@example.com',
@@ -561,13 +624,9 @@ class _RegisterForm extends StatelessWidget {
                   textInputAction: TextInputAction.next,
                   validator: validateEmail,
                 ),
-
                 const SizedBox(height: 20),
-
                 const _CleanLabel('Password'),
-
                 const SizedBox(height: 9),
-
                 _RegisterTextField(
                   controller: passwordController,
                   hintText: 'Minimum 6 characters',
@@ -585,13 +644,9 @@ class _RegisterForm extends StatelessWidget {
                     color: const Color(0xFF77736B),
                   ),
                 ),
-
                 const SizedBox(height: 20),
-
                 const _CleanLabel('Confirm password'),
-
                 const SizedBox(height: 9),
-
                 _RegisterTextField(
                   controller: confirmPasswordController,
                   hintText: 'Repeat your password',
@@ -612,9 +667,7 @@ class _RegisterForm extends StatelessWidget {
                     if (!isLoading) onRegister();
                   },
                 ),
-
                 const SizedBox(height: 16),
-
                 InkWell(
                   borderRadius: BorderRadius.circular(6),
                   onTap: () {
@@ -657,9 +710,7 @@ class _RegisterForm extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 22),
-
                 SizedBox(
                   width: double.infinity,
                   height: 54,
@@ -694,9 +745,7 @@ class _RegisterForm extends StatelessWidget {
                           ),
                   ),
                 ),
-
                 const SizedBox(height: 25),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -734,7 +783,7 @@ class _RegisterForm extends StatelessWidget {
 }
 
 // ============================================================
-// COMMON WIDGET
+// COMMON WIDGETS
 // ============================================================
 
 class _CleanLabel extends StatelessWidget {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../controllers/auth_controller.dart';
 import '../../core/app_theme.dart';
 import '../home/home_page.dart';
 import 'register_page.dart';
+import '../../core/auth_feedback_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,38 +15,27 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _identifierController = TextEditingController();
   final _passwordController = TextEditingController();
 
   bool _isLoading = false;
   bool _obscurePassword = true;
   bool _rememberMe = false;
 
-  static const _dummyEmail = 'Syaaxi@gmail.com';
-  static const _dummyPassword = '123456';
-  static const _dummyName = 'Syaaxi';
-
-  // Foto sneaker untuk tampilan hero.
   static const String _shoeImage =
       'https://images.unsplash.com/photo-1542291026-7eec264c27ff'
       '?auto=format&fit=crop&w=1200&q=85';
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _identifierController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
-  String? _validateEmail(String? value) {
+  String? _validateIdentifier(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Email tidak boleh kosong';
-    }
-
-    final emailRegex = RegExp(r'^[\w.\-+]+@([\w-]+\.)+[a-zA-Z]{2,}$');
-
-    if (!emailRegex.hasMatch(value.trim())) {
-      return 'Format email tidak valid';
+      return 'Email atau username tidak boleh kosong';
     }
 
     return null;
@@ -69,42 +60,62 @@ class _LoginPageState extends State<LoginPage> {
 
     setState(() => _isLoading = true);
 
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(
+      const Duration(milliseconds: 350),
+    );
 
     if (!mounted) return;
 
+    final success = AuthController.login(
+      _identifierController.text.trim(),
+      _passwordController.text,
+    );
+
     setState(() => _isLoading = false);
 
-    String email = _emailController.text.trim();
-    String password = _passwordController.text;
-
-    // email = _dummyEmail;
-    // password = _dummyPassword;
-
-    if (email == _dummyEmail && password == _dummyPassword) {
+    if (success) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => const HomePage(name: _dummyName, email: _dummyEmail),
+          builder: (_) => HomePage(
+            name: AuthController.currentName!,
+            email: AuthController.currentEmail!,
+          ),
         ),
       );
-    } else {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          const SnackBar(
-            content: Text('Email atau password salah.'),
-            backgroundColor: AppColors.danger,
-          ),
-        );
+
+      return;
     }
+
+    await showAuthFeedbackDialog(
+      context: context,
+      type: AuthFeedbackType.error,
+      title: 'Belum bisa masuk',
+      message:
+          'Email, username, atau password belum sesuai. '
+          'Coba periksa kembali informasi akunmu.',
+      primaryLabel: 'Coba lagi',
+      secondaryLabel: 'Tutup',
+    );
   }
 
   void _showForgotPassword() {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        const SnackBar(content: Text('Fitur lupa password belum tersedia.')),
-      );
+  showAuthFeedbackDialog(
+    context: context,
+    type: AuthFeedbackType.info,
+    title: 'Fitur segera hadir',
+    message:
+        'Fitur lupa password belum tersedia pada versi '
+        'SOLEA saat ini.',
+    primaryLabel: 'Oke, mengerti',
+  );
+}
+
+  void _openRegister() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => const RegisterPage(),
+      ),
+    );
   }
 
   @override
@@ -131,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                     flex: 5,
                     child: _LoginForm(
                       formKey: _formKey,
-                      emailController: _emailController,
+                      identifierController: _identifierController,
                       passwordController: _passwordController,
                       isLoading: _isLoading,
                       obscurePassword: _obscurePassword,
@@ -148,14 +159,8 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       onForgotPassword: _showForgotPassword,
                       onLogin: _handleLogin,
-                      onRegister: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => const RegisterPage(),
-                          ),
-                        );
-                      },
-                      validateEmail: _validateEmail,
+                      onRegister: _openRegister,
+                      validateIdentifier: _validateIdentifier,
                       validatePassword: _validatePassword,
                     ),
                   ),
@@ -169,14 +174,11 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const _MobileLogo(),
                   const SizedBox(height: 18),
-
                   _MobileShoeImage(imageUrl: _shoeImage),
-
                   const SizedBox(height: 26),
-
                   _LoginForm(
                     formKey: _formKey,
-                    emailController: _emailController,
+                    identifierController: _identifierController,
                     passwordController: _passwordController,
                     isLoading: _isLoading,
                     obscurePassword: _obscurePassword,
@@ -193,12 +195,8 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     onForgotPassword: _showForgotPassword,
                     onLogin: _handleLogin,
-                    onRegister: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const RegisterPage()),
-                      );
-                    },
-                    validateEmail: _validateEmail,
+                    onRegister: _openRegister,
+                    validateIdentifier: _validateIdentifier,
                     validatePassword: _validatePassword,
                   ),
                 ],
@@ -212,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 // ============================================================
-// DESKTOP - VISUAL PANEL
+// DESKTOP VISUAL PANEL
 // ============================================================
 
 class _ShoeVisual extends StatelessWidget {
@@ -251,8 +249,6 @@ class _ShoeVisual extends StatelessWidget {
               );
             },
           ),
-
-          // Overlay halus
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -265,7 +261,6 @@ class _ShoeVisual extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             top: 34,
             left: 36,
@@ -297,7 +292,6 @@ class _ShoeVisual extends StatelessWidget {
               ],
             ),
           ),
-
           Positioned(
             left: 36,
             right: 36,
@@ -340,7 +334,7 @@ class _ShoeVisual extends StatelessWidget {
 
 class _LoginForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
-  final TextEditingController emailController;
+  final TextEditingController identifierController;
   final TextEditingController passwordController;
   final bool isLoading;
   final bool obscurePassword;
@@ -352,12 +346,12 @@ class _LoginForm extends StatelessWidget {
   final VoidCallback onLogin;
   final VoidCallback onRegister;
 
-  final String? Function(String?) validateEmail;
+  final String? Function(String?) validateIdentifier;
   final String? Function(String?) validatePassword;
 
   const _LoginForm({
     required this.formKey,
-    required this.emailController,
+    required this.identifierController,
     required this.passwordController,
     required this.isLoading,
     required this.obscurePassword,
@@ -367,7 +361,7 @@ class _LoginForm extends StatelessWidget {
     required this.onForgotPassword,
     required this.onLogin,
     required this.onRegister,
-    required this.validateEmail,
+    required this.validateIdentifier,
     required this.validatePassword,
   });
 
@@ -375,7 +369,10 @@ class _LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 32),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 44,
+          vertical: 32,
+        ),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 430),
           child: Form(
@@ -384,9 +381,7 @@ class _LoginForm extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const _DesktopMiniLogo(),
-
                 const SizedBox(height: 58),
-
                 const Text(
                   'Welcome back',
                   style: TextStyle(
@@ -396,9 +391,7 @@ class _LoginForm extends StatelessWidget {
                     color: Color(0xFF111111),
                   ),
                 ),
-
                 const SizedBox(height: 9),
-
                 const Text(
                   'Sign in to continue shopping your favorite sneakers.',
                   style: TextStyle(
@@ -407,27 +400,19 @@ class _LoginForm extends StatelessWidget {
                     color: Color(0xFF77736B),
                   ),
                 ),
-
                 const SizedBox(height: 38),
-
-                const _CleanLabel('Email'),
-
+                const _CleanLabel('Email atau Username'),
                 const SizedBox(height: 9),
-
                 _CleanTextField(
-                  controller: emailController,
-                  hintText: 'you@example.com',
-                  keyboardType: TextInputType.emailAddress,
+                  controller: identifierController,
+                  hintText: 'Masukkan email atau username',
+                  keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
-                  validator: validateEmail,
+                  validator: validateIdentifier,
                 ),
-
                 const SizedBox(height: 23),
-
                 const _CleanLabel('Password'),
-
                 const SizedBox(height: 9),
-
                 _CleanTextField(
                   controller: passwordController,
                   hintText: 'Enter your password',
@@ -448,9 +433,7 @@ class _LoginForm extends StatelessWidget {
                     color: const Color(0xFF77736B),
                   ),
                 ),
-
                 const SizedBox(height: 11),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -464,7 +447,9 @@ class _LoginForm extends StatelessWidget {
                             onChanged: (value) {
                               onRememberChanged(value ?? false);
                             },
-                            side: const BorderSide(color: Color(0xFFBDB8AE)),
+                            side: const BorderSide(
+                              color: Color(0xFFBDB8AE),
+                            ),
                             activeColor: Colors.black,
                             checkColor: Colors.white,
                           ),
@@ -496,9 +481,7 @@ class _LoginForm extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 24),
-
                 SizedBox(
                   width: double.infinity,
                   height: 54,
@@ -533,12 +516,12 @@ class _LoginForm extends StatelessWidget {
                           ),
                   ),
                 ),
-
                 const SizedBox(height: 28),
-
                 Row(
                   children: [
-                    const Expanded(child: Divider(color: Color(0xFFE0DDD6))),
+                    const Expanded(
+                      child: Divider(color: Color(0xFFE0DDD6)),
+                    ),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Text(
@@ -550,18 +533,21 @@ class _LoginForm extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Expanded(child: Divider(color: Color(0xFFE0DDD6))),
+                    const Expanded(
+                      child: Divider(color: Color(0xFFE0DDD6)),
+                    ),
                   ],
                 ),
-
                 const SizedBox(height: 26),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
                       "Don't have an account?",
-                      style: TextStyle(fontSize: 13, color: Color(0xFF77736B)),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Color(0xFF77736B),
+                      ),
                     ),
                     TextButton(
                       onPressed: isLoading ? null : onRegister,
@@ -580,9 +566,7 @@ class _LoginForm extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 24),
-
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
@@ -594,9 +578,12 @@ class _LoginForm extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Text(
-                    'Demo account  •  Syaaxi@gmail.com  •  123456',
+                    'Demo account  •  syaaxi / Syaaxi@gmail.com  •  123456',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 11.5, color: Color(0xFF77736B)),
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      color: Color(0xFF77736B),
+                    ),
                   ),
                 ),
               ],
@@ -609,7 +596,7 @@ class _LoginForm extends StatelessWidget {
 }
 
 // ============================================================
-// REGISTER PAGE
+// COMMON WIDGETS
 // ============================================================
 
 class _MobileLogo extends StatelessWidget {
@@ -747,10 +734,16 @@ class _CleanTextField extends StatelessWidget {
       textInputAction: textInputAction,
       validator: validator,
       onFieldSubmitted: onSubmitted,
-      style: const TextStyle(fontSize: 14, color: Colors.black),
+      style: const TextStyle(
+        fontSize: 14,
+        color: Colors.black,
+      ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(fontSize: 14, color: Color(0xFFA09B92)),
+        hintStyle: const TextStyle(
+          fontSize: 14,
+          color: Color(0xFFA09B92),
+        ),
         suffixIcon: suffix,
         filled: true,
         fillColor: Colors.white,
@@ -760,23 +753,35 @@ class _CleanTextField extends StatelessWidget {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color(0xFFD8D4CC)),
+          borderSide: const BorderSide(
+            color: Color(0xFFD8D4CC),
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color(0xFFD8D4CC)),
+          borderSide: const BorderSide(
+            color: Color(0xFFD8D4CC),
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.black, width: 1.3),
+          borderSide: const BorderSide(
+            color: Colors.black,
+            width: 1.3,
+          ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.danger),
+          borderSide: const BorderSide(
+            color: AppColors.danger,
+          ),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.danger, width: 1.2),
+          borderSide: const BorderSide(
+            color: AppColors.danger,
+            width: 1.2,
+          ),
         ),
       ),
     );

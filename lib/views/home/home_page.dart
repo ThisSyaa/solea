@@ -12,6 +12,7 @@ import '../shopping/cart_page.dart';
 import '../shopping/wishlist_page.dart';
 import 'product_detail_page.dart';
 
+
 class _BannerData {
   final String title;
   final String subtitle;
