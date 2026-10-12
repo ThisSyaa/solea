@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -6,15 +5,22 @@ import 'package:flutter/material.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/product_controller.dart';
 import '../../controllers/wishlist_controller.dart';
-import '../../core/app_theme.dart';
 import '../../core/app_helpers.dart';
+import '../../core/app_theme.dart';
 import '../../models/product.dart';
 import '../auth/login_page.dart';
+import '../profile/about_page.dart';
 import '../profile/profile_page.dart';
 import '../shopping/cart_page.dart';
 import '../shopping/wishlist_page.dart';
-import 'product_detail_page.dart';
 import 'all_products_page.dart';
+import 'contact_page.dart';
+import 'product_detail_page.dart';
+import 'services_page.dart';
+
+// ============================================================
+// BANNER DATA
+// ============================================================
 
 class _BannerData {
   final String title;
@@ -77,12 +83,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _selectedCategory = 'Semua';
-  final ScrollController _scrollController = ScrollController();
 
-  Set<String> get _wishlistNames =>
-      WishlistController.instance.products.map((p) => p.name).toSet();
+  final ScrollController _scrollController =
+      ScrollController();
 
-  int get _cartTotalItems => CartController.instance.totalItems;
+  Set<String> get _wishlistNames => WishlistController
+      .instance
+      .products
+      .map((product) => product.name)
+      .toSet();
+
+  int get _cartTotalItems =>
+      CartController.instance.totalItems;
 
   List<Product> get _filteredProducts {
     if (_selectedCategory == 'Semua') {
@@ -90,8 +102,29 @@ class _HomePageState extends State<HomePage> {
     }
 
     return ProductController.products
-        .where((product) => product.category == _selectedCategory)
+        .where(
+          (product) =>
+              product.category == _selectedCategory,
+        )
         .toList();
+  }
+
+  // =========================================================
+  // HOME NAVIGATION
+  // =========================================================
+
+  void _scrollHomeTop() {
+    setState(() {
+      _selectedCategory = 'Semua';
+    });
+
+    if (!_scrollController.hasClients) return;
+
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 450),
+      curve: Curves.easeInOut,
+    );
   }
 
   void _selectCategory(String category) {
@@ -99,6 +132,66 @@ class _HomePageState extends State<HomePage> {
       _selectedCategory = category;
     });
   }
+
+  // =========================================================
+  // OPEN ALL PRODUCTS
+  // =========================================================
+
+  Future<void> _openAllProducts(
+    AllProductsMode mode,
+  ) async {
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => AllProductsPage(
+          mode: mode,
+        ),
+      ),
+    );
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  // =========================================================
+  // OPEN CONTACT
+  // =========================================================
+
+  Future<void> _openContactPage() async {
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => const ContactPage(),
+      ),
+    );
+  }
+
+  // =========================================================
+  // OPEN SERVICES
+  // =========================================================
+
+  Future<void> _openServicesPage() async {
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => const ServicesPage(),
+      ),
+    );
+  }
+
+  // =========================================================
+  // OPEN ABOUT
+  // =========================================================
+
+  Future<void> _openAboutPage() async {
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => const AboutPage(),
+      ),
+    );
+  }
+
+  // =========================================================
+  // WISHLIST
+  // =========================================================
 
   void _toggleWishlist(Product product) {
     final controller = WishlistController.instance;
@@ -118,9 +211,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _openWishlistPage() async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
         builder: (_) => const WishlistPage(),
       ),
     );
@@ -130,10 +222,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // =========================================================
+  // CART
+  // =========================================================
+
   Future<void> _openCartPage() async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
         builder: (_) => const CartPage(),
       ),
     );
@@ -143,10 +238,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<void> _openProductDetail(Product product) async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
+  // =========================================================
+  // PRODUCT DETAIL
+  // =========================================================
+
+  Future<void> _openProductDetail(
+    Product product,
+  ) async {
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
         builder: (_) => ProductDetailPage(
           product: product,
         ),
@@ -158,18 +258,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<void> _openAllProducts(AllProductsMode mode) async {
-    await Navigator.push<void>(
-      context,
-      MaterialPageRoute<void>(
-        builder: (_) => AllProductsPage(mode: mode),
-      ),
-    );
-
-    if (mounted) {
-      setState(() {});
-    }
-  }
+  // =========================================================
+  // SNACKBAR
+  // =========================================================
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context)
@@ -178,14 +269,25 @@ class _HomePageState extends State<HomePage> {
         SnackBar(
           content: Text(message),
           behavior: SnackBarBehavior.floating,
-          duration: const Duration(milliseconds: 900),
+          duration: const Duration(milliseconds: 1000),
         ),
       );
   }
 
+  // =========================================================
+  // SCROLL TO PRODUCTS
+  // =========================================================
+
   void _scrollToProducts() {
-    _scrollController.animateTo(
+    if (!_scrollController.hasClients) return;
+
+    final target = mathMin(
       520,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      target,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
@@ -197,6 +299,10 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  // =========================================================
+  // BUILD HOME
+  // =========================================================
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,23 +313,34 @@ class _HomePageState extends State<HomePage> {
             _NavBar(
               name: widget.name,
               email: widget.email,
-              wishlistCount: WishlistController.instance.count,
+              wishlistCount:
+                  WishlistController.instance.count,
               cartCount: _cartTotalItems,
               onWishlistTap: _openWishlistPage,
               onCartTap: _openCartPage,
+              onHomeTap: _scrollHomeTop,
+              onContactTap: _openContactPage,
+              onServicesTap: _openServicesPage,
+              onAboutTap: _openAboutPage,
             ),
+
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   final maxWidth =
-                      constraints.maxWidth > 1200 ? 1180.0 : 1000.0;
+                      constraints.maxWidth > 1200
+                          ? 1180.0
+                          : 1000.0;
 
                   final horizontalPadding =
-                      constraints.maxWidth < 700 ? 16.0 : 24.0;
+                      constraints.maxWidth < 700
+                          ? 16.0
+                          : 24.0;
 
                   return SingleChildScrollView(
                     controller: _scrollController,
-                    physics: const BouncingScrollPhysics(),
+                    physics:
+                        const BouncingScrollPhysics(),
                     padding: EdgeInsets.fromLTRB(
                       horizontalPadding,
                       20,
@@ -236,55 +353,85 @@ class _HomePageState extends State<HomePage> {
                           maxWidth: maxWidth,
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: [
+                            // HERO BANNER
                             _HeroCarousel(
                               onAction: _scrollToProducts,
                             ),
+
                             const SizedBox(height: 28),
+
+                            // CATEGORY SECTION
                             _SectionHeader(
                               title: 'Kategori',
                               action: 'Lihat semua',
-                              onAction: () => _openAllProducts(
-                                AllProductsMode.categories,
-                              ),
+                              onAction: () {
+                                _openAllProducts(
+                                  AllProductsMode.categories,
+                                );
+                              },
                             ),
+
                             const SizedBox(height: 12),
+
                             _CategoryList(
-                              selectedCategory: _selectedCategory,
+                              selectedCategory:
+                                  _selectedCategory,
                               onSelected: _selectCategory,
                             ),
+
                             const SizedBox(height: 30),
+
+                            // FEATURED PRODUCTS
                             _SectionHeader(
-                              title: _selectedCategory == 'Semua'
-                                  ? 'Sepatu Pilihan'
-                                  : _selectedCategory,
+                              title:
+                                  _selectedCategory == 'Semua'
+                                      ? 'Sepatu Pilihan'
+                                      : _selectedCategory,
                               action: 'Lihat semua',
-                              onAction: () => _openAllProducts(
-                                AllProductsMode.featured,
-                              ),
+                              onAction: () {
+                                _openAllProducts(
+                                  AllProductsMode.featured,
+                                );
+                              },
                             ),
+
                             const SizedBox(height: 14),
+
                             ProductList(
                               products: _filteredProducts,
                               wishlist: _wishlistNames,
-                              onWishlistTap: _toggleWishlist,
-                              onProductTap: _openProductDetail,
+                              onWishlistTap:
+                                  _toggleWishlist,
+                              onProductTap:
+                                  _openProductDetail,
                             ),
+
                             const SizedBox(height: 30),
+
+                            // POPULAR PRODUCTS
                             _SectionHeader(
                               title: 'Popular Sekarang',
                               action: 'Lihat semua',
-                              onAction: () => _openAllProducts(
-                                AllProductsMode.popular,
-                              ),
+                              onAction: () {
+                                _openAllProducts(
+                                  AllProductsMode.popular,
+                                );
+                              },
                             ),
+
                             const SizedBox(height: 14),
+
                             ProductList(
-                              products: ProductController.products,
+                              products:
+                                  ProductController.products,
                               wishlist: _wishlistNames,
-                              onWishlistTap: _toggleWishlist,
-                              onProductTap: _openProductDetail,
+                              onWishlistTap:
+                                  _toggleWishlist,
+                              onProductTap:
+                                  _openProductDetail,
                             ),
                           ],
                         ),
@@ -313,11 +460,13 @@ class _HeroCarousel extends StatefulWidget {
   });
 
   @override
-  State<_HeroCarousel> createState() => _HeroCarouselState();
+  State<_HeroCarousel> createState() =>
+      _HeroCarouselState();
 }
 
 class _HeroCarouselState extends State<_HeroCarousel> {
   late final PageController _pageController;
+
   Timer? _timer;
   int _currentIndex = 0;
 
@@ -376,7 +525,9 @@ class _HeroCarouselState extends State<_HeroCarousel> {
             ),
           ),
         ),
+
         const SizedBox(height: 12),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
@@ -385,13 +536,19 @@ class _HeroCarouselState extends State<_HeroCarousel> {
               final active = index == _currentIndex;
 
               return AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                margin: const EdgeInsets.symmetric(horizontal: 3),
+                duration:
+                    const Duration(milliseconds: 250),
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 3,
+                ),
                 width: active ? 22 : 7,
                 height: 7,
                 decoration: BoxDecoration(
-                  color: active ? AppColors.forest : AppColors.line,
-                  borderRadius: BorderRadius.circular(20),
+                  color: active
+                      ? AppColors.forest
+                      : AppColors.line,
+                  borderRadius:
+                      BorderRadius.circular(20),
                 ),
               );
             },
@@ -432,22 +589,26 @@ class _HeroBanner extends StatelessWidget {
             );
           },
         ),
+
         DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [
-                Colors.black.withOpacity(0.72),
-                Colors.black.withOpacity(0.30),
+                Colors.black.withValues(alpha: 0.72),
+                Colors.black.withValues(alpha: 0.30),
                 Colors.transparent,
               ],
               stops: const [0.0, 0.58, 1.0],
             ),
           ),
         ),
+
         Padding(
-          padding: EdgeInsets.all(isSmall ? 24 : 38),
+          padding: EdgeInsets.all(
+            isSmall ? 24 : 38,
+          ),
           child: Align(
             alignment: Alignment.centerLeft,
             child: ConstrainedBox(
@@ -455,8 +616,10 @@ class _HeroBanner extends StatelessWidget {
                 maxWidth: isSmall ? 250 : 430,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment:
+                    MainAxisAlignment.center,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   Text(
                     data.title,
@@ -468,18 +631,24 @@ class _HeroBanner extends StatelessWidget {
                       letterSpacing: -1,
                     ),
                   ),
+
                   const SizedBox(height: 12),
+
                   Text(
                     data.subtitle,
                     maxLines: isSmall ? 2 : 3,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.88),
+                      color: Colors.white.withValues(
+                        alpha: 0.88,
+                      ),
                       fontSize: isSmall ? 12 : 14.5,
                       height: 1.45,
                     ),
                   ),
+
                   const SizedBox(height: 18),
+
                   ElevatedButton(
                     onPressed: onAction,
                     style: ElevatedButton.styleFrom(
@@ -492,7 +661,8 @@ class _HeroBanner extends StatelessWidget {
                         vertical: 12,
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius:
+                            BorderRadius.circular(12),
                       ),
                     ),
                     child: Text(data.cta),
@@ -525,7 +695,8 @@ class _SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment:
+          MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
@@ -536,10 +707,13 @@ class _SectionHeader extends StatelessWidget {
             color: AppColors.ink,
           ),
         ),
+
         TextButton(
           onPressed: onAction,
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 4,
+            ),
             foregroundColor: AppColors.forest,
           ),
           child: Text(action),
@@ -570,13 +744,19 @@ class _CategoryList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         primary: false,
         physics: const BouncingScrollPhysics(),
-        itemCount: ProductController.categories.length,
+        itemCount:
+            ProductController.categories.length,
         itemBuilder: (context, index) {
-          final category = ProductController.categories[index];
-          final isActive = category == selectedCategory;
+          final category =
+              ProductController.categories[index];
+
+          final isActive =
+              category == selectedCategory;
 
           return Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(
+              right: 10,
+            ),
             child: ChoiceChip(
               selected: isActive,
               onSelected: (_) {
@@ -586,15 +766,20 @@ class _CategoryList extends StatelessWidget {
               selectedColor: AppColors.forest,
               backgroundColor: Colors.white,
               side: BorderSide(
-                color: isActive ? AppColors.forest : AppColors.line,
+                color: isActive
+                    ? AppColors.forest
+                    : AppColors.line,
               ),
               labelStyle: TextStyle(
-                color: isActive ? Colors.white : AppColors.muted,
+                color: isActive
+                    ? Colors.white
+                    : AppColors.muted,
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
+                borderRadius:
+                    BorderRadius.circular(14),
               ),
             ),
           );
@@ -635,11 +820,15 @@ class ProductList extends StatelessWidget {
     if (products.isEmpty) {
       return Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 35),
+        padding: const EdgeInsets.symmetric(
+          vertical: 35,
+        ),
         child: const Center(
           child: Text(
             'Belum ada produk di kategori ini.',
-            style: TextStyle(color: AppColors.muted),
+            style: TextStyle(
+              color: AppColors.muted,
+            ),
           ),
         ),
       );
@@ -657,14 +846,21 @@ class ProductList extends StatelessWidget {
 
           return Padding(
             padding: EdgeInsets.only(
-              right: index == products.length - 1 ? 0 : 14,
+              right: index == products.length - 1
+                  ? 0
+                  : 14,
             ),
             child: ProductCard(
               product: product,
               width: cardWidth,
-              isFavorite: wishlist.contains(product.name),
-              onFavoriteTap: () => onWishlistTap(product),
-              onTap: () => onProductTap(product),
+              isFavorite:
+                  wishlist.contains(product.name),
+              onFavoriteTap: () {
+                onWishlistTap(product);
+              },
+              onTap: () {
+                onProductTap(product);
+              },
             ),
           );
         },
@@ -704,13 +900,20 @@ class ProductCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
+            padding: const EdgeInsets.fromLTRB(
+              10,
+              10,
+              10,
+              12,
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius:
+                        BorderRadius.circular(14),
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
@@ -722,7 +925,8 @@ class ProductCard extends StatelessWidget {
                             errorBuilder: (_, __, ___) {
                               return const Center(
                                 child: Icon(
-                                  Icons.image_not_supported_outlined,
+                                  Icons
+                                      .image_not_supported_outlined,
                                   color: AppColors.muted,
                                   size: 34,
                                 ),
@@ -730,17 +934,22 @@ class ProductCard extends StatelessWidget {
                             },
                           ),
                         ),
+
                         Positioned(
                           top: 8,
                           right: 8,
                           child: Material(
-                            color: Colors.white.withOpacity(0.94),
+                            color: Colors.white.withValues(
+                              alpha: 0.94,
+                            ),
                             shape: const CircleBorder(),
                             child: InkWell(
-                              customBorder: const CircleBorder(),
+                              customBorder:
+                                  const CircleBorder(),
                               onTap: onFavoriteTap,
                               child: Padding(
-                                padding: const EdgeInsets.all(7),
+                                padding:
+                                    const EdgeInsets.all(7),
                                 child: Icon(
                                   isFavorite
                                       ? Icons.favorite_rounded
@@ -758,7 +967,9 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 11),
+
                 Text(
                   product.category,
                   style: const TextStyle(
@@ -767,7 +978,9 @@ class ProductCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+
                 const SizedBox(height: 3),
+
                 Text(
                   product.name,
                   maxLines: 1,
@@ -778,7 +991,9 @@ class ProductCard extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
+
                 const SizedBox(height: 6),
+
                 Row(
                   children: [
                     Expanded(
@@ -793,13 +1008,17 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     const SizedBox(width: 6),
+
                     const Icon(
                       Icons.star_rounded,
                       size: 15,
                       color: Color(0xFFE1A12B),
                     ),
+
                     const SizedBox(width: 2),
+
                     Text(
                       product.rating.toString(),
                       style: const TextStyle(
@@ -828,8 +1047,13 @@ class _NavBar extends StatelessWidget {
   final String email;
   final int wishlistCount;
   final int cartCount;
+
   final VoidCallback onWishlistTap;
   final VoidCallback onCartTap;
+  final VoidCallback onHomeTap;
+  final VoidCallback onContactTap;
+  final VoidCallback onServicesTap;
+  final VoidCallback onAboutTap;
 
   const _NavBar({
     required this.name,
@@ -838,21 +1062,50 @@ class _NavBar extends StatelessWidget {
     required this.cartCount,
     required this.onWishlistTap,
     required this.onCartTap,
+    required this.onHomeTap,
+    required this.onContactTap,
+    required this.onServicesTap,
+    required this.onAboutTap,
   });
+
+  void _onMenuSelected(String label) {
+    switch (label) {
+      case 'Home':
+        onHomeTap();
+        break;
+
+      case 'Contact':
+        onContactTap();
+        break;
+
+      case 'Layanan':
+        onServicesTap();
+        break;
+
+      case 'Tentang':
+        onAboutTap();
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
       decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(
-          bottom: BorderSide(color: AppColors.line),
+          bottom: BorderSide(
+            color: AppColors.line,
+          ),
         ),
       ),
       child: Row(
         children: [
+          // LOGO
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -862,7 +1115,8 @@ class _NavBar extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: Colors.black,
-                  borderRadius: BorderRadius.circular(9),
+                  borderRadius:
+                      BorderRadius.circular(9),
                 ),
                 child: const Icon(
                   Icons.directions_run_rounded,
@@ -870,7 +1124,9 @@ class _NavBar extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
+
               const SizedBox(width: 10),
+
               const Text(
                 'SOLEA',
                 style: TextStyle(
@@ -882,89 +1138,87 @@ class _NavBar extends StatelessWidget {
               ),
             ],
           ),
+
+          // DESKTOP NAV / MOBILE MENU
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
-                final isWide = constraints.maxWidth > 420;
+                final isWide =
+                    constraints.maxWidth > 420;
+
+                if (isWide) {
+                  return Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center,
+                    children: [
+                      _NavLink(
+                        label: 'Home',
+                        active: true,
+                        onTap: onHomeTap,
+                      ),
+                      _NavLink(
+                        label: 'Contact',
+                        onTap: onContactTap,
+                      ),
+                      _NavLink(
+                        label: 'Layanan',
+                        onTap: onServicesTap,
+                      ),
+                      _NavLink(
+                        label: 'Tentang',
+                        onTap: onAboutTap,
+                      ),
+                    ],
+                  );
+                }
 
                 return Align(
                   alignment: Alignment.center,
-                  child: isWide
-                      ? Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            _NavLink(
-                              label: 'Home',
-                              active: true,
-                              onTap: () {},
-                            ),
-                            _NavLink(
-                              label: 'Contact',
-                              onTap: () => _showComingSoon(
-                                context,
-                                'Contact',
-                              ),
-                            ),
-                            _NavLink(
-                              label: 'Layanan',
-                              onTap: () => _showComingSoon(
-                                context,
-                                'Layanan',
-                              ),
-                            ),
-                            _NavLink(
-                              label: 'Tentang',
-                              onTap: () => _showComingSoon(
-                                context,
-                                'Tentang',
-                              ),
-                            ),
-                          ],
-                        )
-                      : PopupMenuButton<String>(
-                          icon: const Icon(
-                            Icons.menu,
-                            color: AppColors.ink,
-                          ),
-                          onSelected: (label) {
-                            if (label != 'Home') {
-                              _showComingSoon(context, label);
-                            }
-                          },
-                          itemBuilder: (context) => const [
-                            PopupMenuItem(
-                              value: 'Home',
-                              child: Text('Home'),
-                            ),
-                            PopupMenuItem(
-                              value: 'Contact',
-                              child: Text('Contact'),
-                            ),
-                            PopupMenuItem(
-                              value: 'Layanan',
-                              child: Text('Layanan'),
-                            ),
-                            PopupMenuItem(
-                              value: 'Tentang',
-                              child: Text('Tentang'),
-                            ),
-                          ],
-                        ),
+                  child: PopupMenuButton<String>(
+                    tooltip: 'Menu navigasi',
+                    icon: const Icon(
+                      Icons.menu,
+                      color: AppColors.ink,
+                    ),
+                    onSelected: _onMenuSelected,
+                    itemBuilder: (context) => const [
+                      PopupMenuItem(
+                        value: 'Home',
+                        child: Text('Home'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Contact',
+                        child: Text('Contact'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Layanan',
+                        child: Text('Layanan'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Tentang',
+                        child: Text('Tentang'),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
           ),
+
           _CounterIcon(
             icon: Icons.favorite_border_rounded,
             count: wishlistCount,
             onTap: onWishlistTap,
           ),
+
           _CounterIcon(
             icon: Icons.shopping_bag_outlined,
             count: cartCount,
             onTap: onCartTap,
           ),
+
           const SizedBox(width: 4),
+
           _ProfileMenu(
             name: name,
             email: email,
@@ -993,7 +1247,9 @@ class _NavLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 6,
+      ),
       child: TextButton(
         onPressed: onTap,
         style: TextButton.styleFrom(
@@ -1040,6 +1296,7 @@ class _CounterIcon extends StatelessWidget {
             color: AppColors.ink,
           ),
         ),
+
         if (count > 0)
           Positioned(
             top: 4,
@@ -1049,14 +1306,16 @@ class _CounterIcon extends StatelessWidget {
                 minWidth: 16,
                 minHeight: 16,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 4,
+              ),
               decoration: const BoxDecoration(
                 color: AppColors.danger,
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: Text(
-                  count > 99 ? '99+' : count.toString(),
+                  count > 99 ? '99+' : '$count',
                   style: const TextStyle(
                     fontSize: 8,
                     fontWeight: FontWeight.w800,
@@ -1095,7 +1354,7 @@ class _ProfileMenu extends StatelessWidget {
       onSelected: (value) {
         if (value == 'logout') {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
+            MaterialPageRoute<void>(
               builder: (_) => const LoginPage(),
             ),
             (route) => false,
@@ -1103,8 +1362,8 @@ class _ProfileMenu extends StatelessWidget {
         }
 
         if (value == 'profile') {
-          Navigator.of(context).push(
-            MaterialPageRoute(
+          Navigator.of(context).push<void>(
+            MaterialPageRoute<void>(
               builder: (_) => ProfilePage(
                 name: name,
                 email: email,
@@ -1117,7 +1376,8 @@ class _ProfileMenu extends StatelessWidget {
         PopupMenuItem<String>(
           enabled: false,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
@@ -1139,7 +1399,9 @@ class _ProfileMenu extends StatelessWidget {
             ],
           ),
         ),
+
         const PopupMenuDivider(),
+
         const PopupMenuItem<String>(
           value: 'profile',
           child: Row(
@@ -1154,6 +1416,7 @@ class _ProfileMenu extends StatelessWidget {
             ],
           ),
         ),
+
         const PopupMenuItem<String>(
           value: 'logout',
           child: Row(
@@ -1175,7 +1438,9 @@ class _ProfileMenu extends StatelessWidget {
         ),
       ],
       child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4),
+        padding: EdgeInsets.symmetric(
+          horizontal: 4,
+        ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -1202,21 +1467,9 @@ class _ProfileMenu extends StatelessWidget {
 }
 
 // ============================================================
-// COMING SOON
+// HELPER
 // ============================================================
 
-void _showComingSoon(
-  BuildContext context,
-  String label,
-) {
-  ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(
-      SnackBar(
-        content: Text(
-          'Halaman "$label" belum tersedia.',
-        ),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+double mathMin(double a, double b) {
+  return a < b ? a : b;
 }
