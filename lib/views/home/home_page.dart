@@ -1,5 +1,8 @@
+
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+
 import '../../controllers/cart_controller.dart';
 import '../../controllers/product_controller.dart';
 import '../../controllers/wishlist_controller.dart';
@@ -11,7 +14,7 @@ import '../profile/profile_page.dart';
 import '../shopping/cart_page.dart';
 import '../shopping/wishlist_page.dart';
 import 'product_detail_page.dart';
-
+import 'all_products_page.dart';
 
 class _BannerData {
   final String title;
@@ -155,6 +158,19 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> _openAllProducts(AllProductsMode mode) async {
+    await Navigator.push<void>(
+      context,
+      MaterialPageRoute<void>(
+        builder: (_) => AllProductsPage(mode: mode),
+      ),
+    );
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
@@ -220,8 +236,7 @@ class _HomePageState extends State<HomePage> {
                           maxWidth: maxWidth,
                         ),
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _HeroCarousel(
                               onAction: _scrollToProducts,
@@ -230,10 +245,9 @@ class _HomePageState extends State<HomePage> {
                             _SectionHeader(
                               title: 'Kategori',
                               action: 'Lihat semua',
-                              onAction: () {
-                                _selectCategory('Semua');
-                                _scrollToProducts();
-                              },
+                              onAction: () => _openAllProducts(
+                                AllProductsMode.categories,
+                              ),
                             ),
                             const SizedBox(height: 12),
                             _CategoryList(
@@ -246,8 +260,9 @@ class _HomePageState extends State<HomePage> {
                                   ? 'Sepatu Pilihan'
                                   : _selectedCategory,
                               action: 'Lihat semua',
-                              onAction: () =>
-                                  _selectCategory('Semua'),
+                              onAction: () => _openAllProducts(
+                                AllProductsMode.featured,
+                              ),
                             ),
                             const SizedBox(height: 14),
                             ProductList(
@@ -260,8 +275,9 @@ class _HomePageState extends State<HomePage> {
                             _SectionHeader(
                               title: 'Popular Sekarang',
                               action: 'Lihat semua',
-                              onAction: () =>
-                                  _selectCategory('Semua'),
+                              onAction: () => _openAllProducts(
+                                AllProductsMode.popular,
+                              ),
                             ),
                             const SizedBox(height: 14),
                             ProductList(
@@ -366,25 +382,16 @@ class _HeroCarouselState extends State<_HeroCarousel> {
           children: List.generate(
             _banners.length,
             (index) {
-              final active =
-                  index == _currentIndex;
+              final active = index == _currentIndex;
 
               return AnimatedContainer(
-                duration: const Duration(
-                  milliseconds: 250,
-                ),
-                margin:
-                    const EdgeInsets.symmetric(
-                  horizontal: 3,
-                ),
+                duration: const Duration(milliseconds: 250),
+                margin: const EdgeInsets.symmetric(horizontal: 3),
                 width: active ? 22 : 7,
                 height: 7,
                 decoration: BoxDecoration(
-                  color: active
-                      ? AppColors.forest
-                      : AppColors.line,
-                  borderRadius:
-                      BorderRadius.circular(20),
+                  color: active ? AppColors.forest : AppColors.line,
+                  borderRadius: BorderRadius.circular(20),
                 ),
               );
             },
@@ -410,9 +417,7 @@ class _HeroBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width =
-        MediaQuery.sizeOf(context).width;
-
+    final width = MediaQuery.sizeOf(context).width;
     final isSmall = width < 560;
 
     return Stack(
@@ -437,84 +442,57 @@ class _HeroBanner extends StatelessWidget {
                 Colors.black.withOpacity(0.30),
                 Colors.transparent,
               ],
-              stops: const [
-                0.0,
-                0.58,
-                1.0,
-              ],
+              stops: const [0.0, 0.58, 1.0],
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(
-            isSmall ? 24 : 38,
-          ),
+          padding: EdgeInsets.all(isSmall ? 24 : 38),
           child: Align(
             alignment: Alignment.centerLeft,
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                maxWidth:
-                    isSmall ? 250 : 430,
+                maxWidth: isSmall ? 250 : 430,
               ),
               child: Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.center,
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     data.title,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize:
-                          isSmall ? 26 : 42,
+                      fontSize: isSmall ? 26 : 42,
                       height: 1.02,
-                      fontWeight:
-                          FontWeight.w800,
+                      fontWeight: FontWeight.w800,
                       letterSpacing: -1,
                     ),
                   ),
                   const SizedBox(height: 12),
                   Text(
                     data.subtitle,
-                    maxLines:
-                        isSmall ? 2 : 3,
-                    overflow:
-                        TextOverflow.ellipsis,
+                    maxLines: isSmall ? 2 : 3,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color:
-                          Colors.white.withOpacity(
-                        0.88,
-                      ),
-                      fontSize:
-                          isSmall ? 12 : 14.5,
+                      color: Colors.white.withOpacity(0.88),
+                      fontSize: isSmall ? 12 : 14.5,
                       height: 1.45,
                     ),
                   ),
                   const SizedBox(height: 18),
                   ElevatedButton(
                     onPressed: onAction,
-                    style:
-                        ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Colors.white,
-                      foregroundColor:
-                          AppColors.ink,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: AppColors.ink,
                       elevation: 0,
-                      minimumSize:
-                          const Size(0, 44),
-                      padding:
-                          const EdgeInsets
-                              .symmetric(
+                      minimumSize: const Size(0, 44),
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 12,
                       ),
-                      shape:
-                          RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(
-                          12,
-                        ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     child: Text(data.cta),
@@ -547,8 +525,7 @@ class _SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:
-          MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
@@ -562,12 +539,8 @@ class _SectionHeader extends StatelessWidget {
         TextButton(
           onPressed: onAction,
           style: TextButton.styleFrom(
-            padding:
-                const EdgeInsets.symmetric(
-              horizontal: 4,
-            ),
-            foregroundColor:
-                AppColors.forest,
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            foregroundColor: AppColors.forest,
           ),
           child: Text(action),
         ),
@@ -596,49 +569,32 @@ class _CategoryList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         primary: false,
-        physics:
-            const BouncingScrollPhysics(),
-        itemCount:
-            ProductController.categories.length,
+        physics: const BouncingScrollPhysics(),
+        itemCount: ProductController.categories.length,
         itemBuilder: (context, index) {
-          final category =
-              ProductController.categories[index];
-
-          final isActive =
-              category == selectedCategory;
+          final category = ProductController.categories[index];
+          final isActive = category == selectedCategory;
 
           return Padding(
-            padding:
-                const EdgeInsets.only(
-              right: 10,
-            ),
+            padding: const EdgeInsets.only(right: 10),
             child: ChoiceChip(
               selected: isActive,
               onSelected: (_) {
                 onSelected(category);
               },
               label: Text(category),
-              selectedColor:
-                  AppColors.forest,
-              backgroundColor:
-                  Colors.white,
+              selectedColor: AppColors.forest,
+              backgroundColor: Colors.white,
               side: BorderSide(
-                color: isActive
-                    ? AppColors.forest
-                    : AppColors.line,
+                color: isActive ? AppColors.forest : AppColors.line,
               ),
               labelStyle: TextStyle(
-                color: isActive
-                    ? Colors.white
-                    : AppColors.muted,
-                fontWeight:
-                    FontWeight.w600,
+                color: isActive ? Colors.white : AppColors.muted,
+                fontWeight: FontWeight.w600,
                 fontSize: 13,
               ),
-              shape:
-                  RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
               ),
             ),
           );
@@ -668,8 +624,7 @@ class ProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width =
-        MediaQuery.sizeOf(context).width;
+    final width = MediaQuery.sizeOf(context).width;
 
     final cardWidth = width < 500
         ? 168.0
@@ -680,16 +635,11 @@ class ProductList extends StatelessWidget {
     if (products.isEmpty) {
       return Container(
         width: double.infinity,
-        padding:
-            const EdgeInsets.symmetric(
-          vertical: 35,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 35),
         child: const Center(
           child: Text(
             'Belum ada produk di kategori ini.',
-            style: TextStyle(
-              color: AppColors.muted,
-            ),
+            style: TextStyle(color: AppColors.muted),
           ),
         ),
       );
@@ -698,35 +648,23 @@ class ProductList extends StatelessWidget {
     return SizedBox(
       height: cardWidth + 150,
       child: ListView.builder(
-        scrollDirection:
-            Axis.horizontal,
+        scrollDirection: Axis.horizontal,
         primary: false,
-        physics:
-            const BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemCount: products.length,
         itemBuilder: (context, index) {
-          final product =
-              products[index];
+          final product = products[index];
 
           return Padding(
             padding: EdgeInsets.only(
-              right:
-                  index ==
-                          products.length - 1
-                      ? 0
-                      : 14,
+              right: index == products.length - 1 ? 0 : 14,
             ),
             child: ProductCard(
               product: product,
               width: cardWidth,
-              isFavorite:
-                  wishlist.contains(
-                product.name,
-              ),
-              onFavoriteTap: () =>
-                  onWishlistTap(product),
-              onTap: () =>
-                  onProductTap(product),
+              isFavorite: wishlist.contains(product.name),
+              onFavoriteTap: () => onWishlistTap(product),
+              onTap: () => onProductTap(product),
             ),
           );
         },
@@ -761,48 +699,31 @@ class ProductCard extends StatelessWidget {
       width: width,
       child: Material(
         color: Colors.white,
-        borderRadius:
-            BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(18),
         child: InkWell(
-          borderRadius:
-              BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(18),
           onTap: onTap,
           child: Padding(
-            padding:
-                const EdgeInsets.fromLTRB(
-              10,
-              10,
-              10,
-              12,
-            ),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(
-                      14,
-                    ),
+                    borderRadius: BorderRadius.circular(14),
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
                         Container(
-                          color:
-                              AppColors.sand,
-                          child:
-                              Image.network(
+                          color: AppColors.sand,
+                          child: Image.network(
                             product.imageUrl,
                             fit: BoxFit.cover,
-                            errorBuilder:
-                                (_, __, ___) {
+                            errorBuilder: (_, __, ___) {
                               return const Center(
                                 child: Icon(
-                                  Icons
-                                      .image_not_supported_outlined,
-                                  color:
-                                      AppColors.muted,
+                                  Icons.image_not_supported_outlined,
+                                  color: AppColors.muted,
                                   size: 34,
                                 ),
                               );
@@ -813,36 +734,21 @@ class ProductCard extends StatelessWidget {
                           top: 8,
                           right: 8,
                           child: Material(
-                            color: Colors
-                                .white
-                                .withOpacity(
-                              0.94,
-                            ),
-                            shape:
-                                const CircleBorder(),
+                            color: Colors.white.withOpacity(0.94),
+                            shape: const CircleBorder(),
                             child: InkWell(
-                              customBorder:
-                                  const CircleBorder(),
-                              onTap:
-                                  onFavoriteTap,
+                              customBorder: const CircleBorder(),
+                              onTap: onFavoriteTap,
                               child: Padding(
-                                padding:
-                                    const EdgeInsets
-                                        .all(
-                                  7,
-                                ),
+                                padding: const EdgeInsets.all(7),
                                 child: Icon(
                                   isFavorite
-                                      ? Icons
-                                          .favorite_rounded
-                                      : Icons
-                                          .favorite_border_rounded,
+                                      ? Icons.favorite_rounded
+                                      : Icons.favorite_border_rounded,
                                   size: 17,
                                   color: isFavorite
-                                      ? AppColors
-                                          .danger
-                                      : AppColors
-                                          .ink,
+                                      ? AppColors.danger
+                                      : AppColors.ink,
                                 ),
                               ),
                             ),
@@ -858,21 +764,18 @@ class ProductCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 11.5,
                     color: AppColors.muted,
-                    fontWeight:
-                        FontWeight.w600,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   product.name,
                   maxLines: 1,
-                  overflow:
-                      TextOverflow.ellipsis,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 14,
                     color: AppColors.ink,
-                    fontWeight:
-                        FontWeight.w700,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -880,19 +783,13 @@ class ProductCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        formatRupiah(
-                          product.price,
-                        ),
+                        formatRupiah(product.price),
                         maxLines: 1,
-                        overflow:
-                            TextOverflow.ellipsis,
-                        style:
-                            const TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
                           fontSize: 13.5,
-                          color: AppColors
-                              .forestDeep,
-                          fontWeight:
-                              FontWeight.w800,
+                          color: AppColors.forestDeep,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                     ),
@@ -900,20 +797,15 @@ class ProductCard extends StatelessWidget {
                     const Icon(
                       Icons.star_rounded,
                       size: 15,
-                      color:
-                          Color(0xFFE1A12B),
+                      color: Color(0xFFE1A12B),
                     ),
                     const SizedBox(width: 2),
                     Text(
-                      product.rating
-                          .toString(),
-                      style:
-                          const TextStyle(
+                      product.rating.toString(),
+                      style: const TextStyle(
                         fontSize: 11.5,
-                        color:
-                            AppColors.muted,
-                        fontWeight:
-                            FontWeight.w600,
+                        color: AppColors.muted,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
@@ -952,41 +844,28 @@ class _NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 64,
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      decoration:
-          const BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(
-          bottom: BorderSide(
-            color: AppColors.line,
-          ),
+          bottom: BorderSide(color: AppColors.line),
         ),
       ),
       child: Row(
         children: [
           Row(
-            mainAxisSize:
-                MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 width: 34,
                 height: 34,
-                alignment:
-                    Alignment.center,
-                decoration:
-                    BoxDecoration(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
                   color: Colors.black,
-                  borderRadius:
-                      BorderRadius.circular(
-                    9,
-                  ),
+                  borderRadius: BorderRadius.circular(9),
                 ),
                 child: const Icon(
-                  Icons
-                      .directions_run_rounded,
+                  Icons.directions_run_rounded,
                   size: 18,
                   color: Colors.white,
                 ),
@@ -996,8 +875,7 @@ class _NavBar extends StatelessWidget {
                 'SOLEA',
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight:
-                      FontWeight.w800,
+                  fontWeight: FontWeight.w800,
                   letterSpacing: 1.4,
                   color: AppColors.ink,
                 ),
@@ -1006,110 +884,69 @@ class _NavBar extends StatelessWidget {
           ),
           Expanded(
             child: LayoutBuilder(
-              builder:
-                  (context, constraints) {
-                final isWide =
-                    constraints.maxWidth >
-                        420;
+              builder: (context, constraints) {
+                final isWide = constraints.maxWidth > 420;
 
                 return Align(
-                  alignment:
-                      Alignment.center,
+                  alignment: Alignment.center,
                   child: isWide
                       ? Row(
-                          mainAxisSize:
-                              MainAxisSize
-                                  .min,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             _NavLink(
                               label: 'Home',
-                              active:
-                                  true,
+                              active: true,
                               onTap: () {},
                             ),
                             _NavLink(
-                              label:
-                                  'Contact',
-                              onTap:
-                                  () =>
-                                      _showComingSoon(
+                              label: 'Contact',
+                              onTap: () => _showComingSoon(
                                 context,
                                 'Contact',
                               ),
                             ),
                             _NavLink(
-                              label:
-                                  'Layanan',
-                              onTap:
-                                  () =>
-                                      _showComingSoon(
+                              label: 'Layanan',
+                              onTap: () => _showComingSoon(
                                 context,
                                 'Layanan',
                               ),
                             ),
                             _NavLink(
-                              label:
-                                  'Tentang',
-                              onTap:
-                                  () =>
-                                      _showComingSoon(
+                              label: 'Tentang',
+                              onTap: () => _showComingSoon(
                                 context,
                                 'Tentang',
                               ),
                             ),
                           ],
                         )
-                      : PopupMenuButton<
-                          String>(
-                          icon:
-                              const Icon(
+                      : PopupMenuButton<String>(
+                          icon: const Icon(
                             Icons.menu,
-                            color:
-                                AppColors.ink,
+                            color: AppColors.ink,
                           ),
-                          onSelected:
-                              (label) {
-                            if (label !=
-                                'Home') {
-                              _showComingSoon(
-                                context,
-                                label,
-                              );
+                          onSelected: (label) {
+                            if (label != 'Home') {
+                              _showComingSoon(context, label);
                             }
                           },
-                          itemBuilder:
-                              (context) =>
-                                  const [
+                          itemBuilder: (context) => const [
                             PopupMenuItem(
                               value: 'Home',
-                              child:
-                                  Text(
-                                'Home',
-                              ),
+                              child: Text('Home'),
                             ),
                             PopupMenuItem(
-                              value:
-                                  'Contact',
-                              child:
-                                  Text(
-                                'Contact',
-                              ),
+                              value: 'Contact',
+                              child: Text('Contact'),
                             ),
                             PopupMenuItem(
-                              value:
-                                  'Layanan',
-                              child:
-                                  Text(
-                                'Layanan',
-                              ),
+                              value: 'Layanan',
+                              child: Text('Layanan'),
                             ),
                             PopupMenuItem(
-                              value:
-                                  'Tentang',
-                              child:
-                                  Text(
-                                'Tentang',
-                              ),
+                              value: 'Tentang',
+                              child: Text('Tentang'),
                             ),
                           ],
                         ),
@@ -1118,15 +955,12 @@ class _NavBar extends StatelessWidget {
             ),
           ),
           _CounterIcon(
-            icon: Icons
-                .favorite_border_rounded,
+            icon: Icons.favorite_border_rounded,
             count: wishlistCount,
-            onTap:
-                onWishlistTap,
+            onTap: onWishlistTap,
           ),
           _CounterIcon(
-            icon: Icons
-                .shopping_bag_outlined,
+            icon: Icons.shopping_bag_outlined,
             count: cartCount,
             onTap: onCartTap,
           ),
@@ -1159,10 +993,7 @@ class _NavLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal: 6,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 6),
       child: TextButton(
         onPressed: onTap,
         style: TextButton.styleFrom(
@@ -1214,30 +1045,21 @@ class _CounterIcon extends StatelessWidget {
             top: 4,
             right: 2,
             child: Container(
-              constraints:
-                  const BoxConstraints(
+              constraints: const BoxConstraints(
                 minWidth: 16,
                 minHeight: 16,
               ),
-              padding:
-                  const EdgeInsets.symmetric(
-                horizontal: 4,
-              ),
-              decoration:
-                  const BoxDecoration(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              decoration: const BoxDecoration(
                 color: AppColors.danger,
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: Text(
-                  count > 99
-                      ? '99+'
-                      : count.toString(),
-                  style:
-                      const TextStyle(
+                  count > 99 ? '99+' : count.toString(),
+                  style: const TextStyle(
                     fontSize: 8,
-                    fontWeight:
-                        FontWeight.w800,
+                    fontWeight: FontWeight.w800,
                     color: Colors.white,
                   ),
                 ),
@@ -1266,20 +1088,15 @@ class _ProfileMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       tooltip: 'Akun',
-      offset:
-          const Offset(0, 46),
-      shape:
-          RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(12),
+      offset: const Offset(0, 46),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
       ),
       onSelected: (value) {
         if (value == 'logout') {
-          Navigator.of(context)
-              .pushAndRemoveUntil(
+          Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (_) =>
-                  const LoginPage(),
+              builder: (_) => const LoginPage(),
             ),
             (route) => false,
           );
@@ -1288,8 +1105,7 @@ class _ProfileMenu extends StatelessWidget {
         if (value == 'profile') {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) =>
-                  ProfilePage(
+              builder: (_) => ProfilePage(
                 name: name,
                 email: email,
               ),
@@ -1301,17 +1117,13 @@ class _ProfileMenu extends StatelessWidget {
         PopupMenuItem<String>(
           enabled: false,
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
-            mainAxisSize:
-                MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 name,
-                style:
-                    const TextStyle(
-                  fontWeight:
-                      FontWeight.w700,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
                   fontSize: 14,
                   color: AppColors.ink,
                 ),
@@ -1319,8 +1131,7 @@ class _ProfileMenu extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 email,
-                style:
-                    const TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   color: AppColors.muted,
                 ),
@@ -1334,11 +1145,9 @@ class _ProfileMenu extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                Icons
-                    .person_outline_rounded,
+                Icons.person_outline_rounded,
                 size: 18,
-                color:
-                    AppColors.muted,
+                color: AppColors.muted,
               ),
               SizedBox(width: 10),
               Text('Profile'),
@@ -1352,16 +1161,13 @@ class _ProfileMenu extends StatelessWidget {
               Icon(
                 Icons.logout_rounded,
                 size: 18,
-                color:
-                    AppColors.danger,
+                color: AppColors.danger,
               ),
               SizedBox(width: 10),
               Text(
                 'Logout',
-                style:
-                    TextStyle(
-                  color:
-                      AppColors.danger,
+                style: TextStyle(
+                  color: AppColors.danger,
                 ),
               ),
             ],
@@ -1369,32 +1175,24 @@ class _ProfileMenu extends StatelessWidget {
         ),
       ],
       child: const Padding(
-        padding:
-            EdgeInsets.symmetric(
-          horizontal: 4,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 4),
         child: Row(
-          mainAxisSize:
-              MainAxisSize.min,
+          mainAxisSize: MainAxisSize.min,
           children: [
             CircleAvatar(
               radius: 17,
-              backgroundColor:
-                  Color(0xFFE8F0EC),
+              backgroundColor: Color(0xFFE8F0EC),
               child: Icon(
                 Icons.person_rounded,
                 size: 19,
-                color:
-                    AppColors.forest,
+                color: AppColors.forest,
               ),
             ),
             SizedBox(width: 4),
             Icon(
-              Icons
-                  .keyboard_arrow_down_rounded,
+              Icons.keyboard_arrow_down_rounded,
               size: 18,
-              color:
-                  AppColors.muted,
+              color: AppColors.muted,
             ),
           ],
         ),
@@ -1418,8 +1216,7 @@ void _showComingSoon(
         content: Text(
           'Halaman "$label" belum tersedia.',
         ),
-        behavior:
-            SnackBarBehavior.floating,
+        behavior: SnackBarBehavior.floating,
       ),
     );
 }

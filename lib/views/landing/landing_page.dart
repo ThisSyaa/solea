@@ -1,4 +1,3 @@
-
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -21,8 +20,7 @@ class _LandingPageState extends State<LandingPage>
   static const Color _line = Color(0xFF373B32);
 
   // Gambar ini merupakan komposisi sneaker + shoebox transparan.
-  static const String _heroAsset =
-      'assets/images/solea_sneaker.png';
+  static const String _heroAsset = 'assets/images/solea_sneaker.png';
 
   late final AnimationController _introController;
   late final AnimationController _floatController;
@@ -66,72 +64,38 @@ class _LandingPageState extends State<LandingPage>
 
     _copyFade = CurvedAnimation(
       parent: _introController,
-      curve: const Interval(
-        0.24,
-        0.85,
-        curve: Curves.easeOutCubic,
-      ),
+      curve: const Interval(0.24, 0.85, curve: Curves.easeOutCubic),
     );
 
-    _copySlide = Tween<Offset>(
-      begin: const Offset(0, 0.075),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _introController,
-        curve: const Interval(
-          0.24,
-          0.90,
-          curve: Curves.easeOutCubic,
-        ),
-      ),
-    );
+    _copySlide = Tween<Offset>(begin: const Offset(0, 0.075), end: Offset.zero)
+        .animate(
+          CurvedAnimation(
+            parent: _introController,
+            curve: const Interval(0.24, 0.90, curve: Curves.easeOutCubic),
+          ),
+        );
 
     _heroFade = CurvedAnimation(
       parent: _introController,
-      curve: const Interval(
-        0.0,
-        0.66,
-        curve: Curves.easeOut,
-      ),
+      curve: const Interval(0.0, 0.66, curve: Curves.easeOut),
     );
 
-    _heroScale = Tween<double>(
-      begin: 0.88,
-      end: 1,
-    ).animate(
+    _heroScale = Tween<double>(begin: 0.88, end: 1).animate(
       CurvedAnimation(
         parent: _introController,
-        curve: const Interval(
-          0.0,
-          0.85,
-          curve: Curves.easeOutCubic,
-        ),
+        curve: const Interval(0.0, 0.85, curve: Curves.easeOutCubic),
       ),
     );
 
-    _heroRise = Tween<double>(
-      begin: 42,
-      end: 0,
-    ).animate(
+    _heroRise = Tween<double>(begin: 42, end: 0).animate(
       CurvedAnimation(
         parent: _introController,
-        curve: const Interval(
-          0.0,
-          0.78,
-          curve: Curves.easeOutCubic,
-        ),
+        curve: const Interval(0.0, 0.78, curve: Curves.easeOutCubic),
       ),
     );
 
-    _floatY = Tween<double>(
-      begin: -7,
-      end: 7,
-    ).animate(
-      CurvedAnimation(
-        parent: _floatController,
-        curve: Curves.easeInOut,
-      ),
+    _floatY = Tween<double>(begin: -7, end: 7).animate(
+      CurvedAnimation(parent: _floatController, curve: Curves.easeInOut),
     );
   }
 
@@ -178,19 +142,10 @@ class _LandingPageState extends State<LandingPage>
     Navigator.of(context).pushReplacement(
       PageRouteBuilder<void>(
         transitionDuration: const Duration(milliseconds: 650),
-        pageBuilder: (
-          context,
-          animation,
-          secondaryAnimation,
-        ) {
+        pageBuilder: (context, animation, secondaryAnimation) {
           return const AuthGate();
         },
-        transitionsBuilder: (
-          context,
-          animation,
-          secondaryAnimation,
-          child,
-        ) {
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(
             opacity: CurvedAnimation(
               parent: animation,
@@ -285,11 +240,7 @@ class _LandingPageState extends State<LandingPage>
                   'SOLEA hadir untuk menemani setiap langkah '
                   'dengan gaya yang sederhana, nyaman, dan '
                   'penuh karakter.',
-                  style: TextStyle(
-                    color: _muted,
-                    fontSize: 14,
-                    height: 1.8,
-                  ),
+                  style: TextStyle(color: _muted, fontSize: 14, height: 1.8),
                 ),
                 const SizedBox(height: 22),
                 Align(
@@ -298,10 +249,7 @@ class _LandingPageState extends State<LandingPage>
                     onPressed: () {
                       Navigator.pop(dialogContext);
                     },
-                    child: const Text(
-                      'Tutup',
-                      style: TextStyle(color: _ivory),
-                    ),
+                    child: const Text('Tutup', style: TextStyle(color: _ivory)),
                   ),
                 ),
               ],
@@ -351,11 +299,7 @@ class _LandingPageState extends State<LandingPage>
                   'Informasi kontak dan layanan pelanggan '
                   'dapat ditambahkan di bagian berikutnya '
                   'saat halaman SOLEA dikembangkan.',
-                  style: TextStyle(
-                    color: _muted,
-                    fontSize: 14,
-                    height: 1.8,
-                  ),
+                  style: TextStyle(color: _muted, fontSize: 14, height: 1.8),
                 ),
                 const SizedBox(height: 22),
                 Align(
@@ -364,10 +308,7 @@ class _LandingPageState extends State<LandingPage>
                     onPressed: () {
                       Navigator.pop(dialogContext);
                     },
-                    child: const Text(
-                      'Tutup',
-                      style: TextStyle(color: _ivory),
-                    ),
+                    child: const Text('Tutup', style: TextStyle(color: _ivory)),
                   ),
                 ),
               ],
@@ -441,9 +382,7 @@ class _LandingPageState extends State<LandingPage>
                   );
                 }
 
-                return _buildMobile(
-                  constraints.maxWidth,
-                );
+                return _buildMobile(constraints.maxWidth);
               },
             ),
           ),
@@ -472,10 +411,7 @@ class _LandingPageState extends State<LandingPage>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  flex: 5,
-                  child: _buildMessage(desktop: true),
-                ),
+                Expanded(flex: 5, child: _buildMessage(desktop: true)),
                 const SizedBox(width: 12),
                 Expanded(
                   flex: 7,
@@ -504,12 +440,7 @@ class _LandingPageState extends State<LandingPage>
   Widget _buildMobile(double width) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(
-        20,
-        14,
-        20,
-        24,
-      ),
+      padding: const EdgeInsets.fromLTRB(20, 14, 20, 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -538,95 +469,76 @@ class _LandingPageState extends State<LandingPage>
   // HEADER + NAVIGATION
   // =========================================================
 
-Widget _buildHeader({
-  required bool desktop,
-}) {
-  return Row(
-    children: [
-      // LOGO SOLEA + SOFT GLOW
-      Container(
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFFF3EFE5).withValues(alpha: 0.12),
-              blurRadius: 24,
-              spreadRadius: 1,
-            ),
-            BoxShadow(
-              color: const Color(0xFFB9BEA0).withValues(alpha: 0.07),
-              blurRadius: 40,
-              spreadRadius: 4,
-            ),
-          ],
-        ),
-        child: Image.asset(
-          'assets/images/solea_logo.png',
-          width: desktop ? 150 : 112,
-          height: desktop ? 46 : 36,
-          fit: BoxFit.contain,
-          filterQuality: FilterQuality.high,
-          errorBuilder: (context, error, stackTrace) {
-            return const Text(
-              'SOLEA',
-              style: TextStyle(
-                color: Color(0xFFF3EFE5),
-                fontSize: 20,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 4,
+  Widget _buildHeader({required bool desktop}) {
+    return Row(
+      children: [
+        // LOGO SOLEA + SOFT GLOW
+        Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFFF3EFE5).withValues(alpha: 0.12),
+                blurRadius: 24,
+                spreadRadius: 1,
               ),
-            );
-          },
-        ),
-      ),
-
-      const Spacer(),
-
-      if (desktop) ...[
-        _navLink('Home', 0),
-        _navLink('Collection', 1),
-        _navLink('Story', 2),
-        _navLink('Contact', 3),
-        const Spacer(),
-      ],
-
-      Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 13,
-          vertical: 9,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.035),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: 0.10),
+              BoxShadow(
+                color: const Color(0xFFB9BEA0).withValues(alpha: 0.07),
+                blurRadius: 40,
+                spreadRadius: 4,
+              ),
+            ],
           ),
-          borderRadius: BorderRadius.circular(999),
+          child: Image.asset(
+            'assets/images/solea_logo.png',
+            width: desktop ? 150 : 112,
+            height: desktop ? 46 : 36,
+            fit: BoxFit.contain,
+            filterQuality: FilterQuality.high,
+            errorBuilder: (context, error, stackTrace) {
+              return const Text(
+                'SOLEA',
+                style: TextStyle(
+                  color: Color(0xFFF3EFE5),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 4,
+                ),
+              );
+            },
+          ),
         ),
-        child: const Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.circle,
-              color: Color(0xFFB9BEA0),
-              size: 6,
-            ),
-            SizedBox(width: 8),
-            Text(
-              'FOOTWEAR / VOL. 01',
-              style: TextStyle(
-                color: Color(0xFFC1C3B9),
-                fontSize: 9,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.2,
+
+        const Spacer(),
+
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 9),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.035),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.circle, color: Color(0xFFB9BEA0), size: 6),
+              SizedBox(width: 8),
+              Text(
+                'FOOTWEAR / VOL. 01',
+                style: TextStyle(
+                  color: Color(0xFFC1C3B9),
+                  fontSize: 9,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
   Widget _navLink(String label, int index) {
     final isActive = _activeNav == index;
@@ -637,10 +549,7 @@ Widget _buildHeader({
         onPressed: () => _onNavTap(index),
         style: TextButton.styleFrom(
           foregroundColor: isActive ? _ivory : _muted,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 3,
-            vertical: 12,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 12),
           minimumSize: Size.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
@@ -651,9 +560,7 @@ Widget _buildHeader({
               label,
               style: TextStyle(
                 fontSize: 12,
-                fontWeight: isActive
-                    ? FontWeight.w700
-                    : FontWeight.w500,
+                fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                 letterSpacing: 0.2,
               ),
             ),
@@ -677,9 +584,7 @@ Widget _buildHeader({
   // LEFT HERO COPY
   // =========================================================
 
-  Widget _buildMessage({
-    required bool desktop,
-  }) {
+  Widget _buildMessage({required bool desktop}) {
     return FadeTransition(
       opacity: _copyFade,
       child: SlideTransition(
@@ -687,12 +592,8 @@ Widget _buildHeader({
         child: LayoutBuilder(
           builder: (context, constraints) {
             final titleSize = desktop
-                ? (constraints.maxWidth * 0.145)
-                    .clamp(47.0, 82.0)
-                    .toDouble()
-                : (constraints.maxWidth * 0.115)
-                    .clamp(38.0, 58.0)
-                    .toDouble();
+                ? (constraints.maxWidth * 0.145).clamp(47.0, 82.0).toDouble()
+                : (constraints.maxWidth * 0.115).clamp(38.0, 58.0).toDouble();
 
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -704,19 +605,13 @@ Widget _buildHeader({
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: _olive.withValues(alpha: 0.35),
-                    ),
+                    border: Border.all(color: _olive.withValues(alpha: 0.35)),
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.auto_awesome,
-                        color: _olive,
-                        size: 13,
-                      ),
+                      Icon(Icons.auto_awesome, color: _olive, size: 13),
                       SizedBox(width: 8),
                       Text(
                         'THE ART OF EVERYDAY MOVEMENT',
@@ -736,9 +631,7 @@ Widget _buildHeader({
                 Text.rich(
                   TextSpan(
                     children: [
-                      const TextSpan(
-                        text: 'STEP INTO\n',
-                      ),
+                      const TextSpan(text: 'STEP INTO\n'),
                       TextSpan(
                         text: 'YOUR WORLD.',
                         style: TextStyle(
@@ -769,11 +662,7 @@ Widget _buildHeader({
                   child: Text(
                     'Bukan sekadar langkah. Ini tentang cara kamu '
                     'mengekspresikan diri.',
-                    style: TextStyle(
-                      color: _muted,
-                      fontSize: 14,
-                      height: 1.9,
-                    ),
+                    style: TextStyle(color: _muted, fontSize: 14, height: 1.9),
                   ),
                 ),
 
@@ -819,41 +708,24 @@ Widget _buildHeader({
   // BRAND STATS
   // =========================================================
 
-  Widget _buildBrandStats({
-    required bool desktop,
-  }) {
+  Widget _buildBrandStats({required bool desktop}) {
     return Row(
       children: [
-        Expanded(
-          child: _stat(
-            '01',
-            'PREMIUM\nQUALITY',
-          ),
-        ),
+        Expanded(child: _stat('01', 'PREMIUM\nQUALITY')),
         Container(
           width: 1,
           height: 46,
           color: _line,
           margin: const EdgeInsets.symmetric(horizontal: 12),
         ),
-        Expanded(
-          child: _stat(
-            '∞',
-            'EVERYDAY\nMOVEMENT',
-          ),
-        ),
+        Expanded(child: _stat('∞', 'EVERYDAY\nMOVEMENT')),
         Container(
           width: 1,
           height: 46,
           color: _line,
           margin: const EdgeInsets.symmetric(horizontal: 12),
         ),
-        Expanded(
-          child: _stat(
-            '◎',
-            'MADE\nFOR YOU',
-          ),
-        ),
+        Expanded(child: _stat('◎', 'MADE\nFOR YOU')),
       ],
     );
   }
@@ -912,14 +784,9 @@ Widget _buildHeader({
             borderRadius: BorderRadius.circular(15),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 220),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 19,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 19),
               decoration: BoxDecoration(
-                color: _buttonHovered
-                    ? const Color(0xFFDDE1C9)
-                    : _ivory,
+                color: _buttonHovered ? const Color(0xFFDDE1C9) : _ivory,
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
@@ -961,10 +828,7 @@ Widget _buildHeader({
   // RIGHT HERO STAGE
   // =========================================================
 
-  Widget _buildHeroStage(
-    double width,
-    double height,
-  ) {
+  Widget _buildHeroStage(double width, double height) {
     // Aset berisi sneaker dan shoebox sekaligus.
     // Karena itu tidak ada CustomPainter untuk menggambar kotak.
     final imageWidth = math.min(width * 1.06, 790.0);
@@ -999,14 +863,11 @@ Widget _buildHeader({
           _orbitController,
         ]),
         builder: (context, _) {
-          final floatY =
-              _reduceMotion ? 0.0 : _floatY.value;
+          final floatY = _reduceMotion ? 0.0 : _floatY.value;
 
-          final pointerX =
-              _reduceMotion ? 0.0 : _pointerX;
+          final pointerX = _reduceMotion ? 0.0 : _pointerX;
 
-          final pointerY =
-              _reduceMotion ? 0.0 : _pointerY;
+          final pointerY = _reduceMotion ? 0.0 : _pointerY;
 
           return Stack(
             clipBehavior: Clip.none,
@@ -1073,9 +934,7 @@ Widget _buildHeader({
                     child: Transform.translate(
                       offset: Offset(
                         pointerX * 18,
-                        _heroRise.value +
-                            floatY +
-                            pointerY * 10,
+                        _heroRise.value + floatY + pointerY * 10,
                       ),
                       child: Transform.scale(
                         scale: _heroScale.value,
@@ -1086,11 +945,7 @@ Widget _buildHeader({
                             width: imageWidth,
                             fit: BoxFit.contain,
                             filterQuality: FilterQuality.high,
-                            errorBuilder: (
-                              context,
-                              error,
-                              stackTrace,
-                            ) {
+                            errorBuilder: (context, error, stackTrace) {
                               return SizedBox(
                                 width: imageWidth,
                                 height: height * 0.70,
@@ -1115,28 +970,19 @@ Widget _buildHeader({
               Positioned(
                 right: 2,
                 top: height * 0.26,
-                child: _verticalMarker(
-                  '01',
-                  'MOVEMENT',
-                ),
+                child: _verticalMarker('01', 'MOVEMENT'),
               ),
 
               Positioned(
                 right: 2,
                 top: height * 0.49,
-                child: _verticalMarker(
-                  '02',
-                  'LIFESTYLE',
-                ),
+                child: _verticalMarker('02', 'LIFESTYLE'),
               ),
 
               Positioned(
                 right: 2,
                 top: height * 0.72,
-                child: _verticalMarker(
-                  '03',
-                  'YOU',
-                ),
+                child: _verticalMarker('03', 'YOU'),
               ),
 
               // Small orbit particles.
@@ -1181,10 +1027,7 @@ Widget _buildHeader({
   // VERTICAL MARKERS
   // =========================================================
 
-  Widget _verticalMarker(
-    String number,
-    String label,
-  ) {
+  Widget _verticalMarker(String number, String label) {
     return IgnorePointer(
       child: SizedBox(
         width: 72,
@@ -1211,11 +1054,7 @@ Widget _buildHeader({
               ),
             ),
             const SizedBox(height: 14),
-            Container(
-              width: 1,
-              height: 40,
-              color: _line,
-            ),
+            Container(width: 1, height: 40, color: _line),
           ],
         ),
       ),
@@ -1231,10 +1070,7 @@ Widget _buildHeader({
           color: _olive,
           shape: BoxShape.circle,
           boxShadow: [
-            BoxShadow(
-              color: _olive.withValues(alpha: 0.65),
-              blurRadius: 13,
-            ),
+            BoxShadow(color: _olive.withValues(alpha: 0.65), blurRadius: 13),
           ],
         ),
       ),
@@ -1250,37 +1086,23 @@ Widget _buildHeader({
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: const Color(0xFF10120F).withValues(alpha: 0.88),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.15),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
         borderRadius: BorderRadius.circular(17),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _colorwayTile(
-            const Color(0xFFF0ECE2),
-            selected: true,
-          ),
+          _colorwayTile(const Color(0xFFF0ECE2), selected: true),
           const SizedBox(width: 6),
-          _colorwayTile(
-            const Color(0xFF2D302B),
-            selected: false,
-          ),
+          _colorwayTile(const Color(0xFF2D302B), selected: false),
           const SizedBox(width: 6),
-          _colorwayTile(
-            const Color(0xFF858A70),
-            selected: false,
-          ),
+          _colorwayTile(const Color(0xFF858A70), selected: false),
         ],
       ),
     );
   }
 
-  Widget _colorwayTile(
-    Color color, {
-    required bool selected,
-  }) {
+  Widget _colorwayTile(Color color, {required bool selected}) {
     return Container(
       width: 46,
       height: 48,
@@ -1293,11 +1115,7 @@ Widget _buildHeader({
         borderRadius: BorderRadius.circular(10),
       ),
       alignment: Alignment.center,
-      child: Icon(
-        Icons.directions_run_rounded,
-        size: 24,
-        color: color,
-      ),
+      child: Icon(Icons.directions_run_rounded, size: 24, color: color),
     );
   }
 
@@ -1307,10 +1125,7 @@ Widget _buildHeader({
 
   Widget _buildFooter() {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 8,
-        bottom: 4,
-      ),
+      padding: const EdgeInsets.only(top: 8, bottom: 4),
       child: Row(
         children: [
           const Text(
@@ -1323,12 +1138,7 @@ Widget _buildHeader({
             ),
           ),
           const SizedBox(width: 16),
-          Expanded(
-            child: Container(
-              height: 1,
-              color: _line,
-            ),
-          ),
+          Expanded(child: Container(height: 1, color: _line)),
           const SizedBox(width: 16),
           const Text(
             'EST. SOLEA',
@@ -1353,17 +1163,11 @@ class _OrbitPainter extends CustomPainter {
   final double progress;
   final Color accent;
 
-  const _OrbitPainter({
-    required this.progress,
-    required this.accent,
-  });
+  const _OrbitPainter({required this.progress, required this.accent});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(
-      size.width * 0.49,
-      size.height * 0.47,
-    );
+    final center = Offset(size.width * 0.49, size.height * 0.47);
 
     final firstRect = Rect.fromCenter(
       center: center,
@@ -1408,13 +1212,7 @@ class _OrbitPainter extends CustomPainter {
       ..strokeWidth = 1.4
       ..strokeCap = StrokeCap.round;
 
-    canvas.drawArc(
-      thirdRect,
-      progress * math.pi * 2,
-      0.58,
-      false,
-      orbitPaint,
-    );
+    canvas.drawArc(thirdRect, progress * math.pi * 2, 0.58, false, orbitPaint);
 
     final secondaryPaint = Paint()
       ..color = accent.withValues(alpha: 0.30)
@@ -1434,7 +1232,6 @@ class _OrbitPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _OrbitPainter oldDelegate) {
-    return oldDelegate.progress != progress ||
-        oldDelegate.accent != accent;
+    return oldDelegate.progress != progress || oldDelegate.accent != accent;
   }
 }
