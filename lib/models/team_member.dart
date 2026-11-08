@@ -90,26 +90,26 @@ const List<Map<String, dynamic>> teamMembersData = [
     ],
   },
   {
-    'name': 'Nadia Putri',
-    'nim': '2301010028',
+    'name': 'Jois Miranda Agunning Putri',
+    'nim': '25051204427',
     'role': 'Frontend & Catalog Engineer',
     'photo':
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
+        'https://media.licdn.com/dms/image/v2/D5603AQH1UXXzjaFPOA/profile-displayphoto-crop_800_800/B56ZupYGfvIsAI-/0/1768073228140?e=1795651200&v=beta&t=xG99zReVsylWlroAsANsUkFEmr8C5fxWM45qdnJGUNQ',
     'links': <Map<String, String>>[
       {
         'type': 'github',
-        'label': 'nadiaputri',
-        'url': 'https://github.com/',
+        'label': 'MirandaAP',
+        'url': 'https://github.com/MirandaAP',
       },
       {
         'type': 'instagram',
-        'label': '@nadia.codes',
-        'url': 'https://instagram.com/',
+        'label': '@joismrnda',
+        'url': 'https://instagram.com/joismrnda',
       },
       {
         'type': 'linkedin',
-        'label': 'Nadia Putri',
-        'url': 'https://linkedin.com/',
+        'label': 'Jois Miranda',
+        'url': 'https://www.linkedin.com/in/joismiranda',
       },
     ],
   },
