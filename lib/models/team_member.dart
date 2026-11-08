@@ -150,30 +150,29 @@ const List<Map<String, dynamic>> teamMembersData = [
       },
     ],
   },
-  {
-    'name': 'Dimas Arya',
-    'nim': '2301010045',
-    'role': 'State Management & Checkout Flow',
-    'photo':
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
-    'links': <Map<String, String>>[
-      {
-        'type': 'github',
-        'label': 'dimasarya',
-        'url': 'https://github.com/',
-      },
-      {
-        'type': 'instagram',
-        'label': '@dimas.arya',
-        'url': 'https://instagram.com/',
-      },
-      {
-        'type': 'linkedin',
-        'label': 'Dimas Arya',
-        'url': 'https://linkedin.com/',
-      },
-    ],
-  },
+{
+  'name': 'Celvin Saputra Pratama',
+  'nim': '25051204439',
+  'role': 'Frontend Developer',
+  'photo': 'https://i.ibb.co.com/svHmmZXW/walpaper.jpg',
+  'links': <Map<String, String>>[
+    {
+      'type': 'github',
+      'label': 'kelvinsaputraprt-code',
+      'url': 'https://github.com/kelvinsaputraprt-code',
+    },
+    {
+      'type': 'instagram',
+      'label': '@celvinssspp',
+      'url': 'https://instagram.com/celvinssspp',
+    },
+    {
+      'type': 'linkedin',
+      'label': 'Celvin Saputra Pratama',
+      'url': 'https://www.linkedin.com/in/celvinsaputra-pratama-0ab24b44a',
+    },
+  ],
+},
   {
     'name': 'Bagas Prakoso',
     'nim': '2301010052',
