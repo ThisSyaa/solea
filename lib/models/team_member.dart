@@ -1,13 +1,3 @@
-// ============================================================
-// TEAM MEMBER MODEL & DATA
-// ============================================================
-// Edit daftar `teamMembersData` di bawah ini untuk mengubah,
-// menambah, atau mengurangi anggota tim.
-// Maksimal jumlah anggota kelompok yang ditampilkan adalah 7 orang.
-// Jika `photo` dikosongkan ('') atau gagal dimuat, otomatis
-// diganti dengan placeholder siluet.
-
-/// Batas maksimal jumlah anggota kelompok di halaman About Us.
 const int maxTeamMembers = 7;
 
 class TeamSocialLink {
@@ -114,7 +104,7 @@ const List<Map<String, dynamic>> teamMembersData = [
     ],
   },
   {
-    'name': 'Muhammad Syafiq Asshidiq',
+    'name': 'Muhammad Syafiq As Shidiq',
     'nim': '2301010001',
     'role': 'Lead Developer & Firebase Architect',
     'photo':
@@ -127,12 +117,12 @@ const List<Map<String, dynamic>> teamMembersData = [
       },
       {
         'type': 'instagram',
-        'label': '@syafiq.asshidiq',
+        'label': '@syaaaaxii',
         'url': 'https://instagram.com/',
       },
       {
         'type': 'linkedin',
-        'label': 'Muhammad Syafiq',
+        'label': 'Muhammad Syafiq asshidiq',
         'url': 'https://linkedin.com/',
       },
     ],
