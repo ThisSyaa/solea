@@ -1,4 +1,5 @@
 import '../models/product.dart';
+import '../services/product_service.dart';
 
 class ProductController {
   static const categories = [
@@ -11,7 +12,36 @@ class ProductController {
     'Training',
   ];
 
-  static const products = <Product>[
+  /// Daftar produk yang dipakai seluruh halaman.
+  /// Awalnya berisi data lokal (cadangan), lalu diganti data dari API
+  static List<Product> products = _fallbackProducts;
+
+  static bool loadedFromApi = false;
+
+  /// Panggil sekali di main() sebelum runApp().
+  static Future<void> load() async {
+    try {
+      final result = await ProductService().fetchProducts();
+      if (result.isNotEmpty) {
+        products = result;
+        loadedFromApi = true;
+      }
+    } catch (_) {
+      // API gagal -> tetap pakai data lokal.
+      products = _fallbackProducts;
+      loadedFromApi = false;
+    }
+  }
+
+  static List<Product> byCategory(String category) {
+    if (category == 'Semua') return products;
+    return products.where((p) => p.category == category).toList();
+  }
+
+  // ----------------------------------------------------------
+  // Data lokal lama (cadangan kalau API tidak bisa diakses)
+  // ----------------------------------------------------------
+  static const _fallbackProducts = <Product>[
     Product(
       name: 'Air Runner Pro',
       category: 'Running',
@@ -93,9 +123,4 @@ class ProductController {
           'Model training modern dengan upper breathable dan fit nyaman.',
     ),
   ];
-
-  static List<Product> byCategory(String category) {
-    if (category == 'Semua') return products;
-    return products.where((p) => p.category == category).toList();
-  }
 }
