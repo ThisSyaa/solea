@@ -105,7 +105,7 @@ const List<Map<String, dynamic>> teamMembersData = [
   },
   {
     'name': 'Muhammad Syafiq As Shidiq',
-    'nim': '2301010001',
+    'nim': '25051204397',
     'role': 'Lead Developer & Firebase Architect',
     'photo':
         'https://avatars.githubusercontent.com/u/174694675?v=4',
