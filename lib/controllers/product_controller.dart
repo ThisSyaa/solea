@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart' show rootBundle;
+
 import '../models/product.dart';
 import '../services/product_service.dart';
 
@@ -19,7 +23,25 @@ class ProductController {
   static bool loadedFromApi = false;
 
   /// Panggil sekali di main() sebelum runApp().
+  /// Urutan sumber data:
+  ///   1. assets/data/products.json  (katalog hasil generate dari Pexels)
+  ///   2. DummyJSON API              (kalau file di atas tidak ada)
+  ///   3. Data lokal                 (cadangan terakhir)
   static Future<void> load() async {
+    try {
+      final raw = await rootBundle.loadString('assets/data/products.json');
+      final list = (jsonDecode(raw) as List)
+          .map((e) => Product.fromJson(e as Map<String, dynamic>))
+          .toList();
+      if (list.isNotEmpty) {
+        products = list;
+        loadedFromApi = true;
+        return;
+      }
+    } catch (_) {
+      // File katalog belum ada / rusak -> lanjut ke DummyJSON.
+    }
+
     try {
       final result = await ProductService().fetchProducts();
       if (result.isNotEmpty) {

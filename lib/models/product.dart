@@ -24,6 +24,28 @@ class Product {
     this.images = const [],
   });
 
+  /// Mengubah satu item dari assets/data/products.json (hasil
+  /// tools/generate_products.mjs) menjadi Product.
+  factory Product.fromJson(Map<String, dynamic> json) {
+    final sizes = ((json['sizes'] as List?) ?? const [])
+        .map((e) => (e as num).toInt())
+        .toList();
+
+    return Product(
+      name: json['name'] as String,
+      category: json['category'] as String,
+      price: (json['price'] as num).toInt(),
+      imageUrl: json['imageUrl'] as String,
+      rating: (json['rating'] as num).toDouble(),
+      description: (json['description'] as String?) ??
+          'Sepatu nyaman dengan desain modern untuk menemani aktivitas sehari-hari.',
+      sizes: sizes.isEmpty ? const [39, 40, 41, 42, 43] : sizes,
+      images: ((json['images'] as List?) ?? const [])
+          .map((e) => e.toString())
+          .toList(),
+    );
+  }
+
   /// Mengubah JSON dari DummyJSON (https://dummyjson.com) menjadi Product.
   factory Product.fromDummyJson(Map<String, dynamic> json) {
     final title = (json['title'] ?? 'Sepatu') as String;

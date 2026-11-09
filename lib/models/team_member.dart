@@ -56,7 +56,7 @@ class TeamMember {
 /// `{ name, nim, role, photo, links: [{type, label, url}] }`.
 const List<Map<String, dynamic>> teamMembersData = [
   {
-    'name': 'Raka Pratama',
+    'name': 'Mohammad Alvin Firmansyah',
     'nim': '2301010012',
     'role': 'UI/UX Designer & Visual Direction',
     'photo':
@@ -64,18 +64,18 @@ const List<Map<String, dynamic>> teamMembersData = [
     'links': <Map<String, String>>[
       {
         'type': 'github',
-        'label': 'rakapratama',
-        'url': 'https://github.com/',
+        'label': 'alvinskie',
+        'url': 'https://github.com/alvinskie',
       },
       {
         'type': 'instagram',
-        'label': '@raka.design',
-        'url': 'https://instagram.com/',
+        'label': '@alvinskiex9',
+        'url': 'https://www.instagram.com/alvinskiex9/',
       },
       {
         'type': 'linkedin',
-        'label': 'Raka Pratama',
-        'url': 'https://linkedin.com/',
+        'label': 'Mohammad Alvin Firmansyah',
+        'url': 'https://linkedin.com/in/mohammad-alvin-firmansyah',
       },
     ],
   },
