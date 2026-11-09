@@ -173,6 +173,25 @@ const List<Map<String, dynamic>> teamMembersData = [
     },
   ],
 },
+{
+  'name': 'Mandriva Radithya Cahyadi',
+  'nim': '25051204406',
+  'role': 'Frontend',
+  'photo': 'https://avatars.githubusercontent.com/u/333910590?s=400&u=cd89af107821437b265a1c6261e242f22712d967&v=4',
+  'links': <Map<String, String>>[
+    {
+      'type': 'github',
+      'label': 'mdvpwd',
+      'url': 'https://github.com/mdvpwd',
+    },
+    {
+      'type': 'instagram',
+      'label': '@mndrivardtyaa',
+      'url': 'https://www.instagram.com/mndrivardtyaa',
+    },
+    
+  ],
+},
   {
     'name': 'Bagas Prakoso',
     'nim': '2301010052',
