@@ -29,3 +29,4 @@ flutter:
   assets:
     - assets/images/solea_sneaker.png
     - assets/images/solea_logo.png
+    - assets/data/products.json
