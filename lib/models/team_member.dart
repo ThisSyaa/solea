@@ -37,8 +37,7 @@ class TeamMember {
   });
 
   factory TeamMember.fromMap(Map<String, dynamic> map) {
-    final rawLinks =
-        (map['links'] as List<dynamic>? ?? const []);
+    final rawLinks = (map['links'] as List<dynamic>? ?? const []);
     return TeamMember(
       name: (map['name'] as String?) ?? '',
       nim: (map['nim'] as String?) ?? '',
@@ -59,8 +58,7 @@ const List<Map<String, dynamic>> teamMembersData = [
     'name': 'Mohammad Alvin Firmansyah',
     'nim': '2301010012',
     'role': 'UI/UX Designer & Visual Direction',
-    'photo':
-        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    'photo': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
     'links': <Map<String, String>>[
       {
         'type': 'github',
@@ -83,8 +81,7 @@ const List<Map<String, dynamic>> teamMembersData = [
     'name': 'Jois Miranda Agunning Putri',
     'nim': '25051204427',
     'role': 'Frontend & Catalog Engineer',
-    'photo':
-        'https://media.licdn.com/dms/image/v2/D5603AQH1UXXzjaFPOA/profile-displayphoto-crop_800_800/B56ZupYGfvIsAI-/0/1768073228140?e=1795651200&v=beta&t=xG99zReVsylWlroAsANsUkFEmr8C5fxWM45qdnJGUNQ',
+    'photo': 'https://media.licdn.com/dms/image/v2/D5603AQH1UXXzjaFPOA/profile-displayphoto-crop_800_800/B56ZupYGfvIsAI-/0/1768073228140?e=1795651200&v=beta&t=xG99zReVsylWlroAsANsUkFEmr8C5fxWM45qdnJGUNQ',
     'links': <Map<String, String>>[
       {
         'type': 'github',
@@ -107,8 +104,7 @@ const List<Map<String, dynamic>> teamMembersData = [
     'name': 'Muhammad Syafiq As Shidiq',
     'nim': '25051204397',
     'role': 'Lead Developer & Firebase Architect',
-    'photo':
-        'https://avatars.githubusercontent.com/u/174694675?v=4',
+    'photo': 'https://avatars.githubusercontent.com/u/174694675?v=4',
     'links': <Map<String, String>>[
       {
         'type': 'github',
@@ -150,69 +146,58 @@ const List<Map<String, dynamic>> teamMembersData = [
       },
     ],
   },
-{
-  'name': 'Celvin Saputra Pratama',
-  'nim': '25051204439',
-  'role': 'Frontend Developer',
-  'photo': 'https://i.ibb.co.com/svHmmZXW/walpaper.jpg',
-  'links': <Map<String, String>>[
-    {
-      'type': 'github',
-      'label': 'kelvinsaputraprt-code',
-      'url': 'https://github.com/kelvinsaputraprt-code',
-    },
-    {
-      'type': 'instagram',
-      'label': '@celvinssspp',
-      'url': 'https://instagram.com/celvinssspp',
-    },
-    {
-      'type': 'linkedin',
-      'label': 'Celvin Saputra Pratama',
-      'url': 'https://www.linkedin.com/in/celvinsaputra-pratama-0ab24b44a',
-    },
-  ],
-},
-{
-  'name': 'Mandriva Radithya Cahyadi',
-  'nim': '25051204406',
-  'role': 'Frontend',
-  'photo': 'https://avatars.githubusercontent.com/u/333910590?s=400&u=cd89af107821437b265a1c6261e242f22712d967&v=4',
-  'links': <Map<String, String>>[
-    {
-      'type': 'github',
-      'label': 'mdvpwd',
-      'url': 'https://github.com/mdvpwd',
-    },
-    {
-      'type': 'instagram',
-      'label': '@mndrivardtyaa',
-      'url': 'https://www.instagram.com/mndrivardtyaa',
-    },
-    
-  ],
-},
   {
-    'name': 'Bagas Prakoso',
-    'nim': '2301010052',
-    'role': 'Authentication & Security Specialist',
-    'photo':
-        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80',
+    'name': 'Celvin Saputra Pratama',
+    'nim': '25051204439',
+    'role': 'Frontend Developer',
+    'photo': 'https://i.ibb.co.com/svHmmZXW/walpaper.jpg',
     'links': <Map<String, String>>[
       {
         'type': 'github',
-        'label': 'bagasprakoso',
-        'url': 'https://github.com/',
+        'label': 'kelvinsaputraprt-code',
+        'url': 'https://github.com/kelvinsaputraprt-code',
       },
       {
         'type': 'instagram',
-        'label': '@bagas.prk',
-        'url': 'https://instagram.com/',
+        'label': '@celvinssspp',
+        'url': 'https://instagram.com/celvinssspp',
       },
       {
         'type': 'linkedin',
-        'label': 'Bagas Prakoso',
-        'url': 'https://linkedin.com/',
+        'label': 'Celvin Saputra Pratama',
+        'url': 'https://www.linkedin.com/in/celvinsaputra-pratama-0ab24b44a',
+      },
+    ],
+  },
+  {
+    'name': 'Mandriva Radithya Cahyadi',
+    'nim': '25051204406',
+    'role': 'Frontend',
+    'photo': 'https://avatars.githubusercontent.com/u/333910590?s=400&u=cd89af107821437b265a1c6261e242f22712d967&v=4',
+    'links': <Map<String, String>>[
+      {'type': 'github', 'label': 'mdvpwd', 'url': 'https://github.com/mdvpwd'},
+      {
+        'type': 'instagram',
+        'label': '@mndrivardtyaa',
+        'url': 'https://www.instagram.com/mndrivardtyaa',
+      },
+    ],
+  },
+  {
+    'name': 'Shelomita dewi metanfanuan',
+    'nim': '250512043922',
+    'role': 'Frontend',
+    'photo': 'https://avatars.githubusercontent.com/u/274530291?s=400&u=361bc08c9f4fd64cc32e4fefa9f5c11aa16a2fdc&v=4',
+    'links': <Map<String, String>>[
+      {
+        'type': 'github',
+        'label': 'shelomitaaa',
+        'url': 'https://github.com/shelomitaaa',
+      },
+      {
+        'type': 'instagram',
+        'label': '@shelomitaaa__',
+        'url': 'https://instagram.com/shelomitaaa__',
       },
     ],
   },
@@ -223,11 +208,7 @@ const List<Map<String, dynamic>> teamMembersData = [
     // Contoh anggota tanpa URL foto -> otomatis menampilkan placeholder siluet
     'photo': '',
     'links': <Map<String, String>>[
-      {
-        'type': 'github',
-        'label': 'alyamaharani',
-        'url': 'https://github.com/',
-      },
+      {'type': 'github', 'label': 'alyamaharani', 'url': 'https://github.com/'},
       {
         'type': 'instagram',
         'label': '@alya.mhrn',
