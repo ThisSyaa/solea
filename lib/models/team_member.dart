@@ -56,9 +56,9 @@ class TeamMember {
 const List<Map<String, dynamic>> teamMembersData = [
   {
     'name': 'Mohammad Alvin Firmansyah',
-    'nim': '2301010012',
+    'nim': '25051204401',
     'role': 'UI/UX Designer & Visual Direction',
-    'photo': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    'photo': 'https://avatars.githubusercontent.com/u/183807912?s=400&u=1b50f17f5f73eed4487ce5af2379724a9deea7ad&v=4',
     'links': <Map<String, String>>[
       {
         'type': 'github',
@@ -185,7 +185,7 @@ const List<Map<String, dynamic>> teamMembersData = [
   },
   {
     'name': 'Shelomita dewi metanfanuan',
-    'nim': '250512043922',
+    'nim': '25051204392',
     'role': 'Frontend',
     'photo': 'https://avatars.githubusercontent.com/u/274530291?s=400&u=361bc08c9f4fd64cc32e4fefa9f5c11aa16a2fdc&v=4',
     'links': <Map<String, String>>[
@@ -198,26 +198,6 @@ const List<Map<String, dynamic>> teamMembersData = [
         'type': 'instagram',
         'label': '@shelomitaaa__',
         'url': 'https://instagram.com/shelomitaaa__',
-      },
-    ],
-  },
-  {
-    'name': 'Alya Maharani',
-    'nim': '2301010063',
-    'role': 'Quality Assurance & Documentation',
-    // Contoh anggota tanpa URL foto -> otomatis menampilkan placeholder siluet
-    'photo': '',
-    'links': <Map<String, String>>[
-      {'type': 'github', 'label': 'alyamaharani', 'url': 'https://github.com/'},
-      {
-        'type': 'instagram',
-        'label': '@alya.mhrn',
-        'url': 'https://instagram.com/',
-      },
-      {
-        'type': 'linkedin',
-        'label': 'Alya Maharani',
-        'url': 'https://linkedin.com/',
       },
     ],
   },

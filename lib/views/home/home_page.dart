@@ -1105,38 +1105,11 @@ class _NavBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // LOGO
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 34,
-                height: 34,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius:
-                      BorderRadius.circular(9),
-                ),
-                child: const Icon(
-                  Icons.directions_run_rounded,
-                  size: 18,
-                  color: Colors.white,
-                ),
-              ),
-
-              const SizedBox(width: 10),
-
-              const Text(
-                'SOLEA',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1.4,
-                  color: AppColors.ink,
-                ),
-              ),
-            ],
+                    // LOGO
+          Image.asset(
+            'assets/images/solea_logo2.png',
+            height: 32,
+            fit: BoxFit.contain,
           ),
 
           // DESKTOP NAV / MOBILE MENU
