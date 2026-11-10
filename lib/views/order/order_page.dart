@@ -73,7 +73,7 @@ class _OrderPageState extends State<OrderPage> {
           ),
           const Padding(
             padding: EdgeInsets.only(right: 12),
-            child: SoleaLogo(iconSize: 28),
+            child: SoleaLogo(height: 30),
           ),
         ],
       ),

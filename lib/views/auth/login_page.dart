@@ -53,102 +53,89 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
-Future<void> _handleLogin() async {
-  FocusScope.of(context).unfocus();
+  Future<void> _handleLogin() async {
+    FocusScope.of(context).unfocus();
 
-  if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
-  setState(() => _isLoading = true);
+    setState(() => _isLoading = true);
 
-  final error = await AuthController.loginWithFirebase(
-    email: _identifierController.text.trim(),
-    password: _passwordController.text,
-  );
-
-  if (!mounted) return;
-
-  setState(() => _isLoading = false);
-
-  if (error != null) {
-    final needsVerification =
-        error.startsWith('EMAIL_BELUM_DIVERIFIKASI:');
-
-    final message = needsVerification
-        ? error.replaceFirst(
-            'EMAIL_BELUM_DIVERIFIKASI:',
-            '',
-          ).trim()
-        : error;
-
-    await showAuthFeedbackDialog(
-      context: context,
-      type: needsVerification
-          ? AuthFeedbackType.info
-          : AuthFeedbackType.error,
-      title: needsVerification
-          ? 'Verifikasi email dulu'
-          : 'Login gagal',
-      message: message,
-      primaryLabel: needsVerification
-          ? 'Cek emailmu'
-          : 'Coba lagi',
+    final error = await AuthController.loginWithFirebase(
+      email: _identifierController.text.trim(),
+      password: _passwordController.text,
     );
 
-    return;
-  }
+    if (!mounted) return;
 
-  Navigator.of(context).pushReplacement(
-    MaterialPageRoute(
-      builder: (_) => HomePage(
-        name: AuthController.currentName!,
-        email: AuthController.currentEmail!,
+    setState(() => _isLoading = false);
+
+    if (error != null) {
+      final needsVerification = error.startsWith('EMAIL_BELUM_DIVERIFIKASI:');
+
+      final message = needsVerification
+          ? error.replaceFirst('EMAIL_BELUM_DIVERIFIKASI:', '').trim()
+          : error;
+
+      await showAuthFeedbackDialog(
+        context: context,
+        type: needsVerification
+            ? AuthFeedbackType.info
+            : AuthFeedbackType.error,
+        title: needsVerification ? 'Verifikasi email dulu' : 'Login gagal',
+        message: message,
+        primaryLabel: needsVerification ? 'Cek emailmu' : 'Coba lagi',
+      );
+
+      return;
+    }
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => HomePage(
+          name: AuthController.currentName!,
+          email: AuthController.currentEmail!,
+        ),
       ),
-    ),
-  );
-}
-
-Future<void> _showForgotPassword() async {
-  final email = _identifierController.text.trim();
-
-  if (email.isEmpty) {
-    await showAuthFeedbackDialog(
-      context: context,
-      type: AuthFeedbackType.info,
-      title: 'Masukkan email dulu',
-      message:
-          'Isi email akun SOLEA pada kolom Email, '
-          'lalu pilih Forgot password lagi.',
-      primaryLabel: 'Oke',
     );
-    return;
   }
 
-  final error =
-      await AuthController.sendFirebasePasswordResetEmail(email);
+  Future<void> _showForgotPassword() async {
+    final email = _identifierController.text.trim();
 
-  if (!mounted) return;
+    if (email.isEmpty) {
+      await showAuthFeedbackDialog(
+        context: context,
+        type: AuthFeedbackType.info,
+        title: 'Masukkan email dulu',
+        message:
+            'Isi email akun SOLEA pada kolom Email, '
+            'lalu pilih Forgot password lagi.',
+        primaryLabel: 'Oke',
+      );
+      return;
+    }
 
-  await showAuthFeedbackDialog(
-    context: context,
-    type: error == null
-        ? AuthFeedbackType.success
-        : AuthFeedbackType.error,
-    title: error == null
-        ? 'Periksa email kamu'
-        : 'Email reset belum terkirim',
-    message: error ??
-        'Jika alamat tersebut terdaftar, ikuti tautan '
-        'reset password yang dikirim melalui email.',
-    primaryLabel: 'Mengerti',
-  );
-}
+    final error = await AuthController.sendFirebasePasswordResetEmail(email);
+
+    if (!mounted) return;
+
+    await showAuthFeedbackDialog(
+      context: context,
+      type: error == null ? AuthFeedbackType.success : AuthFeedbackType.error,
+      title: error == null
+          ? 'Periksa email kamu'
+          : 'Email reset belum terkirim',
+      message:
+          error ??
+          'Jika alamat tersebut terdaftar, ikuti tautan '
+              'reset password yang dikirim melalui email.',
+      primaryLabel: 'Mengerti',
+    );
+  }
 
   void _openRegister() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => const RegisterPage(),
-      ),
-    );
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => const RegisterPage()));
   }
 
   @override
@@ -295,31 +282,17 @@ class _ShoeVisual extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 34,
-            left: 36,
+            top: 20,
+            left: 0,
             child: Row(
               children: [
-                Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.directions_run_rounded,
-                    size: 19,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(width: 11),
-                const Text(
-                  'SOLEA',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 17,
-                    letterSpacing: 2.2,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    'assets/images/solea_logo.png',
+                    width: 300,
+                    height: 100,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ],
@@ -402,10 +375,7 @@ class _LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 44,
-          vertical: 32,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 32),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 430),
           child: Form(
@@ -414,7 +384,7 @@ class _LoginForm extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const _DesktopMiniLogo(),
-                const SizedBox(height: 58),
+                const SizedBox(height: 20),
                 const Text(
                   'Welcome back',
                   style: TextStyle(
@@ -480,9 +450,7 @@ class _LoginForm extends StatelessWidget {
                             onChanged: (value) {
                               onRememberChanged(value ?? false);
                             },
-                            side: const BorderSide(
-                              color: Color(0xFFBDB8AE),
-                            ),
+                            side: const BorderSide(color: Color(0xFFBDB8AE)),
                             activeColor: Colors.black,
                             checkColor: Colors.white,
                           ),
@@ -552,9 +520,7 @@ class _LoginForm extends StatelessWidget {
                 const SizedBox(height: 28),
                 Row(
                   children: [
-                    const Expanded(
-                      child: Divider(color: Color(0xFFE0DDD6)),
-                    ),
+                    const Expanded(child: Divider(color: Color(0xFFE0DDD6))),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Text(
@@ -566,9 +532,7 @@ class _LoginForm extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Expanded(
-                      child: Divider(color: Color(0xFFE0DDD6)),
-                    ),
+                    const Expanded(child: Divider(color: Color(0xFFE0DDD6))),
                   ],
                 ),
                 const SizedBox(height: 26),
@@ -577,10 +541,7 @@ class _LoginForm extends StatelessWidget {
                   children: [
                     const Text(
                       "Don't have an account?",
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Color(0xFF77736B),
-                      ),
+                      style: TextStyle(fontSize: 13, color: Color(0xFF77736B)),
                     ),
                     TextButton(
                       onPressed: isLoading ? null : onRegister,
@@ -613,10 +574,7 @@ class _LoginForm extends StatelessWidget {
                   child: const Text(
                     'Gunakan email dan password akun SOLEA yang sudah diverifikasi.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: Color(0xFF77736B),
-                    ),
+                    style: TextStyle(fontSize: 11.5, color: Color(0xFF77736B)),
                   ),
                 ),
               ],
@@ -646,45 +604,25 @@ class _DesktopMiniLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _Logo();
-  }
-}
-
-class _Logo extends StatelessWidget {
-  const _Logo();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 34,
-          height: 34,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(9),
-          ),
-          child: const Icon(
-            Icons.directions_run_rounded,
-            size: 18,
-            color: Colors.white,
-          ),
-        ),
-        const SizedBox(width: 10),
-        const Text(
-          'SOLEA',
-          style: TextStyle(
-            fontSize: 17,
-            letterSpacing: 2.2,
-            fontWeight: FontWeight.w800,
-            color: Colors.black,
-          ),
-        ),
-      ],
+    return const Padding(
+      padding: EdgeInsets.only(top: 1),
+      child: _Logo(),
     );
   }
 }
+
+   class _Logo extends StatelessWidget {
+     const _Logo();
+
+     @override
+     Widget build(BuildContext context) {
+       return Image.asset(
+         'assets/images/solea_logo2.png',
+         height: 35,
+         fit: BoxFit.contain,
+       );
+     }
+   }
 
 class _MobileShoeImage extends StatelessWidget {
   final String imageUrl;
@@ -767,16 +705,10 @@ class _CleanTextField extends StatelessWidget {
       textInputAction: textInputAction,
       validator: validator,
       onFieldSubmitted: onSubmitted,
-      style: const TextStyle(
-        fontSize: 14,
-        color: Colors.black,
-      ),
+      style: const TextStyle(fontSize: 14, color: Colors.black),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(
-          fontSize: 14,
-          color: Color(0xFFA09B92),
-        ),
+        hintStyle: const TextStyle(fontSize: 14, color: Color(0xFFA09B92)),
         suffixIcon: suffix,
         filled: true,
         fillColor: Colors.white,
@@ -786,35 +718,23 @@ class _CleanTextField extends StatelessWidget {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: Color(0xFFD8D4CC),
-          ),
+          borderSide: const BorderSide(color: Color(0xFFD8D4CC)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: Color(0xFFD8D4CC),
-          ),
+          borderSide: const BorderSide(color: Color(0xFFD8D4CC)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: Colors.black,
-            width: 1.3,
-          ),
+          borderSide: const BorderSide(color: Colors.black, width: 1.3),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.danger,
-          ),
+          borderSide: const BorderSide(color: AppColors.danger),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.danger,
-            width: 1.2,
-          ),
+          borderSide: const BorderSide(color: AppColors.danger, width: 1.2),
         ),
       ),
     );
