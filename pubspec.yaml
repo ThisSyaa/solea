@@ -16,6 +16,7 @@ dependencies:
   firebase_auth: ^6.7.0
   cloud_firestore: ^6.10.0
   dio: ^5.11.1
+  cached_network_image: ^4.0.7
 
 dev_dependencies:
   flutter_test:

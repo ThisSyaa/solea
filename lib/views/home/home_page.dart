@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/product_controller.dart';
@@ -555,10 +556,10 @@ class _HeroBanner extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image.network(
-          data.imageUrl,
+        CachedNetworkImage(
+          imageUrl: data.imageUrl,
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) {
+          errorWidget: (_, __, ___) {
             return Container(
               color: AppColors.forestDeep,
             );
@@ -894,14 +895,16 @@ class ProductCard extends StatelessWidget {
                       children: [
                         Container(
                           color: AppColors.sand,
-                          child: Image.network(
-                            product.imageUrl,
+                          child: CachedNetworkImage(
+                            imageUrl: product.imageUrl,
                             fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) {
+                            placeholder: (_, __) => const Center(
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                            errorWidget: (_, __, ___) {
                               return const Center(
                                 child: Icon(
-                                  Icons
-                                      .image_not_supported_outlined,
+                                  Icons.image_not_supported_outlined,
                                   color: AppColors.muted,
                                   size: 34,
                                 ),

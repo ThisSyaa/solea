@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
@@ -69,7 +70,7 @@ class WishlistPage extends StatelessWidget {
                               children: [
                                 Container(
                                   color: const Color(0xFFEDEAE2),
-                                  child: Image.network(product.imageUrl, fit: BoxFit.cover),
+                                  child: CachedNetworkImage(imageUrl: product.imageUrl, fit: BoxFit.cover),
                                 ),
                                 Positioned(
                                   top: 8,
