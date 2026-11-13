@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/order_controller.dart';
 import '../../core/app_helpers.dart';
+import '../../core/app_routes.dart';
 import '../../core/app_theme.dart';
 import '../../core/home_button.dart';
 import '../order/order_page.dart';
@@ -137,7 +137,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
     cart.clear();
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
+      MaterialPageRoute<void>(
+        settings: const RouteSettings(name: AppRoutes.orders),
         builder: (_) => const OrderPage(showSuccess: true),
       ),
     );

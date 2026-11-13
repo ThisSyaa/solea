@@ -4,6 +4,7 @@ import '../../controllers/product_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
+import '../../core/app_routes.dart';
 import '../../models/product.dart';
 import 'product_detail_page.dart';
 
@@ -127,10 +128,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
   }
 
   Future<void> _openProduct(Product product) async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => ProductDetailPage(product: product),
-      ),
+        await Navigator.of(context).pushNamed<void>(
+      AppRoutes.product(product),
     );
 
     if (mounted) {

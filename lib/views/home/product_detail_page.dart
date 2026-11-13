@@ -3,6 +3,7 @@ import '../../controllers/cart_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
+import '../../core/app_routes.dart';
 import '../../models/product.dart';
 import '../shopping/cart_page.dart';
 
@@ -54,7 +55,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
           ),
           IconButton(
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CartPage())),
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.cart),
             icon: const Icon(Icons.shopping_bag_outlined),
           ),
         ],
