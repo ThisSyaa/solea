@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'controllers/product_controller.dart';
 import 'core/app_routes.dart';
 import 'core/app_theme.dart';
@@ -16,7 +17,7 @@ Future<void> main() async {
   );
 
   await ProductController.load();
-
+  await initializeDateFormatting('id_ID');
   final restoredUser = await FirebaseAuth.instance.authStateChanges().first;
   final isLoggedIn = restoredUser != null;
 
