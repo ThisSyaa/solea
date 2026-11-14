@@ -1,23 +1,19 @@
-
 import 'package:flutter/material.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../core/app_theme.dart';
 import '../../core/home_button.dart';
+import '../../core/editable_user_avatar.dart';
+
 
 class PersonalInfoPage extends StatefulWidget {
   final String name;
   final String email;
 
-  const PersonalInfoPage({
-    super.key,
-    required this.name,
-    required this.email,
-  });
+  const PersonalInfoPage({super.key, required this.name, required this.email});
 
   @override
-  State<PersonalInfoPage> createState() =>
-      _PersonalInfoPageState();
+  State<PersonalInfoPage> createState() => _PersonalInfoPageState();
 }
 
 class _PersonalInfoPageState extends State<PersonalInfoPage> {
@@ -70,25 +66,17 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          SnackBar(
-            content: Text(error),
-            behavior: SnackBarBehavior.floating,
-          ),
+          SnackBar(content: Text(error), behavior: SnackBarBehavior.floating),
         );
 
       return;
     }
 
     // Kembalikan data terbaru ke ProfilePage.
-    Navigator.pop(
-      context,
-      {
-        'name': AuthController.currentName ??
-            _nameController.text.trim(),
-        'email': AuthController.currentEmail ??
-            widget.email,
-      },
-    );
+    Navigator.pop(context, {
+      'name': AuthController.currentName ?? _nameController.text.trim(),
+      'email': AuthController.currentEmail ?? widget.email,
+    });
   }
 
   @override
@@ -101,27 +89,15 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
         surfaceTintColor: Colors.transparent,
         title: const Text(
           'Informasi Pribadi',
-          style: TextStyle(
-            fontWeight: FontWeight.w800,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w800),
         ),
-        actions: const [
-          HomeButton(),
-          SizedBox(width: 4),
-        ],
+        actions: const [HomeButton(), SizedBox(width: 4)],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(
-          20,
-          10,
-          20,
-          30,
-        ),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: 620,
-            ),
+            constraints: const BoxConstraints(maxWidth: 620),
             child: Form(
               key: _formKey,
               child: Column(
@@ -135,29 +111,19 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                     ),
                     child: Column(
                       children: [
-                        const CircleAvatar(
-                          radius: 45,
-                          backgroundColor: Color(0xFFE8E4DA),
-                          backgroundImage: NetworkImage(
-                            'https://avatars.githubusercontent.com/u/174694675?v=4',
-                          ),
-                        ),
+                        const EditableUserAvatar(radius: 45),
                         const SizedBox(height: 20),
 
                         // Nama bisa diedit dan disimpan ke Firestore.
                         TextFormField(
                           controller: _nameController,
-                          textCapitalization:
-                              TextCapitalization.words,
+                          textCapitalization: TextCapitalization.words,
                           decoration: const InputDecoration(
                             labelText: 'Nama',
-                            prefixIcon: Icon(
-                              Icons.person_outline_rounded,
-                            ),
+                            prefixIcon: Icon(Icons.person_outline_rounded),
                           ),
                           validator: (value) {
-                            if (value == null ||
-                                value.trim().isEmpty) {
+                            if (value == null || value.trim().isEmpty) {
                               return 'Nama wajib diisi';
                             }
 
@@ -176,15 +142,11 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                         TextFormField(
                           controller: _emailController,
                           readOnly: true,
-                          keyboardType:
-                              TextInputType.emailAddress,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             labelText: 'Email',
-                            prefixIcon: Icon(
-                              Icons.email_outlined,
-                            ),
-                            helperText:
-                                'Email akun tidak dapat diubah dari halaman ini.',
+                            prefixIcon: Icon(Icons.email_outlined),
+                            helperText: 'Email akun tidak dapat diubah dari halaman ini.',
                           ),
                         ),
                       ],
@@ -207,9 +169,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                 color: Colors.white,
                               ),
                             )
-                          : const Text(
-                              'Simpan Perubahan',
-                            ),
+                          : const Text('Simpan Perubahan'),
                     ),
                   ),
                 ],

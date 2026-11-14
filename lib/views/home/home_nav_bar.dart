@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../controllers/auth_controller.dart';
 import '../../core/app_routes.dart';
 import '../../core/app_theme.dart';
+import '../../core/user_avatar.dart';
 import 'nav_search_field.dart';
 
 // ============================================================
@@ -483,15 +484,7 @@ class _ProfileMenu extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircleAvatar(
-              radius: 17,
-              backgroundColor: Color(0xFFE8F0EC),
-              child: Icon(
-                Icons.person_rounded,
-                size: 19,
-                color: AppColors.forest,
-              ),
-            ),
+            UserAvatar(radius: 17),
             SizedBox(width: 4),
             Icon(
               Icons.keyboard_arrow_down_rounded,
