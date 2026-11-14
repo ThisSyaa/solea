@@ -1115,7 +1115,7 @@ class _TeamPortraitCard extends StatelessWidget {
         photo,
         fit: BoxFit.cover,
         alignment: Alignment.topCenter,
-        errorBuilder: (_, __, ___) =>
+        errorBuilder: (_, _, _) =>
             const _SilhouettePlaceholder(),
       );
     }
@@ -1124,7 +1124,7 @@ class _TeamPortraitCard extends StatelessWidget {
       photo,
       fit: BoxFit.cover,
       alignment: Alignment.topCenter,
-      errorBuilder: (_, __, ___) =>
+      errorBuilder: (_, _, _) =>
           const _SilhouettePlaceholder(),
     );
   }

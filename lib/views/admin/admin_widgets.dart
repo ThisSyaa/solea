@@ -185,7 +185,7 @@ class AdminThumb extends StatelessWidget {
                 width: size,
                 height: size,
                 fit: BoxFit.cover,
-                errorWidget: (_, __, ___) => fallback,
+                errorWidget: (_, _, _) => fallback,
               ),
       ),
     );

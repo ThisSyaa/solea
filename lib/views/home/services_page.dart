@@ -140,6 +140,16 @@ class ServicesPage extends StatelessWidget {
                           ),
                         ),
                         _ServiceCard(
+                          icon: Icons.forum_outlined,
+                          title: 'SOLEA Chat Hub',
+                          subtitle:
+                              'Chat Bot AI, Admin Support, dan Komunitas User.',
+                          onTap: () => _openPage(
+                            context,
+                            AppRoutes.chat,
+                          ),
+                        ),
+                        _ServiceCard(
                           icon: Icons.help_outline_rounded,
                           title: 'Bantuan & FAQ',
                           subtitle:

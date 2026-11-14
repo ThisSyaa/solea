@@ -249,7 +249,7 @@ class _ShoeVisual extends StatelessWidget {
           Image.network(
             imageUrl,
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) {
+            errorBuilder: (_, _, _) {
               return const Center(
                 child: Icon(
                   Icons.shopping_bag_outlined,
@@ -265,8 +265,8 @@ class _ShoeVisual extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withOpacity(0.08),
-                  Colors.black.withOpacity(0.55),
+                  Colors.black.withValues(alpha: 0.08),
+                  Colors.black.withValues(alpha: 0.55),
                 ],
               ),
             ),
@@ -632,7 +632,7 @@ class _MobileShoeImage extends StatelessWidget {
       child: Image.network(
         imageUrl,
         fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) {
+        errorBuilder: (_, _, _) {
           return const Center(
             child: Icon(
               Icons.shopping_bag_outlined,

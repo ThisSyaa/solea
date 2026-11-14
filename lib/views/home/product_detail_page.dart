@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import '../../core/app_network_image.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
 import '../../core/app_routes.dart';
 import '../../models/product.dart';
-import '../shopping/cart_page.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
@@ -45,7 +44,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         actions: [
           AnimatedBuilder(
             animation: WishlistController.instance,
-            builder: (_, __) => IconButton(
+            builder: (_, _) => IconButton(
               onPressed: () => WishlistController.instance.toggle(product),
               icon: Icon(
                 WishlistController.instance.contains(product)
@@ -70,14 +69,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               borderRadius: BorderRadius.circular(22),
               child: Container(
                 color: const Color(0xFFEDEAE2),
-                child: CachedNetworkImage(
+                child: AppNetworkImage(
                   imageUrl: product.imageUrl,
-                  fit: BoxFit.cover,
-                  placeholder: (_, __) => const Center(
-                    child: CircularProgressIndicator(strokeWidth: 2),
+                  errorBuilder: (_) => const Center(
+                    child: Icon(Icons.image_not_supported_outlined, size: 70),
                   ),
-                  errorWidget: (_, __, ___) =>
-                      const Icon(Icons.image_not_supported_outlined, size: 70),
                 ),
               ),
             ),

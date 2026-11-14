@@ -464,7 +464,7 @@ class _DesktopProfile extends StatelessWidget {
                             style: OutlinedButton.styleFrom(
                               foregroundColor: AppColors.danger,
                               side: BorderSide(
-                                color: AppColors.danger.withOpacity(0.25),
+                                color: AppColors.danger.withValues(alpha: 0.25),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(9),
@@ -657,7 +657,7 @@ class _MobileProfile extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.danger,
                     side: BorderSide(
-                      color: AppColors.danger.withOpacity(0.25),
+                      color: AppColors.danger.withValues(alpha: 0.25),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(9),
