@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_theme.dart';
+import '../chat/chat_page.dart';
 import '../order/order_page.dart';
 import '../profile/address_page.dart';
 import '../profile/faq_page.dart';
@@ -147,6 +148,16 @@ class ServicesPage extends StatelessWidget {
                           onTap: () => _openPage(
                             context,
                             const WishlistPage(),
+                          ),
+                        ),
+                        _ServiceCard(
+                          icon: Icons.forum_outlined,
+                          title: 'SOLEA Chat Hub',
+                          subtitle:
+                              'Chat Bot AI, Admin Support, dan Komunitas User.',
+                          onTap: () => _openPage(
+                            context,
+                            const ChatPage(),
                           ),
                         ),
                         _ServiceCard(

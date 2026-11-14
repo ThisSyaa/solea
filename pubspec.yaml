@@ -16,6 +16,9 @@ dependencies:
   firebase_auth: ^6.7.0
   cloud_firestore: ^6.10.0
   dio: ^5.11.1
+  flutter_chat_core: ^2.0.0
+  flutter_chat_ui: 1.6.15
+  flutter_chat_types: 3.6.2
 
 dev_dependencies:
   flutter_test:
