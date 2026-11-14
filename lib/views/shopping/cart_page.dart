@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import '../../core/app_network_image.dart';
 import '../../controllers/cart_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
@@ -96,7 +96,7 @@ class _CartItemTile extends StatelessWidget {
             child: SizedBox(
               width: 92,
               height: 92,
-              child: CachedNetworkImage(imageUrl: item.product.imageUrl, fit: BoxFit.cover),
+              child: AppNetworkImage(imageUrl: item.product.imageUrl),
             ),
           ),
           const SizedBox(width: 14),

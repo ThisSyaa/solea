@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import '../../core/app_network_image.dart';
 import '../../controllers/product_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
@@ -557,11 +557,9 @@ class _CategoryCard extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   if (imageUrl != null)
-                    CachedNetworkImage(
+                    AppNetworkImage(
                       imageUrl: imageUrl!,
-                      fit: BoxFit.cover,
-                      errorWidget: (_, __, ___) =>
-                          const _CategoryImageFallback(),
+                      errorBuilder: (_) => const _CategoryImageFallback(),
                     )
                   else
                     const _CategoryImageFallback(),
@@ -703,22 +701,7 @@ class _CompactProductCard extends StatelessWidget {
                     children: [
                       Container(
                         color: const Color(0xFFECE9E1),
-                        child: CachedNetworkImage(
-                          imageUrl: product.imageUrl,
-                          fit: BoxFit.cover,
-                          placeholder: (_, __) => const Center(
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          ),
-                          errorWidget: (_, __, ___) {
-                            return const Center(
-                              child: Icon(
-                                Icons.image_not_supported_outlined,
-                                size: 32,
-                                color: AppColors.muted,
-                              ),
-                            );
-                          },
-                        ),
+                        child: AppNetworkImage(imageUrl: product.imageUrl),
                       ),
 
                       Positioned(
