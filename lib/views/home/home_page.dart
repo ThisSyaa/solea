@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import '../../core/app_network_image.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../controllers/cart_controller.dart';
@@ -15,9 +15,7 @@ import 'all_products_page.dart';
 import 'home_nav_bar.dart';
 import 'search_results_page.dart';
 
-// ============================================================
 // BANNER DATA
-// ============================================================
 
 class _BannerData {
   final String title;
@@ -54,9 +52,7 @@ const List<_BannerData> _banners = [
   ),
 ];
 
-// ============================================================
 // HOME PAGE
-// ============================================================
 
 class HomePage extends StatefulWidget {
   final String name;
@@ -90,9 +86,7 @@ class _HomePageState extends State<HomePage> {
         .toList();
   }
 
-  // =========================================================
   // HOME NAVIGATION
-  // =========================================================
 
   void _scrollHomeTop() {
     setState(() {
@@ -114,9 +108,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // =========================================================
   // OPEN ALL PRODUCTS
-  // =========================================================
 
   Future<void> _openAllProducts(AllProductsMode mode) async {
     await Navigator.of(context).pushNamed<void>(AppRoutes.allProducts(mode));
@@ -126,33 +118,33 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // =========================================================
   // OPEN CONTACT
-  // =========================================================
 
   Future<void> _openContactPage() async {
     await Navigator.of(context).pushNamed<void>(AppRoutes.contact);
   }
 
-  // =========================================================
   // OPEN SERVICES
-  // =========================================================
 
   Future<void> _openServicesPage() async {
     await Navigator.of(context).pushNamed<void>(AppRoutes.services);
   }
 
-  // =========================================================
   // OPEN ABOUT
-  // =========================================================
 
   Future<void> _openAboutPage() async {
     await Navigator.of(context).pushNamed<void>(AppRoutes.about);
   }
 
-  // =========================================================
+  // OPEN CHAT HUB (BOT, ADMIN & USER)
+
+  Future<void> _openChatPage() async {
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.chat,
+    );
+  }
+
   // WISHLIST
-  // =========================================================
 
   void _toggleWishlist(Product product) {
     final controller = WishlistController.instance;
@@ -193,9 +185,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // =========================================================
   // CART
-  // =========================================================
 
   Future<void> _openCartPage() async {
     await Navigator.of(context).pushNamed<void>(AppRoutes.cart);
@@ -205,9 +195,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // =========================================================
   // PRODUCT DETAIL
-  // =========================================================
 
   Future<void> _openProductDetail(Product product) async {
     await Navigator.of(context).pushNamed<void>(AppRoutes.product(product));
@@ -217,9 +205,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // =========================================================
   // SNACKBAR
-  // =========================================================
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context)
@@ -233,9 +219,7 @@ class _HomePageState extends State<HomePage> {
       );
   }
 
-  // =========================================================
   // SCROLL TO PRODUCTS
-  // =========================================================
 
   void _scrollToProducts() {
     if (!_scrollController.hasClients) return;
@@ -255,14 +239,25 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  // =========================================================
   // BUILD HOME
-  // =========================================================
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.sand,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _openChatPage,
+        backgroundColor: AppColors.forest,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.forum_rounded, size: 20),
+        label: const Text(
+          'Chat SOLEA',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.2,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -280,6 +275,7 @@ class _HomePageState extends State<HomePage> {
               onAboutTap: _openAboutPage,
               onSearchTap: _toggleSearch,
               onSearchSubmit: _openSearchResults,
+              onChatTap: _openChatPage,
             ),
 
             Expanded(
@@ -385,9 +381,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// ============================================================
 // HERO CAROUSEL
-// ============================================================
 
 class _HeroCarousel extends StatefulWidget {
   final VoidCallback onAction;
@@ -480,9 +474,7 @@ class _HeroCarouselState extends State<_HeroCarousel> {
   }
 }
 
-// ============================================================
 // HERO BANNER
-// ============================================================
 
 class _HeroBanner extends StatelessWidget {
   final _BannerData data;
@@ -498,12 +490,10 @@ class _HeroBanner extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        CachedNetworkImage(
+        AppNetworkImage(
           imageUrl: data.imageUrl,
-          fit: BoxFit.cover,
-          errorWidget: (_, __, ___) {
-            return Container(color: AppColors.forestDeep);
-          },
+          dark: true,
+          errorBuilder: (_) => Container(color: AppColors.forestDeep),
         ),
 
         DecoratedBox(
@@ -584,9 +574,7 @@ class _HeroBanner extends StatelessWidget {
   }
 }
 
-// ============================================================
 // SECTION HEADER
-// ============================================================
 
 class _SectionHeader extends StatelessWidget {
   final String title;
@@ -627,9 +615,7 @@ class _SectionHeader extends StatelessWidget {
   }
 }
 
-// ============================================================
 // CATEGORY LIST
-// ============================================================
 
 class _CategoryList extends StatelessWidget {
   final String selectedCategory;
@@ -683,9 +669,7 @@ class _CategoryList extends StatelessWidget {
   }
 }
 
-// ============================================================
 // PRODUCT LIST
-// ============================================================
 
 class ProductList extends StatelessWidget {
   final List<Product> products;
@@ -756,9 +740,7 @@ class ProductList extends StatelessWidget {
   }
 }
 
-// ============================================================
 // PRODUCT CARD
-// ============================================================
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -799,22 +781,7 @@ class ProductCard extends StatelessWidget {
                       children: [
                         Container(
                           color: AppColors.sand,
-                          child: CachedNetworkImage(
-                            imageUrl: product.imageUrl,
-                            fit: BoxFit.cover,
-                            placeholder: (_, __) => const Center(
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            ),
-                            errorWidget: (_, __, ___) {
-                              return const Center(
-                                child: Icon(
-                                  Icons.image_not_supported_outlined,
-                                  color: AppColors.muted,
-                                  size: 34,
-                                ),
-                              );
-                            },
-                          ),
+                          child: AppNetworkImage(imageUrl: product.imageUrl),
                         ),
 
                         Positioned(
@@ -918,7 +885,6 @@ class ProductCard extends StatelessWidget {
 
 // ============================================================
 // HELPER
-// ============================================================
 
 double mathMin(double a, double b) {
   return a < b ? a : b;

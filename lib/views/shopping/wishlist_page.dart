@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import '../../core/app_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../controllers/cart_controller.dart';
@@ -267,20 +267,7 @@ class _WishlistCard extends StatelessWidget {
                     children: [
                       Container(
                         color: AppColors.sand,
-                        child: CachedNetworkImage(
-                          imageUrl: product.imageUrl,
-                          fit: BoxFit.cover,
-                          placeholder: (_, __) => const Center(
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          ),
-                          errorWidget: (_, __, ___) => const Center(
-                            child: Icon(
-                              Icons.image_not_supported_outlined,
-                              color: AppColors.muted,
-                              size: 34,
-                            ),
-                          ),
-                        ),
+                        child: AppNetworkImage(imageUrl: product.imageUrl),
                       ),
                       Positioned(
                         top: 8,

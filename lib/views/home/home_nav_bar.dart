@@ -24,6 +24,7 @@ class HomeNavBar extends StatelessWidget {
   final VoidCallback onContactTap;
   final VoidCallback onServicesTap;
   final VoidCallback onAboutTap;
+  final VoidCallback onChatTap;
 
   /// Ikon search ditekan (buka / tutup kolom search).
   final VoidCallback onSearchTap;
@@ -44,6 +45,7 @@ class HomeNavBar extends StatelessWidget {
     required this.onContactTap,
     required this.onServicesTap,
     required this.onAboutTap,
+    required this.onChatTap,
     required this.onSearchTap,
     required this.onSearchSubmit,
   });
@@ -230,10 +232,7 @@ class _NavCenterState extends State<_NavCenter>
       value: widget.searchOpen ? 1 : 0,
     );
 
-    _curve = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOutCubic,
-    );
+    _curve = CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic);
   }
 
   @override
