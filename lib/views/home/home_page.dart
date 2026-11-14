@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
 import '../../controllers/auth_controller.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/product_controller.dart';
@@ -11,6 +12,8 @@ import '../../core/app_routes.dart';
 import '../../core/app_theme.dart';
 import '../../models/product.dart';
 import 'all_products_page.dart';
+import 'home_nav_bar.dart';
+import 'search_results_page.dart';
 
 // ============================================================
 // BANNER DATA
@@ -33,27 +36,21 @@ class _BannerData {
 const List<_BannerData> _banners = [
   _BannerData(
     title: 'Step Into\nYour Style',
-    subtitle:
-        'Koleksi sepatu terbaru untuk langkah yang lebih percaya diri.',
+    subtitle: 'Koleksi sepatu terbaru untuk langkah yang lebih percaya diri.',
     cta: 'Belanja sekarang',
-    imageUrl:
-        'https://images.unsplash.com/photo-1512374382149-233c42b6a83b?auto=format&fit=crop&w=1600&q=90',
+    imageUrl: 'https://images.unsplash.com/photo-1512374382149-233c42b6a83b?auto=format&fit=crop&w=1600&q=90',
   ),
   _BannerData(
     title: 'Fresh Kicks,\nFresh Start',
-    subtitle:
-        'Temukan sneakers pilihan dengan harga spesial minggu ini.',
+    subtitle: 'Temukan sneakers pilihan dengan harga spesial minggu ini.',
     cta: 'Lihat koleksi',
-    imageUrl:
-        'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=1600&q=90',
+    imageUrl: 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=1600&q=90',
   ),
   _BannerData(
     title: 'Move\nWithout Limits',
-    subtitle:
-        'Performa ringan, nyaman dipakai sepanjang hari.',
+    subtitle: 'Performa ringan, nyaman dipakai sepanjang hari.',
     cta: 'Jelajahi sepatu',
-    imageUrl:
-        'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1600&q=90',
+    imageUrl: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1600&q=90',
   ),
 ];
 
@@ -65,11 +62,7 @@ class HomePage extends StatefulWidget {
   final String name;
   final String email;
 
-  const HomePage({
-    super.key,
-    required this.name,
-    required this.email,
-  });
+  const HomePage({super.key, required this.name, required this.email});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -77,18 +70,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _selectedCategory = 'Semua';
+  bool _searchOpen = false;
 
-  final ScrollController _scrollController =
-      ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
-  Set<String> get _wishlistNames => WishlistController
-      .instance
-      .products
+  Set<String> get _wishlistNames => WishlistController.instance.products
       .map((product) => product.name)
       .toSet();
 
-  int get _cartTotalItems =>
-      CartController.instance.totalItems;
+  int get _cartTotalItems => CartController.instance.totalItems;
 
   List<Product> get _filteredProducts {
     if (_selectedCategory == 'Semua') {
@@ -96,10 +86,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     return ProductController.products
-        .where(
-          (product) =>
-              product.category == _selectedCategory,
-        )
+        .where((product) => product.category == _selectedCategory)
         .toList();
   }
 
@@ -131,12 +118,8 @@ class _HomePageState extends State<HomePage> {
   // OPEN ALL PRODUCTS
   // =========================================================
 
-  Future<void> _openAllProducts(
-    AllProductsMode mode,
-  ) async {
-    await Navigator.of(context).pushNamed<void>(
-      AppRoutes.allProducts(mode),
-    );
+  Future<void> _openAllProducts(AllProductsMode mode) async {
+    await Navigator.of(context).pushNamed<void>(AppRoutes.allProducts(mode));
 
     if (mounted) {
       setState(() {});
@@ -148,9 +131,7 @@ class _HomePageState extends State<HomePage> {
   // =========================================================
 
   Future<void> _openContactPage() async {
-    await Navigator.of(context).pushNamed<void>(
-      AppRoutes.contact,
-    );
+    await Navigator.of(context).pushNamed<void>(AppRoutes.contact);
   }
 
   // =========================================================
@@ -158,9 +139,7 @@ class _HomePageState extends State<HomePage> {
   // =========================================================
 
   Future<void> _openServicesPage() async {
-    await Navigator.of(context).pushNamed<void>(
-      AppRoutes.services,
-    );
+    await Navigator.of(context).pushNamed<void>(AppRoutes.services);
   }
 
   // =========================================================
@@ -168,9 +147,7 @@ class _HomePageState extends State<HomePage> {
   // =========================================================
 
   Future<void> _openAboutPage() async {
-    await Navigator.of(context).pushNamed<void>(
-      AppRoutes.about,
-    );
+    await Navigator.of(context).pushNamed<void>(AppRoutes.about);
   }
 
   // =========================================================
@@ -194,10 +171,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> _openWishlistPage() async {
-    await Navigator.of(context).pushNamed<void>(
-      AppRoutes.wishlist,
+  void _toggleSearch() {
+    setState(() => _searchOpen = !_searchOpen);
+  }
+
+  Future<void> _openSearchResults(String query) async {
+    setState(() => _searchOpen = false);
+
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(builder: (_) => SearchResultsPage(query: query)),
     );
+
+    if (mounted) setState(() {});
+  }
+
+  Future<void> _openWishlistPage() async {
+    await Navigator.of(context).pushNamed<void>(AppRoutes.wishlist);
 
     if (mounted) {
       setState(() {});
@@ -209,9 +198,7 @@ class _HomePageState extends State<HomePage> {
   // =========================================================
 
   Future<void> _openCartPage() async {
-    await Navigator.of(context).pushNamed<void>(
-      AppRoutes.cart,
-    );
+    await Navigator.of(context).pushNamed<void>(AppRoutes.cart);
 
     if (mounted) {
       setState(() {});
@@ -222,12 +209,8 @@ class _HomePageState extends State<HomePage> {
   // PRODUCT DETAIL
   // =========================================================
 
-  Future<void> _openProductDetail(
-    Product product,
-  ) async {
-    await Navigator.of(context).pushNamed<void>(
-      AppRoutes.product(product),
-    );
+  Future<void> _openProductDetail(Product product) async {
+    await Navigator.of(context).pushNamed<void>(AppRoutes.product(product));
 
     if (mounted) {
       setState(() {});
@@ -257,10 +240,7 @@ class _HomePageState extends State<HomePage> {
   void _scrollToProducts() {
     if (!_scrollController.hasClients) return;
 
-    final target = mathMin(
-      520,
-      _scrollController.position.maxScrollExtent,
-    );
+    final target = mathMin(520, _scrollController.position.maxScrollExtent);
 
     _scrollController.animateTo(
       target,
@@ -286,37 +266,36 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            _NavBar(
+            HomeNavBar(
               name: widget.name,
               email: widget.email,
-              wishlistCount:
-                  WishlistController.instance.count,
+              wishlistCount: WishlistController.instance.count,
               cartCount: _cartTotalItems,
+              searchOpen: _searchOpen,
               onWishlistTap: _openWishlistPage,
               onCartTap: _openCartPage,
               onHomeTap: _scrollHomeTop,
               onContactTap: _openContactPage,
               onServicesTap: _openServicesPage,
               onAboutTap: _openAboutPage,
+              onSearchTap: _toggleSearch,
+              onSearchSubmit: _openSearchResults,
             ),
 
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final maxWidth =
-                      constraints.maxWidth > 1200
-                          ? 1180.0
-                          : 1000.0;
+                  final maxWidth = constraints.maxWidth > 1200
+                      ? 1180.0
+                      : 1000.0;
 
-                  final horizontalPadding =
-                      constraints.maxWidth < 700
-                          ? 16.0
-                          : 24.0;
+                  final horizontalPadding = constraints.maxWidth < 700
+                      ? 16.0
+                      : 24.0;
 
                   return SingleChildScrollView(
                     controller: _scrollController,
-                    physics:
-                        const BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.fromLTRB(
                       horizontalPadding,
                       20,
@@ -325,17 +304,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Center(
                       child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxWidth: maxWidth,
-                        ),
+                        constraints: BoxConstraints(maxWidth: maxWidth),
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // HERO BANNER
-                            _HeroCarousel(
-                              onAction: _scrollToProducts,
-                            ),
+                            _HeroCarousel(onAction: _scrollToProducts),
 
                             const SizedBox(height: 28),
 
@@ -344,17 +318,14 @@ class _HomePageState extends State<HomePage> {
                               title: 'Kategori',
                               action: 'Lihat semua',
                               onAction: () {
-                                _openAllProducts(
-                                  AllProductsMode.categories,
-                                );
+                                _openAllProducts(AllProductsMode.categories);
                               },
                             ),
 
                             const SizedBox(height: 12),
 
                             _CategoryList(
-                              selectedCategory:
-                                  _selectedCategory,
+                              selectedCategory: _selectedCategory,
                               onSelected: _selectCategory,
                             ),
 
@@ -362,15 +333,12 @@ class _HomePageState extends State<HomePage> {
 
                             // FEATURED PRODUCTS
                             _SectionHeader(
-                              title:
-                                  _selectedCategory == 'Semua'
-                                      ? 'Sepatu Pilihan'
-                                      : _selectedCategory,
+                              title: _selectedCategory == 'Semua'
+                                  ? 'Sepatu Pilihan'
+                                  : _selectedCategory,
                               action: 'Lihat semua',
                               onAction: () {
-                                _openAllProducts(
-                                  AllProductsMode.featured,
-                                );
+                                _openAllProducts(AllProductsMode.featured);
                               },
                             ),
 
@@ -379,10 +347,8 @@ class _HomePageState extends State<HomePage> {
                             ProductList(
                               products: _filteredProducts,
                               wishlist: _wishlistNames,
-                              onWishlistTap:
-                                  _toggleWishlist,
-                              onProductTap:
-                                  _openProductDetail,
+                              onWishlistTap: _toggleWishlist,
+                              onProductTap: _openProductDetail,
                             ),
 
                             const SizedBox(height: 30),
@@ -392,22 +358,17 @@ class _HomePageState extends State<HomePage> {
                               title: 'Popular Sekarang',
                               action: 'Lihat semua',
                               onAction: () {
-                                _openAllProducts(
-                                  AllProductsMode.popular,
-                                );
+                                _openAllProducts(AllProductsMode.popular);
                               },
                             ),
 
                             const SizedBox(height: 14),
 
                             ProductList(
-                              products:
-                                  ProductController.products,
+                              products: ProductController.products,
                               wishlist: _wishlistNames,
-                              onWishlistTap:
-                                  _toggleWishlist,
-                              onProductTap:
-                                  _openProductDetail,
+                              onWishlistTap: _toggleWishlist,
+                              onProductTap: _openProductDetail,
                             ),
                           ],
                         ),
@@ -431,13 +392,10 @@ class _HomePageState extends State<HomePage> {
 class _HeroCarousel extends StatefulWidget {
   final VoidCallback onAction;
 
-  const _HeroCarousel({
-    required this.onAction,
-  });
+  const _HeroCarousel({required this.onAction});
 
   @override
-  State<_HeroCarousel> createState() =>
-      _HeroCarouselState();
+  State<_HeroCarousel> createState() => _HeroCarouselState();
 }
 
 class _HeroCarouselState extends State<_HeroCarousel> {
@@ -452,21 +410,17 @@ class _HeroCarouselState extends State<_HeroCarousel> {
 
     _pageController = PageController();
 
-    _timer = Timer.periodic(
-      const Duration(seconds: 4),
-      (_) {
-        if (!_pageController.hasClients) return;
+    _timer = Timer.periodic(const Duration(seconds: 4), (_) {
+      if (!_pageController.hasClients) return;
 
-        final nextPage =
-            (_currentIndex + 1) % _banners.length;
+      final nextPage = (_currentIndex + 1) % _banners.length;
 
-        _pageController.animateToPage(
-          nextPage,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      },
-    );
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 
   @override
@@ -506,29 +460,20 @@ class _HeroCarouselState extends State<_HeroCarousel> {
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            _banners.length,
-            (index) {
-              final active = index == _currentIndex;
+          children: List.generate(_banners.length, (index) {
+            final active = index == _currentIndex;
 
-              return AnimatedContainer(
-                duration:
-                    const Duration(milliseconds: 250),
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 3,
-                ),
-                width: active ? 22 : 7,
-                height: 7,
-                decoration: BoxDecoration(
-                  color: active
-                      ? AppColors.forest
-                      : AppColors.line,
-                  borderRadius:
-                      BorderRadius.circular(20),
-                ),
-              );
-            },
-          ),
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              width: active ? 22 : 7,
+              height: 7,
+              decoration: BoxDecoration(
+                color: active ? AppColors.forest : AppColors.line,
+                borderRadius: BorderRadius.circular(20),
+              ),
+            );
+          }),
         ),
       ],
     );
@@ -543,10 +488,7 @@ class _HeroBanner extends StatelessWidget {
   final _BannerData data;
   final VoidCallback onAction;
 
-  const _HeroBanner({
-    required this.data,
-    required this.onAction,
-  });
+  const _HeroBanner({required this.data, required this.onAction});
 
   @override
   Widget build(BuildContext context) {
@@ -560,9 +502,7 @@ class _HeroBanner extends StatelessWidget {
           imageUrl: data.imageUrl,
           fit: BoxFit.cover,
           errorWidget: (_, __, ___) {
-            return Container(
-              color: AppColors.forestDeep,
-            );
+            return Container(color: AppColors.forestDeep);
           },
         ),
 
@@ -582,20 +522,14 @@ class _HeroBanner extends StatelessWidget {
         ),
 
         Padding(
-          padding: EdgeInsets.all(
-            isSmall ? 24 : 38,
-          ),
+          padding: EdgeInsets.all(isSmall ? 24 : 38),
           child: Align(
             alignment: Alignment.centerLeft,
             child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: isSmall ? 250 : 430,
-              ),
+              constraints: BoxConstraints(maxWidth: isSmall ? 250 : 430),
               child: Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.center,
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     data.title,
@@ -615,9 +549,7 @@ class _HeroBanner extends StatelessWidget {
                     maxLines: isSmall ? 2 : 3,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: Colors.white.withValues(
-                        alpha: 0.88,
-                      ),
+                      color: Colors.white.withValues(alpha: 0.88),
                       fontSize: isSmall ? 12 : 14.5,
                       height: 1.45,
                     ),
@@ -637,8 +569,7 @@ class _HeroBanner extends StatelessWidget {
                         vertical: 12,
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     child: Text(data.cta),
@@ -671,8 +602,7 @@ class _SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:
-          MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
@@ -687,9 +617,7 @@ class _SectionHeader extends StatelessWidget {
         TextButton(
           onPressed: onAction,
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 4,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 4),
             foregroundColor: AppColors.forest,
           ),
           child: Text(action),
@@ -720,19 +648,14 @@ class _CategoryList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         primary: false,
         physics: const BouncingScrollPhysics(),
-        itemCount:
-            ProductController.categories.length,
+        itemCount: ProductController.categories.length,
         itemBuilder: (context, index) {
-          final category =
-              ProductController.categories[index];
+          final category = ProductController.categories[index];
 
-          final isActive =
-              category == selectedCategory;
+          final isActive = category == selectedCategory;
 
           return Padding(
-            padding: const EdgeInsets.only(
-              right: 10,
-            ),
+            padding: const EdgeInsets.only(right: 10),
             child: ChoiceChip(
               selected: isActive,
               onSelected: (_) {
@@ -742,20 +665,15 @@ class _CategoryList extends StatelessWidget {
               selectedColor: AppColors.forest,
               backgroundColor: Colors.white,
               side: BorderSide(
-                color: isActive
-                    ? AppColors.forest
-                    : AppColors.line,
+                color: isActive ? AppColors.forest : AppColors.line,
               ),
               labelStyle: TextStyle(
-                color: isActive
-                    ? Colors.white
-                    : AppColors.muted,
+                color: isActive ? Colors.white : AppColors.muted,
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(14),
               ),
             ),
           );
@@ -790,21 +708,17 @@ class ProductList extends StatelessWidget {
     final cardWidth = width < 500
         ? 168.0
         : width < 800
-            ? 205.0
-            : 224.0;
+        ? 205.0
+        : 224.0;
 
     if (products.isEmpty) {
       return Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          vertical: 35,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 35),
         child: const Center(
           child: Text(
             'Belum ada produk di kategori ini.',
-            style: TextStyle(
-              color: AppColors.muted,
-            ),
+            style: TextStyle(color: AppColors.muted),
           ),
         ),
       );
@@ -822,15 +736,12 @@ class ProductList extends StatelessWidget {
 
           return Padding(
             padding: EdgeInsets.only(
-              right: index == products.length - 1
-                  ? 0
-                  : 14,
+              right: index == products.length - 1 ? 0 : 14,
             ),
             child: ProductCard(
               product: product,
               width: cardWidth,
-              isFavorite:
-                  wishlist.contains(product.name),
+              isFavorite: wishlist.contains(product.name),
               onFavoriteTap: () {
                 onWishlistTap(product);
               },
@@ -876,20 +787,13 @@ class ProductCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-              10,
-              10,
-              10,
-              12,
-            ),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(14),
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
@@ -917,17 +821,13 @@ class ProductCard extends StatelessWidget {
                           top: 8,
                           right: 8,
                           child: Material(
-                            color: Colors.white.withValues(
-                              alpha: 0.94,
-                            ),
+                            color: Colors.white.withValues(alpha: 0.94),
                             shape: const CircleBorder(),
                             child: InkWell(
-                              customBorder:
-                                  const CircleBorder(),
+                              customBorder: const CircleBorder(),
                               onTap: onFavoriteTap,
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.all(7),
+                                padding: const EdgeInsets.all(7),
                                 child: Icon(
                                   isFavorite
                                       ? Icons.favorite_rounded
@@ -1010,400 +910,6 @@ class ProductCard extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-// ============================================================
-// NAVBAR
-// ============================================================
-
-class _NavBar extends StatelessWidget {
-  final String name;
-  final String email;
-  final int wishlistCount;
-  final int cartCount;
-
-  final VoidCallback onWishlistTap;
-  final VoidCallback onCartTap;
-  final VoidCallback onHomeTap;
-  final VoidCallback onContactTap;
-  final VoidCallback onServicesTap;
-  final VoidCallback onAboutTap;
-
-  const _NavBar({
-    required this.name,
-    required this.email,
-    required this.wishlistCount,
-    required this.cartCount,
-    required this.onWishlistTap,
-    required this.onCartTap,
-    required this.onHomeTap,
-    required this.onContactTap,
-    required this.onServicesTap,
-    required this.onAboutTap,
-  });
-
-  void _onMenuSelected(String label) {
-    switch (label) {
-      case 'Home':
-        onHomeTap();
-        break;
-
-      case 'Contact':
-        onContactTap();
-        break;
-
-      case 'Layanan':
-        onServicesTap();
-        break;
-
-      case 'Tentang':
-        onAboutTap();
-        break;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 64,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: AppColors.line,
-          ),
-        ),
-      ),
-      child: Row(
-        children: [
-                    // LOGO
-          Image.asset(
-            'assets/images/solea_logo2.png',
-            height: 32,
-            fit: BoxFit.contain,
-          ),
-
-          // DESKTOP NAV / MOBILE MENU
-          Expanded(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final isWide =
-                    constraints.maxWidth > 420;
-
-                if (isWide) {
-                  return Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.center,
-                    children: [
-                      _NavLink(
-                        label: 'Home',
-                        active: true,
-                        onTap: onHomeTap,
-                      ),
-                      _NavLink(
-                        label: 'Contact',
-                        onTap: onContactTap,
-                      ),
-                      _NavLink(
-                        label: 'Layanan',
-                        onTap: onServicesTap,
-                      ),
-                      _NavLink(
-                        label: 'Tentang',
-                        onTap: onAboutTap,
-                      ),
-                    ],
-                  );
-                }
-
-                return Align(
-                  alignment: Alignment.center,
-                  child: PopupMenuButton<String>(
-                    tooltip: 'Menu navigasi',
-                    icon: const Icon(
-                      Icons.menu,
-                      color: AppColors.ink,
-                    ),
-                    onSelected: _onMenuSelected,
-                    itemBuilder: (context) => const [
-                      PopupMenuItem(
-                        value: 'Home',
-                        child: Text('Home'),
-                      ),
-                      PopupMenuItem(
-                        value: 'Contact',
-                        child: Text('Contact'),
-                      ),
-                      PopupMenuItem(
-                        value: 'Layanan',
-                        child: Text('Layanan'),
-                      ),
-                      PopupMenuItem(
-                        value: 'Tentang',
-                        child: Text('Tentang'),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-
-          _CounterIcon(
-            icon: Icons.favorite_border_rounded,
-            count: wishlistCount,
-            onTap: onWishlistTap,
-          ),
-
-          _CounterIcon(
-            icon: Icons.shopping_bag_outlined,
-            count: cartCount,
-            onTap: onCartTap,
-          ),
-
-          const SizedBox(width: 4),
-
-          _ProfileMenu(
-            name: name,
-            email: email,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ============================================================
-// NAV LINK
-// ============================================================
-
-class _NavLink extends StatelessWidget {
-  final String label;
-  final bool active;
-  final VoidCallback onTap;
-
-  const _NavLink({
-    required this.label,
-    this.active = false,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 6,
-      ),
-      child: TextButton(
-        onPressed: onTap,
-        style: TextButton.styleFrom(
-          foregroundColor: active
-              ? AppColors.forest
-              : AppColors.muted,
-          textStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: active
-                ? FontWeight.w700
-                : FontWeight.w500,
-          ),
-        ),
-        child: Text(label),
-      ),
-    );
-  }
-}
-
-// ============================================================
-// COUNTER ICON
-// ============================================================
-
-class _CounterIcon extends StatelessWidget {
-  final IconData icon;
-  final int count;
-  final VoidCallback onTap;
-
-  const _CounterIcon({
-    required this.icon,
-    required this.count,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        IconButton(
-          onPressed: onTap,
-          icon: Icon(
-            icon,
-            color: AppColors.ink,
-          ),
-        ),
-
-        if (count > 0)
-          Positioned(
-            top: 4,
-            right: 2,
-            child: Container(
-              constraints: const BoxConstraints(
-                minWidth: 16,
-                minHeight: 16,
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 4,
-              ),
-              decoration: const BoxDecoration(
-                color: AppColors.danger,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(
-                  count > 99 ? '99+' : '$count',
-                  style: const TextStyle(
-                    fontSize: 8,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-// ============================================================
-// PROFILE MENU
-// ============================================================
-
-class _ProfileMenu extends StatelessWidget {
-  final String name;
-  final String email;
-
-  const _ProfileMenu({
-    required this.name,
-    required this.email,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      tooltip: 'Akun',
-      offset: const Offset(0, 46),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      onSelected: (value) async {
-        if (value == 'logout') {
-          final navigator = Navigator.of(context);
-
-          await AuthController.logoutFromFirebase();
-
-          navigator.popUntil((route) => route.isFirst);
-          return;
-        }
-
-        if (value == 'profile') {
-          Navigator.of(context).pushNamed<void>(AppRoutes.profile);
-        }
-      },
-      itemBuilder: (context) => [
-        PopupMenuItem<String>(
-          enabled: false,
-          child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                  color: AppColors.ink,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                email,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: AppColors.muted,
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        const PopupMenuDivider(),
-
-        const PopupMenuItem<String>(
-          value: 'profile',
-          child: Row(
-            children: [
-              Icon(
-                Icons.person_outline_rounded,
-                size: 18,
-                color: AppColors.muted,
-              ),
-              SizedBox(width: 10),
-              Text('Profile'),
-            ],
-          ),
-        ),
-
-        const PopupMenuItem<String>(
-          value: 'logout',
-          child: Row(
-            children: [
-              Icon(
-                Icons.logout_rounded,
-                size: 18,
-                color: AppColors.danger,
-              ),
-              SizedBox(width: 10),
-              Text(
-                'Logout',
-                style: TextStyle(
-                  color: AppColors.danger,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-      child: const Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 4,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircleAvatar(
-              radius: 17,
-              backgroundColor: Color(0xFFE8F0EC),
-              child: Icon(
-                Icons.person_rounded,
-                size: 19,
-                color: AppColors.forest,
-              ),
-            ),
-            SizedBox(width: 4),
-            Icon(
-              Icons.keyboard_arrow_down_rounded,
-              size: 18,
-              color: AppColors.muted,
-            ),
-          ],
         ),
       ),
     );
