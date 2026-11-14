@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../controllers/auth_controller.dart';
 import '../controllers/product_controller.dart';
 import '../models/product.dart';
+import '../views/chat/chat_page.dart';
 import '../views/home/all_products_page.dart';
 import '../views/home/contact_page.dart';
 import '../views/home/product_detail_page.dart';
@@ -29,6 +30,7 @@ class AppRoutes {
   static const orders = '/orders';
   static const contact = '/contact';
   static const services = '/services';
+  static const chat = '/chat';
   static const about = '/about';
   static const profile = '/profile';
   static const security = '/profile/security';
@@ -59,6 +61,8 @@ class AppRoutes {
         return const ContactPage();
       case services:
         return const ServicesPage();
+      case chat:
+        return const ChatPage();
       case about:
         return const AboutPage();
       case security:

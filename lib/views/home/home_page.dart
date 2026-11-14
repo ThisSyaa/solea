@@ -12,9 +12,7 @@ import '../../core/app_theme.dart';
 import '../../models/product.dart';
 import 'all_products_page.dart';
 
-// ============================================================
 // BANNER DATA
-// ============================================================
 
 class _BannerData {
   final String title;
@@ -57,9 +55,7 @@ const List<_BannerData> _banners = [
   ),
 ];
 
-// ============================================================
 // HOME PAGE
-// ============================================================
 
 class HomePage extends StatefulWidget {
   final String name;
@@ -103,9 +99,7 @@ class _HomePageState extends State<HomePage> {
         .toList();
   }
 
-  // =========================================================
   // HOME NAVIGATION
-  // =========================================================
 
   void _scrollHomeTop() {
     setState(() {
@@ -127,9 +121,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // =========================================================
   // OPEN ALL PRODUCTS
-  // =========================================================
 
   Future<void> _openAllProducts(
     AllProductsMode mode,
@@ -143,9 +135,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // =========================================================
   // OPEN CONTACT
-  // =========================================================
 
   Future<void> _openContactPage() async {
     await Navigator.of(context).pushNamed<void>(
@@ -153,9 +143,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // =========================================================
   // OPEN SERVICES
-  // =========================================================
 
   Future<void> _openServicesPage() async {
     await Navigator.of(context).pushNamed<void>(
@@ -163,9 +151,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // =========================================================
   // OPEN ABOUT
-  // =========================================================
 
   Future<void> _openAboutPage() async {
     await Navigator.of(context).pushNamed<void>(
@@ -173,9 +159,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // =========================================================
+  // OPEN CHAT HUB (BOT, ADMIN & USER)
+
+  Future<void> _openChatPage() async {
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.chat,
+    );
+  }
+
   // WISHLIST
-  // =========================================================
 
   void _toggleWishlist(Product product) {
     final controller = WishlistController.instance;
@@ -204,9 +196,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // =========================================================
   // CART
-  // =========================================================
 
   Future<void> _openCartPage() async {
     await Navigator.of(context).pushNamed<void>(
@@ -218,9 +208,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // =========================================================
   // PRODUCT DETAIL
-  // =========================================================
 
   Future<void> _openProductDetail(
     Product product,
@@ -234,9 +222,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // =========================================================
   // SNACKBAR
-  // =========================================================
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context)
@@ -250,9 +236,7 @@ class _HomePageState extends State<HomePage> {
       );
   }
 
-  // =========================================================
   // SCROLL TO PRODUCTS
-  // =========================================================
 
   void _scrollToProducts() {
     if (!_scrollController.hasClients) return;
@@ -275,14 +259,25 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  // =========================================================
   // BUILD HOME
-  // =========================================================
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.sand,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _openChatPage,
+        backgroundColor: AppColors.forest,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.forum_rounded, size: 20),
+        label: const Text(
+          'Chat SOLEA',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.2,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -298,6 +293,7 @@ class _HomePageState extends State<HomePage> {
               onContactTap: _openContactPage,
               onServicesTap: _openServicesPage,
               onAboutTap: _openAboutPage,
+              onChatTap: _openChatPage,
             ),
 
             Expanded(
@@ -424,9 +420,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// ============================================================
 // HERO CAROUSEL
-// ============================================================
 
 class _HeroCarousel extends StatefulWidget {
   final VoidCallback onAction;
@@ -535,9 +529,7 @@ class _HeroCarouselState extends State<_HeroCarousel> {
   }
 }
 
-// ============================================================
 // HERO BANNER
-// ============================================================
 
 class _HeroBanner extends StatelessWidget {
   final _BannerData data;
@@ -653,9 +645,7 @@ class _HeroBanner extends StatelessWidget {
   }
 }
 
-// ============================================================
 // SECTION HEADER
-// ============================================================
 
 class _SectionHeader extends StatelessWidget {
   final String title;
@@ -699,9 +689,7 @@ class _SectionHeader extends StatelessWidget {
   }
 }
 
-// ============================================================
 // CATEGORY LIST
-// ============================================================
 
 class _CategoryList extends StatelessWidget {
   final String selectedCategory;
@@ -765,9 +753,7 @@ class _CategoryList extends StatelessWidget {
   }
 }
 
-// ============================================================
 // PRODUCT LIST
-// ============================================================
 
 class ProductList extends StatelessWidget {
   final List<Product> products;
@@ -845,9 +831,7 @@ class ProductList extends StatelessWidget {
   }
 }
 
-// ============================================================
 // PRODUCT CARD
-// ============================================================
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -1016,9 +1000,7 @@ class ProductCard extends StatelessWidget {
   }
 }
 
-// ============================================================
 // NAVBAR
-// ============================================================
 
 class _NavBar extends StatelessWidget {
   final String name;
@@ -1032,6 +1014,7 @@ class _NavBar extends StatelessWidget {
   final VoidCallback onContactTap;
   final VoidCallback onServicesTap;
   final VoidCallback onAboutTap;
+  final VoidCallback onChatTap;
 
   const _NavBar({
     required this.name,
@@ -1044,6 +1027,7 @@ class _NavBar extends StatelessWidget {
     required this.onContactTap,
     required this.onServicesTap,
     required this.onAboutTap,
+    required this.onChatTap,
   });
 
   void _onMenuSelected(String label) {
@@ -1058,6 +1042,10 @@ class _NavBar extends StatelessWidget {
 
       case 'Layanan':
         onServicesTap();
+        break;
+
+      case 'Chat':
+        onChatTap();
         break;
 
       case 'Tentang':
@@ -1116,6 +1104,10 @@ class _NavBar extends StatelessWidget {
                         onTap: onServicesTap,
                       ),
                       _NavLink(
+                        label: 'Chat',
+                        onTap: onChatTap,
+                      ),
+                      _NavLink(
                         label: 'Tentang',
                         onTap: onAboutTap,
                       ),
@@ -1144,6 +1136,10 @@ class _NavBar extends StatelessWidget {
                       PopupMenuItem(
                         value: 'Layanan',
                         child: Text('Layanan'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Chat',
+                        child: Text('Chat'),
                       ),
                       PopupMenuItem(
                         value: 'Tentang',
@@ -1180,9 +1176,7 @@ class _NavBar extends StatelessWidget {
   }
 }
 
-// ============================================================
 // NAV LINK
-// ============================================================
 
 class _NavLink extends StatelessWidget {
   final String label;
@@ -1220,9 +1214,7 @@ class _NavLink extends StatelessWidget {
   }
 }
 
-// ============================================================
 // COUNTER ICON
-// ============================================================
 
 class _CounterIcon extends StatelessWidget {
   final IconData icon;
@@ -1281,9 +1273,7 @@ class _CounterIcon extends StatelessWidget {
   }
 }
 
-// ============================================================
 // PROFILE MENU
-// ============================================================
 
 class _ProfileMenu extends StatelessWidget {
   final String name;
@@ -1410,9 +1400,7 @@ class _ProfileMenu extends StatelessWidget {
   }
 }
 
-// ============================================================
 // HELPER
-// ============================================================
 
 double mathMin(double a, double b) {
   return a < b ? a : b;
