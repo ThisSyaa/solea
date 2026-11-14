@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../controllers/auth_controller.dart';
 import '../controllers/product_controller.dart';
+import '../views/admin/admin_shell.dart';
 import '../models/product.dart';
 import '../views/home/all_products_page.dart';
 import '../views/home/contact_page.dart';
@@ -36,6 +37,8 @@ class AppRoutes {
   static const address = '/profile/address';
   static const payment = '/profile/payment';
   static const faq = '/profile/faq';
+  static const admin = '/admin';
+
 
   static String allProducts(AllProductsMode mode) => '/products/${mode.name}';
 
@@ -47,6 +50,8 @@ class AppRoutes {
     final seg = uri.pathSegments;
 
     switch (uri.path) {
+      case admin:
+        return const AdminShell();
       case cart:
         return const CartPage();
       case wishlist:
