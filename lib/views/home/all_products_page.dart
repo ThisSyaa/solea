@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../controllers/product_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
+import '../../core/app_routes.dart';
 import '../../models/product.dart';
 import 'product_detail_page.dart';
 
@@ -127,10 +128,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
   }
 
   Future<void> _openProduct(Product product) async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => ProductDetailPage(product: product),
-      ),
+        await Navigator.of(context).pushNamed<void>(
+      AppRoutes.product(product),
     );
 
     if (mounted) {
@@ -558,10 +557,10 @@ class _CategoryCard extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   if (imageUrl != null)
-                    Image.network(
-                      imageUrl!,
+                    CachedNetworkImage(
+                      imageUrl: imageUrl!,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
+                      errorWidget: (_, __, ___) =>
                           const _CategoryImageFallback(),
                     )
                   else
@@ -704,10 +703,13 @@ class _CompactProductCard extends StatelessWidget {
                     children: [
                       Container(
                         color: const Color(0xFFECE9E1),
-                        child: Image.network(
-                          product.imageUrl,
+                        child: CachedNetworkImage(
+                          imageUrl: product.imageUrl,
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) {
+                          placeholder: (_, __) => const Center(
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                          errorWidget: (_, __, ___) {
                             return const Center(
                               child: Icon(
                                 Icons.image_not_supported_outlined,

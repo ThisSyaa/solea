@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 import 'controllers/product_controller.dart';
+import 'core/app_routes.dart';
 import 'core/app_theme.dart';
+import 'core/auth_gate.dart';
 import 'firebase_options.dart';
 import 'views/landing/landing_page.dart';
 
@@ -13,14 +16,22 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Ambil data produk dari API (pakai Dio). Kalau gagal, pakai data lokal.
   await ProductController.load();
+  await initializeDateFormatting('id_ID');
+  final restoredUser = await FirebaseAuth.instance.authStateChanges().first;
+  final isLoggedIn = restoredUser != null;
 
-  runApp(const MyApp());
+  AppRoutes.restorePath = isLoggedIn
+      ? WidgetsBinding.instance.platformDispatcher.defaultRouteName
+      : null;
+
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +39,13 @@ class MyApp extends StatelessWidget {
       title: 'SOLEA',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: const LandingPage(),
+      onGenerateRoute: AppRoutes.onGenerateRoute,
+      onGenerateInitialRoutes: (_) => [
+        MaterialPageRoute<void>(
+          settings: const RouteSettings(name: '/'),
+          builder: (_) => isLoggedIn ? const AuthGate() : const LandingPage(),
+        ),
+      ],
     );
   }
 }

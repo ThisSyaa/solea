@@ -1,23 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
+import '../../controllers/auth_controller.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/product_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
+import '../../core/app_routes.dart';
 import '../../core/app_theme.dart';
 import '../../models/product.dart';
-import '../auth/login_page.dart';
-import '../chat/chat_page.dart';
-import '../profile/about_page.dart';
-import '../profile/profile_page.dart';
-import '../shopping/cart_page.dart';
-import '../shopping/wishlist_page.dart';
 import 'all_products_page.dart';
-import 'contact_page.dart';
-import 'product_detail_page.dart';
-import 'services_page.dart';
 
 // BANNER DATA
 
@@ -133,12 +126,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> _openAllProducts(
     AllProductsMode mode,
   ) async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => AllProductsPage(
-          mode: mode,
-        ),
-      ),
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.allProducts(mode),
     );
 
     if (mounted) {
@@ -149,40 +138,32 @@ class _HomePageState extends State<HomePage> {
   // OPEN CONTACT
 
   Future<void> _openContactPage() async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => const ContactPage(),
-      ),
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.contact,
     );
   }
 
   // OPEN SERVICES
 
   Future<void> _openServicesPage() async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => const ServicesPage(),
-      ),
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.services,
     );
   }
 
   // OPEN ABOUT
 
   Future<void> _openAboutPage() async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => const AboutPage(),
-      ),
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.about,
     );
   }
 
   // OPEN CHAT HUB (BOT, ADMIN & USER)
 
   Future<void> _openChatPage() async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => const ChatPage(),
-      ),
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.chat,
     );
   }
 
@@ -206,10 +187,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _openWishlistPage() async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => const WishlistPage(),
-      ),
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.wishlist,
     );
 
     if (mounted) {
@@ -220,10 +199,8 @@ class _HomePageState extends State<HomePage> {
   // CART
 
   Future<void> _openCartPage() async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => const CartPage(),
-      ),
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.cart,
     );
 
     if (mounted) {
@@ -236,12 +213,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> _openProductDetail(
     Product product,
   ) async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => ProductDetailPage(
-          product: product,
-        ),
-      ),
+    await Navigator.of(context).pushNamed<void>(
+      AppRoutes.product(product),
     );
 
     if (mounted) {
@@ -575,10 +548,10 @@ class _HeroBanner extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image.network(
-          data.imageUrl,
+        CachedNetworkImage(
+          imageUrl: data.imageUrl,
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) {
+          errorWidget: (_, __, ___) {
             return Container(
               color: AppColors.forestDeep,
             );
@@ -906,14 +879,16 @@ class ProductCard extends StatelessWidget {
                       children: [
                         Container(
                           color: AppColors.sand,
-                          child: Image.network(
-                            product.imageUrl,
+                          child: CachedNetworkImage(
+                            imageUrl: product.imageUrl,
                             fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) {
+                            placeholder: (_, __) => const Center(
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                            errorWidget: (_, __, ___) {
                               return const Center(
                                 child: Icon(
-                                  Icons
-                                      .image_not_supported_outlined,
+                                  Icons.image_not_supported_outlined,
                                   color: AppColors.muted,
                                   size: 34,
                                 ),
@@ -1317,25 +1292,18 @@ class _ProfileMenu extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      onSelected: (value) {
+      onSelected: (value) async {
         if (value == 'logout') {
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute<void>(
-              builder: (_) => const LoginPage(),
-            ),
-            (route) => false,
-          );
+          final navigator = Navigator.of(context);
+
+          await AuthController.logoutFromFirebase();
+
+          navigator.popUntil((route) => route.isFirst);
+          return;
         }
 
         if (value == 'profile') {
-          Navigator.of(context).push<void>(
-            MaterialPageRoute<void>(
-              builder: (_) => ProfilePage(
-                name: name,
-                email: email,
-              ),
-            ),
-          );
+          Navigator.of(context).pushNamed<void>(AppRoutes.profile);
         }
       },
       itemBuilder: (context) => [

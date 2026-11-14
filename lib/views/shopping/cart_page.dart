@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../controllers/cart_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
+import '../../core/app_routes.dart';
 import '../../models/cart_item.dart';
 import 'checkout_page.dart';
 import '../../core/home_button.dart';
@@ -47,9 +49,9 @@ class CartPage extends StatelessWidget {
 
               final summary = _CartSummary(
                 subtotal: cart.subtotal,
-                onCheckout: () => Navigator.push(
+                onCheckout: () => Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (_) => const CheckoutPage()),
+                  AppRoutes.checkout,
                 ),
               );
 
@@ -94,7 +96,7 @@ class _CartItemTile extends StatelessWidget {
             child: SizedBox(
               width: 92,
               height: 92,
-              child: Image.network(item.product.imageUrl, fit: BoxFit.cover),
+              child: CachedNetworkImage(imageUrl: item.product.imageUrl, fit: BoxFit.cover),
             ),
           ),
           const SizedBox(width: 14),

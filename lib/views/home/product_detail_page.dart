@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
+import '../../core/app_routes.dart';
 import '../../models/product.dart';
 import '../shopping/cart_page.dart';
 
@@ -54,7 +56,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
           ),
           IconButton(
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CartPage())),
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.cart),
             icon: const Icon(Icons.shopping_bag_outlined),
           ),
         ],
@@ -68,10 +70,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               borderRadius: BorderRadius.circular(22),
               child: Container(
                 color: const Color(0xFFEDEAE2),
-                child: Image.network(
-                  product.imageUrl,
+                child: CachedNetworkImage(
+                  imageUrl: product.imageUrl,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => const Icon(Icons.image_not_supported_outlined, size: 70),
+                  placeholder: (_, __) => const Center(
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                  errorWidget: (_, __, ___) =>
+                      const Icon(Icons.image_not_supported_outlined, size: 70),
                 ),
               ),
             ),

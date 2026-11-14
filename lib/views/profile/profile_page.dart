@@ -4,16 +4,9 @@ import '../../controllers/auth_controller.dart';
 import '../../controllers/order_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_theme.dart';
-import '../order/order_page.dart';
-import '../shopping/wishlist_page.dart';
+import '../../core/app_routes.dart';
 
 import 'personal_info_page.dart';
-import 'security_page.dart';
-import 'notification_page.dart';
-import 'address_page.dart';
-import 'payment_method_page.dart';
-import 'faq_page.dart';
-import 'about_page.dart';
 
 class ProfilePage extends StatefulWidget {
   final String name;
@@ -64,11 +57,9 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _openOrders() async {
-    await Navigator.push(
+    await Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => const OrderPage(),
-      ),
+      AppRoutes.orders,
     );
 
     if (mounted) {
@@ -77,12 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _openWishlist() async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const WishlistPage(),
-      ),
-    );
+    await Navigator.pushNamed(context, AppRoutes.wishlist);
 
     if (mounted) {
       setState(() {});
@@ -227,54 +213,22 @@ class _ProfilePageState extends State<ProfilePage> {
                     onOrdersTap: _openOrders,
                     onWishlistTap: _openWishlist,
                     onSecurityTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const SecurityPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, AppRoutes.security);
                     },
                     onNotificationTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              const NotificationPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, AppRoutes.notifications);
                     },
                     onAddressTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const AddressPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, AppRoutes.address);
                     },
                     onPaymentTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              const PaymentMethodPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, AppRoutes.payment);
                     },
                     onFaqTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const FaqPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, AppRoutes.faq);
                     },
                     onAboutTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const AboutPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, AppRoutes.about);
                     },
                     onLogout: _showLogoutDialog,
                   );
@@ -290,54 +244,22 @@ class _ProfilePageState extends State<ProfilePage> {
                   onOrdersTap: _openOrders,
                   onWishlistTap: _openWishlist,
                   onSecurityTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const SecurityPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, AppRoutes.security);
                   },
                   onNotificationTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            const NotificationPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, AppRoutes.notifications);
                   },
                   onAddressTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const AddressPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, AppRoutes.address);
                   },
                   onPaymentTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            const PaymentMethodPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, AppRoutes.payment);
                   },
                   onFaqTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const FaqPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, AppRoutes.faq);
                   },
                   onAboutTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const AboutPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, AppRoutes.about);
                   },
                   onLogout: _showLogoutDialog,
                 );

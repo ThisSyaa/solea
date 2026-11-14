@@ -139,6 +139,7 @@ class _LandingPageState extends State<LandingPage>
 
     Navigator.of(context).pushReplacement(
       PageRouteBuilder<void>(
+        settings: const RouteSettings(name: '/'),
         transitionDuration: const Duration(milliseconds: 650),
         pageBuilder: (context, animation, secondaryAnimation) {
           return const AuthGate();

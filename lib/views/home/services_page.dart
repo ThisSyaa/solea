@@ -1,27 +1,16 @@
-
 import 'package:flutter/material.dart';
 
+import '../../core/app_routes.dart';
 import '../../core/app_theme.dart';
-import '../chat/chat_page.dart';
-import '../order/order_page.dart';
-import '../profile/address_page.dart';
-import '../profile/faq_page.dart';
-import '../profile/payment_method_page.dart';
-import '../shopping/cart_page.dart';
-import '../shopping/wishlist_page.dart';
 
 class ServicesPage extends StatelessWidget {
   const ServicesPage({super.key});
 
   void _openPage(
     BuildContext context,
-    Widget page,
+    String routeName,
   ) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => page,
-      ),
-    );
+    Navigator.of(context).pushNamed(routeName);
   }
 
   @override
@@ -107,7 +96,7 @@ class ServicesPage extends StatelessWidget {
                               'Lihat riwayat dan status pesanan.',
                           onTap: () => _openPage(
                             context,
-                            const OrderPage(),
+                            AppRoutes.orders,
                           ),
                         ),
                         _ServiceCard(
@@ -117,7 +106,7 @@ class ServicesPage extends StatelessWidget {
                               'Kelola alamat penerima pesanan.',
                           onTap: () => _openPage(
                             context,
-                            const AddressPage(),
+                            AppRoutes.address,
                           ),
                         ),
                         _ServiceCard(
@@ -127,7 +116,7 @@ class ServicesPage extends StatelessWidget {
                               'Atur pilihan metode pembayaran.',
                           onTap: () => _openPage(
                             context,
-                            const PaymentMethodPage(),
+                            AppRoutes.payment,
                           ),
                         ),
                         _ServiceCard(
@@ -137,7 +126,7 @@ class ServicesPage extends StatelessWidget {
                               'Periksa produk sebelum checkout.',
                           onTap: () => _openPage(
                             context,
-                            const CartPage(),
+                            AppRoutes.cart,
                           ),
                         ),
                         _ServiceCard(
@@ -147,7 +136,7 @@ class ServicesPage extends StatelessWidget {
                               'Lihat sepatu yang kamu simpan.',
                           onTap: () => _openPage(
                             context,
-                            const WishlistPage(),
+                            AppRoutes.wishlist,
                           ),
                         ),
                         _ServiceCard(
@@ -157,7 +146,7 @@ class ServicesPage extends StatelessWidget {
                               'Chat Bot AI, Admin Support, dan Komunitas User.',
                           onTap: () => _openPage(
                             context,
-                            const ChatPage(),
+                            AppRoutes.chat,
                           ),
                         ),
                         _ServiceCard(
@@ -167,7 +156,7 @@ class ServicesPage extends StatelessWidget {
                               'Temukan jawaban atas pertanyaan umum.',
                           onTap: () => _openPage(
                             context,
-                            const FaqPage(),
+                            AppRoutes.faq,
                           ),
                         ),
                       ],

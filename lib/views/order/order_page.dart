@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../controllers/order_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
@@ -227,17 +227,13 @@ class _OrderCard extends StatelessWidget {
                         height: 56,
                         child: imageUrl.isEmpty
                             ? _imagePlaceholder()
-                            : Image.network(
-                                imageUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (
-                                  context,
-                                  error,
-                                  stackTrace,
-                                ) {
-                                  return _imagePlaceholder();
-                                },
-                              ),
+                            : CachedNetworkImage(
+                               imageUrl: imageUrl,
+                               fit: BoxFit.cover,
+                               errorWidget: (_, __, ___) {
+                                 return _imagePlaceholder();
+                               },
+                             ),
                       ),
                     ),
                     const SizedBox(width: 11),

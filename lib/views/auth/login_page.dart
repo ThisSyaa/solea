@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../core/app_theme.dart';
-import '../home/home_page.dart';
 import 'register_page.dart';
 import '../../core/auth_feedback_dialog.dart';
 
@@ -88,15 +87,6 @@ class _LoginPageState extends State<LoginPage> {
 
       return;
     }
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => HomePage(
-          name: AuthController.currentName!,
-          email: AuthController.currentEmail!,
-        ),
-      ),
-    );
   }
 
   Future<void> _showForgotPassword() async {
@@ -611,18 +601,18 @@ class _DesktopMiniLogo extends StatelessWidget {
   }
 }
 
-   class _Logo extends StatelessWidget {
-     const _Logo();
+class _Logo extends StatelessWidget {
+  const _Logo();
 
-     @override
-     Widget build(BuildContext context) {
-       return Image.asset(
-         'assets/images/solea_logo2.png',
-         height: 35,
-         fit: BoxFit.contain,
-       );
-     }
-   }
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      'assets/images/solea_logo2.png',
+      height: 35,
+      fit: BoxFit.contain,
+    );
+  }
+}
 
 class _MobileShoeImage extends StatelessWidget {
   final String imageUrl;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
+import '../../core/app_routes.dart';
 import '../home/product_detail_page.dart';
 import '../../core/home_button.dart';
 
@@ -55,9 +57,9 @@ class WishlistPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(18),
                     clipBehavior: Clip.antiAlias,
                     child: InkWell(
-                      onTap: () => Navigator.push(
+                      onTap: () => Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(builder: (_) => ProductDetailPage(product: product)),
+                        AppRoutes.product(product),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +70,7 @@ class WishlistPage extends StatelessWidget {
                               children: [
                                 Container(
                                   color: const Color(0xFFEDEAE2),
-                                  child: Image.network(product.imageUrl, fit: BoxFit.cover),
+                                  child: CachedNetworkImage(imageUrl: product.imageUrl, fit: BoxFit.cover),
                                 ),
                                 Positioned(
                                   top: 8,
