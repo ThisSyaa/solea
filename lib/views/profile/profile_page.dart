@@ -5,6 +5,7 @@ import '../../controllers/order_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_theme.dart';
 import '../../core/app_routes.dart';
+import '../../core/editable_user_avatar.dart';
 
 import 'personal_info_page.dart';
 
@@ -12,11 +13,7 @@ class ProfilePage extends StatefulWidget {
   final String name;
   final String email;
 
-  const ProfilePage({
-    super.key,
-    required this.name,
-    required this.email,
-  });
+  const ProfilePage({super.key, required this.name, required this.email});
 
   static const String urlFoto =
       'https://avatars.githubusercontent.com/u/174694675?v=4';
@@ -41,10 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final result = await Navigator.push<Map<String, String>>(
       context,
       MaterialPageRoute(
-        builder: (_) => PersonalInfoPage(
-          name: _name,
-          email: _email,
-        ),
+        builder: (_) => PersonalInfoPage(name: _name, email: _email),
       ),
     );
 
@@ -57,10 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _openOrders() async {
-    await Navigator.pushNamed(
-      context,
-      AppRoutes.orders,
-    );
+    await Navigator.pushNamed(context, AppRoutes.orders);
 
     if (mounted) {
       setState(() {});
@@ -92,13 +83,9 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           title: const Text(
             'Logout',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w800),
           ),
-          content: const Text(
-            'Yakin ingin keluar dari akun?',
-          ),
+          content: const Text('Yakin ingin keluar dari akun?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -106,9 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
               },
               child: const Text(
                 'Batal',
-                style: TextStyle(
-                  color: AppColors.ink,
-                ),
+                style: TextStyle(color: AppColors.ink),
               ),
             ),
             ElevatedButton(
@@ -128,9 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 } catch (_) {
                   if (!mounted) return;
 
-                  _showMessage(
-                    'Logout gagal. Coba lagi.',
-                  );
+                  _showMessage('Logout gagal. Coba lagi.');
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -150,10 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        SnackBar(
-          content: Text(message),
-          behavior: SnackBarBehavior.floating,
-        ),
+        SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
       );
   }
 
@@ -165,11 +145,9 @@ class _ProfilePageState extends State<ProfilePage> {
         WishlistController.instance,
       ]),
       builder: (context, _) {
-        final orderCount =
-            OrderController.instance.orders.length;
+        final orderCount = OrderController.instance.orders.length;
 
-        final wishlistCount =
-            WishlistController.instance.count;
+        final wishlistCount = WishlistController.instance.count;
 
         return Scaffold(
           backgroundColor: AppColors.sand,
@@ -179,10 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
             elevation: 0,
             centerTitle: false,
             leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 18,
-              ),
+              icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
               color: AppColors.ink,
               onPressed: () {
                 Navigator.of(context).pop();
@@ -314,16 +289,9 @@ class _DesktopProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: 1050,
-        ),
+        constraints: const BoxConstraints(maxWidth: 1050),
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(
-            32,
-            20,
-            32,
-            32,
-          ),
+          padding: const EdgeInsets.fromLTRB(32, 20, 32, 32),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -341,18 +309,14 @@ class _DesktopProfile extends StatelessWidget {
                     flex: 4,
                     child: Column(
                       children: [
-                        const _SectionTitle(
-                          title: 'Aktivitas kamu',
-                        ),
+                        const _SectionTitle(title: 'Aktivitas kamu'),
                         const SizedBox(height: 11),
                         _StatsCard(
                           orderCount: orderCount,
                           wishlistCount: wishlistCount,
                         ),
                         const SizedBox(height: 22),
-                        const _SectionTitle(
-                          title: 'Akun',
-                        ),
+                        const _SectionTitle(title: 'Akun'),
                         const SizedBox(height: 11),
                         _MenuCard(
                           children: [
@@ -387,17 +351,14 @@ class _DesktopProfile extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const _SectionTitle(
-                          title: 'Belanja',
-                        ),
+                        const _SectionTitle(title: 'Belanja'),
                         const SizedBox(height: 11),
                         _MenuCard(
                           children: [
                             _MenuTile(
                               icon: Icons.inventory_2_outlined,
                               title: 'Pesanan Saya',
-                              subtitle:
-                                  'Lihat riwayat dan status pesanan',
+                              subtitle: 'Lihat riwayat dan status pesanan',
                               onTap: onOrdersTap,
                             ),
                             const _MenuDivider(),
@@ -424,9 +385,7 @@ class _DesktopProfile extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 22),
-                        const _SectionTitle(
-                          title: 'Lainnya',
-                        ),
+                        const _SectionTitle(title: 'Lainnya'),
                         const SizedBox(height: 11),
                         _MenuCard(
                           children: [
@@ -451,15 +410,10 @@ class _DesktopProfile extends StatelessWidget {
                           height: 50,
                           child: OutlinedButton.icon(
                             onPressed: onLogout,
-                            icon: const Icon(
-                              Icons.logout_rounded,
-                              size: 18,
-                            ),
+                            icon: const Icon(Icons.logout_rounded, size: 18),
                             label: const Text(
                               'Logout',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                              ),
+                              style: TextStyle(fontWeight: FontWeight.w700),
                             ),
                             style: OutlinedButton.styleFrom(
                               foregroundColor: AppColors.danger,
@@ -529,9 +483,7 @@ class _MobileProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: isTablet ? 720 : 560,
-        ),
+        constraints: BoxConstraints(maxWidth: isTablet ? 720 : 560),
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
             horizontal: isTablet ? 28 : 18,
@@ -547,14 +499,9 @@ class _MobileProfile extends StatelessWidget {
                 onEdit: onEditProfile,
               ),
               const SizedBox(height: 18),
-              _StatsCard(
-                orderCount: orderCount,
-                wishlistCount: wishlistCount,
-              ),
+              _StatsCard(orderCount: orderCount, wishlistCount: wishlistCount),
               const SizedBox(height: 22),
-              const _SectionTitle(
-                title: 'Belanja',
-              ),
+              const _SectionTitle(title: 'Belanja'),
               const SizedBox(height: 10),
               _MenuCard(
                 children: [
@@ -588,9 +535,7 @@ class _MobileProfile extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 22),
-              const _SectionTitle(
-                title: 'Akun',
-              ),
+              const _SectionTitle(title: 'Akun'),
               const SizedBox(height: 10),
               _MenuCard(
                 children: [
@@ -617,9 +562,7 @@ class _MobileProfile extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 22),
-              const _SectionTitle(
-                title: 'Lainnya',
-              ),
+              const _SectionTitle(title: 'Lainnya'),
               const SizedBox(height: 10),
               _MenuCard(
                 children: [
@@ -644,15 +587,10 @@ class _MobileProfile extends StatelessWidget {
                 height: 50,
                 child: OutlinedButton.icon(
                   onPressed: onLogout,
-                  icon: const Icon(
-                    Icons.logout_rounded,
-                    size: 18,
-                  ),
+                  icon: const Icon(Icons.logout_rounded, size: 18),
                   label: const Text(
                     'Logout',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w700),
                   ),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.danger,
@@ -699,9 +637,7 @@ class _ProfileHeader extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColors.line,
-        ),
+        border: Border.all(color: AppColors.line),
       ),
       child: Row(
         children: [
@@ -735,18 +671,12 @@ class _ProfileHeader extends StatelessWidget {
                   email,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: AppColors.muted,
-                  ),
+                  style: const TextStyle(fontSize: 13, color: AppColors.muted),
                 ),
                 const SizedBox(height: 9),
                 const Text(
                   'Kelola akun dan aktivitas belanja kamu.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.muted,
-                  ),
+                  style: TextStyle(fontSize: 12, color: AppColors.muted),
                 ),
               ],
             ),
@@ -755,16 +685,11 @@ class _ProfileHeader extends StatelessWidget {
           if (desktop)
             OutlinedButton.icon(
               onPressed: onEdit,
-              icon: const Icon(
-                Icons.edit_outlined,
-                size: 17,
-              ),
+              icon: const Icon(Icons.edit_outlined, size: 17),
               label: const Text('Edit Profile'),
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.ink,
-                side: const BorderSide(
-                  color: AppColors.line,
-                ),
+                side: const BorderSide(color: AppColors.line),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 13,
@@ -793,54 +718,17 @@ class _ProfileHeader extends StatelessWidget {
 class _ProfileAvatar extends StatelessWidget {
   final double radius;
 
-  const _ProfileAvatar({
-    required this.radius,
-  });
+  const _ProfileAvatar({required this.radius});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(3),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: AppColors.line,
-              width: 1.4,
-            ),
-          ),
-          child: CircleAvatar(
-            radius: radius,
-            backgroundColor: const Color(0xFFE8E4DA),
-            backgroundImage: const NetworkImage(
-              ProfilePage.urlFoto,
-            ),
-          ),
-        ),
-        Positioned(
-          right: -1,
-          bottom: -1,
-          child: Container(
-            width: 30,
-            height: 30,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.white,
-                width: 3,
-              ),
-            ),
-            child: const Icon(
-              Icons.camera_alt_outlined,
-              color: Colors.white,
-              size: 14,
-            ),
-          ),
-        ),
-      ],
+    return Container(
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: AppColors.line, width: 1.4),
+      ),
+      child: EditableUserAvatar(radius: radius),
     );
   }
 }
@@ -855,10 +743,7 @@ class _MemberBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 9,
-        vertical: 6,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
       decoration: BoxDecoration(
         color: const Color(0xFFF0EEE8),
         borderRadius: BorderRadius.circular(999),
@@ -894,32 +779,21 @@ class _StatsCard extends StatelessWidget {
   final int orderCount;
   final int wishlistCount;
 
-  const _StatsCard({
-    required this.orderCount,
-    required this.wishlistCount,
-  });
+  const _StatsCard({required this.orderCount, required this.wishlistCount});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 19,
-        horizontal: 10,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(
-          color: AppColors.line,
-        ),
+        border: Border.all(color: AppColors.line),
       ),
       child: Row(
         children: [
           Expanded(
-            child: _StatItem(
-              number: orderCount.toString(),
-              label: 'Pesanan',
-            ),
+            child: _StatItem(number: orderCount.toString(), label: 'Pesanan'),
           ),
           const _StatDivider(),
           Expanded(
@@ -930,10 +804,7 @@ class _StatsCard extends StatelessWidget {
           ),
           const _StatDivider(),
           const Expanded(
-            child: _StatItem(
-              number: '320',
-              label: 'Poin',
-            ),
+            child: _StatItem(number: '320', label: 'Poin'),
           ),
         ],
       ),
@@ -945,10 +816,7 @@ class _StatItem extends StatelessWidget {
   final String number;
   final String label;
 
-  const _StatItem({
-    required this.number,
-    required this.label,
-  });
+  const _StatItem({required this.number, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -965,10 +833,7 @@ class _StatItem extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: AppColors.muted,
-          ),
+          style: const TextStyle(fontSize: 12, color: AppColors.muted),
         ),
       ],
     );
@@ -980,11 +845,7 @@ class _StatDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 34,
-      width: 1,
-      color: AppColors.line,
-    );
+    return Container(height: 34, width: 1, color: AppColors.line);
   }
 }
 
@@ -995,9 +856,7 @@ class _StatDivider extends StatelessWidget {
 class _SectionTitle extends StatelessWidget {
   final String title;
 
-  const _SectionTitle({
-    required this.title,
-  });
+  const _SectionTitle({required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -1019,9 +878,7 @@ class _SectionTitle extends StatelessWidget {
 class _MenuCard extends StatelessWidget {
   final List<Widget> children;
 
-  const _MenuCard({
-    required this.children,
-  });
+  const _MenuCard({required this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -1029,13 +886,9 @@ class _MenuCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(
-          color: AppColors.line,
-        ),
+        border: Border.all(color: AppColors.line),
       ),
-      child: Column(
-        children: children,
-      ),
+      child: Column(children: children),
     );
   }
 }
@@ -1065,10 +918,7 @@ class _MenuTile extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(15),
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 17,
-            vertical: 14,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 14),
           child: Row(
             children: [
               Container(
@@ -1078,11 +928,7 @@ class _MenuTile extends StatelessWidget {
                   color: const Color(0xFFF3F1EC),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
-                  icon,
-                  size: 19,
-                  color: AppColors.ink,
-                ),
+                child: Icon(icon, size: 19, color: AppColors.ink),
               ),
               const SizedBox(width: 13),
               Expanded(
@@ -1136,14 +982,8 @@ class _MenuDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Padding(
-      padding: EdgeInsets.only(
-        left: 70,
-      ),
-      child: Divider(
-        height: 1,
-        thickness: 1,
-        color: AppColors.line,
-      ),
+      padding: EdgeInsets.only(left: 70),
+      child: Divider(height: 1, thickness: 1, color: AppColors.line),
     );
   }
 }
