@@ -8,7 +8,6 @@ import '../controllers/cart_controller.dart';
 import '../controllers/wishlist_controller.dart';
 import '../views/auth/login_page.dart';
 import '../views/home/home_page.dart';
-import 'app_routes.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
@@ -143,9 +142,6 @@ class _AuthGateState extends State<AuthGate> {
         _needsVerification = false;
         _error = null;
       });
-
-      // Setelah refresh: buka kembali halaman terakhir (mis. /cart).
-      _restoreSavedRoute();
     } on FirebaseAuthException catch (e) {
       if (!mounted || requestId != _requestId) return;
 
@@ -162,31 +158,6 @@ class _AuthGateState extends State<AuthGate> {
             'Profil tidak dapat dimuat. Periksa koneksi atau akses database.';
       });
     }
-  }
-
-  // =========================================================
-  // RESTORE HALAMAN SETELAH REFRESH
-  // =========================================================
-
-  void _restoreSavedRoute() {
-    final path = AppRoutes.restorePath;
-    AppRoutes.restorePath = null; // hanya dijalankan sekali
-
-    if (path == null || path == '/') return;
-
-    final stack = AppRoutes.stackFor(path).where(AppRoutes.isKnown).toList();
-
-    if (stack.isEmpty) return;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-
-      final navigator = Navigator.of(context);
-
-      for (final name in stack) {
-        navigator.pushNamed(name);
-      }
-    });
   }
 
   Future<void> _checkVerificationAgain() async {
@@ -259,30 +230,108 @@ class _AuthGateState extends State<AuthGate> {
   }
 }
 
-class _AuthLoadingScreen extends StatelessWidget {
+/// Layar loading SOLEA: logo berdenyut pelan + garis progres tipis.
+/// Tanpa package tambahan, hanya animasi bawaan Flutter.
+class _AuthLoadingScreen extends StatefulWidget {
   const _AuthLoadingScreen();
 
   @override
+  State<_AuthLoadingScreen> createState() => _AuthLoadingScreenState();
+}
+
+class _AuthLoadingScreenState extends State<_AuthLoadingScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1400),
+  );
+
+  late final Animation<double> _pulse = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeInOut,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Hormati pengaturan "kurangi animasi" dari sistem.
+    final reduceMotion = WidgetsBinding
+        .instance
+        .platformDispatcher
+        .accessibilityFeatures
+        .disableAnimations;
+
+    if (!reduceMotion) {
+      _controller.repeat(reverse: true);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xFFF7F6F2),
+    return Scaffold(
+      backgroundColor: const Color(0xFFF7F6F2),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              width: 34,
-              height: 34,
-              child: CircularProgressIndicator(
-                strokeWidth: 2.5,
-                color: Colors.black,
+            AnimatedBuilder(
+              animation: _pulse,
+              builder: (context, child) {
+                return Opacity(
+                  opacity: 0.55 + 0.45 * _pulse.value,
+                  child: Transform.scale(
+                    scale: 0.96 + 0.04 * _pulse.value,
+                    child: child,
+                  ),
+                );
+              },
+              // Logo punya latar putih; multiply dengan warna halaman
+              // supaya latarnya menyatu, sedangkan bagian gelap tetap.
+              child: Image.asset(
+                'assets/images/solea_logo.png',
+                width: 190,
+                fit: BoxFit.contain,
+                filterQuality: FilterQuality.high,
+                color: const Color(0xFFF7F6F2),
+                colorBlendMode: BlendMode.multiply,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Text(
+                    'SOLEA',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 6,
+                      color: Color(0xFF14201B),
+                    ),
+                  );
+                },
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 22),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(2),
+              child: const SizedBox(
+                width: 120,
+                height: 3,
+                child: LinearProgressIndicator(
+                  backgroundColor: Color(0xFFE3DFD7),
+                  color: Color(0xFF2D5F4F),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text(
               'Menyiapkan SOLEA...',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 13,
+                letterSpacing: 0.3,
                 color: Color(0xFF77736B),
               ),
             ),
