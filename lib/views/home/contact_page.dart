@@ -1,24 +1,20 @@
-
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../../controllers/auth_controller.dart';
 import '../../core/app_theme.dart';
-
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
-
   @override
   State<ContactPage> createState() => _ContactPageState();
 }
-
 class _ContactPageState extends State<ContactPage> {
   final _formKey = GlobalKey<FormState>();
-
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _messageController = TextEditingController();
-
   final List<String> _subjects = const [
     'Pesanan',
     'Produk',
@@ -26,21 +22,16 @@ class _ContactPageState extends State<ContactPage> {
     'Akun',
     'Lainnya',
   ];
-
   String _subject = 'Pesanan';
   bool _isSending = false;
-
   @override
   void initState() {
     super.initState();
-
     _nameController.text =
         AuthController.currentName ?? '';
-
     _emailController.text =
         AuthController.currentEmail ?? '';
   }
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -48,10 +39,8 @@ class _ContactPageState extends State<ContactPage> {
     _messageController.dispose();
     super.dispose();
   }
-
   void _showMessage(String message) {
     if (!mounted) return;
-
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
@@ -61,25 +50,19 @@ class _ContactPageState extends State<ContactPage> {
         ),
       );
   }
-
   Future<void> _submitMessage() async {
     FocusScope.of(context).unfocus();
-
     if (!_formKey.currentState!.validate()) return;
-
     final user = AuthController.firebaseUser;
-
     if (user == null || !user.emailVerified) {
       _showMessage(
         'Silakan login dengan email terverifikasi terlebih dahulu.',
       );
       return;
     }
-
     setState(() {
       _isSending = true;
     });
-
     try {
       await FirebaseFirestore.instance
           .collection('users')
@@ -94,25 +77,19 @@ class _ContactPageState extends State<ContactPage> {
         'status': 'new',
         'createdAt': FieldValue.serverTimestamp(),
       });
-
       if (!mounted) return;
-
       _messageController.clear();
-
       setState(() {
         _isSending = false;
       });
-
       _showMessage(
         'Pesan berhasil dicatat. Terima kasih sudah menghubungi SOLEA.',
       );
     } on FirebaseException catch (e) {
       if (!mounted) return;
-
       setState(() {
         _isSending = false;
       });
-
       _showMessage(
         e.code == 'permission-denied'
             ? 'Pengiriman ditolak oleh Firestore Rules. Periksa aturan supportMessages.'
@@ -120,14 +97,25 @@ class _ContactPageState extends State<ContactPage> {
       );
     } catch (_) {
       if (!mounted) return;
-
       setState(() {
         _isSending = false;
       });
-
       _showMessage(
         'Terjadi kesalahan. Periksa koneksi lalu coba lagi.',
       );
+    }
+  }
+  Future<void> _openWhatsApp() async {
+    final Uri whatsappUri = Uri.parse('https://wa.me/6285607589130');
+
+    try {
+      final launched = await launchUrl(
+        whatsappUri,
+        mode: LaunchMode.externalApplication,
+      );
+      if (!launched) _showMessage('Tidak dapat membuka WhatsApp.');
+    } catch (_) {
+      _showMessage('Terjadi kesalahan saat membuka WhatsApp.');
     }
   }
 
@@ -151,7 +139,6 @@ class _ContactPageState extends State<ContactPage> {
         builder: (context, constraints) {
           final horizontalPadding =
               constraints.maxWidth < 600 ? 18.0 : 28.0;
-
           return SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.fromLTRB(
@@ -190,7 +177,10 @@ class _ContactPageState extends State<ContactPage> {
                         fontWeight: FontWeight.w900,
                         letterSpacing: -0.7,
                       ),
-                    ),
+                    )
+                        .animate()
+                        .fadeIn(duration: 550.ms)
+                        .slideY(begin: 0.15, end: 0),
                     const SizedBox(height: 8),
                     const Text(
                       'Kirim pertanyaan atau sampaikan kendala '
@@ -201,6 +191,76 @@ class _ContactPageState extends State<ContactPage> {
                         height: 1.7,
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    Material(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(18),
+                      child: InkWell(
+                        onTap: _openWhatsApp,
+                        borderRadius: BorderRadius.circular(18),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18),
+                            border: Border.all(color: AppColors.line),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 48,
+                                height: 48,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFE8F7EE),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                                child: const Center(
+                                  child: FaIcon(
+                                    FontAwesomeIcons.whatsapp,
+                                    color: Color(0xFF25D366),
+                                    size: 27,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 14),
+                              const Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'WhatsApp Admin SOLEA',
+                                      style: TextStyle(
+                                        color: AppColors.ink,
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(
+                                      'Chat langsung dengan tim kami',
+                                      style: TextStyle(
+                                        color: AppColors.muted,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                size: 16,
+                                color: AppColors.muted,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 120.ms)
+                        .slideY(begin: 0.12, end: 0),
                     const SizedBox(height: 24),
 
                     Container(
@@ -226,7 +286,6 @@ class _ContactPageState extends State<ContactPage> {
                               ),
                             ),
                             const SizedBox(height: 22),
-
                             const FieldLabel('Nama'),
                             TextFormField(
                               controller: _nameController,
@@ -246,9 +305,7 @@ class _ContactPageState extends State<ContactPage> {
                                 return null;
                               },
                             ),
-
                             const SizedBox(height: 18),
-
                             const FieldLabel('Email akun'),
                             TextFormField(
                               controller: _emailController,
@@ -259,12 +316,10 @@ class _ContactPageState extends State<ContactPage> {
                                 ),
                               ),
                             ),
-
                             const SizedBox(height: 18),
-
                             const FieldLabel('Kategori pertanyaan'),
                             DropdownButtonFormField<String>(
-                              value: _subject,
+                              initialValue: _subject,
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.topic_outlined,
@@ -280,15 +335,12 @@ class _ContactPageState extends State<ContactPage> {
                                   ? null
                                   : (value) {
                                       if (value == null) return;
-
                                       setState(() {
                                         _subject = value;
                                       });
                                     },
                             ),
-
                             const SizedBox(height: 18),
-
                             const FieldLabel('Pesan'),
                             TextFormField(
                               controller: _messageController,
@@ -307,13 +359,10 @@ class _ContactPageState extends State<ContactPage> {
                                     value.trim().length < 10) {
                                   return 'Pesan minimal 10 karakter.';
                                 }
-
                                 return null;
                               },
                             ),
-
                             const SizedBox(height: 14),
-
                             SizedBox(
                               width: double.infinity,
                               height: 52,
@@ -341,9 +390,7 @@ class _ContactPageState extends State<ContactPage> {
                                 ),
                               ),
                             ),
-
                             const SizedBox(height: 12),
-
                             const Text(
                               'Pesan tersimpan di sistem SOLEA. '
                               'Halaman ini belum mengirim email atau '
