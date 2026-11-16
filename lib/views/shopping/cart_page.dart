@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../core/app_network_image.dart';
 import '../../controllers/cart_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
+import '../../core/app_routes.dart';
 import '../../models/cart_item.dart';
-import 'checkout_page.dart';
 import '../../core/home_button.dart';
 
 class CartPage extends StatelessWidget {
@@ -41,15 +42,15 @@ class CartPage extends StatelessWidget {
               final list = ListView.separated(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 24),
                 itemCount: cart.items.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
+                separatorBuilder: (_, _) => const SizedBox(height: 12),
                 itemBuilder: (_, index) => _CartItemTile(item: cart.items[index]),
               );
 
               final summary = _CartSummary(
                 subtotal: cart.subtotal,
-                onCheckout: () => Navigator.push(
+                onCheckout: () => Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (_) => const CheckoutPage()),
+                  AppRoutes.checkout,
                 ),
               );
 
@@ -94,7 +95,7 @@ class _CartItemTile extends StatelessWidget {
             child: SizedBox(
               width: 92,
               height: 92,
-              child: Image.network(item.product.imageUrl, fit: BoxFit.cover),
+              child: AppNetworkImage(imageUrl: item.product.imageUrl),
             ),
           ),
           const SizedBox(width: 14),

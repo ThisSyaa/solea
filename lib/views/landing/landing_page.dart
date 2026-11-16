@@ -128,9 +128,7 @@ class _LandingPageState extends State<LandingPage>
     super.dispose();
   }
 
-  // =========================================================
   // ENTER SOLEA
-  // =========================================================
 
   void _enterSolea() {
     if (_isEntering) return;
@@ -141,6 +139,7 @@ class _LandingPageState extends State<LandingPage>
 
     Navigator.of(context).pushReplacement(
       PageRouteBuilder<void>(
+        settings: const RouteSettings(name: '/'),
         transitionDuration: const Duration(milliseconds: 650),
         pageBuilder: (context, animation, secondaryAnimation) {
           return const AuthGate();
@@ -319,9 +318,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // ROOT PAGE
-  // =========================================================
 
   @override
   Widget build(BuildContext context) {
@@ -391,9 +388,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // DESKTOP LAYOUT
-  // =========================================================
 
   Widget _buildDesktop(double width, double height) {
     return Padding(
@@ -433,9 +428,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // MOBILE / TABLET LAYOUT
-  // =========================================================
 
   Widget _buildMobile(double width) {
     return SingleChildScrollView(
@@ -465,9 +458,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // HEADER + NAVIGATION
-  // =========================================================
 
   Widget _buildHeader({required bool desktop}) {
     return Row(
@@ -580,9 +571,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // LEFT HERO COPY
-  // =========================================================
 
   Widget _buildMessage({required bool desktop}) {
     return FadeTransition(
@@ -704,9 +693,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // BRAND STATS
-  // =========================================================
 
   Widget _buildBrandStats({required bool desktop}) {
     return Row(
@@ -757,9 +744,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // ENTER SOLEA CTA
-  // =========================================================
 
   Widget _buildEnterButton() {
     return MouseRegion(
@@ -824,9 +809,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // RIGHT HERO STAGE
-  // =========================================================
 
   Widget _buildHeroStage(double width, double height) {
     // Aset berisi sneaker dan shoebox sekaligus.
@@ -1023,9 +1006,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // VERTICAL MARKERS
-  // =========================================================
 
   Widget _verticalMarker(String number, String label) {
     return IgnorePointer(
@@ -1077,9 +1058,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // COLORWAY PANEL
-  // =========================================================
 
   Widget _buildColorwayPanel() {
     return Container(
@@ -1119,9 +1098,7 @@ class _LandingPageState extends State<LandingPage>
     );
   }
 
-  // =========================================================
   // FOOTER
-  // =========================================================
 
   Widget _buildFooter() {
     return Padding(
@@ -1155,9 +1132,7 @@ class _LandingPageState extends State<LandingPage>
   }
 }
 
-// ============================================================
 // ANIMATED ORBIT PAINTER
-// ============================================================
 
 class _OrbitPainter extends CustomPainter {
   final double progress;

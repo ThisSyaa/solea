@@ -1,17 +1,13 @@
+import 'package:intl/intl.dart';
+
 String formatRupiah(int value) {
-  final text = value.toString();
-  final buffer = StringBuffer();
-  for (var i = 0; i < text.length; i++) {
-    if (i > 0 && (text.length - i) % 3 == 0) buffer.write('.');
-    buffer.write(text[i]);
-  }
-  return 'Rp $buffer';
+  return NumberFormat.currency(
+    locale: 'id_ID',
+    symbol: 'Rp ',
+    decimalDigits: 0,
+  ).format(value);
 }
 
 String formatDate(DateTime date) {
-  const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
-    'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'
-  ];
-  return '${date.day} ${months[date.month - 1]} ${date.year}';
+  return DateFormat('d MMM yyyy', 'id_ID').format(date);
 }

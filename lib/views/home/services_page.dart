@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/app_routes.dart';
 import '../../core/app_theme.dart';
-import '../order/order_page.dart';
-import '../profile/address_page.dart';
-import '../profile/faq_page.dart';
-import '../profile/payment_method_page.dart';
-import '../shopping/cart_page.dart';
-import '../shopping/wishlist_page.dart';
 
 class ServicesPage extends StatelessWidget {
   const ServicesPage({super.key});
 
-  void _openPage(BuildContext context, Widget page) {
-    Navigator.push(context, MaterialPageRoute<void>(builder: (_) => page));
+  void _openPage(BuildContext context, String routeName) {
+    Navigator.of(context).pushNamed(routeName);
   }
 
   @override
@@ -43,7 +38,7 @@ class ServicesPage extends StatelessWidget {
         badge: jumlahPesanan,
         badgeColor: const Color(0xFF32966C),
         action: 'Lacak Paket',
-        onTap: () => _openPage(context, const OrderPage()),
+        onTap: () => _openPage(context, AppRoutes.orders),
       ),
       _ServiceData(
         icon: Icons.location_on_outlined,
@@ -52,7 +47,7 @@ class ServicesPage extends StatelessWidget {
         badge: jumlahAlamat,
         badgeColor: const Color(0xFFE69A32),
         action: 'Atur Alamat',
-        onTap: () => _openPage(context, const AddressPage()),
+        onTap: () => _openPage(context, AppRoutes.address),
       ),
       _ServiceData(
         icon: Icons.credit_card_outlined,
@@ -61,7 +56,7 @@ class ServicesPage extends StatelessWidget {
         badge: jumlahMetodePembayaran,
         badgeColor: const Color(0xFF3885B8),
         action: 'Kelola Metode',
-        onTap: () => _openPage(context, const PaymentMethodPage()),
+        onTap: () => _openPage(context, AppRoutes.payment),
       ),
       _ServiceData(
         icon: Icons.shopping_bag_outlined,
@@ -70,7 +65,7 @@ class ServicesPage extends StatelessWidget {
         badge: jumlahKeranjang,
         badgeColor: const Color(0xFFC34448),
         action: 'Buka Keranjang',
-        onTap: () => _openPage(context, const CartPage()),
+        onTap: () => _openPage(context, AppRoutes.cart),
       ),
       _ServiceData(
         icon: Icons.favorite_border_rounded,
@@ -79,7 +74,16 @@ class ServicesPage extends StatelessWidget {
         badge: jumlahWishlist,
         badgeColor: const Color(0xFFE995A5),
         action: 'Buka Wishlist',
-        onTap: () => _openPage(context, const WishlistPage()),
+        onTap: () => _openPage(context, AppRoutes.wishlist),
+      ),
+      _ServiceData(
+        icon: Icons.forum_outlined,
+        title: 'SOLEA Chat Hub',
+        subtitle: 'Chat Bot AI, Admin Support, dan Komunitas.',
+        badge: 0,
+        badgeColor: const Color(0xFF466F60),
+        action: 'Buka Chat',
+        onTap: () => _openPage(context, AppRoutes.chat),
       ),
       _ServiceData(
         icon: Icons.help_outline_rounded,
@@ -88,7 +92,7 @@ class ServicesPage extends StatelessWidget {
         badge: 0,
         badgeColor: const Color(0xFF929292),
         action: 'Tanya SOLEA',
-        onTap: () => _openPage(context, const FaqPage()),
+        onTap: () => _openPage(context, AppRoutes.faq),
       ),
     ];
 

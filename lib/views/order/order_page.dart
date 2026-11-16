@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-
+import '../../core/app_network_image.dart';
 import '../../controllers/order_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
@@ -73,7 +73,7 @@ class _OrderPageState extends State<OrderPage> {
           ),
           const Padding(
             padding: EdgeInsets.only(right: 12),
-            child: SoleaLogo(iconSize: 28),
+            child: SoleaLogo(height: 30),
           ),
         ],
       ),
@@ -122,7 +122,7 @@ class _OrderPageState extends State<OrderPage> {
                 30,
               ),
               itemCount: orders.length,
-              separatorBuilder: (_, __) =>
+              separatorBuilder: (_, _) =>
                   const SizedBox(height: 12),
               itemBuilder: (_, index) {
                 return _OrderCard(
@@ -227,16 +227,9 @@ class _OrderCard extends StatelessWidget {
                         height: 56,
                         child: imageUrl.isEmpty
                             ? _imagePlaceholder()
-                            : Image.network(
-                                imageUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (
-                                  context,
-                                  error,
-                                  stackTrace,
-                                ) {
-                                  return _imagePlaceholder();
-                                },
+                            : AppNetworkImage(
+                                imageUrl: imageUrl,
+                                errorBuilder: (_) => _imagePlaceholder(),
                               ),
                       ),
                     ),

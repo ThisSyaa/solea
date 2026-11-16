@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/order_controller.dart';
 import '../../core/app_helpers.dart';
+import '../../core/app_routes.dart';
 import '../../core/app_theme.dart';
 import '../../core/home_button.dart';
 import '../order/order_page.dart';
@@ -22,7 +23,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   final _formKey = GlobalKey<FormState>();
 
   late final TextEditingController _name;
-  final _phone = TextEditingController();
+  late final PhoneController _phone;
   final _address = TextEditingController();
 
   String _payment = 'Transfer Bank';
@@ -39,6 +40,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
     _name = TextEditingController(
       text: AuthController.currentName ?? '',
+    );
+
+    _phone = PhoneController(
+    initialValue: PhoneNumber(
+      isoCode: IsoCode.ID,
+      nsn: '',
+    ),
     );
 
     _loadSavedAddress();
@@ -64,9 +72,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
       if (data != null && !_userEditedForm) {
         _name.text = data['name'] ?? _name.text;
-        _phone.text = data['phone'] ?? '';
-        _address.text = data['address'] ?? '';
-      }
+      final savedPhone = data['phone']?.toString() ?? '';
+        if (savedPhone.isNotEmpty) {
+          _phone.value = PhoneNumber.parse(savedPhone);
+        }
+          _address.text = data['address'] ?? '';
+        }
 
       setState(() {
         _isLoadingAddress = false;
@@ -116,7 +127,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
       items: items,
       shippingCost: _shippingCost,
       customerName: _name.text.trim(),
-      phone: _phone.text.trim(),
+      phone: _phone.value.international,
       address: _address.text.trim(),
       paymentMethod: _payment,
     );
@@ -137,7 +148,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
     cart.clear();
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
+      MaterialPageRoute<void>(
+        settings: const RouteSettings(name: AppRoutes.orders),
         builder: (_) => const OrderPage(showSuccess: true),
       ),
     );
@@ -285,7 +297,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
 class _AddressForm extends StatelessWidget {
   final TextEditingController name;
-  final TextEditingController phone;
+  final PhoneController phone;
   final TextEditingController address;
 
   final String payment;
@@ -382,25 +394,21 @@ class _AddressForm extends StatelessWidget {
               const SizedBox(height: 15),
 
               const FieldLabel('Nomor HP'),
-              TextFormField(
+              PhoneFormField(
                 controller: phone,
-                keyboardType: TextInputType.phone,
-                textInputAction: TextInputAction.next,
-                onChanged: onEdited,
-                decoration: const InputDecoration(
-                  hintText: '08xxxxxxxxxx',
+                  countrySelectorNavigator:
+                        const CountrySelectorNavigator.dialog(),
+                  decoration: const InputDecoration(
+                  hintText: 'Nomor HP',
                   prefixIcon: Icon(
                     Icons.phone_outlined,
                   ),
                 ),
-                validator: (value) {
-                  final digits = (value ?? '')
-                      .replaceAll(RegExp(r'\D'), '');
-
-                  if (digits.length < 8) {
-                    return 'Nomor HP belum valid.';
-                  }
-
+                onChanged: (_) => onEdited('phone'),
+                validator: (phoneNumber) {
+                if (phoneNumber == null || !phoneNumber.isValid()) {
+                  return 'Nomor HP belum valid.';
+                }
                   return null;
                 },
               ),
@@ -449,16 +457,17 @@ class _AddressForm extends StatelessWidget {
               color: AppColors.line,
             ),
           ),
-          child: Column(
+          child: RadioGroup<String>(
+            groupValue: payment,
+            onChanged: (value) {
+              if (value != null) {
+                onPaymentChanged(value);
+              }
+            },
+            child: Column(
             children: [
               RadioListTile<String>(
                 value: 'Transfer Bank',
-                groupValue: payment,
-                onChanged: (value) {
-                  if (value != null) {
-                    onPaymentChanged(value);
-                  }
-                },
                 activeColor: AppColors.forest,
                 title: const Text(
                   'Transfer Bank',
@@ -474,12 +483,6 @@ class _AddressForm extends StatelessWidget {
               ),
               RadioListTile<String>(
                 value: 'E-Wallet',
-                groupValue: payment,
-                onChanged: (value) {
-                  if (value != null) {
-                    onPaymentChanged(value);
-                  }
-                },
                 activeColor: AppColors.forest,
                 title: const Text(
                   'E-Wallet',
@@ -488,8 +491,9 @@ class _AddressForm extends StatelessWidget {
                   ),
                 ),
                 subtitle: const Text('OVO / DANA / GoPay'),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ],

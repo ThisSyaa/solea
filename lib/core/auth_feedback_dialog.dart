@@ -230,7 +230,7 @@ class _FeedbackIllustration extends StatelessWidget {
               width: 17,
               height: 17,
               decoration: BoxDecoration(
-                color: style.foreground.withOpacity(0.14),
+                color: style.foreground.withValues(alpha: 0.14),
                 shape: BoxShape.circle,
               ),
             ),
@@ -243,7 +243,7 @@ class _FeedbackIllustration extends StatelessWidget {
               width: 25,
               height: 25,
               decoration: BoxDecoration(
-                color: style.foreground.withOpacity(0.10),
+                color: style.foreground.withValues(alpha: 0.10),
                 shape: BoxShape.circle,
               ),
             ),
@@ -265,7 +265,7 @@ class _FeedbackIllustration extends StatelessWidget {
                 border: Border.all(color: style.background, width: 2),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 8,
                     offset: const Offset(0, 3),
                   ),

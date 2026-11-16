@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
+import '../../core/app_network_image.dart';
 import '../../controllers/product_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
+import '../../core/app_routes.dart';
 import '../../models/product.dart';
-import 'product_detail_page.dart';
 
 enum AllProductsMode { categories, featured, popular }
 
@@ -127,10 +127,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
   }
 
   Future<void> _openProduct(Product product) async {
-    await Navigator.of(context).push<void>(
-      MaterialPageRoute<void>(
-        builder: (_) => ProductDetailPage(product: product),
-      ),
+        await Navigator.of(context).pushNamed<void>(
+      AppRoutes.product(product),
     );
 
     if (mounted) {
@@ -351,7 +349,7 @@ class _AllProductsPageState extends State<AllProductsPage> {
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         itemCount: categories.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
           final category = categories[index];
           final isActive = category == selected;
@@ -558,11 +556,9 @@ class _CategoryCard extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   if (imageUrl != null)
-                    Image.network(
-                      imageUrl!,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
-                          const _CategoryImageFallback(),
+                    AppNetworkImage(
+                      imageUrl: imageUrl!,
+                      errorBuilder: (_) => const _CategoryImageFallback(),
                     )
                   else
                     const _CategoryImageFallback(),
@@ -704,19 +700,7 @@ class _CompactProductCard extends StatelessWidget {
                     children: [
                       Container(
                         color: const Color(0xFFECE9E1),
-                        child: Image.network(
-                          product.imageUrl,
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) {
-                            return const Center(
-                              child: Icon(
-                                Icons.image_not_supported_outlined,
-                                size: 32,
-                                color: AppColors.muted,
-                              ),
-                            );
-                          },
-                        ),
+                        child: AppNetworkImage(imageUrl: product.imageUrl),
                       ),
 
                       Positioned(

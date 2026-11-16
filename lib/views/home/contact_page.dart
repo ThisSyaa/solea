@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../controllers/auth_controller.dart';
+import '../../controllers/chat_controller.dart';
 import '../../core/app_theme.dart';
+import '../chat/chat_page.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -201,7 +203,57 @@ class _ContactPageState extends State<ContactPage> {
                         height: 1.7,
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 18),
+
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE8F0EC),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.forum_rounded,
+                            color: AppColors.forest,
+                          ),
+                          const SizedBox(width: 12),
+                          const Expanded(
+                            child: Text(
+                              'Butuh respon cepat? Gunakan Live Chat Admin, Chat Bot AI, atau Komunitas User.',
+                              style: TextStyle(
+                                color: AppColors.forestDeep,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => const ChatPage(
+                                    initialChannel:
+                                        SoleaChatChannel.admin,
+                                  ),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(0, 40),
+                              padding:
+                                  const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                            ),
+                            child: const Text('Buka Chat'),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 18),
 
                     Container(
                       padding: const EdgeInsets.all(22),
@@ -264,7 +316,7 @@ class _ContactPageState extends State<ContactPage> {
 
                             const FieldLabel('Kategori pertanyaan'),
                             DropdownButtonFormField<String>(
-                              value: _subject,
+                              initialValue: _subject,
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.topic_outlined,
