@@ -15,6 +15,7 @@ dependencies:
   firebase_core: ^4.15.0
   firebase_auth: ^6.7.0
   cloud_firestore: ^6.10.0
+  lottie: ^3.8.2
 
 dev_dependencies:
   flutter_test:
@@ -28,3 +29,4 @@ flutter:
   assets:
     - assets/images/solea_sneaker.png
     - assets/images/solea_logo.png
+    - assets/animations/

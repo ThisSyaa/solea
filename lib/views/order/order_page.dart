@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../controllers/order_controller.dart';
 import '../../core/app_helpers.dart';
@@ -32,13 +33,52 @@ class _OrderPageState extends State<OrderPage> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Pesanan berhasil disimpan.',
+        showDialog(
+  context: context,
+  barrierDismissible: false,
+  builder: (context) {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Lottie.asset(
+            'assets/animations/celebration checkmark.json',
+            width: 160,
+            height: 160,
+            repeat: false,
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'Pesanan Berhasil!',
+            style: TextStyle(
+              fontSize: 21,
+              fontWeight: FontWeight.w800,
             ),
           ),
-        );
+          const SizedBox(height: 8),
+          const Text(
+            'Pesanan kamu berhasil dibuat. Terima kasih sudah berbelanja di SOLEA!',
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Mengerti'),
+            ),
+          ),
+        ],
+      ),
+    );
+  },
+);
       });
     }
   }
