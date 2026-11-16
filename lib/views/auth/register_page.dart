@@ -283,7 +283,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Image.network(
                       _shoeImage,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) {
+                      errorBuilder: (_, _, _) {
                         return const Center(
                           child: Icon(
                             Icons.shopping_bag_outlined,
@@ -372,7 +372,7 @@ class _RegisterVisual extends StatelessWidget {
           Image.network(
             imageUrl,
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) {
+            errorBuilder: (_, _, _) {
               return const Center(
                 child: Icon(
                   Icons.shopping_bag_outlined,
@@ -388,8 +388,8 @@ class _RegisterVisual extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withOpacity(0.05),
-                  Colors.black.withOpacity(0.58),
+                  Colors.black.withValues(alpha: 0.05),
+                  Colors.black.withValues(alpha: 0.58),
                 ],
               ),
             ),

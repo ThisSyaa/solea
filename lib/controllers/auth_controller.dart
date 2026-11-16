@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
 
 class AuthController {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -10,6 +12,20 @@ class AuthController {
   static String? currentUsername;
   static String? currentEmail;
 
+  static final ValueNotifier<Uint8List?> photoNotifier =
+      ValueNotifier<Uint8List?>(null);
+
+  static void _applyPhoto(String? b64) {
+    if (b64 == null || b64.isEmpty) {
+      photoNotifier.value = null;
+      return;
+    }
+    try {
+      photoNotifier.value = base64Decode(b64);
+    } catch (_) {
+      photoNotifier.value = null;
+    }
+  }
   // Dipakai RegisterPage untuk menentukan pesan sukses.
   static bool lastVerificationEmailSent = false;
 
@@ -23,6 +39,7 @@ class AuthController {
     currentName = null;
     currentUsername = null;
     currentEmail = null;
+    photoNotifier.value = null;
   }
 
   static String _emailKey(String email) =>
@@ -290,6 +307,7 @@ class AuthController {
 
     currentUsername = data['username'] as String?;
     currentEmail = user.email;
+    _applyPhoto(data['photoBase64'] as String?);
   }
 
   // =========================================================
@@ -345,6 +363,37 @@ class AuthController {
       return 'Gagal menyimpan nama ke Firestore (${e.code}).';
     } catch (_) {
       return 'Terjadi kesalahan saat menyimpan profil. Coba lagi.';
+    }
+  }
+
+  // =========================================================
+  // MEMPERBARUI FOTO PROFIL
+  // =========================================================
+
+  static const int _maxPhotoBytes = 500 * 1024;
+
+  static Future<String?> updateProfilePhoto(Uint8List? bytes) async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      return 'Sesi login tidak ditemukan. Silakan login kembali.';
+    }
+    if (bytes != null && bytes.length > _maxPhotoBytes) {
+      return 'Ukuran foto terlalu besar. Pilih foto yang lebih kecil.';
+    }
+    try {
+      await _db.collection('users').doc(user.uid).update({
+        'photoBase64': bytes == null ? FieldValue.delete() : base64Encode(bytes),
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+      photoNotifier.value = bytes;
+      return null;
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 'Ditolak Firestore Rules. Izinkan field photoBase64 pada update users.';
+      }
+      return 'Gagal menyimpan foto (${e.code}).';
+    } catch (_) {
+      return 'Terjadi kesalahan saat menyimpan foto.';
     }
   }
 

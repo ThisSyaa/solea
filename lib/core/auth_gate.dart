@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +8,7 @@ import '../controllers/cart_controller.dart';
 import '../controllers/wishlist_controller.dart';
 import '../views/auth/login_page.dart';
 import '../views/home/home_page.dart';
+import 'app_routes.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
@@ -143,6 +143,9 @@ class _AuthGateState extends State<AuthGate> {
         _needsVerification = false;
         _error = null;
       });
+
+      // Setelah refresh: buka kembali halaman terakhir (mis. /cart).
+      _restoreSavedRoute();
     } on FirebaseAuthException catch (e) {
       if (!mounted || requestId != _requestId) return;
 
@@ -159,6 +162,31 @@ class _AuthGateState extends State<AuthGate> {
             'Profil tidak dapat dimuat. Periksa koneksi atau akses database.';
       });
     }
+  }
+
+  // =========================================================
+  // RESTORE HALAMAN SETELAH REFRESH
+  // =========================================================
+
+  void _restoreSavedRoute() {
+    final path = AppRoutes.restorePath;
+    AppRoutes.restorePath = null; // hanya dijalankan sekali
+
+    if (path == null || path == '/') return;
+
+    final stack = AppRoutes.stackFor(path).where(AppRoutes.isKnown).toList();
+
+    if (stack.isEmpty) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      final navigator = Navigator.of(context);
+
+      for (final name in stack) {
+        navigator.pushNamed(name);
+      }
+    });
   }
 
   Future<void> _checkVerificationAgain() async {

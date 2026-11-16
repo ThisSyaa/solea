@@ -1,0 +1,4143 @@
+[
+  {
+    "name": "Zone Pro",
+    "category": "Basketball",
+    "price": 1449000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1710553455483-b8c48d365c23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1710553455483-b8c48d365c23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siap untuk permainan intens: bantalan tebal, traksi tajam, fit mantap.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Gabre Cameron",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-black-and-red-shoes-hanging-from-a-hook-vO5WWWQPsZ4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Swift Lite Pro",
+    "category": "Running",
+    "price": 1549000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "USAMA AKRAM",
+    "photoUrl": "https://unsplash.com/photos/green-and-black-nike-athletic-shoe-kP6knT7tjn4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rep Trainer GT",
+    "category": "Training",
+    "price": 1049000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1591311630200-ffa9120a540f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1591311630200-ffa9120a540f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Alexandra Tran",
+    "photoUrl": "https://unsplash.com/photos/blue-and-black-nike-athletic-shoes-fS3tGOkp0xY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Plain White 2",
+    "category": "Casual",
+    "price": 1049000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1573875133340-0b589f59a8c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDB8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1573875133340-0b589f59a8c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDB8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Andrew M",
+    "photoUrl": "https://unsplash.com/photos/unpaired-white-and-black-nike-air-force-1-low-top-shoe-aRD19xeeHaQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Tempo Lite 2",
+    "category": "Running",
+    "price": 1499000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1613416709729-936e44556882?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NjB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1613416709729-936e44556882?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NjB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Cody F",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-shoes-hanging-on-wire-GuSwYE4Op4g?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Wild Trek GT",
+    "category": "Outdoor",
+    "price": 1999000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1516538638415-6617293b0737?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1516538638415-6617293b0737?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Material kokoh dan tahan cuaca untuk hiking maupun trekking.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Fidel Fernando",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-pair-of-brown-sneakers-X-QHOFxz2cA?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Metro Origin 3",
+    "category": "Lifestyle",
+    "price": 1349000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1792955104581-ca1a0afe41b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTd8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1792955104581-ca1a0afe41b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTd8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Desain timeless dengan sentuhan modern, cocok untuk aktivitas sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Zan Lazarevic",
+    "photoUrl": "https://unsplash.com/photos/yellow-suede-sneakers-on-stone-surface-scHuzw_azys?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Nimbus Glide GT",
+    "category": "Running",
+    "price": 999000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1759674804375-3d0c038a0a6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTZ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1759674804375-3d0c038a0a6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTZ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Pierre-Antoine FRANCK",
+    "photoUrl": "https://unsplash.com/photos/runners-in-a-race-with-motion-blur-OpDIYfAb4WQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Strong Move 2",
+    "category": "Training",
+    "price": 999000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1639572600664-28a2a01ce860?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1639572600664-28a2a01ce860?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ibrahim Abazid",
+    "photoUrl": "https://unsplash.com/photos/a-close-up-of-a-white-and-black-sneaker-ucgyEl-XkBs?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Forest Grip",
+    "category": "Outdoor",
+    "price": 1749000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1788070637551-24858fcf50b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1788070637551-24858fcf50b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Material kokoh dan tahan cuaca untuk hiking maupun trekking.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Hanna Lazar",
+    "photoUrl": "https://unsplash.com/photos/brown-leather-hiking-boots-on-rocks-d2h7GKSLP2E?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Active Form X",
+    "category": "Training",
+    "price": 899000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1639572604550-7b958a14eaa9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDh8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1639572604550-7b958a14eaa9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDh8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dengan dukungan samping yang kuat saat latihan.",
+    "sizes": [
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ibrahim Abazid",
+    "photoUrl": "https://unsplash.com/photos/a-white-adidas-sneakers-with-an-orange-stripe-L6UMbX9wilA?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rush Glide Pro",
+    "category": "Running",
+    "price": 1049000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NHx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NHx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "sporlab",
+    "photoUrl": "https://unsplash.com/photos/pair-of-blue-and-white-adidas-running-shoes-XiZ7pRvCzro?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rebound Elite Pro",
+    "category": "Basketball",
+    "price": 1549000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1518894781321-630e638d0742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTh8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1518894781321-630e638d0742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTh8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Midsole responsif dan upper stabil untuk gerakan cepat di lapangan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Matus Hatala",
+    "photoUrl": "https://unsplash.com/photos/pair-of-white-and-black-sneakers-pFzxaKhdFME?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rush Jogger X",
+    "category": "Running",
+    "price": 1399000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Luis Felipe Lins",
+    "photoUrl": "https://unsplash.com/photos/white-and-orange-athletic-sneaker-LG88A2XgIXY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Calm White X",
+    "category": "Casual",
+    "price": 749000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1608379894453-c6b729b05596?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzZ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1608379894453-c6b729b05596?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzZ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "The DK Photography",
+    "photoUrl": "https://unsplash.com/photos/white-and-black-nike-athletic-shoes-7Uwh8QXYdXQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "District Court GT",
+    "category": "Lifestyle",
+    "price": 999000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1778170496545-1b1e18367efa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjF8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1778170496545-1b1e18367efa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjF8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Liana S",
+    "photoUrl": "https://unsplash.com/photos/white-sneakers-with-red-and-white-striped-socks-2wLbhJnLJRU?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Metro Classic SE",
+    "category": "Lifestyle",
+    "price": 1299000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1791757566130-5120e46eaec2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTF8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1791757566130-5120e46eaec2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTF8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneakers serbaguna yang nyaman dipakai dari pagi sampai malam.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Marco Olivieri",
+    "photoUrl": "https://unsplash.com/photos/person-in-sneakers-walking-past-puddle-Dl-VDbAoEBI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rocky Hiker",
+    "category": "Outdoor",
+    "price": 1499000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1573543794198-73ff121c0a8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTl8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1573543794198-73ff121c0a8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTl8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Tanya Prodaan",
+    "photoUrl": "https://unsplash.com/photos/pair-of-brown-boots-EsloYpP4AAc?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Clean Canvas",
+    "category": "Casual",
+    "price": 749000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1608230164697-c791326d284c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzF8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1608230164697-c791326d284c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzF8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Tampilan simpel yang cocok dipadukan dengan hampir semua outfit.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "The DK Photography",
+    "photoUrl": "https://unsplash.com/photos/white-nike-low-top-sneaker-b9e8ffVw5XY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Jump Pro GT",
+    "category": "Basketball",
+    "price": 1149000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1605523741177-cd660595c2cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NHx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1605523741177-cd660595c2cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NHx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Midsole responsif dan upper stabil untuk gerakan cepat di lapangan.",
+    "sizes": [
+      39,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ján Vlačuha",
+    "photoUrl": "https://unsplash.com/photos/white-and-red-nike-basketball-shoes-on-green-grass-92_wMoF-yds?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Dunk Flight Pro",
+    "category": "Basketball",
+    "price": 1799000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1645888932334-5efcd35cf178?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1645888932334-5efcd35cf178?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Abhay siby Mathew",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-sneakers-with-a-red-and-white-logo-on-them-gHYqXqd6808?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Zone Force",
+    "category": "Basketball",
+    "price": 1549000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1710643301117-4d738aeb1e69?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjl8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1710643301117-4d738aeb1e69?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjl8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Midsole responsif dan upper stabil untuk gerakan cepat di lapangan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Gabre Cameron",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-black-and-red-shoes-on-a-white-background-AY_NKyWETiM?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Ridge Climb Pro",
+    "category": "Outdoor",
+    "price": 1999000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1611193876764-7611520c8582?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjZ8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1611193876764-7611520c8582?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjZ8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Material kokoh dan tahan cuaca untuk hiking maupun trekking.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Andrew George",
+    "photoUrl": "https://unsplash.com/photos/brown-and-black-high-top-sneakers-uNv3qJSnK7Y?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Drive Trainer 2",
+    "category": "Training",
+    "price": 899000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1770430725086-8b677d6f25a8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1770430725086-8b677d6f25a8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "David Moorhouse",
+    "photoUrl": "https://unsplash.com/photos/close-up-of-a-runners-leg-and-athletic-shoe-GToHUINXOb4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Power Lift 2",
+    "category": "Training",
+    "price": 1299000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1765914448113-ebf0ce8cb918?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDJ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1765914448113-ebf0ce8cb918?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDJ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dengan dukungan samping yang kuat saat latihan.",
+    "sizes": [
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Taylor Friehl",
+    "photoUrl": "https://unsplash.com/photos/runners-feet-in-white-athletic-shoes-on-pavement-nQzQcJBmKbk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Clutch Rise",
+    "category": "Basketball",
+    "price": 1599000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1633464129147-777bdcc97c1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NXx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1633464129147-777bdcc97c1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NXx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Mick Haupt",
+    "photoUrl": "https://unsplash.com/photos/a-display-of-various-shoes-on-a-wall-joHasPcobwg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Block Court 2",
+    "category": "Lifestyle",
+    "price": 1249000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1761988902294-03b688db647a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzR8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1761988902294-03b688db647a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzR8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      43,
+      44
+    ],
+    "photographer": "Kacper G",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-blue-jeans-and-athletic-shoes-T7YAnJsmBPk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Air Wave Pro",
+    "category": "Running",
+    "price": 949000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjZ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjZ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Joseph Barrientos",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-white-nike-running-shoes-standing-on-black-concrete-path-4qSb_FWhHKs?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Hoop Elite 2",
+    "category": "Basketball",
+    "price": 1449000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1787461361732-b147a1a2d886?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1787461361732-b147a1a2d886?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Midsole responsif dan upper stabil untuk gerakan cepat di lapangan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      44
+    ],
+    "photographer": "Saeed Isavy",
+    "photoUrl": "https://unsplash.com/photos/high-top-sneakers-on-concrete-surface-BRNekLH2aS8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Pace Dash 3",
+    "category": "Running",
+    "price": 1049000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1562183241-840b8af0721e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDR8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1562183241-840b8af0721e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDR8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Martin Katler",
+    "photoUrl": "https://unsplash.com/photos/pair-of-grey-shoes-on-stair-1kOIl9vu4cY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Flex Form GT",
+    "category": "Training",
+    "price": 1399000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1569664665343-eb9b3948bdbb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjd8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1569664665343-eb9b3948bdbb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjd8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "matthew Feeney",
+    "photoUrl": "https://unsplash.com/photos/pair-of-gray-nike-running-shoes-rA2k3A24tOc?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Terra Trek",
+    "category": "Outdoor",
+    "price": 2049000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1606036525923-525fa3b35465?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjB8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1606036525923-525fa3b35465?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjB8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      41,
+      43,
+      44
+    ],
+    "photographer": "Glenn Carstens-Peters",
+    "photoUrl": "https://unsplash.com/photos/brown-leather-lace-up-boots-s8TQiOfGlz0?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Easy White SE",
+    "category": "Casual",
+    "price": 699000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1607465651246-9d05e66c355c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTF8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1607465651246-9d05e66c355c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTF8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Tampilan simpel yang cocok dipadukan dengan hampir semua outfit.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Pietro Schellino",
+    "photoUrl": "https://unsplash.com/photos/white-and-orange-nike-athletic-shoe-hJjyAAStNGs?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Urban Canvas GT",
+    "category": "Casual",
+    "price": 949000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1695073621086-aa692bc32a3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NXx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1695073621086-aa692bc32a3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NXx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Sanju Pandita",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-white-nike-sneakers-on-a-red-background-36MiHf2KKr8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Street Icon Lite",
+    "category": "Lifestyle",
+    "price": 1349000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1770887614743-79d088f6070b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDR8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1770887614743-79d088f6070b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDR8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Desain timeless dengan sentuhan modern, cocok untuk aktivitas sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      42,
+      43,
+      44
+    ],
+    "photographer": "atelierbyvineeth ...",
+    "photoUrl": "https://unsplash.com/photos/white-sneakers-with-blue-accents-on-a-dark-surface-b9ew1hC3ijo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Cozy Canvas Lite",
+    "category": "Casual",
+    "price": 749000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1722489291778-cb2a414d6ee0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1722489291778-cb2a414d6ee0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "SJ 📸",
+    "photoUrl": "https://unsplash.com/photos/a-white-sneaker-with-a-green-stripe-on-the-side--YE65Y0kgws?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Power Flex Pro",
+    "category": "Training",
+    "price": 1249000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1613743069803-c36101c1de01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzh8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1613743069803-c36101c1de01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzh8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "MedicAlert UK",
+    "photoUrl": "https://unsplash.com/photos/blue-and-white-nike-athletic-shoe-VhxMsH9Z2O0?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Daily Base",
+    "category": "Casual",
+    "price": 699000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Jeff Tumale",
+    "photoUrl": "https://unsplash.com/photos/white-sneaker-on-athletic-clothing-SD9Jyl1xNQ4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Cozy Canvas Pro",
+    "category": "Casual",
+    "price": 799000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1787691220334-cda7d4f90c31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1787691220334-cda7d4f90c31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Nyaman dipakai seharian dengan desain rapi yang tidak ribet.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "cool guy jon",
+    "photoUrl": "https://unsplash.com/photos/white-high-top-sneakers-on-steps-S5naTls7PWI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "District Court 3",
+    "category": "Lifestyle",
+    "price": 1049000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1609252546279-1dff6542315b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzJ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1609252546279-1dff6542315b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzJ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Wassim Chouak",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-black-and-white-converse-all-star-high-top-sneakers-ttY-ua4Rroo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Ridge Grip Lite",
+    "category": "Outdoor",
+    "price": 1999000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1507818532995-8b91386bb85b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzZ8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1507818532995-8b91386bb85b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzZ8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Material kokoh dan tahan cuaca untuk hiking maupun trekking.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Tim Foster",
+    "photoUrl": "https://unsplash.com/photos/brown-and-black-leather-hiking-shoes-wKMl3pkDsjk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Easy Day",
+    "category": "Casual",
+    "price": 699000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1559050993-d4e4fbf11769?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzV8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1559050993-d4e4fbf11769?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzV8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Josh Marshall",
+    "photoUrl": "https://unsplash.com/photos/unpaired-white-nike-low-top-shoe-PcI3V1VbbrU?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Studio Court",
+    "category": "Lifestyle",
+    "price": 1049000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1661336509673-910e946daf56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1661336509673-910e946daf56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneakers serbaguna yang nyaman dipakai dari pagi sampai malam.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "DDP",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-people-walking-on-a-street-ptmOQ8aal8g?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Clutch High SE",
+    "category": "Basketball",
+    "price": 1799000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1595909336425-5bf541155dec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTR8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1595909336425-5bf541155dec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTR8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Yalamber Limbu",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-nike-basketball-shoes-8VZvbvHSwY8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rush Glide",
+    "category": "Running",
+    "price": 1249000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1709258228137-19a8c193be39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjJ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1709258228137-19a8c193be39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjJ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Tanaphong Toochinda",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-running-shoes-sitting-on-top-of-a-table-WWDMEVcGPbU?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Fastbreak Vision GT",
+    "category": "Basketball",
+    "price": 1499000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1552346154-21d32810aba3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siap untuk permainan intens: bantalan tebal, traksi tajam, fit mantap.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Taylor Smith",
+    "photoUrl": "https://unsplash.com/photos/pair-of-black-white-and-red-air-jordan-1-shoes-aDZ5YIuedQg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Peak Boot Lite",
+    "category": "Outdoor",
+    "price": 1949000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1663000126027-489944d0086b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NHx8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1663000126027-489944d0086b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NHx8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Spenser Sembrat",
+    "photoUrl": "https://unsplash.com/photos/a-persons-hands-holding-a-shoe-3eDgm8uAPSE?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Jump High",
+    "category": "Basketball",
+    "price": 1499000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1620138547487-bd817502a919?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjd8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1620138547487-bd817502a919?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjd8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      44
+    ],
+    "photographer": "Adrian Hernandez",
+    "photoUrl": "https://unsplash.com/photos/white-and-black-nike-athletic-shoe-DzoOduUanpQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Wild Grip GT",
+    "category": "Outdoor",
+    "price": 1249000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1600100315760-ac46b65f6fdd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1600100315760-ac46b65f6fdd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ali Kazal",
+    "photoUrl": "https://unsplash.com/photos/person-in-black-pants-and-brown-leather-shoes-standing-on-rock-wnMUFNRcCek?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Baseline Rise",
+    "category": "Basketball",
+    "price": 1299000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1542219550-37153d387c27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTZ8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1542219550-37153d387c27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTZ8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Mnz",
+    "photoUrl": "https://unsplash.com/photos/grey-and-white-air-jordan-1s-v13tnV6D9lw?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Tempo Glide 2",
+    "category": "Running",
+    "price": 1099000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1746206673199-5b75dcec1018?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzR8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1746206673199-5b75dcec1018?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzR8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Vlad Ciutacu",
+    "photoUrl": "https://unsplash.com/photos/a-white-running-shoe-hovering-in-the-air-tR2ZoPR4OPc?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "District Walker X",
+    "category": "Lifestyle",
+    "price": 999000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1792433927499-e8aea5df4a67?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1792433927499-e8aea5df4a67?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "JKTSNEAKERS",
+    "photoUrl": "https://unsplash.com/photos/person-tying-red-canvas-sneakers-YxDCmj3onTQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Canyon Ranger Lite",
+    "category": "Outdoor",
+    "price": 1699000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1559506026-181ed433f0b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1559506026-181ed433f0b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Material kokoh dan tahan cuaca untuk hiking maupun trekking.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Tom Wheatley",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-brown-and-black-shoes-C4hAQLjx6NI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Aero Glide Lite",
+    "category": "Running",
+    "price": 1099000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1597892657493-6847b9640bac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1597892657493-6847b9640bac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu lari ringan dengan bantalan empuk untuk jarak jauh maupun lari harian.",
+    "sizes": [
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Jakob Owens",
+    "photoUrl": "https://unsplash.com/photos/person-running-in-gray-asics-sneakers-A4579vLezz8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Alley Classic 3",
+    "category": "Lifestyle",
+    "price": 1349000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1778391408286-4dd5aa408ede?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzZ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1778391408286-4dd5aa408ede?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzZ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ninoslav Mrvelj",
+    "photoUrl": "https://unsplash.com/photos/tattooed-legs-wearing-colorful-socks-and-sneakers-iScyJjl0NuM?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Motion Fit Pro",
+    "category": "Training",
+    "price": 949000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1778854290307-09b729aae628?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1778854290307-09b729aae628?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dengan dukungan samping yang kuat saat latihan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "N1CE",
+    "photoUrl": "https://unsplash.com/photos/sneakers-and-a-black-bag-in-a-grey-tray-ocLSuJnQCU0?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rep Lift 2",
+    "category": "Training",
+    "price": 1199000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1600185652960-c9d8869d015c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTV8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1600185652960-c9d8869d015c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTV8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Luis Felipe Lins",
+    "photoUrl": "https://unsplash.com/photos/white-red-and-black-nike-air-max-8T-LD_wxlSo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rep Trainer SE",
+    "category": "Training",
+    "price": 999000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1659614404055-670edff49a1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8N3x8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1659614404055-670edff49a1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8N3x8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dengan dukungan samping yang kuat saat latihan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "engin akyurt",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-people-tying-their-shoes-YB3tGENlFPo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Alley Court X",
+    "category": "Lifestyle",
+    "price": 1249000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1771446489790-0c57c77d3fb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTh8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1771446489790-0c57c77d3fb5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTh8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneakers serbaguna yang nyaman dipakai dari pagi sampai malam.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Marcus Kern",
+    "photoUrl": "https://unsplash.com/photos/man-wearing-colorful-high-top-sneakers-and-white-socks-YXFNk27wwP8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Basic Base 3",
+    "category": "Casual",
+    "price": 899000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1768225286074-9039931bb9d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzh8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1768225286074-9039931bb9d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzh8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Tampilan simpel yang cocok dipadukan dengan hampir semua outfit.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Nguyễn Duy Hưng",
+    "photoUrl": "https://unsplash.com/photos/various-athletic-shoes-displayed-on-illuminated-shelves-JIVDJ5xZrWA?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rocky Max",
+    "category": "Outdoor",
+    "price": 1999000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1768155376869-c07db06f2c47?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1768155376869-c07db06f2c47?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Sylwia Bartyzel",
+    "photoUrl": "https://unsplash.com/photos/brown-boots-covered-in-snow-stand-in-white-snow-1SUv2szo6O0?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Active Trainer SE",
+    "category": "Training",
+    "price": 899000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1605408499391-6368c628ef42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1605408499391-6368c628ef42?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "USAMA AKRAM",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-nike-athletic-shoe-g3CMh2nqj_w?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Calm Canvas",
+    "category": "Casual",
+    "price": 999000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1631482665514-567048726eb1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDZ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1631482665514-567048726eb1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDZ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Nyaman dipakai seharian dengan desain rapi yang tidak ribet.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Mark Bishop",
+    "photoUrl": "https://unsplash.com/photos/a-black-and-white-photo-of-someones-converse-shoes--MY8Y1oBabI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Canyon Boot",
+    "category": "Outdoor",
+    "price": 1299000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1778837705073-91d1e06acdfa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8M3x8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1778837705073-91d1e06acdfa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8M3x8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Valentina Kondrasyuk",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-hiking-boots-in-a-misty-forest-SooM1_RIUNI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Soft Slip X",
+    "category": "Casual",
+    "price": 1049000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1608229751021-ed4bd8677753?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1608229751021-ed4bd8677753?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "The DK Photography",
+    "photoUrl": "https://unsplash.com/photos/white-nike-athletic-shoes-on-white-background-A8HaTLON5Gg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Loft Cruiser Lite",
+    "category": "Lifestyle",
+    "price": 1099000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1585843736857-bd7438e55c67?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzl8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1585843736857-bd7438e55c67?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzl8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneakers serbaguna yang nyaman dipakai dari pagi sampai malam.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      44
+    ],
+    "photographer": "Connor Houtman",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-white-and-black-nike-sneakers-VxzlyJk-2to?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Tempo Jogger Lite",
+    "category": "Running",
+    "price": 949000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1562183241-b937e95585b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTh8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1562183241-b937e95585b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTh8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu lari ringan dengan bantalan empuk untuk jarak jauh maupun lari harian.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Martin Katler",
+    "photoUrl": "https://unsplash.com/photos/pair-of-gray-running-shoes-Y4fKN-RlMV4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Daily Max",
+    "category": "Training",
+    "price": 1249000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1495557077419-2384a0150025?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1495557077419-2384a0150025?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Hermes Rivera",
+    "photoUrl": "https://unsplash.com/photos/pair-of-black-and-white-nike-athletic-shoes-dII8zRTK6lo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Calm Walk 2",
+    "category": "Casual",
+    "price": 1049000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1698919585873-8c6852de9b96?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1698919585873-8c6852de9b96?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Boitumelo",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-white-shoes-sitting-on-top-of-a-black-floor-tpUdwgqbGSA?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Pulse Boost SE",
+    "category": "Running",
+    "price": 999000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1760315972424-1637530daead?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1760315972424-1637530daead?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Mike Cox",
+    "photoUrl": "https://unsplash.com/photos/a-group-of-runners-participating-in-a-marathon-race-laxDhpYqZZc?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Simple Slip SE",
+    "category": "Casual",
+    "price": 999000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1780824946972-bcba0d6df87a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1780824946972-bcba0d6df87a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Jordan Hou",
+    "photoUrl": "https://unsplash.com/photos/white-and-brown-sneaker-illuminated-by-sunlight-F08HGIpHpdg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Pace Sprinter",
+    "category": "Running",
+    "price": 1599000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1542376751-fd90f8f32164?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTF8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1542376751-fd90f8f32164?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTF8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Hobi industri",
+    "photoUrl": "https://unsplash.com/photos/shoe-collection-sbn_yH6Y5x8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Ridge Grip 3",
+    "category": "Outdoor",
+    "price": 1349000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1631287381310-925554130169?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1631287381310-925554130169?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Clay Banks",
+    "photoUrl": "https://unsplash.com/photos/person-in-gray-nike-running-shoes-nj0a29qb_jo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Downtown Mid Pro",
+    "category": "Lifestyle",
+    "price": 949000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1628253747716-0c4f5c90fdda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjJ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1628253747716-0c4f5c90fdda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjJ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Desain timeless dengan sentuhan modern, cocok untuk aktivitas sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Christian Lucas",
+    "photoUrl": "https://unsplash.com/photos/yellow-nike-athletic-shoes-on-white-box-vraH9m7hfHU?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Daily Flex Pro",
+    "category": "Training",
+    "price": 1149000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1719759674376-a001dc166cb6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjh8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1719759674376-a001dc166cb6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjh8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "John Dias",
+    "photoUrl": "https://unsplash.com/photos/a-neon-green-shoe-with-a-black-background-m6qk9sHx6uQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Block Heritage 3",
+    "category": "Lifestyle",
+    "price": 1399000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1496202703211-aa28e9500c30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NXx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1496202703211-aa28e9500c30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NXx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Manki Kim",
+    "photoUrl": "https://unsplash.com/photos/person-showing-black-low-top-sneakers-xPY70gYcbcI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Swift Flow Lite",
+    "category": "Running",
+    "price": 1299000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjh8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjh8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      43,
+      44
+    ],
+    "photographer": "Bruno Nascimento",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-orange-and-gray-nike-shoes-walking-on-gray-concrete-stairs-PHIgYUGQPvU?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Daily Mono Pro",
+    "category": "Casual",
+    "price": 899000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1780824947013-dc7e01284025?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDd8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1780824947013-dc7e01284025?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDd8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Jordan Hou",
+    "photoUrl": "https://unsplash.com/photos/a-white-sneaker-with-brown-lining-against-a-light-wall-JuTTrDggKvg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Wild Explorer SE",
+    "category": "Outdoor",
+    "price": 1199000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1531928719516-3609b35d6ea1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjh8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1531928719516-3609b35d6ea1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjh8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Annie Spratt",
+    "photoUrl": "https://unsplash.com/photos/brown-boots-on-floor-beside-chair-kgLAeZ5MpKg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Swift Runner",
+    "category": "Running",
+    "price": 1249000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1600712662084-e54770a9668e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDl8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1600712662084-e54770a9668e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDl8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      44
+    ],
+    "photographer": "Alexandr Podvalny",
+    "photoUrl": "https://unsplash.com/photos/person-in-red-nike-sneakers-sitting-on-concrete-floor-BFmvDCBIWiM?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Flex Flex Lite",
+    "category": "Training",
+    "price": 1099000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1600185365778-7875a359b924?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1600185365778-7875a359b924?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      44
+    ],
+    "photographer": "Luis Felipe Lins",
+    "photoUrl": "https://unsplash.com/photos/white-red-and-black-nike-athletic-shoe-S6Cp3uN39_M?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Summit Grip Pro",
+    "category": "Outdoor",
+    "price": 1649000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1779348416499-fa271dcfd75a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTV8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1779348416499-fa271dcfd75a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTV8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Bernd 📷 Dittrich",
+    "photoUrl": "https://unsplash.com/photos/worn-hiking-boots-resting-on-dry-rocky-desert-ground-g56a9A7EbiM?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Ridge Hiker SE",
+    "category": "Outdoor",
+    "price": 1449000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1575987116913-e96e7d490b8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1575987116913-e96e7d490b8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Clay Banks",
+    "photoUrl": "https://unsplash.com/photos/pair-of-brown-leather-boots-BSL837tTPAw?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Zone High X",
+    "category": "Basketball",
+    "price": 1749000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1605348532760-6753d2c43329?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1605348532760-6753d2c43329?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mnx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siap untuk permainan intens: bantalan tebal, traksi tajam, fit mantap.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "USAMA AKRAM",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-nike-athletic-shoes-s-gYAbQToXk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Court Rise",
+    "category": "Basketball",
+    "price": 1199000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1631984564919-1f6b2313a71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1631984564919-1f6b2313a71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siap untuk permainan intens: bantalan tebal, traksi tajam, fit mantap.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Behnam Norouzi",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-black-and-orange-sneakers-on-a-white-background-F4rWoM3cYjI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Grid Classic X",
+    "category": "Lifestyle",
+    "price": 999000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1790516832977-7e3ef80f9941?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1790516832977-7e3ef80f9941?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Vlad Ciutacu",
+    "photoUrl": "https://unsplash.com/photos/sneakers-with-orange-laces-in-garage-PDN5wJT7A78?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Motion Move X",
+    "category": "Training",
+    "price": 1149000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1765914448163-da25d773a87d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDV8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1765914448163-da25d773a87d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDV8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Taylor Friehl",
+    "photoUrl": "https://unsplash.com/photos/runners-feet-in-colorful-athletic-shoes-on-pavement-aWnu2Uh_ykc?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Loft Court",
+    "category": "Lifestyle",
+    "price": 1149000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1784835506832-7724fe6b3504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1784835506832-7724fe6b3504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ed Parker",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-black-sneakers-and-jeans-on-a-tiled-floor-sd8e483uf9Y?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Calm Slip",
+    "category": "Casual",
+    "price": 899000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1628254081683-82d5ff0700e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDJ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1628254081683-82d5ff0700e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDJ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Christian Lucas",
+    "photoUrl": "https://unsplash.com/photos/yellow-and-white-nike-air-max-he0atkmtRhQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Street Heritage",
+    "category": "Lifestyle",
+    "price": 949000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1545229777-c6201cf6670c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTV8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1545229777-c6201cf6670c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTV8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Desain timeless dengan sentuhan modern, cocok untuk aktivitas sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Amelia Barklid",
+    "photoUrl": "https://unsplash.com/photos/black-adidas-low-top-sneakers-LbcE4RHsduA?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Velocity Wave Pro",
+    "category": "Running",
+    "price": 1549000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1585944672394-4c58a015c1fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzF8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1585944672394-4c58a015c1fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzF8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      44
+    ],
+    "photographer": "Patrick Mueller",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-black-and-white-nike-sneakers-n-J3ZyJLPjs?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Arena Shot",
+    "category": "Basketball",
+    "price": 1349000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1786514781319-a04b1ec172b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1786514781319-a04b1ec172b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Darshan Sarang",
+    "photoUrl": "https://unsplash.com/photos/athletic-sneakers-hanging-in-dark-room-LNePSgW88wA?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Block Heritage Pro",
+    "category": "Lifestyle",
+    "price": 849000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1783697462212-eec530c25421?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1783697462212-eec530c25421?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Zulfugar Karimov",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-light-platform-sneakers-and-grey-jeans-on-concrete-JQ4cViF3zN4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Tempo Flow 3",
+    "category": "Running",
+    "price": 1549000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ryan Waring",
+    "photoUrl": "https://unsplash.com/photos/unpaired-red-nike-sneaker-164_6wVEHfI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Tempo Jogger Pro",
+    "category": "Running",
+    "price": 949000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1711466067057-d1bd10183924?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDZ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1711466067057-d1bd10183924?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDZ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Deon Collison",
+    "photoUrl": "https://unsplash.com/photos/a-person-tying-a-shoelace-on-a-rock-Rk62VPlcZqw?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Loft Mid Lite",
+    "category": "Lifestyle",
+    "price": 1249000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1785061384322-5caf1c66b707?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjd8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1785061384322-5caf1c66b707?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjd8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneakers serbaguna yang nyaman dipakai dari pagi sampai malam.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Cord Allman",
+    "photoUrl": "https://unsplash.com/photos/person-in-blue-jeans-and-white-sneakers-standing-on-stone-88biRbevQwg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rocky Ranger GT",
+    "category": "Outdoor",
+    "price": 1899000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1485809052957-5113b0ff51af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8N3x8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1485809052957-5113b0ff51af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8N3x8aGlraW5nJTIwYm9vdHN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Alice Donovan Rouse",
+    "photoUrl": "https://unsplash.com/photos/black-hiking-backpack-near-white-fujifilm-instax-mini-camera-near-black-leather-boots-red-half-zip-jacket-gray-pocket-watch-on-white-map-z9F_yK4Nmf8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Daily Base 2",
+    "category": "Casual",
+    "price": 849000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1622760807800-66cf1466fc08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjB8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1622760807800-66cf1466fc08?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjB8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Nyaman dipakai seharian dengan desain rapi yang tidak ribet.",
+    "sizes": [
+      39,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "mojtaba mosayebzadeh",
+    "photoUrl": "https://unsplash.com/photos/white-adidas-low-top-sneaker-CFYS5qMSuKo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rush Glide SE",
+    "category": "Running",
+    "price": 1249000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1644055154268-758a78b62d48?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzZ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1644055154268-758a78b62d48?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzZ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Bluewater Sweden",
+    "photoUrl": "https://unsplash.com/photos/a-person-is-holding-a-water-bottle-and-tying-it-to-a-shoe-4bn_Y3aPJTs?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Summit Climb X",
+    "category": "Outdoor",
+    "price": 2049000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1722641277093-247f90661dec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjl8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1722641277093-247f90661dec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjl8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Slava Auchynnikau",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-shoes-sitting-on-top-of-a-grass-covered-field-uUcYkUzOPXY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Metro Edition",
+    "category": "Lifestyle",
+    "price": 1249000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1791676069794-01e3a6799e7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDJ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1791676069794-01e3a6799e7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDJ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      44
+    ],
+    "photographer": "Danny Greenberg",
+    "photoUrl": "https://unsplash.com/photos/suede-sneakers-on-asphalt-surface-D94cYOkc4XQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Drive Move X",
+    "category": "Training",
+    "price": 1299000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1569664739361-5d5727ca3df9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1569664739361-5d5727ca3df9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "matthew Feeney",
+    "photoUrl": "https://unsplash.com/photos/a-black-and-white-photo-of-a-pair-of-sneakers-S5FHvNkBHOI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Pace Jogger SE",
+    "category": "Running",
+    "price": 949000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1637437757614-6491c8e915b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1637437757614-6491c8e915b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "mostafa mahmoudi",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-running-shoes-on-a-white-background-W_uDEmTq0po?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Stride Lite SE",
+    "category": "Running",
+    "price": 1199000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1491553895911-0055eca6402d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Imani Bahati",
+    "photoUrl": "https://unsplash.com/photos/unpaired-gray-nike-running-shoe-LxVxPA1LOVM?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Clean Move GT",
+    "category": "Casual",
+    "price": 999000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1608379743498-ac08f6d022ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjZ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1608379743498-ac08f6d022ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjZ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "The DK Photography",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-nike-sneakers-jc0o2j7T5LA?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rep Form",
+    "category": "Training",
+    "price": 1249000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1543678854-db854c02a894?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTd8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1543678854-db854c02a894?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTd8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Xiaolong Wong",
+    "photoUrl": "https://unsplash.com/photos/five-persons-standing-in-front-of-black-and-white-nike-basketball-jNlHYSIvOlM?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Basic Day SE",
+    "category": "Casual",
+    "price": 799000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1631482665588-d3a6f88e65f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDV8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1631482665588-d3a6f88e65f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDV8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Mark Bishop",
+    "photoUrl": "https://unsplash.com/photos/a-black-and-white-photo-of-a-pair-of-shoes-919zhwL1Adk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Grid Low",
+    "category": "Lifestyle",
+    "price": 899000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1771781732253-024b56528913?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1771781732253-024b56528913?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Desain timeless dengan sentuhan modern, cocok untuk aktivitas sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Marcus Kern",
+    "photoUrl": "https://unsplash.com/photos/a-person-wearing-blue-adidas-sneakers-and-white-socks-MrKcNDo7lHY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Trail Climb 3",
+    "category": "Outdoor",
+    "price": 2049000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1600100315778-850119b19220?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTd8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1600100315778-850119b19220?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTd8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Ali Kazal",
+    "photoUrl": "https://unsplash.com/photos/person-in-black-pants-and-brown-leather-boots-standing-on-rock-during-daytime-4s-obffdob0?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Clean Slip Lite",
+    "category": "Casual",
+    "price": 1049000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1651573091103-530884aa68ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzB8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1651573091103-530884aa68ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzB8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Mika Baumeister",
+    "photoUrl": "https://unsplash.com/photos/a-close-up-of-feet-wearing-blue-shoes-GWjgGNL8bnk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Motion Flex X",
+    "category": "Training",
+    "price": 1299000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1695459468644-717c8ae17eed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTl8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1695459468644-717c8ae17eed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTl8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dengan dukungan samping yang kuat saat latihan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Sayan Majhi",
+    "photoUrl": "https://unsplash.com/photos/a-close-up-of-a-green-and-white-shoe-Nw9dYluPHYk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rush Sprinter",
+    "category": "Running",
+    "price": 999000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1675762647949-1b25f669a687?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzl8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1675762647949-1b25f669a687?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzl8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Ronnarit Jirathanyakorn",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-white-shoes-sitting-on-top-of-a-wooden-floor-mzCVIAKJuTw?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Retro Icon",
+    "category": "Lifestyle",
+    "price": 1349000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1759527588071-e143b4a451b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OXx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1759527588071-e143b4a451b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OXx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Allison Scoffone",
+    "photoUrl": "https://unsplash.com/photos/pair-of-sneakers-resting-in-grass-at-sunset-LKP-0vyZasQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Terra Hiker",
+    "category": "Outdoor",
+    "price": 1399000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1640348308077-97bcb7abe803?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTN8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1640348308077-97bcb7abe803?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTN8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Annie Spratt",
+    "photoUrl": "https://unsplash.com/photos/a-group-of-shoes-sitting-on-the-floor-next-to-a-radiator-oATODm0y5Aw?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Baseline Flight Lite",
+    "category": "Basketball",
+    "price": 1599000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1710553455489-0cda9a34f0bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzZ8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1710553455489-0cda9a34f0bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzZ8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siap untuk permainan intens: bantalan tebal, traksi tajam, fit mantap.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Gabre Cameron",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-black-and-red-shoes-in-the-air-6KTs8P1CD-I?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Simple Slip",
+    "category": "Casual",
+    "price": 899000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1763483480838-bd14121d4fa3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDl8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1763483480838-bd14121d4fa3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDl8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Nyaman dipakai seharian dengan desain rapi yang tidak ribet.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "alaa turkman",
+    "photoUrl": "https://unsplash.com/photos/white-sneakers-hang-from-a-mossy-tree-trunk-JUVPGKjJEaI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Summit Climb",
+    "category": "Outdoor",
+    "price": 1749000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1554133818-7bb790d55236?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDh8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1554133818-7bb790d55236?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDh8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Siora Photography",
+    "photoUrl": "https://unsplash.com/photos/pair-of-brown-and-black-work-boots-on-green-grass-field-during-daytime-B1Sn_ADEohs?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Studio Edition",
+    "category": "Lifestyle",
+    "price": 1299000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1765845574797-f5ab7249a8a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1765845574797-f5ab7249a8a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Aravind Balabhaskar",
+    "photoUrl": "https://unsplash.com/photos/white-high-top-sneakers-resting-on-green-grass-HXLtj7G4Wu4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rebound Flight 3",
+    "category": "Basketball",
+    "price": 1499000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1557848979-f13d18a41bb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTd8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1557848979-f13d18a41bb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTd8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Mr BIMSKY",
+    "photoUrl": "https://unsplash.com/photos/air-jordan-shoes-in-basketball-hoop-hanging-on-net-during-daytime-A1uOoLvSfBg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Easy White 2",
+    "category": "Casual",
+    "price": 749000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1606906136205-01323599ed51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTh8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1606906136205-01323599ed51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTh8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Tampilan simpel yang cocok dipadukan dengan hampir semua outfit.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Pietro Schellino",
+    "photoUrl": "https://unsplash.com/photos/white-and-black-adidas-athletic-shoe-RMMmKR8RCoo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Loft Edition",
+    "category": "Lifestyle",
+    "price": 849000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1782061817675-9e0b40f60512?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzh8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1782061817675-9e0b40f60512?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzh8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Konrad Nowacki",
+    "photoUrl": "https://unsplash.com/photos/feet-in-colorful-sneakers-and-black-canvas-shoes-on-pavement-wZTmDViY6cE?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Swift Glide Pro",
+    "category": "Running",
+    "price": 1449000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1747691875590-14db938e42d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjl8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1747691875590-14db938e42d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjl8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Vlad Ciutacu",
+    "photoUrl": "https://unsplash.com/photos/a-nike-air-max-1-sneaker-floats-gracefully-sgRh0WENun0?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Air Racer",
+    "category": "Running",
+    "price": 1099000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1598702631024-b282c0fd96b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDV8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1598702631024-b282c0fd96b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDV8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu lari ringan dengan bantalan empuk untuk jarak jauh maupun lari harian.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Tara Glaser",
+    "photoUrl": "https://unsplash.com/photos/person-in-black-nike-sneakers-WodC5zEcSLQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Power Lift Pro",
+    "category": "Training",
+    "price": 1149000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1613740104907-d537a85e1274?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1613740104907-d537a85e1274?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Aman Jakhar",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-nike-athletic-shoes-qGJ_-d1wlEg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Alpine Grip",
+    "category": "Outdoor",
+    "price": 1849000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1655976795408-92a8498838c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzF8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1655976795408-92a8498838c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzF8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ajeet Panesar",
+    "photoUrl": "https://unsplash.com/photos/a-black-shoe-on-rocks-4CYxeonhkxY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Jump Force GT",
+    "category": "Basketball",
+    "price": 999000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1786550786149-965980da62a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTV8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1786550786149-965980da62a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTV8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siap untuk permainan intens: bantalan tebal, traksi tajam, fit mantap.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Darshan Sarang",
+    "photoUrl": "https://unsplash.com/photos/white-athletic-sneakers-with-jumpman-logo-afacaQKweww?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Simple Walk",
+    "category": "Casual",
+    "price": 749000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1767440557966-219b4b09b34f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1767440557966-219b4b09b34f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Barnaby Woodrow",
+    "photoUrl": "https://unsplash.com/photos/close-up-of-white-and-red-high-top-sneakers-3ude8dhQjMQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Downtown Classic",
+    "category": "Lifestyle",
+    "price": 1249000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1615440321519-dda3d4b5ccab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1615440321519-dda3d4b5ccab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneakers serbaguna yang nyaman dipakai dari pagi sampai malam.",
+    "sizes": [
+      39,
+      40,
+      42,
+      43,
+      44
+    ],
+    "photographer": "LOGAN WEAVER | @LGNWVR",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-white-and-red-nike-sneakers-gFlJs7JEh3c?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Tempo Glide SE",
+    "category": "Running",
+    "price": 1549000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1759674915081-b38844dbb613?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTV8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1759674915081-b38844dbb613?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTV8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu lari ringan dengan bantalan empuk untuk jarak jauh maupun lari harian.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Pierre-Antoine FRANCK",
+    "photoUrl": "https://unsplash.com/photos/runners-race-on-a-street-with-buildings-behind-u7-4f6NlGtw?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Swift Racer X",
+    "category": "Running",
+    "price": 1349000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1499692526241-33b38bd6c2df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTR8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1499692526241-33b38bd6c2df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTR8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Michał Kubalczyk",
+    "photoUrl": "https://unsplash.com/photos/person-holding-white-low-top-shoes-oL-gSFVpI6A?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Easy Move 3",
+    "category": "Casual",
+    "price": 1049000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1658150450590-569779608370?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1658150450590-569779608370?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Nyaman dipakai seharian dengan desain rapi yang tidak ribet.",
+    "sizes": [
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Sajjad Badusha",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-white-shoes-Vh76ok67S4M?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Trail Hiker",
+    "category": "Outdoor",
+    "price": 1799000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1669285254759-dd8d373ca518?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1669285254759-dd8d373ca518?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      41,
+      43,
+      44
+    ],
+    "photographer": "Racim Amr",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-boots-and-a-gun-on-the-ground-DO8RBVaH47U?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Pace Flow X",
+    "category": "Running",
+    "price": 1199000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1602190420103-683df5093e86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1602190420103-683df5093e86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Rob Wilson",
+    "photoUrl": "https://unsplash.com/photos/man-in-blue-shorts-and-white-nike-sneakers-1_bK_F0U43o?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Basic Slip 2",
+    "category": "Casual",
+    "price": 699000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1782136675374-f14affdcecca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1782136675374-f14affdcecca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Shane Ryan Herilalaina",
+    "photoUrl": "https://unsplash.com/photos/two-white-sneakers-with-patterned-laces-on-a-wooden-floor-KiP00F_WTpE?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Block Walker Pro",
+    "category": "Lifestyle",
+    "price": 899000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1787983617153-58f1b5459ac5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTl8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1787983617153-58f1b5459ac5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTl8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Mr Catographer",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-white-sneakers-and-trousers-HlaiHa-Fk6o?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Dunk Pro",
+    "category": "Basketball",
+    "price": 1849000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1582229911941-ad25e99c9ead?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjJ8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1582229911941-ad25e99c9ead?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjJ8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Midsole responsif dan upper stabil untuk gerakan cepat di lapangan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Connor Coyne",
+    "photoUrl": "https://unsplash.com/photos/white-and-red-nike-athletic-shoes-YnQOIx8J17c?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Retro Mid X",
+    "category": "Lifestyle",
+    "price": 999000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1771444503292-e8784a22e553?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjZ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1771444503292-e8784a22e553?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjZ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Desain timeless dengan sentuhan modern, cocok untuk aktivitas sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Marcus Kern",
+    "photoUrl": "https://unsplash.com/photos/man-wearing-blue-sneakers-and-white-socks-sitting-rpbj60fYWTo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Flex Move 2",
+    "category": "Training",
+    "price": 949000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1671321787003-1a83df5c261c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTR8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1671321787003-1a83df5c261c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTR8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dengan dukungan samping yang kuat saat latihan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Tim Bish",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-shoes-sitting-on-a-gym-floor-mpmmv1XI-a4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Loft Court X",
+    "category": "Lifestyle",
+    "price": 1199000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1790516833068-35714eb27856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTR8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1790516833068-35714eb27856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTR8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneakers serbaguna yang nyaman dipakai dari pagi sampai malam.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Vlad Ciutacu",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-purple-sneakers-and-jeans-h3AY1g7j5KY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Air Racer 2",
+    "category": "Running",
+    "price": 1499000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1587587448844-c1036562fec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTh8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1587587448844-c1036562fec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTh8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Dulcey Lima",
+    "photoUrl": "https://unsplash.com/photos/woman-in-white-red-and-blue-sneakers-sitting-on-white-sand-during-daytime-D52yn3tlJjo?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Core Burn",
+    "category": "Training",
+    "price": 1349000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1762690285055-fa80848e825b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTV8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1762690285055-fa80848e825b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTV8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Rajesh Rajput",
+    "photoUrl": "https://unsplash.com/photos/pair-of-red-athletic-shoes-with-white-soles-vBLIOllb-l4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Forest Hiker Lite",
+    "category": "Outdoor",
+    "price": 1749000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1546367564-ade1880f8921?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1546367564-ade1880f8921?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Colton Sturgeon",
+    "photoUrl": "https://unsplash.com/photos/brown-and-white-lace-up-boot-cHxZmiziwMI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Alley Icon Pro",
+    "category": "Lifestyle",
+    "price": 1099000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1790516832966-8ced0c3e76e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1790516832966-8ced0c3e76e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjN8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Vlad Ciutacu",
+    "photoUrl": "https://unsplash.com/photos/person-standing-over-pile-of-sneakers-xRcBdn6jCvw?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Urban Mono SE",
+    "category": "Casual",
+    "price": 899000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1722489292294-426912777649?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjF8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1722489292294-426912777649?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjF8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "SJ 📸",
+    "photoUrl": "https://unsplash.com/photos/a-white-and-green-sneaker-on-a-wooden-table-LnP6U_grkjQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Strong Lift X",
+    "category": "Training",
+    "price": 1049000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1778854290517-8c7fc019f49e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjl8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1778854290517-8c7fc019f49e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjl8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "N1CE",
+    "photoUrl": "https://unsplash.com/photos/pair-of-grey-athletic-shoes-resting-on-black-leather-d6A01mXazVQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Street Low GT",
+    "category": "Lifestyle",
+    "price": 849000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1613839817782-6c41fef752ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTV8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1613839817782-6c41fef752ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTV8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Alin Surdu",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-white-red-and-black-nike-basketball-shoe-em89au_3qx8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Strong Lift",
+    "category": "Training",
+    "price": 1149000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1701340041780-036e09240ab3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NjB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1701340041780-036e09240ab3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NjB8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Gilbert Ng",
+    "photoUrl": "https://unsplash.com/photos/a-bunch-of-shoes-that-are-sitting-on-the-ground-NVQhKWGRQ0g?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Tempo Flow",
+    "category": "Running",
+    "price": 1049000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDN8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDN8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Regis-Hari Bouchard",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-nike-athletic-shoe-ZjViL8qxihM?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Aero Sprinter",
+    "category": "Running",
+    "price": 1299000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1587587448924-b5a1db520d29?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzd8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1587587448924-b5a1db520d29?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzd8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Dulcey Lima",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-blue-and-white-sneakers-8Tx1FOj8xJc?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Block Mid",
+    "category": "Lifestyle",
+    "price": 799000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1780824946673-5361771bf8a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nzh8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1780824946673-5361771bf8a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nzh8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Jordan Hou",
+    "photoUrl": "https://unsplash.com/photos/stylish-white-sneaker-with-gold-emblem-in-dramatic-lighting-_0_b9c0HZPM?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Grid Icon",
+    "category": "Lifestyle",
+    "price": 1349000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1778854290365-175e5a9a643c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDF8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1778854290365-175e5a9a643c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDF8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "N1CE",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-light-athletic-shoes-and-white-socks-aJpLusj_TzA?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "District Cruiser SE",
+    "category": "Lifestyle",
+    "price": 1049000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1785692258374-e7c5f06494ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NjN8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1785692258374-e7c5f06494ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NjN8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Victor Broch",
+    "photoUrl": "https://unsplash.com/photos/white-sneakers-and-striped-socks-casting-a-long-shadow-j3gmNHh1dEE?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Downtown Court Pro",
+    "category": "Lifestyle",
+    "price": 1299000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1785009736928-be36e6473fec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzB8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1785009736928-be36e6473fec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzB8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Desain timeless dengan sentuhan modern, cocok untuk aktivitas sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ian Edokov",
+    "photoUrl": "https://unsplash.com/photos/feet-in-white-sneakers-on-a-concrete-surface-outdoors-IJlnDTT1UDk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Simple Step",
+    "category": "Casual",
+    "price": 799000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1625622176741-a21f738d0756?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTZ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1625622176741-a21f738d0756?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTZ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Keenan Beasley",
+    "photoUrl": "https://unsplash.com/photos/white-and-black-converse-all-star-high-top-sneakers-NFf-L4KtEQg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Loft Edition 2",
+    "category": "Lifestyle",
+    "price": 1299000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1788180433092-75df2a9414b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTZ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1788180433092-75df2a9414b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTZ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Haberdoedas",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-white-sneakers-on-gravel-aCYJSqBNCgY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Plain White",
+    "category": "Casual",
+    "price": 799000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1544441892-794166f1e3be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8N3x8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1544441892-794166f1e3be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8N3x8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Nyaman dipakai seharian dengan desain rapi yang tidak ribet.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Mnz",
+    "photoUrl": "https://unsplash.com/photos/pair-of-white-low-top-sneakers-BeClz11lyXY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "District Edition",
+    "category": "Lifestyle",
+    "price": 1149000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1619466122087-e1ff06cf234b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1619466122087-e1ff06cf234b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MXx8c25lYWtlcnMlMjBzdHJlZXQlMjBzdHlsZXxlbnwwfHx8fDE3OTQxOTc5NzF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Malvestida",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-black-blue-and-yellow-nike-sneakers-XGIWdNmW2uY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Ridge Ranger X",
+    "category": "Outdoor",
+    "price": 1749000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1617179395455-101d786b4b7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTh8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1617179395455-101d786b4b7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTh8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Proteksi ekstra di bagian jari dan tumit untuk medan berbatu.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Sean Brookes",
+    "photoUrl": "https://unsplash.com/photos/person-in-black-pants-and-orange-and-black-nike-sneakers-standing-on-rocky-ground-during-daytime-TxFUuUxoXnY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Sprint Sprinter",
+    "category": "Running",
+    "price": 1549000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1766970096320-c62c49517226?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1766970096320-c62c49517226?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dan midsole responsif yang menjaga langkah tetap ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Felix yu",
+    "photoUrl": "https://unsplash.com/photos/runner-in-motion-on-a-street-ZlwCocz11D8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Daily White GT",
+    "category": "Casual",
+    "price": 799000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1727705723856-b44b14612e93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTl8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1727705723856-b44b14612e93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTl8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Austris Augusts",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-feet-in-black-and-white-shoes-0663CidPr40?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Alley Mid",
+    "category": "Lifestyle",
+    "price": 1349000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1758646483134-1a5cbc9aa349?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1758646483134-1a5cbc9aa349?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Gaya klasik yang mudah dipadukan dengan outfit casual maupun streetwear.",
+    "sizes": [
+      39,
+      40,
+      41,
+      43,
+      44
+    ],
+    "photographer": "Marija Zaric",
+    "photoUrl": "https://unsplash.com/photos/pair-of-white-converse-sneakers-with-unlaced-eyelets-rwuJssLWqkk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Urban White X",
+    "category": "Casual",
+    "price": 799000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1606855293341-680ddba6aeb4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzl8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1606855293341-680ddba6aeb4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzl8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Tampilan simpel yang cocok dipadukan dengan hampir semua outfit.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Pietro Schellino",
+    "photoUrl": "https://unsplash.com/photos/white-and-black-nike-athletic-shoes-mWd-rrROcYQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Fastbreak Shot SE",
+    "category": "Basketball",
+    "price": 1149000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1533681018184-68bd1d883b97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1533681018184-68bd1d883b97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Midsole responsif dan upper stabil untuk gerakan cepat di lapangan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Hermes Rivera",
+    "photoUrl": "https://unsplash.com/photos/pair-of-black-and-white-air-jordan-13-shoes-on-gray-surface-w83s82yd3Fk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Plain Move 2",
+    "category": "Casual",
+    "price": 1049000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1597350584914-55bb62285896?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NHx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1597350584914-55bb62285896?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NHx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Tampilan simpel yang cocok dipadukan dengan hampir semua outfit.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Brian Hall",
+    "photoUrl": "https://unsplash.com/photos/white-nike-air-force-1-x5aavOm7PFc?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Street Classic 2",
+    "category": "Lifestyle",
+    "price": 999000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1767975793331-d42c05ff91a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTR8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1767975793331-d42c05ff91a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTR8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siluet bersih dengan detail premium untuk tampilan kota yang rapi.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ainur Iman",
+    "photoUrl": "https://unsplash.com/photos/two-people-wearing-white-sneakers-standing-on-floor-2qQ1YV1RuaE?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Fastbreak Drive Pro",
+    "category": "Basketball",
+    "price": 1799000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1595909236612-9fd30b476365?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1595909236612-9fd30b476365?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Yalamber Limbu",
+    "photoUrl": "https://unsplash.com/photos/black-and-orange-nike-sneakers-DS2ZIDNxWgk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Active Lift Pro",
+    "category": "Training",
+    "price": 899000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1644387026226-b34e6bc0a891?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTd8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1644387026226-b34e6bc0a891?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTd8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Gene Gallin",
+    "photoUrl": "https://unsplash.com/photos/a-close-up-of-a-pair-of-pink-sneakers-EVfuWjJ0nk8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Pulse Dash X",
+    "category": "Running",
+    "price": 1499000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NXx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1560769629-975ec94e6a86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NXx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Irene Kredenets",
+    "photoUrl": "https://unsplash.com/photos/pair-of-white-and-orange-athletic-shoes-on-white-box-dwKiHoqqxk8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Drive Form GT",
+    "category": "Training",
+    "price": 1049000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1768851342799-d55a6801713c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTZ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1768851342799-d55a6801713c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTZ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Matt Benson",
+    "photoUrl": "https://unsplash.com/photos/close-up-of-a-white-nike-air-jordan-shoe-with-tag-I47VKNkgBG8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Pure Canvas X",
+    "category": "Casual",
+    "price": 699000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1596744288358-45428ce99fc4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1596744288358-45428ce99fc4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjR8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Errant Official 🇩🇰",
+    "photoUrl": "https://unsplash.com/photos/white-nike-low-top-sneakers-on-brown-wooden-table-b8jmBNGO_-k?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Daily Max X",
+    "category": "Training",
+    "price": 1349000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1605973828881-d32d26aaf2ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1605973828881-d32d26aaf2ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTF8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "pure julia",
+    "photoUrl": "https://unsplash.com/photos/black-converse-all-star-high-top-sneaker-7otCm86iSqk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "District Cruiser",
+    "category": "Lifestyle",
+    "price": 1249000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1784236404795-70e745263086?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NjB8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1784236404795-70e745263086?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NjB8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneakers serbaguna yang nyaman dipakai dari pagi sampai malam.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Phil Hearing",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-green-converse-sneakers-with-white-laces-iG5c7BF4ZDU?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Strong Fit",
+    "category": "Training",
+    "price": 1249000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1778521157912-620fd0d3c6e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzZ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1778521157912-620fd0d3c6e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzZ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Sou Jest",
+    "photoUrl": "https://unsplash.com/photos/sneakers-on-display-stands-under-warm-focused-lighting-DXTT02-ee-8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Plain Step 3",
+    "category": "Casual",
+    "price": 699000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1722489291844-b7ef817e10d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzJ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1722489291844-b7ef817e10d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzJ8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Nyaman dipakai seharian dengan desain rapi yang tidak ribet.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "SJ 📸",
+    "photoUrl": "https://unsplash.com/photos/a-white-tennis-shoe-sitting-on-top-of-a-wooden-table-0Xu_fMEc_iw?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rebound Pro",
+    "category": "Basketball",
+    "price": 1049000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siap untuk permainan intens: bantalan tebal, traksi tajam, fit mantap.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Hermes Rivera",
+    "photoUrl": "https://unsplash.com/photos/sneakers-lot-OX_en7CXMj4?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Cloud Glide",
+    "category": "Running",
+    "price": 1349000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1758506971683-c080e6f16ce9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1758506971683-c080e6f16ce9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTJ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu lari ringan dengan bantalan empuk untuk jarak jauh maupun lari harian.",
+    "sizes": [
+      39,
+      40,
+      41,
+      43,
+      44
+    ],
+    "photographer": "Mathias Reding",
+    "photoUrl": "https://unsplash.com/photos/runners-legs-in-motion-with-a-long-shadow-G96xGokbTUM?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Urban Mono",
+    "category": "Casual",
+    "price": 749000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1686783695684-7b8351fdebbd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Njl8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1686783695684-7b8351fdebbd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Njl8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Pilot Win",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-white-sneakers-sitting-on-top-of-a-cement-step-n2zFDdK4ncc?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "District Origin",
+    "category": "Lifestyle",
+    "price": 999000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1673259047708-c6fedc038088?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8ODZ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1673259047708-c6fedc038088?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8ODZ8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Desain timeless dengan sentuhan modern, cocok untuk aktivitas sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Alex Muromtsev",
+    "photoUrl": "https://unsplash.com/photos/a-person-standing-on-a-cobblestone-walkway-wearing-white-sneakers-Rh2ZxdeGZ_s?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Hoop Elite 3",
+    "category": "Basketball",
+    "price": 1399000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1636031855107-ea6f414524f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjB8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1636031855107-ea6f414524f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MjB8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Gene Gallin",
+    "photoUrl": "https://unsplash.com/photos/a-close-up-of-a-basketball-player-tying-his-shoes-33fT56b1Pp8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Hoop Flight Lite",
+    "category": "Basketball",
+    "price": 1449000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1786379582247-258594160bf4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OXx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1786379582247-258594160bf4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OXx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Siap untuk permainan intens: bantalan tebal, traksi tajam, fit mantap.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Gabre Cameron",
+    "photoUrl": "https://unsplash.com/photos/black-athletic-sneakers-on-white-KTVTHg2ofBY?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Urban Step X",
+    "category": "Casual",
+    "price": 699000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1625860191460-10a66c7384fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1625860191460-10a66c7384fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Tampilan simpel yang cocok dipadukan dengan hampir semua outfit.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Mukesh Naik",
+    "photoUrl": "https://unsplash.com/photos/white-nike-low-top-sneakers-jVerIoX3y7c?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Pulse Wave Pro",
+    "category": "Running",
+    "price": 1549000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1676767720609-c76265fb3074?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDd8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1676767720609-c76265fb3074?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NDd8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      43,
+      44
+    ],
+    "photographer": "Chris Lynch",
+    "photoUrl": "https://unsplash.com/photos/a-person-holding-a-pair-of-shoes-in-their-hand-O62zXRsl_1w?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Grid Mid GT",
+    "category": "Lifestyle",
+    "price": 1299000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1761769468245-4190f045738f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjh8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1761769468245-4190f045738f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mjh8fHNuZWFrZXJzJTIwc3RyZWV0JTIwc3R5bGV8ZW58MHx8fHwxNzk0MTk3OTcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneakers serbaguna yang nyaman dipakai dari pagi sampai malam.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Pict4life",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-white-sneakers-and-jeans-1BxXu4-faZI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Plain Mono",
+    "category": "Casual",
+    "price": 1099000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1620844595703-c47c4ad2cc2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1620844595703-c47c4ad2cc2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzN8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Kati Hoehl",
+    "photoUrl": "https://unsplash.com/photos/white-and-black-adidas-high-top-sneakers-l2nPmUJFV1c?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rush Lite Lite",
+    "category": "Running",
+    "price": 1449000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1469395446868-fb6a048d5ca3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1469395446868-fb6a048d5ca3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzB8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Kristian Egelund",
+    "photoUrl": "https://unsplash.com/photos/pair-of-black-white-and-brown-nike-basketball-shoes-wmdcUQ0CJ4c?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Basic White",
+    "category": "Casual",
+    "price": 849000,
+    "rating": 4.8,
+    "imageUrl": "https://images.unsplash.com/photo-1651371409956-20e79c06a8bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzB8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1651371409956-20e79c06a8bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzB8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Hamza M.",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-brown-shoes-KovvS29Xj3s?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rebound Pro GT",
+    "category": "Basketball",
+    "price": 1149000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1620138548370-2ea380c7ab1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1620138548370-2ea380c7ab1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzV8fGJhc2tldGJhbGwlMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Pergelangan kaki terlindungi dengan grip kuat untuk pivot dan lompatan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      43,
+      44
+    ],
+    "photographer": "Adrian Hernandez",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-nike-athletic-shoe-gpii_myxZG0?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Cloud Glide X",
+    "category": "Running",
+    "price": 1649000,
+    "rating": 4.4,
+    "imageUrl": "https://images.unsplash.com/photo-1581888748626-2a3f240a6f9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzh8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1581888748626-2a3f240a6f9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Mzh8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Isaac Wendland",
+    "photoUrl": "https://unsplash.com/photos/person-wearing-black-and-yellow-nike-running-shoes-YbubEOFyKZU?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Fastbreak Elite 2",
+    "category": "Basketball",
+    "price": 1849000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1620138546344-7b2c38516edf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8N3x8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1620138546344-7b2c38516edf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8N3x8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Midsole responsif dan upper stabil untuk gerakan cepat di lapangan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "photographer": "Adrian Hernandez",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-nike-air-max-3hCa1KQ1kjE?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Motion Lift",
+    "category": "Training",
+    "price": 949000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1739132268718-53d64165d29a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1739132268718-53d64165d29a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OHx8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sepatu training fleksibel untuk gym, workout, dan aktivitas ringan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Zoshua Colah",
+    "photoUrl": "https://unsplash.com/photos/a-pair-of-sneakers-on-display-in-a-glass-case-eMMLDnWoR_I?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rush Dash X",
+    "category": "Running",
+    "price": 1449000,
+    "rating": 4.3,
+    "imageUrl": "https://images.unsplash.com/photo-1759674861540-afed9f86f94a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8M3x8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1759674861540-afed9f86f94a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8M3x8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Pierre-Antoine FRANCK",
+    "photoUrl": "https://unsplash.com/photos/runners-in-motion-during-a-race-W2pBsQaT6FQ?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Peak Climb",
+    "category": "Outdoor",
+    "price": 1349000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1655976795374-6b519928f1e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1655976795374-6b519928f1e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTB8fGhpa2luZyUyMGJvb3RzfGVufDB8fHx8MTc5NDE5Nzk3NXww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Outsole bergrip untuk jalur outdoor dan medan yang lebih menantang.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ajeet Panesar",
+    "photoUrl": "https://unsplash.com/photos/a-black-shoe-on-a-rock-p3rDtB66cws?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Power Max 3",
+    "category": "Training",
+    "price": 999000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1578765724997-d5d11d934aaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzJ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1578765724997-d5d11d934aaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzJ8fGd5bSUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sol stabil untuk angkat beban dan cukup lentur untuk latihan kardio.",
+    "sizes": [
+      39,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Ryan De Hamer",
+    "photoUrl": "https://unsplash.com/photos/pair-of-orange-nike-athletic-shoes-VRiyW0BUnVk?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Easy Move 2",
+    "category": "Casual",
+    "price": 1049000,
+    "rating": 4.5,
+    "imageUrl": "https://images.unsplash.com/photo-1512374382149-233c42b6a83b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8M3x8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1512374382149-233c42b6a83b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8M3x8d2hpdGUlMjBzbmVha2Vyc3xlbnwwfHx8fDE3OTQxOTc5NzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Ringan dan fleksibel, pas untuk kuliah, kerja, atau jalan santai.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Xavier Teo",
+    "photoUrl": "https://unsplash.com/photos/pair-of-white-nike-high-top-shoes-SxAXphIPWeg?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Velocity Glide",
+    "category": "Running",
+    "price": 1349000,
+    "rating": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1758683658297-d7c2512dcb0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OXx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1758683658297-d7c2512dcb0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8OXx8cnVubmluZyUyMHNob2VzfGVufDB8fHx8MTc5NDE5Nzk3MHww&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      44
+    ],
+    "photographer": "Quan-You Zhang",
+    "photoUrl": "https://unsplash.com/photos/a-group-of-runners-in-a-marathon-race-dNle_4cOc38?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Rush Wave Lite",
+    "category": "Running",
+    "price": 949000,
+    "rating": 4.6,
+    "imageUrl": "https://images.unsplash.com/photo-1676041669566-fead69bd7007?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzJ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1676041669566-fead69bd7007?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MzJ8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Dirancang untuk pelari harian: stabil, nyaman, dan tetap stylish di luar trek.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Chris Lynch",
+    "photoUrl": "https://unsplash.com/photos/a-close-up-of-a-persons-feet-wearing-nike-shoes-gIUoWrD_bZ8?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Nimbus Boost",
+    "category": "Running",
+    "price": 949000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8MTN8fHJ1bm5pbmclMjBzaG9lc3xlbnwwfHx8fDE3OTQxOTc5NzB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Bantalan lembut dengan outsole grip kuat untuk berbagai permukaan jalan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Luis Felipe Lins",
+    "photoUrl": "https://unsplash.com/photos/white-and-red-nike-athletic-shoe-J2-wAQDckus?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Drive Form 2",
+    "category": "Training",
+    "price": 1299000,
+    "rating": 4.9,
+    "imageUrl": "https://images.unsplash.com/photo-1631087606988-a6be38fccaf6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1631087606988-a6be38fccaf6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8Nnx8Z3ltJTIwc2hvZXN8ZW58MHx8fHwxNzk0MTk3OTc2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Upper breathable dengan dukungan samping yang kuat saat latihan.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "Rauf Alvi",
+    "photoUrl": "https://unsplash.com/photos/black-and-white-nike-athletic-shoes-PiTfMhz1HiI?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Calm Canvas GT",
+    "category": "Casual",
+    "price": 1049000,
+    "rating": 4.7,
+    "imageUrl": "https://images.unsplash.com/photo-1558599577-7884a4e31e79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTV8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1558599577-7884a4e31e79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NTV8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Tampilan simpel yang cocok dipadukan dengan hampir semua outfit.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "mutzii ii",
+    "photoUrl": "https://unsplash.com/photos/pair-of-white-and-black-ellesse-lace-up-low-top-sneakers-W6yImVqkuy0?utm_source=solea&utm_medium=referral"
+  },
+  {
+    "name": "Calm Slip X",
+    "category": "Casual",
+    "price": 999000,
+    "rating": 4.2,
+    "imageUrl": "https://images.unsplash.com/photo-1608382881605-168dd21d79ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzN8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "images": [
+      "https://images.unsplash.com/photo-1608382881605-168dd21d79ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTI4MDc2fDB8MXxzZWFyY2h8NzN8fHdoaXRlJTIwc25lYWtlcnN8ZW58MHx8fHwxNzk0MTk3OTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    ],
+    "description": "Sneaker clean untuk gaya minimalis sehari-hari.",
+    "sizes": [
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "photographer": "The DK Photography",
+    "photoUrl": "https://unsplash.com/photos/white-and-black-shoes-illustration-zowWhNy1OsM?utm_source=solea&utm_medium=referral"
+  }
+]

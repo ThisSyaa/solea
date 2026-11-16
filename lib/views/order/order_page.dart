@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../core/app_network_image.dart';
 import '../../controllers/order_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
@@ -10,10 +10,7 @@ import '../../models/order.dart';
 class OrderPage extends StatefulWidget {
   final bool showSuccess;
 
-  const OrderPage({
-    super.key,
-    this.showSuccess = false,
-  });
+  const OrderPage({super.key, this.showSuccess = false});
 
   @override
   State<OrderPage> createState() => _OrderPageState();
@@ -25,60 +22,55 @@ class _OrderPageState extends State<OrderPage> {
     super.initState();
 
     // Muat riwayat terbaru dari Firestore.
-    OrderController.instance.loadOrders(
-      forceRefresh: true,
-    );
+    OrderController.instance.loadOrders(forceRefresh: true);
 
     if (widget.showSuccess) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
 
         showDialog(
-  context: context,
-  barrierDismissible: false,
-  builder: (context) {
-    return AlertDialog(
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Lottie.asset(
-            'assets/animations/celebration checkmark.json',
-            width: 160,
-            height: 160,
-            repeat: false,
-          ),
-          const SizedBox(height: 12),
-          const Text(
-            'Pesanan Berhasil!',
-            style: TextStyle(
-              fontSize: 21,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'Pesanan kamu berhasil dibuat. Terima kasih sudah berbelanja di SOLEA!',
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Mengerti'),
-            ),
-          ),
-        ],
-      ),
-    );
-  },
-);
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Lottie.asset(
+                    'assets/animations/celebration checkmark.json',
+                    width: 160,
+                    height: 160,
+                    repeat: false,
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Pesanan Berhasil!',
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.w800),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Pesanan kamu berhasil dibuat. Terima kasih sudah berbelanja di SOLEA!',
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Mengerti'),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       });
     }
   }
@@ -95,9 +87,7 @@ class _OrderPageState extends State<OrderPage> {
         elevation: 0,
         title: const Text(
           'Pesanan Saya',
-          style: TextStyle(
-            fontWeight: FontWeight.w800,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w800),
         ),
         actions: [
           IconButton(
@@ -105,15 +95,13 @@ class _OrderPageState extends State<OrderPage> {
             onPressed: controller.isLoading
                 ? null
                 : () {
-                    controller.loadOrders(
-                      forceRefresh: true,
-                    );
+                    controller.loadOrders(forceRefresh: true);
                   },
             icon: const Icon(Icons.refresh_rounded),
           ),
           const Padding(
             padding: EdgeInsets.only(right: 12),
-            child: SoleaLogo(iconSize: 28),
+            child: SoleaLogo(height: 30),
           ),
         ],
       ),
@@ -124,20 +112,15 @@ class _OrderPageState extends State<OrderPage> {
 
           if (controller.isLoading && orders.isEmpty) {
             return const Center(
-              child: CircularProgressIndicator(
-                color: AppColors.forest,
-              ),
+              child: CircularProgressIndicator(color: AppColors.forest),
             );
           }
 
-          if (controller.lastError != null &&
-              orders.isEmpty) {
+          if (controller.lastError != null && orders.isEmpty) {
             return _OrderLoadError(
               message: controller.lastError!,
               onRetry: () {
-                controller.loadOrders(
-                  forceRefresh: true,
-                );
+                controller.loadOrders(forceRefresh: true);
               },
             );
           }
@@ -149,25 +132,15 @@ class _OrderPageState extends State<OrderPage> {
           return RefreshIndicator(
             color: AppColors.forest,
             onRefresh: () {
-              return controller.loadOrders(
-                forceRefresh: true,
-              );
+              return controller.loadOrders(forceRefresh: true);
             },
             child: ListView.separated(
               physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(
-                20,
-                8,
-                20,
-                30,
-              ),
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 30),
               itemCount: orders.length,
-              separatorBuilder: (_, __) =>
-                  const SizedBox(height: 12),
+              separatorBuilder: (_, _) => const SizedBox(height: 12),
               itemBuilder: (_, index) {
-                return _OrderCard(
-                  order: orders[index],
-                );
+                return _OrderCard(order: orders[index]);
               },
             ),
           );
@@ -184,9 +157,7 @@ class _OrderPageState extends State<OrderPage> {
 class _OrderCard extends StatelessWidget {
   final Order order;
 
-  const _OrderCard({
-    required this.order,
-  });
+  const _OrderCard({required this.order});
 
   @override
   Widget build(BuildContext context) {
@@ -195,9 +166,7 @@ class _OrderCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.line,
-        ),
+        border: Border.all(color: AppColors.line),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,9 +188,7 @@ class _OrderCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(
                       formatDate(order.createdAt),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall,
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
@@ -250,77 +217,65 @@ class _OrderCard extends StatelessWidget {
 
           const Divider(height: 24),
 
-          ...order.items.take(3).map(
-            (item) {
-              final imageUrl = item.product.imageUrl;
+          ...order.items.take(3).map((item) {
+            final imageUrl = item.product.imageUrl;
 
-              return Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 12,
-                ),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(9),
-                      child: SizedBox(
-                        width: 56,
-                        height: 56,
-                        child: imageUrl.isEmpty
-                            ? _imagePlaceholder()
-                            : Image.network(
-                                imageUrl,
-                                fit: BoxFit.cover,
-                                errorBuilder: (
-                                  context,
-                                  error,
-                                  stackTrace,
-                                ) {
-                                  return _imagePlaceholder();
-                                },
-                              ),
-                      ),
-                    ),
-                    const SizedBox(width: 11),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.product.name,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 12.5,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.ink,
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(9),
+                    child: SizedBox(
+                      width: 56,
+                      height: 56,
+                      child: imageUrl.isEmpty
+                          ? _imagePlaceholder()
+                          : AppNetworkImage(
+                              imageUrl: imageUrl,
+                              errorBuilder: (_) => _imagePlaceholder(),
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Size ${item.size} • ${item.quantity}x',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: AppColors.muted,
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
-                    const SizedBox(width: 8),
-                    Text(
-                      formatRupiah(item.subtotal),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 12,
-                        color: AppColors.ink,
-                      ),
+                  ),
+                  const SizedBox(width: 11),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.product.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.ink,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          'Size ${item.size} • ${item.quantity}x',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: AppColors.muted,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              );
-            },
-          ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    formatRupiah(item.subtotal),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 12,
+                      color: AppColors.ink,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
 
           if (order.items.length > 3)
             Padding(
@@ -335,26 +290,17 @@ class _OrderCard extends StatelessWidget {
 
           const Text(
             'Dikirim kepada',
-            style: TextStyle(
-              fontSize: 12,
-              color: AppColors.muted,
-            ),
+            style: TextStyle(fontSize: 12, color: AppColors.muted),
           ),
           const SizedBox(height: 5),
           Text(
             order.customerName,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w800,
-            ),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 4),
           Text(
             order.phone,
-            style: const TextStyle(
-              fontSize: 12,
-              color: AppColors.muted,
-            ),
+            style: const TextStyle(fontSize: 12, color: AppColors.muted),
           ),
           const SizedBox(height: 5),
           Text(
@@ -372,10 +318,7 @@ class _OrderCard extends StatelessWidget {
             children: [
               const Text(
                 'Pembayaran',
-                style: TextStyle(
-                  color: AppColors.muted,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: AppColors.muted, fontSize: 12),
               ),
               const Spacer(),
               Text(
@@ -394,9 +337,7 @@ class _OrderCard extends StatelessWidget {
             children: [
               const Text(
                 'Total',
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w900),
               ),
               const Spacer(),
               Text(
@@ -418,10 +359,7 @@ class _OrderCard extends StatelessWidget {
     return Container(
       color: AppColors.sand,
       alignment: Alignment.center,
-      child: const Icon(
-        Icons.directions_run_rounded,
-        color: AppColors.muted,
-      ),
+      child: const Icon(Icons.directions_run_rounded, color: AppColors.muted),
     );
   }
 }
@@ -434,10 +372,7 @@ class _OrderLoadError extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
 
-  const _OrderLoadError({
-    required this.message,
-    required this.onRetry,
-  });
+  const _OrderLoadError({required this.message, required this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -456,19 +391,13 @@ class _OrderLoadError extends StatelessWidget {
             const Text(
               'Pesanan belum bisa dimuat',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
             ),
             const SizedBox(height: 8),
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: AppColors.muted,
-                height: 1.5,
-              ),
+              style: const TextStyle(color: AppColors.muted, height: 1.5),
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -527,10 +456,7 @@ class _NoOrders extends StatelessWidget {
             const Text(
               'Pesanan yang berhasil dibuat akan muncul di sini.',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.muted,
-                height: 1.5,
-              ),
+              style: TextStyle(color: AppColors.muted, height: 1.5),
             ),
           ],
         ),
