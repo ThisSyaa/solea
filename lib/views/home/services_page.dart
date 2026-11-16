@@ -1,5 +1,6 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/app_theme.dart';
 import '../order/order_page.dart';
@@ -12,26 +13,84 @@ import '../shopping/wishlist_page.dart';
 class ServicesPage extends StatelessWidget {
   const ServicesPage({super.key});
 
-  void _openPage(
-    BuildContext context,
-    Widget page,
-  ) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => page,
-      ),
-    );
+  void _openPage(BuildContext context, Widget page) {
+    Navigator.push(context, MaterialPageRoute<void>(builder: (_) => page));
   }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-
-    final columns = width >= 1000
+    final width = MediaQuery.of(context).size.width;
+    final columns = width >= 1050
         ? 3
-        : width >= 620
-            ? 2
-            : 1;
+        : width >= 650
+        ? 2
+        : 1;
+    final padding = width < 600 ? 18.0 : 30.0;
+
+    // Hubungkan nilai ini dengan jumlah data dari database.
+    // Nilai awal 0 agar tidak menampilkan angka palsu.
+    const jumlahPesanan = 0;
+    const jumlahAlamat = 0;
+    const jumlahMetodePembayaran = 0;
+    const jumlahKeranjang = 0;
+    const jumlahWishlist = 0;
+
+    final services = [
+      _ServiceData(
+        icon: Icons.receipt_long_outlined,
+        title: 'Pesanan Saya',
+        subtitle: 'Lihat riwayat & status pesanan.',
+        badge: jumlahPesanan,
+        badgeColor: const Color(0xFF32966C),
+        action: 'Lacak Paket',
+        onTap: () => _openPage(context, const OrderPage()),
+      ),
+      _ServiceData(
+        icon: Icons.location_on_outlined,
+        title: 'Alamat Pengiriman',
+        subtitle: 'Kelola alamat penerima pesanan.',
+        badge: jumlahAlamat,
+        badgeColor: const Color(0xFFE69A32),
+        action: 'Atur Alamat',
+        onTap: () => _openPage(context, const AddressPage()),
+      ),
+      _ServiceData(
+        icon: Icons.credit_card_outlined,
+        title: 'Metode Pembayaran',
+        subtitle: 'Atur pilihan metode pembayaran.',
+        badge: jumlahMetodePembayaran,
+        badgeColor: const Color(0xFF3885B8),
+        action: 'Kelola Metode',
+        onTap: () => _openPage(context, const PaymentMethodPage()),
+      ),
+      _ServiceData(
+        icon: Icons.shopping_bag_outlined,
+        title: 'Keranjang',
+        subtitle: 'Periksa produk sebelum checkout.',
+        badge: jumlahKeranjang,
+        badgeColor: const Color(0xFFC34448),
+        action: 'Buka Keranjang',
+        onTap: () => _openPage(context, const CartPage()),
+      ),
+      _ServiceData(
+        icon: Icons.favorite_border_rounded,
+        title: 'Wishlist',
+        subtitle: 'Lihat sepatu yang kamu simpan.',
+        badge: jumlahWishlist,
+        badgeColor: const Color(0xFFE995A5),
+        action: 'Buka Wishlist',
+        onTap: () => _openPage(context, const WishlistPage()),
+      ),
+      _ServiceData(
+        icon: Icons.help_outline_rounded,
+        title: 'Bantuan & FAQ',
+        subtitle: 'Temukan jawaban atas pertanyaanmu.',
+        badge: 0,
+        badgeColor: const Color(0xFF929292),
+        action: 'Tanya SOLEA',
+        onTap: () => _openPage(context, const FaqPage()),
+      ),
+    ];
 
     return Scaffold(
       backgroundColor: AppColors.sand,
@@ -39,216 +98,329 @@ class ServicesPage extends StatelessWidget {
         backgroundColor: AppColors.sand,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          color: AppColors.ink,
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
           'Layanan SOLEA',
-          style: TextStyle(
+          style: GoogleFonts.poppins(
+            fontSize: 19,
+            fontWeight: FontWeight.w600,
             color: AppColors.ink,
-            fontWeight: FontWeight.w800,
           ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 18),
+            child: Icon(
+              Icons.notifications_none_rounded,
+              color: AppColors.ink,
+              size: 25,
+            ),
+          ),
+        ],
       ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final padding =
-              constraints.maxWidth < 600 ? 18.0 : 28.0;
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.fromLTRB(padding, 20, padding, 45),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1400),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Semua kebutuhanmu, dalam satu tempat.',
+                  style: GoogleFonts.poppins(
+                    color: AppColors.ink,
+                    fontSize: width < 600 ? 23 : 30,
+                    fontWeight: FontWeight.w700,
+                    height: 1.35,
+                  ),
+                ).animate().fadeIn(duration: 400.ms),
 
-          return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.fromLTRB(
-              padding,
-              18,
-              padding,
-              32,
-            ),
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 1050,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Semua kebutuhanmu, dalam satu tempat.',
-                      style: TextStyle(
-                        color: AppColors.ink,
-                        fontSize: 27,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: -0.7,
-                      ),
-                    ),
-                    const SizedBox(height: 9),
-                    const Text(
-                      'Pilih layanan yang ingin kamu akses.',
-                      style: TextStyle(
-                        color: AppColors.muted,
-                        fontSize: 14,
-                        height: 1.6,
-                      ),
-                    ),
-                    const SizedBox(height: 26),
+                const SizedBox(height: 7),
 
-                    GridView.count(
-                      shrinkWrap: true,
-                      physics:
-                          const NeverScrollableScrollPhysics(),
-                      crossAxisCount: columns,
-                      crossAxisSpacing: 14,
-                      mainAxisSpacing: 14,
-                      childAspectRatio: columns == 1
-                          ? 3.4
-                          : 1.65,
-                      children: [
-                        _ServiceCard(
-                          icon: Icons.receipt_long_outlined,
-                          title: 'Pesanan Saya',
-                          subtitle:
-                              'Lihat riwayat dan status pesanan.',
-                          onTap: () => _openPage(
-                            context,
-                            const OrderPage(),
-                          ),
-                        ),
-                        _ServiceCard(
-                          icon: Icons.location_on_outlined,
-                          title: 'Alamat Pengiriman',
-                          subtitle:
-                              'Kelola alamat penerima pesanan.',
-                          onTap: () => _openPage(
-                            context,
-                            const AddressPage(),
-                          ),
-                        ),
-                        _ServiceCard(
-                          icon: Icons.payment_outlined,
-                          title: 'Metode Pembayaran',
-                          subtitle:
-                              'Atur pilihan metode pembayaran.',
-                          onTap: () => _openPage(
-                            context,
-                            const PaymentMethodPage(),
-                          ),
-                        ),
-                        _ServiceCard(
-                          icon: Icons.shopping_bag_outlined,
-                          title: 'Keranjang',
-                          subtitle:
-                              'Periksa produk sebelum checkout.',
-                          onTap: () => _openPage(
-                            context,
-                            const CartPage(),
-                          ),
-                        ),
-                        _ServiceCard(
-                          icon: Icons.favorite_border_rounded,
-                          title: 'Wishlist',
-                          subtitle:
-                              'Lihat sepatu yang kamu simpan.',
-                          onTap: () => _openPage(
-                            context,
-                            const WishlistPage(),
-                          ),
-                        ),
-                        _ServiceCard(
-                          icon: Icons.help_outline_rounded,
-                          title: 'Bantuan & FAQ',
-                          subtitle:
-                              'Temukan jawaban atas pertanyaan umum.',
-                          onTap: () => _openPage(
-                            context,
-                            const FaqPage(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                Text(
+                  'Pilih layanan yang ingin kamu akses.',
+                  style: GoogleFonts.poppins(
+                    color: AppColors.muted,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
+
+                const SizedBox(height: 24),
+
+                SizedBox(
+                  height: 105,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      _PromoBanner(
+                        width: width < 600 ? 320 : 760,
+                        icon: Icons.directions_run_rounded,
+                        title: '✨ SOLEA Privilege',
+                        description:
+                            'Nikmati gratis ongkir & promo khusus member!',
+                        background: const Color(0xFF315F50),
+                      ),
+                      const SizedBox(width: 16),
+                      _PromoBanner(
+                        width: width < 600 ? 280 : 390,
+                        icon: Icons.confirmation_number_outlined,
+                        title: 'Klaim Voucher Diskon',
+                        description: 'Temukan penawaran menarik dari SOLEA.',
+                        background: const Color(0xFF315F50),
+                      ),
+                    ],
+                  ),
+                ).animate().fadeIn(delay: 150.ms),
+
+                const SizedBox(height: 65),
+
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: services.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: columns,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                    mainAxisExtent: width < 600 ? 190 : 212,
+                  ),
+                  itemBuilder: (context, index) {
+                    return _ServiceCard(data: services[index], index: index);
+                  },
+                ),
+              ],
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
 }
 
-class _ServiceCard extends StatelessWidget {
+class _ServiceData {
   final IconData icon;
   final String title;
   final String subtitle;
+  final int badge;
+  final Color badgeColor;
+  final String action;
   final VoidCallback onTap;
 
-  const _ServiceCard({
+  const _ServiceData({
     required this.icon,
     required this.title,
     required this.subtitle,
+    required this.badge,
+    required this.badgeColor,
+    required this.action,
     required this.onTap,
   });
+}
+
+class _ServiceCard extends StatelessWidget {
+  final _ServiceData data;
+  final int index;
+
+  const _ServiceCard({required this.data, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(18),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(17),
-          child: Row(
-            children: [
-              Container(
-                width: 46,
-                height: 46,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE8F0EC),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Icon(
-                  icon,
-                  color: AppColors.forest,
-                  size: 23,
-                ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24),
+          child: InkWell(
+            onTap: data.onTap,
+            borderRadius: BorderRadius.circular(24),
+            child: Container(
+              padding: const EdgeInsets.all(19),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: const Color(0xFFBDB8AD), width: 1.5),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.09),
+                    blurRadius: 13,
+                    offset: Offset(0, 6),
+                  ),
+                ],
               ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.ink,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 11,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: data.badgeColor,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Text(
+                        '${data.badge}',
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Text(
-                      subtitle,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.muted,
-                        fontSize: 11.5,
-                        height: 1.4,
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 38),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFDCE8E1),
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              child: Icon(
+                                data.icon,
+                                color: const Color(0xFF466F60),
+                                size: 29,
+                              ),
+                            ),
+                            const SizedBox(width: 15),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    data.title,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.poppins(
+                                      color: AppColors.ink,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    data.subtitle,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.poppins(
+                                      color: AppColors.muted,
+                                      fontSize: 11,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 75),
+                          child: Row(
+                            children: [
+                              Text(
+                                data.action,
+                                style: GoogleFonts.poppins(
+                                  color: AppColors.ink,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(width: 7),
+                              Icon(
+                                Icons.arrow_forward_rounded,
+                                size: 16,
+                                color: AppColors.forest,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-              const Icon(
-                Icons.arrow_forward_ios_rounded,
-                color: AppColors.muted,
-                size: 15,
-              ),
-            ],
+            ),
           ),
-        ),
+        )
+        .animate()
+        .fadeIn(
+          delay: Duration(milliseconds: 80 * index),
+          duration: 400.ms,
+        )
+        .slideY(begin: 0.08, duration: 400.ms);
+  }
+}
+
+class _PromoBanner extends StatelessWidget {
+  final double width;
+  final IconData icon;
+  final String title;
+  final String description;
+  final Color background;
+
+  const _PromoBanner({
+    required this.width,
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.background,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 17),
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: BorderRadius.circular(19),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                    color: const Color(0xFFE5EEE8),
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Icon(icon, color: const Color(0xFFD6E4DB), size: 43),
+        ],
       ),
     );
   }

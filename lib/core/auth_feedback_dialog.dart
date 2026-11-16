@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum AuthFeedbackType {
-  error,
-  success,
-  warning,
-  info,
-}
+enum AuthFeedbackType { error, success, warning, info }
 
 class AuthFeedbackStyle {
   final Color background;
@@ -74,30 +69,18 @@ Future<void> showAuthFeedbackDialog({
       return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        insetPadding: const EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 24,
-        ),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 360,
-          ),
+          constraints: const BoxConstraints(maxWidth: 360),
           child: Container(
-            padding: const EdgeInsets.fromLTRB(
-              24,
-              18,
-              24,
-              22,
-            ),
+            padding: const EdgeInsets.fromLTRB(24, 18, 24, 22),
             decoration: BoxDecoration(
               color: const Color(0xFFFFFEFC),
               borderRadius: BorderRadius.circular(28),
-              border: Border.all(
-                color: const Color(0xFFF0EDE6),
-              ),
+              border: Border.all(color: const Color(0xFFF0EDE6)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.08),
+                  color: Colors.black.withValues(alpha: 0.08),
                   blurRadius: 35,
                   offset: const Offset(0, 15),
                 ),
@@ -119,10 +102,7 @@ Future<void> showAuthFeedbackDialog({
                         backgroundColor: const Color(0xFFF5F3EE),
                         foregroundColor: const Color(0xFF77736B),
                       ),
-                      icon: const Icon(
-                        Icons.close_rounded,
-                        size: 19,
-                      ),
+                      icon: const Icon(Icons.close_rounded, size: 19),
                     ),
                   ),
 
@@ -197,10 +177,7 @@ Future<void> showAuthFeedbackDialog({
                       },
                       style: TextButton.styleFrom(
                         foregroundColor: const Color(0xFF77736B),
-                        minimumSize: const Size(
-                          double.infinity,
-                          42,
-                        ),
+                        minimumSize: const Size(double.infinity, 42),
                       ),
                       child: Text(
                         secondaryLabel,
@@ -224,9 +201,7 @@ Future<void> showAuthFeedbackDialog({
 class _FeedbackIllustration extends StatelessWidget {
   final AuthFeedbackStyle style;
 
-  const _FeedbackIllustration({
-    required this.style,
-  });
+  const _FeedbackIllustration({required this.style});
 
   @override
   Widget build(BuildContext context) {
@@ -275,11 +250,7 @@ class _FeedbackIllustration extends StatelessWidget {
           ),
 
           // Ikon utama
-          Icon(
-            style.icon,
-            size: 48,
-            color: style.foreground,
-          ),
+          Icon(style.icon, size: 48, color: style.foreground),
 
           // Lencana kecil di sudut ilustrasi
           Positioned(
@@ -291,10 +262,7 @@ class _FeedbackIllustration extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFFFFFEFC),
                 shape: BoxShape.circle,
-                border: Border.all(
-                  color: style.background,
-                  width: 2,
-                ),
+                border: Border.all(color: style.background, width: 2),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.05),
@@ -303,11 +271,7 @@ class _FeedbackIllustration extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Icon(
-                style.badgeIcon,
-                size: 17,
-                color: style.foreground,
-              ),
+              child: Icon(style.badgeIcon, size: 17, color: style.foreground),
             ),
           ),
         ],
