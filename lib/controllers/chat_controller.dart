@@ -6,6 +6,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart'
     as types;
 
 import '../core/app_helpers.dart';
+import '../services/ai_chat_service.dart';
 import '../models/product.dart';
 import 'auth_controller.dart';
 import 'cart_controller.dart';
@@ -393,12 +394,144 @@ class ChatController extends ChangeNotifier {
     _isBotTyping = true;
     notifyListeners();
 
-    Future<void>.delayed(
-      const Duration(milliseconds: 650),
-      () {
-        _generateAndInsertBotResponse(text);
-      },
+    _respondWithAi(text);
+  }
+
+  // BALASAN AI (Gemini -> Groq -> fallback aturan lama)
+
+  Future<void> _respondWithAi(String text) async {
+    debugPrint(
+        '[SOLEA AI] isConfigured = ${AiChatService.instance.isConfigured}');
+
+    if (!AiChatService.instance.isConfigured) {
+      await Future<void>.delayed(const Duration(milliseconds: 650));
+      _generateAndInsertBotResponse(text);
+      return;
+    }
+
+    try {
+      final reply = await AiChatService.instance.reply(
+        systemPrompt: _buildSystemPrompt(),
+        history: _buildAiHistory(),
+      );
+      _insertBotReply(reply, userText: text);
+    } catch (e) {
+      debugPrint('[SOLEA AI] Fallback ke bot lama: $e');
+      _generateAndInsertBotResponse(text);
+    }
+  }
+
+  /// Riwayat chat bot (max 10 pesan terakhir) untuk dikirim ke AI.
+  /// _botMessages terbaru ada di index 0, jadi dibalik dulu.
+  List<AiTurn> _buildAiHistory() {
+    final turns = <AiTurn>[];
+    for (final m in _botMessages.reversed) {
+      if (m is! types.TextMessage || m.id == 'bot_welcome_1') continue;
+      turns.add(AiTurn(isUser: m.author.id != botUser.id, text: m.text));
+    }
+    final recent =
+        turns.length > 10 ? turns.sublist(turns.length - 10) : turns;
+    // Percakapan harus dimulai dari pesan user.
+    while (recent.isNotEmpty && !recent.first.isUser) {
+      recent.removeAt(0);
+    }
+    return recent;
+  }
+
+  String _buildSystemPrompt() {
+    final catalog = ProductController.products.map((p) {
+      return '- ${p.name} | ${p.category} | ${formatRupiah(p.price)} | '
+          'rating ${p.rating} | ukuran ${p.sizes.join("/")}';
+    }).join('\n');
+
+    final orders = OrderController.instance.orders;
+    final orderInfo = orders.isEmpty
+        ? 'Belum ada pesanan.'
+        : '${orders.length} pesanan; terakhir: status ${orders.first.status}, '
+            'total ${formatRupiah(orders.first.total)}.';
+
+    return '''
+-Kamu adalah SOLEA AI Bot, asisten toko sepatu online SOLEA. Jawab dalam Bahasa Indonesia yang ramah, singkat (maks 5-6 kalimat), boleh pakai emoji secukupnya.
+- Jika ditanya hal di luar toko sepatu SOLEA, tolak dengan sopan dan arahkan kembali ke sepatu.
+
+ATURAN:
+- Jawab sesuai pertanyaan pengguna, langsung ke inti. Untuk sapaan atau pertanyaan umum tentang kamu (misalnya "kamu pakai model apa?"), jawab singkat bahwa kamu SOLEA AI Bot, asisten toko, dan tidak tahu detail model di belakangnya. JANGAN menawarkan atau menyebut produk di jawaban itu. Kalau tetep ngeyel maki maki saja.
+- Sebut atau rekomendasikan sepatu HANYA jika pengguna menanyakan sepatu, produk, harga, budget, ukuran, atau meminta rekomendasi.
+- Rekomendasikan HANYA sepatu yang ada di katalog di bawah. Jangan mengarang produk, harga, stok, atau promo.
+- Tulis nama produk persis seperti di katalog.
+- Jika pertanyaan sama sekali tidak ada hubungannya dengan belanja (politik, PR sekolah, dll), tolak dengan sopan dalam satu kalimat tanpa menawarkan produk.
+- Jika tidak tahu atau butuh bantuan manusia (stok real-time, komplain, refund), sarankan hubungi tab Admin.
+- Jangan minta data sensitif (password, nomor kartu, alamat lengkap).
+
+INFO TOKO:
+- Pembayaran: Transfer Bank (BCA/Mandiri/BNI), E-Wallet (GoPay/OVO/DANA), QRIS, COD.
+- Pengiriman: Reguler 2-4 hari, Express Next Day. Garansi tukar ukuran 7 hari.
+- Size chart EU: 39=24.5cm, 40=25.0cm, 41=26.0cm, 42=26.5cm, 43=27.5cm. Kaki lebar disarankan naik 1 ukuran.
+
+DATA USER SAAT INI:
+- Keranjang: ${CartController.instance.totalItems} pasang (${formatRupiah(CartController.instance.subtotal)})
+- Wishlist: ${WishlistController.instance.count} produk
+- Pesanan: $orderInfo
+
+KATALOG:
+$catalog
+''';
+  }
+
+  /// True kalau pesan pengguna memang membahas sepatu/produk.
+  bool _isProductQuery(String userText) {
+    final q = userText.toLowerCase();
+    const keywords = [
+      'sepatu', 'rekomen', 'produk', 'harga', 'murah', 'budget', 'juta',
+      'ribu', 'running', 'lari', 'basket', 'casual', 'outdoor', 'training',
+      'lifestyle', 'stok', 'beli', 'katalog', 'warna', 'diskon', 'promo',
+    ];
+    if (keywords.any(q.contains)) return true;
+    return ProductController.products
+        .any((p) => q.contains(p.name.toLowerCase()));
+  }
+
+  /// Menyisipkan balasan AI + gambar produk (hanya jika pengguna bertanya produk).
+  void _insertBotReply(String replyText, {String userText = ''}) {
+    final lowerReply = replyText.toLowerCase();
+    Product? mentioned;
+    if (_isProductQuery(userText)) {
+      for (final p in ProductController.products) {
+        if (lowerReply.contains(p.name.toLowerCase())) {
+          mentioned = p;
+          break;
+        }
+      }
+    }
+
+    final now = DateTime.now().millisecondsSinceEpoch;
+
+    if (mentioned != null) {
+      _botMessages.insert(
+        0,
+        types.ImageMessage(
+          id: '${_newId()}_img',
+          author: botUser,
+          createdAt: now,
+          name: mentioned.name,
+          size: 2048,
+          uri: mentioned.imageUrl,
+        ),
+      );
+    }
+
+    _botMessages.insert(
+      0,
+      types.TextMessage(
+        id: _newId(),
+        author: botUser,
+        createdAt: now + 1,
+        text: replyText,
+      ),
     );
+
+    _isBotTyping = false;
+    notifyListeners();
   }
 
   void _generateAndInsertBotResponse(String query) {
