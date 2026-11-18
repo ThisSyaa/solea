@@ -1,10 +1,11 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
-import '../../core/app_network_image.dart';
 import '../../controllers/cart_controller.dart';
 import '../../core/app_helpers.dart';
 import '../../core/app_theme.dart';
-import '../../core/app_routes.dart';
 import '../../models/cart_item.dart';
+import 'checkout_page.dart';
 import '../../core/home_button.dart';
 
 class CartPage extends StatelessWidget {
@@ -42,15 +43,15 @@ class CartPage extends StatelessWidget {
               final list = ListView.separated(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 24),
                 itemCount: cart.items.length,
-                separatorBuilder: (_, _) => const SizedBox(height: 12),
+                separatorBuilder: (_, __) => const SizedBox(height: 12),
                 itemBuilder: (_, index) => _CartItemTile(item: cart.items[index]),
               );
 
               final summary = _CartSummary(
                 subtotal: cart.subtotal,
-                onCheckout: () => Navigator.pushNamed(
+                onCheckout: () => Navigator.push(
                   context,
-                  AppRoutes.checkout,
+                  MaterialPageRoute(builder: (_) => const CheckoutPage()),
                 ),
               );
 
@@ -95,7 +96,7 @@ class _CartItemTile extends StatelessWidget {
             child: SizedBox(
               width: 92,
               height: 92,
-              child: AppNetworkImage(imageUrl: item.product.imageUrl),
+              child: Image.network(item.product.imageUrl, fit: BoxFit.cover),
             ),
           ),
           const SizedBox(width: 14),
@@ -194,32 +195,292 @@ class _SummaryRow extends StatelessWidget {
   }
 }
 
-class _CartEmpty extends StatelessWidget {
+// ============================================================
+// TAMPILAN KERANJANG KOSONG
+// Ilustrasi keranjang beranimasi (digambar dengan kode, jadi tidak
+// butuh file GIF/Lottie dan tetap tajam di semua ukuran layar).
+// ============================================================
+
+class _CartEmpty extends StatefulWidget {
   const _CartEmpty();
+
+  @override
+  State<_CartEmpty> createState() => _CartEmptyState();
+}
+
+class _CartEmptyState extends State<_CartEmpty>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _loop = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2600),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Hormati pengaturan "kurangi animasi" dari sistem.
+    final reduceMotion = WidgetsBinding
+        .instance
+        .platformDispatcher
+        .accessibilityFeatures
+        .disableAnimations;
+
+    if (!reduceMotion) _loop.repeat();
+  }
+
+  @override
+  void dispose() {
+    _loop.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 76,
-              height: 76,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(22)),
-              child: const Icon(Icons.shopping_bag_outlined, size: 34),
+      child: SingleChildScrollView(
+        child: TweenAnimationBuilder<double>(
+          tween: Tween<double>(begin: 0, end: 1),
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOutCubic,
+          builder: (context, value, child) {
+            return Opacity(
+              opacity: value,
+              child: Transform.translate(
+                offset: Offset(0, 16 * (1 - value)),
+                child: child,
+              ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 230,
+                  height: 170,
+                  child: CustomPaint(painter: _EmptyCartPainter(_loop)),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Keranjangmu masih kosong',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.ink,
+                    letterSpacing: -0.2,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Sepatu impianmu menunggu di katalog.\n'
+                  'Pilih satu, lalu masukkan ke keranjang.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    height: 1.55,
+                    color: AppColors.muted,
+                  ),
+                ),
+                const SizedBox(height: 26),
+                SizedBox(
+                  width: 240,
+                  height: 50,
+                  child: FilledButton.icon(
+                    onPressed: () => Navigator.pop(context),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.forest,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      textStyle: const TextStyle(
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    icon: const Icon(Icons.storefront_outlined, size: 19),
+                    label: const Text('Mulai belanja'),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            const Text('Keranjang kosong', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
-            const SizedBox(height: 7),
-            const Text('Pilih sepatu dulu, lalu masukkan ke keranjang.'),
-            const SizedBox(height: 22),
-            ElevatedButton(onPressed: () => Navigator.pop(context), child: const Text('Kembali belanja')),
-          ],
+          ),
         ),
       ),
     );
   }
+}
+
+/// Keranjang belanja yang melayang naik-turun pelan, dengan bayangan
+/// yang mengecil saat naik, roda yang berputar, dan kilauan bintang.
+class _EmptyCartPainter extends CustomPainter {
+  final Animation<double> loop;
+
+  _EmptyCartPainter(this.loop) : super(repaint: loop);
+
+  static const _ink = AppColors.ink;
+  static const _forest = AppColors.forest;
+  static const _amber = Color(0xFFE1A12B);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final t = loop.value;
+    final wave = math.sin(t * 2 * math.pi);
+    final lift = (wave + 1) / 2; // 0 = turun, 1 = naik
+    final cx = size.width / 2;
+
+    _paintBackdrop(canvas, size);
+    _paintShadow(canvas, size, lift);
+
+    // Keranjang: melayang + miring sedikit.
+    canvas.save();
+    canvas.translate(cx, 80 - 12 * lift);
+    canvas.rotate(0.035 * math.sin(t * 2 * math.pi + 0.8));
+    canvas.translate(-60, -50);
+    _paintCart(canvas, t);
+    canvas.restore();
+
+    // Kilauan di sekitar keranjang.
+    _sparkle(canvas, Offset(cx - 84, 44), 9, _amber, t, 0.00);
+    _sparkle(canvas, Offset(cx + 88, 60), 7, _forest, t, 0.33);
+    _sparkle(canvas, Offset(cx + 66, 20), 5, _amber, t, 0.62);
+    _sparkle(canvas, Offset(cx - 62, 112), 5, _forest, t, 0.80);
+  }
+
+  void _paintBackdrop(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, 82);
+    canvas.drawCircle(
+      center,
+      74,
+      Paint()..color = _forest.withValues(alpha: 0.07),
+    );
+    canvas.drawCircle(
+      center,
+      52,
+      Paint()..color = _forest.withValues(alpha: 0.07),
+    );
+  }
+
+  void _paintShadow(Canvas canvas, Size size, double lift) {
+    final width = 104 - 28 * lift;
+    final alpha = 0.16 - 0.07 * lift;
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(size.width / 2, size.height - 14),
+        width: width,
+        height: 12,
+      ),
+      Paint()..color = _ink.withValues(alpha: alpha),
+    );
+  }
+
+  /// Digambar pada kotak lokal 120 x 100.
+  void _paintCart(Canvas canvas, double t) {
+    final stroke = Paint()
+      ..color = _ink
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 5
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    // Badan keranjang.
+    final basket = Path()
+      ..moveTo(24, 26)
+      ..lineTo(112, 26)
+      ..lineTo(100, 66)
+      ..lineTo(40, 66)
+      ..close();
+
+    canvas.drawPath(basket, Paint()..color = Colors.white);
+
+    // Kisi-kisi di dalam keranjang.
+    final slat = Paint()
+      ..color = _ink.withValues(alpha: 0.16)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.5
+      ..strokeCap = StrokeCap.round;
+
+    for (var i = 1; i <= 3; i++) {
+      final top = 24 + 88 * i / 4;
+      final bottom = 40 + 60 * i / 4;
+      canvas.drawLine(Offset(top, 31), Offset(bottom, 61), slat);
+    }
+    canvas.drawLine(const Offset(32, 46), const Offset(106, 46), slat);
+
+    canvas.drawPath(basket, stroke);
+
+    // Gagang.
+    canvas.drawPath(
+      Path()
+        ..moveTo(4, 10)
+        ..lineTo(18, 10)
+        ..lineTo(24, 26),
+      stroke,
+    );
+
+    // Penyangga roda.
+    final strut = Paint()
+      ..color = _ink
+      ..strokeWidth = 4
+      ..strokeCap = StrokeCap.round;
+    canvas.drawLine(const Offset(50, 66), const Offset(50, 80), strut);
+    canvas.drawLine(const Offset(92, 66), const Offset(92, 80), strut);
+
+    // Roda berputar.
+    _wheel(canvas, const Offset(50, 87), t);
+    _wheel(canvas, const Offset(92, 87), t);
+  }
+
+  void _wheel(Canvas canvas, Offset c, double t) {
+    canvas.drawCircle(c, 8, Paint()..color = _forest);
+
+    final angle = t * 2 * math.pi * 3;
+    final spoke = Paint()
+      ..color = Colors.white
+      ..strokeWidth = 2
+      ..strokeCap = StrokeCap.round;
+
+    for (var i = 0; i < 2; i++) {
+      final a = angle + i * math.pi;
+      canvas.drawLine(
+        c,
+        c + Offset(math.cos(a), math.sin(a)) * 5,
+        spoke,
+      );
+    }
+    canvas.drawCircle(c, 2, Paint()..color = Colors.white);
+  }
+
+  void _sparkle(
+    Canvas canvas,
+    Offset c,
+    double r,
+    Color color,
+    double t,
+    double phase,
+  ) {
+    final pulse = math.max(0.0, math.sin((t + phase) * 2 * math.pi));
+    final radius = r * (0.35 + 0.65 * pulse);
+    if (radius < 0.5) return;
+
+    final path = Path()
+      ..moveTo(c.dx, c.dy - radius)
+      ..quadraticBezierTo(c.dx, c.dy, c.dx + radius, c.dy)
+      ..quadraticBezierTo(c.dx, c.dy, c.dx, c.dy + radius)
+      ..quadraticBezierTo(c.dx, c.dy, c.dx - radius, c.dy)
+      ..quadraticBezierTo(c.dx, c.dy, c.dx, c.dy - radius)
+      ..close();
+
+    canvas.drawPath(
+      path,
+      Paint()..color = color.withValues(alpha: 0.35 + 0.65 * pulse),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _EmptyCartPainter oldDelegate) =>
+      oldDelegate.loop != loop;
 }
