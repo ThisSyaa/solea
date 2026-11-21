@@ -2,19 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart'
     as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:intl/intl.dart';
 
 import '../../controllers/chat_controller.dart';
 import '../../controllers/product_controller.dart';
 import '../../core/app_helpers.dart';
-import '../../core/app_theme.dart';
-import '../../core/home_button.dart';
+import '../../core/app_routes.dart';
+import 'chat_theme.dart';
+import 'widgets/chat_header.dart';
+import 'widgets/conversation_list.dart';
+import 'widgets/moderation_sheet.dart';
+import 'widgets/quick_prompt_bar.dart';
 
+export 'chat_theme.dart' show senderNameColor;
+
+/// Entry point SOLEA Chat dengan pola navigasi mirip WhatsApp:
+/// - Rute `/chat` (`conversationId == null`):
+///   - Layar sempit (< 840 dp): menampilkan `ChatListPage` (daftar percakapan).
+///     Ketuk item -> `Navigator.pushNamed('/chat/$id')`.
+///   - Layar lebar (>= 840 dp): master-detail (daftar kiri 320 dp + ruang chat kanan maks 720 dp).
+/// - Rute `/chat/:id` (`conversationId != null`):
+///   - Layar sempit (< 840 dp): menampilkan `ChatRoomPage` penuh dengan tombol kembali ke daftar.
+///   - Layar lebar (>= 840 dp): master-detail dengan percakapan `:id` terpilih.
 class ChatPage extends StatefulWidget {
   final SoleaChatChannel initialChannel;
+  final String? conversationId;
 
   const ChatPage({
     super.key,
     this.initialChannel = SoleaChatChannel.bot,
+    this.conversationId,
   });
 
   @override
@@ -22,49 +39,219 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  late SoleaChatChannel _selectedChannel;
   final ChatController _controller =
       ChatController.instance;
 
   @override
   void initState() {
     super.initState();
-    _selectedChannel = widget.initialChannel;
+
+    final initialConvId = widget.conversationId?.trim();
+    if (initialConvId != null && initialConvId.isNotEmpty) {
+      _controller.selectConversation(initialConvId);
+    } else if (widget.initialChannel !=
+        SoleaChatChannel.bot) {
+      final targetId =
+          widget.initialChannel == SoleaChatChannel.admin
+              ? 'admin'
+              : _controller.activeUserRoomId;
+      _controller.selectConversation(targetId);
+    }
+
     _controller.connectRealtimeStreams();
   }
 
-  List<types.Message> get _currentMessages {
-    switch (_selectedChannel) {
-      case SoleaChatChannel.bot:
-        return _controller.botMessages;
-      case SoleaChatChannel.admin:
-        return _controller.adminMessages;
-      case SoleaChatChannel.user:
-        return _controller.activeUserMessages;
+  @override
+  void didUpdateWidget(covariant ChatPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final newId = widget.conversationId?.trim();
+    if (newId != null &&
+        newId.isNotEmpty &&
+        newId != oldWidget.conversationId) {
+      _controller.selectConversation(newId);
     }
+  }
+
+  void _handleSelectConversation(
+    String conversationId, {
+    required bool isWide,
+  }) {
+    _controller.selectConversation(conversationId);
+    if (!isWide) {
+      Navigator.of(context).pushNamed(
+        AppRoutes.chatConversation(conversationId),
+      );
+    }
+  }
+
+  void _openPrivacySettings() {
+    showCommunityPrivacyAndBlockedSheet(
+      context: context,
+      controller: _controller,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final isWide = constraints.maxWidth >=
+                ChatLayoutTokens.wideBreakpoint;
+            final hasExplicitRoomRoute =
+                widget.conversationId != null &&
+                    widget.conversationId!
+                        .trim()
+                        .isNotEmpty;
+
+            // 1. Layar lebar (>= 840 dp): Master-Detail tanpa tab
+            if (isWide) {
+              return Scaffold(
+                backgroundColor:
+                    theme.scaffoldBackgroundColor,
+                appBar: ChatListAppBar(
+                  onOpenPrivacySettings:
+                      _openPrivacySettings,
+                ),
+                body: SafeArea(
+                  child: Row(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(
+                        width:
+                            ChatLayoutTokens.sidebarWidth,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: colorScheme.surface,
+                            border: Border(
+                              right: BorderSide(
+                                color: colorScheme.outline,
+                              ),
+                            ),
+                          ),
+                          child: ConversationList(
+                            controller: _controller,
+                            selectedConversationId:
+                                _controller
+                                    .activeConversationId,
+                            onSelectConversation: (id) =>
+                                _handleSelectConversation(
+                              id,
+                              isWide: true,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ChatRoomView(
+                          controller: _controller,
+                          conversationId: _controller
+                              .activeConversationId,
+                          showBackButton: false,
+                          isWideLayout: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
+
+            // 2. Layar sempit (< 840 dp) pada rute /chat/:id -> ChatRoomPage
+            if (hasExplicitRoomRoute) {
+              return Scaffold(
+                backgroundColor:
+                    theme.scaffoldBackgroundColor,
+                body: SafeArea(
+                  child: ChatRoomView(
+                    controller: _controller,
+                    conversationId:
+                        _controller.activeConversationId,
+                    showBackButton: true,
+                    isWideLayout: false,
+                  ),
+                ),
+              );
+            }
+
+            // 3. Layar sempit (< 840 dp) pada rute /chat -> ChatListPage
+            return Scaffold(
+              backgroundColor: colorScheme.surface,
+              appBar: ChatListAppBar(
+                onOpenPrivacySettings: _openPrivacySettings,
+              ),
+              body: SafeArea(
+                child: ConversationList(
+                  controller: _controller,
+                  selectedConversationId: null,
+                  onSelectConversation: (id) =>
+                      _handleSelectConversation(
+                    id,
+                    isWide: false,
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+/// Ruang percakapan tunggal (`ChatRoomPage` / panel kanan Master-Detail).
+class ChatRoomView extends StatelessWidget {
+  final ChatController controller;
+  final String conversationId;
+  final bool showBackButton;
+  final bool isWideLayout;
+
+  const ChatRoomView({
+    super.key,
+    required this.controller,
+    required this.conversationId,
+    required this.showBackButton,
+    required this.isWideLayout,
+  });
+
+  List<types.Message> get _messages {
+    if (conversationId == 'bot') {
+      return controller.botMessages;
+    }
+    if (conversationId == 'admin') {
+      return controller.adminMessages;
+    }
+    return controller.activeUserMessages;
   }
 
   types.User get _activeSenderUser {
-    if (_selectedChannel == SoleaChatChannel.admin &&
-        _controller.replyAsAdminMode) {
+    if (conversationId == 'admin' &&
+        controller.replyAsAdminMode) {
       return ChatController.adminUser;
     }
-    return _controller.currentUser;
+    return controller.currentUser;
   }
 
-  List<types.User> get _typingUsers {
-    switch (_selectedChannel) {
-      case SoleaChatChannel.bot:
-        return _controller.isBotTyping
+  List<types.User> _typingUsers(ChatKind kind) {
+    switch (kind) {
+      case ChatKind.bot:
+        return controller.isBotTyping
             ? [ChatController.botUser]
             : const [];
-      case SoleaChatChannel.admin:
-        return _controller.isAdminTyping
+      case ChatKind.admin:
+        return controller.isAdminTyping
             ? [ChatController.adminUser]
             : const [];
-      case SoleaChatChannel.user:
-        if (!_controller.isPeerTyping) return const [];
-        final contact = _controller.activePeerContact;
+      case ChatKind.group:
+      case ChatKind.direct:
+        if (!controller.isPeerTyping) return const [];
+        final contact = controller.activePeerContact;
         return [
           types.User(
             id: contact.id,
@@ -74,57 +261,121 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
-  List<String> get _quickPrompts {
-    switch (_selectedChannel) {
-      case SoleaChatChannel.bot:
-        return const [
-          'Rekomendasi sepatu populer',
-          'Sepatu di bawah 1 juta',
-          'Panduan ukuran sepatu',
-          'Koleksi Running',
-          'Cek status pesanan saya',
-          'Info pembayaran & pengiriman',
-        ];
-      case SoleaChatChannel.admin:
-        return const [
-          'Apakah ukuran 42 masih ready stock?',
-          'Bagaimana prosedur tukar ukuran?',
-          'Kendala verifikasi pembayaran',
-          'Berapa lama pengiriman reguler?',
-        ];
-      case SoleaChatChannel.user:
-        return const [
-          'Rekomendasi sepatu running terbaik?',
-          'Ada yang sudah coba Court Vision?',
-          'Info ukuran SOLEA true to size?',
-          'Sneaker favorit kalian minggu ini?',
-        ];
-    }
-  }
-
-  void _handleSendPressed(types.PartialText partialText) {
-    final text = partialText.text.trim();
+  void _handleSend(ChatKind kind, String rawText) {
+    final text = rawText.trim();
     if (text.isEmpty) return;
 
-    switch (_selectedChannel) {
-      case SoleaChatChannel.bot:
-        _controller.sendBotMessage(text);
+    switch (kind) {
+      case ChatKind.bot:
+        controller.sendBotMessage(text);
         break;
-      case SoleaChatChannel.admin:
-        _controller.sendAdminChannelMessage(text);
+      case ChatKind.admin:
+        controller.sendAdminChannelMessage(text);
         break;
-      case SoleaChatChannel.user:
-        _controller.sendUserChannelMessage(text);
+      case ChatKind.group:
+      case ChatKind.direct:
+        controller.sendUserChannelMessage(text);
         break;
     }
   }
 
-  void _openShareProductModal() {
+  void _handleEscalateBotToAdmin(BuildContext context) {
+    final lastQuery =
+        controller.lastEscalatableQuery.trim();
+    controller.clearBotEscalation();
+
+    // C.4: Format teks eskalasi yang natural (tidak robotik untuk query pendek)
+    final escalationMessage = lastQuery.length < 8
+        ? 'Halo Admin, saya butuh bantuan dengan pesanan/produk saya.'
+        : 'Halo Admin, saya butuh bantuan: "$lastQuery"';
+
+    controller.selectConversation('admin');
+    controller.sendAdminChannelMessage(escalationMessage);
+
+    if (!isWideLayout) {
+      Navigator.of(context).pushReplacementNamed(
+        AppRoutes.chatConversation('admin'),
+      );
+    }
+  }
+
+  types.User _peerUserForDirectRoom() {
+    final contact = controller.activePeerContact;
+    final parts = contact.name.split(' ');
+    return types.User(
+      id: contact.id,
+      firstName: parts.first,
+      lastName:
+          parts.length > 1 ? parts.sublist(1).join(' ') : '',
+      imageUrl: contact.avatarUrl,
+    );
+  }
+
+  bool _canModerateAuthor(
+    ChatKindConfig config,
+    types.User author,
+  ) {
+    if (!config.canModerate) return false;
+    if (author.id == 'solea_bot' ||
+        author.id == 'solea_admin' ||
+        author.id == controller.currentUser.id) {
+      return false;
+    }
+    return true;
+  }
+
+  void _onMessageLongPress(
+    BuildContext context,
+    ChatKindConfig config,
+    types.Message message,
+  ) {
+    if (!_canModerateAuthor(config, message.author)) {
+      return;
+    }
+    final msgText = message is types.TextMessage
+        ? message.text
+        : (message is types.ImageMessage
+            ? message.name
+            : '');
+
+    showUserProfileModerationSheet(
+      context: context,
+      controller: controller,
+      author: message.author,
+      messageId: message.id,
+      messageText: msgText,
+    );
+  }
+
+  void _onAvatarTap(
+    BuildContext context,
+    ChatKindConfig config,
+    types.User author,
+  ) {
+    if (!_canModerateAuthor(config, author)) return;
+    showUserProfileModerationSheet(
+      context: context,
+      controller: controller,
+      author: author,
+    );
+  }
+
+  void _openShareProductModal(
+    BuildContext context,
+    ChatKind kind,
+  ) {
     final products = ProductController.products;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final targetChannel = kind == ChatKind.bot
+        ? SoleaChatChannel.bot
+        : kind == ChatKind.admin
+            ? SoleaChatChannel.admin
+            : SoleaChatChannel.user;
 
     showModalBottomSheet<void>(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(24),
@@ -141,48 +392,56 @@ class _ChatPageState extends State<ChatPage> {
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.shopping_bag_outlined,
-                      color: AppColors.forest,
+                      color: colorScheme.primary,
                     ),
                     const SizedBox(width: 10),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Kirim Produk ke Ruang Chat',
-                        style: TextStyle(
-                          fontSize: 17,
+                        style: theme.textTheme.titleMedium
+                            ?.copyWith(
                           fontWeight: FontWeight.w800,
-                          color: AppColors.ink,
+                          color: colorScheme.onSurface,
                         ),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () =>
-                          Navigator.pop(sheetContext),
-                      icon: const Icon(Icons.close),
+                    Semantics(
+                      button: true,
+                      label: 'Tutup daftar produk',
+                      child: IconButton(
+                        tooltip: 'Tutup daftar produk',
+                        constraints: const BoxConstraints(
+                          minWidth:
+                              ChatLayoutTokens.minTapTarget,
+                          minHeight:
+                              ChatLayoutTokens.minTapTarget,
+                        ),
+                        onPressed: () =>
+                            Navigator.pop(sheetContext),
+                        icon: const Icon(Icons.close),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Pilih sepatu dari katalog SOLEA untuk ditanyakan atau dibagikan:',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: AppColors.muted,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    fontSize: ChatLayoutTokens.fontLabel,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
                 const SizedBox(height: 12),
                 Flexible(
-                  child: ListView.separated(
+                  child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: products.length,
-                    separatorBuilder: (_, _) =>
-                        const Divider(height: 1),
                     itemBuilder: (context, index) {
                       final product = products[index];
                       return ListTile(
@@ -199,52 +458,53 @@ class _ChatPageState extends State<ChatPage> {
                             height: 50,
                             fit: BoxFit.cover,
                             errorBuilder:
-                                (_, _, _) =>
-                                    Container(
+                                (_, _, _) => Container(
                               width: 50,
                               height: 50,
-                              color: AppColors.sand,
-                              child: const Icon(
-                                Icons
-                                    .directions_run_rounded,
-                                color: AppColors.forest,
+                              color: theme
+                                  .scaffoldBackgroundColor,
+                              child: Icon(
+                                Icons.directions_run_rounded,
+                                color: colorScheme.primary,
                               ),
                             ),
                           ),
                         ),
                         title: Text(
                           product.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.w700,
-                            color: AppColors.ink,
+                            color: colorScheme.onSurface,
                           ),
                         ),
                         subtitle: Text(
                           '${product.category} · ${formatRupiah(product.price)}',
-                          style: const TextStyle(
-                            fontSize: 12.5,
-                            color: AppColors.muted,
+                          style: TextStyle(
+                            fontSize:
+                                ChatLayoutTokens.fontCaption,
+                            color:
+                                colorScheme.onSurfaceVariant,
                           ),
                         ),
                         trailing: ElevatedButton(
                           onPressed: () {
                             Navigator.pop(sheetContext);
-                            _controller
-                                .shareProductToChannel(
-                              _selectedChannel,
+                            controller.shareProductToChannel(
+                              targetChannel,
                               product,
                             );
                           },
-                          style:
-                              ElevatedButton.styleFrom(
+                          style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                AppColors.forest,
+                                colorScheme.primary,
                             foregroundColor:
-                                Colors.white,
-                            minimumSize:
-                                const Size(76, 36),
-                            padding: const EdgeInsets
-                                .symmetric(
+                                colorScheme.onPrimary,
+                            minimumSize: const Size(
+                              76,
+                              ChatLayoutTokens.minTapTarget,
+                            ),
+                            padding:
+                                const EdgeInsets.symmetric(
                               horizontal: 14,
                             ),
                           ),
@@ -262,623 +522,320 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, _) {
-        return Scaffold(
-          backgroundColor: AppColors.sand,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.transparent,
-            elevation: 0,
-            titleSpacing: 0,
-            title: Row(
-              children: [
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: AppColors.forest,
-                    borderRadius:
-                        BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.forum_rounded,
-                    color: Colors.white,
-                    size: 18,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                const Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'SOLEA Chat Hub',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.ink,
-                      ),
-                    ),
-                    Text(
-                      'Chat Bot · Admin Support · Komunitas User',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: AppColors.muted,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+  /// Custom bubble builder:
+  /// - Memisahkan bubble pesan diterima (#FFFFFF + border tipis outline) dari latar krem (#F7F5F0)
+  /// - Menampilkan nama pengirim secara konsisten di setiap pesan grup (D.5),
+  ///   dan menyembunyikan nama pengirim di chat 1-lawan-1 (bot/admin/DM)
+  /// - Menampilkan jam kecil "HH:mm" berbahasa Indonesia di tiap pesan (D.1).
+  Widget _buildCustomBubble(
+    BuildContext context,
+    Widget child, {
+    required types.Message message,
+    required bool nextMessageInGroup,
+    required ChatKindConfig config,
+  }) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isSentByMe =
+        message.author.id == _activeSenderUser.id;
+    final showAuthorHeader =
+        config.showSenderNames && !isSentByMe;
+
+    final authorName = [
+      message.author.firstName ?? '',
+      message.author.lastName ?? '',
+    ].where((s) => s.trim().isNotEmpty).join(' ').trim();
+
+    final createdAtMs = message.createdAt;
+    final timeStr = createdAtMs != null
+        ? DateFormat('HH:mm', 'id_ID').format(
+            DateTime.fromMillisecondsSinceEpoch(
+              createdAtMs,
             ),
-            actions: const [
-              HomeButton(),
-              SizedBox(width: 6),
-            ],
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(1),
-              child: Container(
-                height: 1,
-                color: AppColors.line,
-              ),
-            ),
-          ),
-          body: SafeArea(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 1120,
-                ),
-                child: Column(
-                  children: [
-                    // 1. TAB PEMILIH MODE CHAT (BOT / ADMIN / USER)
-                    _buildChannelSelector(),
+          )
+        : '';
 
-                    // 2. HEADER KONTEKS CHANNEL (SUB-INFO / PILIH USER / MODE ADMIN)
-                    _buildChannelContextBanner(),
-
-                    // 3. WIDGET UTAMA FLUTTER_CHAT_UI
-                    Expanded(
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.symmetric(
-                          horizontal: 12,
-                        ),
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                          child: Chat(
-                            key: ValueKey<String>(
-                              '${_selectedChannel.name}_${_controller.activeUserRoomId}',
-                            ),
-                            messages: _currentMessages,
-                            onSendPressed:
-                                _handleSendPressed,
-                            onAttachmentPressed:
-                                _openShareProductModal,
-                            user: _activeSenderUser,
-                            showUserAvatars: true,
-                            showUserNames: true,
-                            typingIndicatorOptions:
-                                TypingIndicatorOptions(
-                              typingUsers: _typingUsers,
-                            ),
-                            inputOptions:
-                                const InputOptions(
-                              sendButtonVisibilityMode:
-                                  SendButtonVisibilityMode
-                                      .always,
-                            ),
-                            listBottomWidget:
-                                _buildQuickPromptBar(),
-                            l10n: const ChatL10nEn(
-                              inputPlaceholder:
-                                  'Tulis pesan atau pertanyaanmu di sini...',
-                              emptyChatPlaceholder:
-                                  'Belum ada percakapan. Mulai kirim pesan sekarang!',
-                            ),
-                            theme: DefaultChatTheme(
-                              backgroundColor:
-                                  Colors.white,
-                              primaryColor:
-                                  AppColors.forest,
-                              secondaryColor:
-                                  const Color(0xFFF2F0EA),
-                              inputBackgroundColor:
-                                  const Color(0xFF14201B),
-                              inputTextColor:
-                                  AppColors.ink,
-                              inputTextCursorColor:
-                                  AppColors.forest,
-                              inputPadding:
-                                  const EdgeInsets
-                                      .symmetric(
-                                horizontal: 10,
-                                vertical: 12,
-                              ),
-                              inputTextStyle:
-                                  const TextStyle(
-                                color: AppColors.ink,
-                                fontSize: 14.5,
-                                fontWeight:
-                                    FontWeight.w500,
-                                height: 1.35,
-                              ),
-                              inputTextDecoration:
-                                  InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                isCollapsed: false,
-                                contentPadding:
-                                    const EdgeInsets
-                                        .symmetric(
-                                  horizontal: 18,
-                                  vertical: 16,
-                                ),
-                                border:
-                                    OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius
-                                          .circular(14),
-                                  borderSide:
-                                      BorderSide.none,
-                                ),
-                                enabledBorder:
-                                    OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius
-                                          .circular(14),
-                                  borderSide:
-                                      BorderSide.none,
-                                ),
-                                focusedBorder:
-                                    OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius
-                                          .circular(14),
-                                  borderSide:
-                                      const BorderSide(
-                                    color:
-                                        AppColors.forest,
-                                    width: 1.5,
-                                  ),
-                                ),
-                              ),
-                              attachmentButtonIcon:
-                                  const Icon(
-                                Icons
-                                    .add_circle_outline_rounded,
-                                color: Colors.white,
-                                size: 24,
-                              ),
-                              sendButtonIcon: const Icon(
-                                Icons.send_rounded,
-                                color: Colors.white,
-                                size: 22,
-                              ),
-                              inputBorderRadius:
-                                  const BorderRadius
-                                      .vertical(
-                                top: Radius.circular(18),
-                              ),
-                              messageBorderRadius: 16,
-                              sentMessageBodyTextStyle:
-                                  const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                height: 1.45,
-                                fontWeight:
-                                    FontWeight.w500,
-                              ),
-                              receivedMessageBodyTextStyle:
-                                  const TextStyle(
-                                color: AppColors.ink,
-                                fontSize: 14,
-                                height: 1.45,
-                                fontWeight:
-                                    FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  // PEMILIH 3 CHANNEL: CHAT BOT / CHAT ADMIN / CHAT USER
-
-  Widget _buildChannelSelector() {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(12, 12, 12, 8),
-      padding: const EdgeInsets.all(5),
+    return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.line),
+        color: isSentByMe
+            ? colorScheme.primary
+            : colorScheme.surface,
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(
+            ChatLayoutTokens.bubbleRadius,
+          ),
+          topRight: const Radius.circular(
+            ChatLayoutTokens.bubbleRadius,
+          ),
+          bottomLeft: Radius.circular(
+            isSentByMe ? ChatLayoutTokens.bubbleRadius : 4,
+          ),
+          bottomRight: Radius.circular(
+            isSentByMe ? 4 : ChatLayoutTokens.bubbleRadius,
+          ),
+        ),
+        border: isSentByMe
+            ? null
+            : Border.all(
+                color: colorScheme.outline,
+                width: 1,
+              ),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: isSentByMe
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
-            child: _ChannelTabButton(
-              icon: Icons.smart_toy_outlined,
-              label: 'Chat Bot',
-              subtitle: 'AI Assistant',
-              selected: _selectedChannel ==
-                  SoleaChatChannel.bot,
-              onTap: () {
-                setState(() {
-                  _selectedChannel =
-                      SoleaChatChannel.bot;
-                });
-              },
+          if (showAuthorHeader &&
+              authorName.isNotEmpty) ...[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                14,
+                10,
+                14,
+                0,
+              ),
+              child: Text(
+                authorName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  fontSize: ChatLayoutTokens.fontCaption,
+                  fontWeight: FontWeight.w800,
+                  color: senderNameColor(message.author.id),
+                ),
+              ),
             ),
-          ),
-          const SizedBox(width: 6),
-          Expanded(
-            child: _ChannelTabButton(
-              icon: Icons.support_agent_rounded,
-              label: 'Chat Admin',
-              subtitle: 'Live Support',
-              selected: _selectedChannel ==
-                  SoleaChatChannel.admin,
-              onTap: () {
-                setState(() {
-                  _selectedChannel =
-                      SoleaChatChannel.admin;
-                });
-              },
+          ],
+          child,
+          if (timeStr.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                12,
+                0,
+                12,
+                6,
+              ),
+              child: Text(
+                timeStr,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontSize: ChatLayoutTokens.fontCaption,
+                  color: isSentByMe
+                      ? colorScheme.onPrimary
+                          .withValues(alpha: 0.82)
+                      : colorScheme.onSurfaceVariant,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
-          ),
-          const SizedBox(width: 6),
-          Expanded(
-            child: _ChannelTabButton(
-              icon: Icons.people_alt_outlined,
-              label: 'Chat User',
-              subtitle: 'Komunitas & DM',
-              selected: _selectedChannel ==
-                  SoleaChatChannel.user,
-              onTap: () {
-                setState(() {
-                  _selectedChannel =
-                      SoleaChatChannel.user;
-                });
-              },
-            ),
-          ),
         ],
       ),
     );
   }
 
-  // BANNER KONTEKS TIAP CHANNEL
+  Widget? _buildListBottomWidget(
+    BuildContext context,
+    ChatKindConfig config,
+    List<types.Message> messages,
+    bool isBlocked,
+  ) {
+    if (isBlocked) return null;
 
-  Widget _buildChannelContextBanner() {
-    if (_selectedChannel == SoleaChatChannel.bot) {
-      return Container(
-        margin: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 14,
-          vertical: 10,
-        ),
-        decoration: BoxDecoration(
-          color: const Color(0xFFE8F0EC),
-          borderRadius: BorderRadius.circular(14),
-        ),
-        child: Row(
-          children: [
-            const Icon(
-              Icons.auto_awesome_rounded,
-              size: 18,
-              color: AppColors.forest,
-            ),
-            const SizedBox(width: 10),
-            const Expanded(
-              child: Text(
-                'SOLEA AI Bot aktif 24/7 — Tanyakan rekomendasi sepatu, ukuran, atau status pesananmu.',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: AppColors.forestDeep,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            TextButton.icon(
-              onPressed: _openShareProductModal,
-              icon: const Icon(
-                Icons.add_shopping_cart_rounded,
-                size: 16,
-              ),
-              label: const Text(
-                'Tanya Produk',
-                style: TextStyle(fontSize: 12),
-              ),
-            ),
-          ],
-        ),
-      );
+    // A.6: Kartu eskalasi tunggal "Hubungi Admin" di bawah balasan Bot
+    final showEscalationCard =
+        config.kind == ChatKind.bot &&
+            controller.showBotEscalateToAdmin &&
+            controller.lastEscalatableQuery
+                .trim()
+                .isNotEmpty;
+
+    // C.3: Quick-prompt chip tampil HANYA saat percakapan baru dimulai (<= 2 pesan)
+    // dan HANYA untuk Bot/Admin (config.quickPrompts tidak kosong)
+    final showQuickPrompts =
+        config.quickPrompts.isNotEmpty &&
+            messages.length <= 2;
+
+    if (!showEscalationCard && !showQuickPrompts) {
+      return null;
     }
 
-    if (_selectedChannel == SoleaChatChannel.admin) {
-      final isAdminMode = _controller.replyAsAdminMode;
-      return Container(
-        margin: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 14,
-          vertical: 8,
-        ),
-        decoration: BoxDecoration(
-          color: isAdminMode
-              ? const Color(0xFF14201B)
-              : Colors.white,
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(
-            color: isAdminMode
-                ? AppColors.forest
-                : AppColors.line,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (showEscalationCard)
+          BotAdminEscalationCard(
+            onContactAdmin: () =>
+                _handleEscalateBotToAdmin(context),
           ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              isAdminMode
-                  ? Icons.verified_user_rounded
-                  : Icons.support_agent_rounded,
-              size: 18,
-              color: isAdminMode
-                  ? const Color(0xFFB9BEA0)
-                  : AppColors.forest,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                isAdminMode
-                    ? 'Mode Admin Aktif: Pesan yang kamu ketik akan dikirim sebagai Admin SOLEA.'
-                    : 'Terhubung dengan Admin Customer Support SOLEA (Tersinkronisasi Cloud Firestore).',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: isAdminMode
-                      ? Colors.white
-                      : AppColors.ink,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-             OutlinedButton.icon(
-              onPressed:
-                  _controller.toggleReplyAsAdminMode,
-              style: OutlinedButton.styleFrom(
-                foregroundColor: isAdminMode
-                    ? const Color(0xFFF3EFE5)
-                    : AppColors.forest,
-                side: BorderSide(
-                  color: isAdminMode
-                      ? const Color(0xFFB9BEA0)
-                      : AppColors.forest,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
-                ),
-                minimumSize: const Size(0, 32),
-              ),
-              icon: Icon(
-                isAdminMode
-                    ? Icons.person_outline_rounded
-                    : Icons.admin_panel_settings_outlined,
-                size: 15,
-              ),
-              label: Text(
-                isAdminMode
-                    ? 'Ganti ke User'
-                    : 'Mode Admin',
-                style: const TextStyle(
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    // Channel User: pemilih grup komunitas atau DM user lain
-    return Container(
-      height: 50,
-      margin: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: ChatController.peerContacts.length,
-        separatorBuilder: (_, _) =>
-            const SizedBox(width: 8),
-        itemBuilder: (context, index) {
-          final contact =
-              ChatController.peerContacts[index];
-          final active = contact.id ==
-              _controller.activeUserRoomId;
-
-          return ChoiceChip(
-            selected: active,
-            onSelected: (_) {
-              _controller.selectUserRoom(contact.id);
-            },
-            avatar: CircleAvatar(
-              backgroundImage:
-                  NetworkImage(contact.avatarUrl),
-              backgroundColor: AppColors.sand,
-            ),
-            label: Text(contact.name),
-            selectedColor: AppColors.forest,
-            backgroundColor: Colors.white,
-            labelStyle: TextStyle(
-              color: active
-                  ? Colors.white
-                  : AppColors.ink,
-              fontSize: 12.5,
-              fontWeight: FontWeight.w700,
-            ),
-            side: BorderSide(
-              color: active
-                  ? AppColors.forest
-                  : AppColors.line,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(999),
-            ),
-          );
-        },
-      ),
+        if (showQuickPrompts)
+          QuickPromptBar(
+            prompts: config.quickPrompts,
+            onPromptSelected: (prompt) =>
+                _handleSend(config.kind, prompt),
+          ),
+      ],
     );
   }
-
-  // BAR TOMBOL CEPAT (QUICK PROMPTS) DI ATAS INPUT
-
-  Widget _buildQuickPromptBar() {
-    final prompts = _quickPrompts;
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          top: BorderSide(color: AppColors.line),
-        ),
-      ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            for (final prompt in prompts)
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: ActionChip(
-                  onPressed: () {
-                    _handleSendPressed(
-                      types.PartialText(text: prompt),
-                    );
-                  },
-                  backgroundColor: AppColors.sand,
-                  side: const BorderSide(
-                    color: AppColors.line,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(999),
-                  ),
-                  label: Text(
-                    prompt,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.ink,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// TOMBOL TAB CHANNEL CHAT
-
-class _ChannelTabButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String subtitle;
-  final bool selected;
-  final VoidCallback onTap;
-
-  const _ChannelTabButton({
-    required this.icon,
-    required this.label,
-    required this.subtitle,
-    required this.selected,
-    required this.onTap,
-  });
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: selected
-          ? AppColors.forest
-          : Colors.transparent,
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 10,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 19,
-                color: selected
-                    ? Colors.white
-                    : AppColors.ink,
-              ),
-              const SizedBox(width: 8),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      label,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                        color: selected
-                            ? Colors.white
-                            : AppColors.ink,
-                      ),
-                    ),
-                    Text(
-                      subtitle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 10.5,
-                        color: selected
-                            ? Colors.white
-                                .withValues(alpha: 0.82)
-                            : AppColors.muted,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+    final theme = Theme.of(context);
+    final conversation = controller.activeConversation;
+    final config =
+        ChatKindConfig.forConversationId(conversation.id);
+    final messages = _messages;
+    final isBlockedDirect =
+        config.kind == ChatKind.direct &&
+            controller.isUserBlocked(conversation.id);
+
+    final emptyPlaceholder = isBlockedDirect
+        ? 'Pesan dari pengguna ini disembunyikan.'
+        : 'Belum ada pesan. Sapa dulu yuk!';
+
+    return Column(
+      children: [
+        // 1. HEADER SATU BARIS (TANPA TAB & TANPA BANNER KOTAK)
+        ChatRoomHeader(
+          conversation: conversation,
+          config: config,
+          controller: controller,
+          showBackButton: showBackButton,
+          onOpenPeerProfile: () {
+            if (config.kind == ChatKind.direct) {
+              showUserProfileModerationSheet(
+                context: context,
+                controller: controller,
+                author: _peerUserForDirectRoom(),
+              );
+            }
+          },
+          onReportPeer: () {
+            if (config.kind == ChatKind.direct) {
+              final peer = _peerUserForDirectRoom();
+              showReportReasonDialog(
+                context: context,
+                controller: controller,
+                targetUserId: peer.id,
+                targetUserName: conversation.title,
+              );
+            }
+          },
+          onToggleBlockPeer: () async {
+            if (config.kind != ChatKind.direct) return;
+            final messenger = ScaffoldMessenger.of(context);
+            if (isBlockedDirect) {
+              await controller
+                  .unblockUser(conversation.id);
+              messenger.showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Blokir ${conversation.title} telah dibuka.',
+                  ),
                 ),
-              ),
-            ],
+              );
+            } else {
+              await controller.blockUser(
+                targetUserId: conversation.id,
+                targetUserName: conversation.title,
+                reason: 'Diblokir dari ruang DM SOLEA',
+              );
+              messenger.showSnackBar(
+                SnackBar(
+                  content: Text(
+                    '${conversation.title} telah diblokir. Pesannya disembunyikan.',
+                  ),
+                ),
+              );
+            }
+          },
+          onOpenPrivacySettings: () {
+            showCommunityPrivacyAndBlockedSheet(
+              context: context,
+              controller: controller,
+            );
+          },
+        ),
+
+        // 2. AREA PESAN DATAR (TANPA CLIPRRECT & PADDING LUAR 12 DP)
+        Expanded(
+          child: Chat(
+            key: ValueKey<String>(
+              '${conversation.id}_$isBlockedDirect',
+            ),
+            messages: messages,
+            onSendPressed: (partial) =>
+                _handleSend(config.kind, partial.text),
+            onAttachmentPressed: () =>
+                _openShareProductModal(
+              context,
+              config.kind,
+            ),
+            // C.1: onMessageTap dihapus; hanya onMessageLongPress & onAvatarTap
+            onMessageLongPress: (_, msg) =>
+                _onMessageLongPress(
+              context,
+              config,
+              msg,
+            ),
+            onAvatarTap: (author) => _onAvatarTap(
+              context,
+              config,
+              author,
+            ),
+            user: _activeSenderUser,
+            showUserAvatars:
+                config.kind == ChatKind.group,
+            showUserNames: false,
+            bubbleBuilder: (
+              child, {
+              required message,
+              required nextMessageInGroup,
+            }) =>
+                _buildCustomBubble(
+              context,
+              child,
+              message: message,
+              nextMessageInGroup: nextMessageInGroup,
+              config: config,
+            ),
+            // D.1: Format tanggal & jam bahasa Indonesia ("21 November", "HH:mm")
+            dateLocale: 'id_ID',
+            dateFormat: DateFormat('d MMMM', 'id_ID'),
+            timeFormat: DateFormat('HH:mm', 'id_ID'),
+            typingIndicatorOptions:
+                TypingIndicatorOptions(
+              typingUsers: _typingUsers(config.kind),
+            ),
+            inputOptions: const InputOptions(
+              sendButtonVisibilityMode:
+                  SendButtonVisibilityMode.always,
+            ),
+            customBottomWidget: isBlockedDirect
+                ? BlockedUserBottomNotice(
+                    userName: conversation.title,
+                    onUnblock: () => controller
+                        .unblockUser(conversation.id),
+                  )
+                : null,
+            listBottomWidget: _buildListBottomWidget(
+              context,
+              config,
+              messages,
+              isBlockedDirect,
+            ),
+            l10n: ChatL10nEn(
+              attachmentButtonAccessibilityLabel:
+                  'Bagikan produk dari katalog',
+              sendButtonAccessibilityLabel: 'Kirim pesan',
+              inputPlaceholder:
+                  'Tulis pesan atau pertanyaanmu di sini...',
+              emptyChatPlaceholder: emptyPlaceholder,
+            ),
+            theme: buildSoleaChatTheme(theme),
           ),
         ),
-      ),
+      ],
     );
   }
 }

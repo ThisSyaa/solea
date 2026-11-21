@@ -481,23 +481,28 @@ class _LandingPageState extends State<LandingPage>
               ),
             ],
           ),
-          child: Image.asset(
-            'assets/images/solea_logo.png',
-            width: desktop ? 150 : 112,
-            height: desktop ? 46 : 36,
-            fit: BoxFit.contain,
-            filterQuality: FilterQuality.high,
-            errorBuilder: (context, error, stackTrace) {
-              return const Text(
-                'SOLEA',
-                style: TextStyle(
-                  color: Color(0xFFF3EFE5),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 4,
-                ),
-              );
-            },
+          child: Semantics(
+            label: 'SOLEA',
+            image: true,
+            child: Image.asset(
+              'assets/images/solea_logo.png',
+              width: desktop ? 150 : 112,
+              height: desktop ? 46 : 36,
+              fit: BoxFit.contain,
+              filterQuality: FilterQuality.high,
+              semanticLabel: 'SOLEA',
+              errorBuilder: (context, error, stackTrace) {
+                return const Text(
+                  'SOLEA',
+                  style: TextStyle(
+                    color: Color(0xFFF3EFE5),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 4,
+                  ),
+                );
+              },
+            ),
           ),
         ),
 

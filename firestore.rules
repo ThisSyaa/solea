@@ -1,0 +1,169 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================
+    // HELPER FUNCTIONS
+    // =========================================================
+
+    function isSignedIn() {
+      return request.auth != null &&
+          request.auth.token.email_verified == true;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.admin == true ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+          (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true ||
+           get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'))
+      );
+    }
+
+    // =========================================================
+    // USERS & SUBCOLLECTIONS
+    // =========================================================
+
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+
+      // User baru tidak boleh memalsukan field isAdmin / role == 'admin'
+      allow create: if request.auth != null &&
+          request.auth.uid == uid &&
+          (!('isAdmin' in request.resource.data) || request.resource.data.isAdmin == false) &&
+          (!('role' in request.resource.data) || request.resource.data.role == 'user');
+
+      // User biasa tidak boleh mengubah field isAdmin atau role miliknya sendiri
+      allow update: if isAdmin() || (
+          isOwner(uid) &&
+          !request.resource.data.diff(resource.data).affectedKeys().hasAny(['isAdmin', 'role'])
+      );
+
+      allow delete: if isAdmin();
+
+      // Subkoleksi belanja milik user
+      match /cart/{docId} {
+        allow read, write: if isOwner(uid);
+      }
+
+      match /wishlist/{docId} {
+        allow read, write: if isOwner(uid);
+      }
+
+      match /addresses/{docId} {
+        allow read, write: if isOwner(uid);
+      }
+
+      match /orders/{orderId} {
+        allow read: if isOwner(uid) || isAdmin();
+        allow create: if isOwner(uid);
+        allow update, delete: if isAdmin();
+      }
+
+      match /supportMessages/{msgId} {
+        allow read: if isOwner(uid) || isAdmin();
+        allow create: if isOwner(uid);
+        allow update, delete: if isAdmin();
+      }
+
+      // =======================================================
+      // PRIORITAS 6: DAFTAR BLOKIR & PENGATURAN PRIVASI DM
+      // =======================================================
+      match /blockedUsers/{blockedUid} {
+        allow read: if isOwner(uid) || isAdmin();
+        allow create, update: if isOwner(uid) &&
+            blockedUid != request.auth.uid &&
+            request.resource.data.blockedUid == blockedUid;
+        allow delete: if isOwner(uid) || isAdmin();
+      }
+
+      match /chatSettings/{settingId} {
+        // User terautentikasi boleh membaca preferensi DM target sebelum mengirim DM
+        allow read: if isSignedIn();
+        allow write: if isOwner(uid) &&
+            request.resource.data.dmAllow in ['everyone', 'community', 'none'];
+      }
+
+      // =======================================================
+      // CHAT ADMIN (PRIORITAS 1 - KEAMANAN)
+      // =======================================================
+      match /adminChatMessages/{messageId} {
+        allow read: if isOwner(uid) || isAdmin();
+
+        allow create: if (
+          // 1. Pengirim adalah Admin resmi
+          (isAdmin() &&
+            request.resource.data.authorId == 'solea_admin' &&
+            request.resource.data.isAdminSender == true)
+          ||
+          // 2. Pengirim adalah User pemilik ruang chat sendiri (bukan Admin)
+          (isOwner(uid) &&
+            request.resource.data.authorId == request.auth.uid &&
+            request.resource.data.authorId != 'solea_admin' &&
+            (!('isAdminSender' in request.resource.data) ||
+              request.resource.data.isAdminSender == false))
+        ) &&
+        request.resource.data.text is string &&
+        request.resource.data.text.size() > 0 &&
+        request.resource.data.text.size() <= 2000;
+
+        allow update, delete: if isAdmin();
+      }
+    }
+
+    // Mengizinkan Admin melakukan query collectionGroup('adminChatMessages')
+    match /{path=**}/adminChatMessages/{messageId} {
+      allow read: if isAdmin();
+    }
+
+    // =========================================================
+    // USERNAMES INDEX
+    // =========================================================
+
+    match /usernames/{usernameLower} {
+      allow read: if true;
+      allow create: if request.auth != null &&
+          request.resource.data.uid == request.auth.uid;
+      allow delete: if isSignedIn() &&
+          resource.data.uid == request.auth.uid;
+    }
+
+    // =========================================================
+    // KOMUNITAS & DM ANTAR USER
+    // =========================================================
+
+    match /communityChatRooms/{roomId}/messages/{messageId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() &&
+          request.resource.data.authorId == request.auth.uid &&
+          request.resource.data.authorId != 'solea_admin' &&
+          request.resource.data.authorId != 'solea_bot' &&
+          request.resource.data.text is string &&
+          request.resource.data.text.size() > 0 &&
+          request.resource.data.text.size() <= 2000;
+      allow update, delete: if isAdmin() ||
+          (isSignedIn() && resource.data.authorId == request.auth.uid);
+    }
+
+    // =========================================================
+    // PRIORITAS 6: LAPORAN KOMUNITAS (REPORT MESSAGE / USER)
+    // =========================================================
+
+    match /communityReports/{reportId} {
+      allow create: if isSignedIn() &&
+          request.resource.data.reporterUid == request.auth.uid &&
+          request.resource.data.targetUserId is string &&
+          request.resource.data.targetUserId != request.auth.uid &&
+          request.resource.data.reason is string &&
+          request.resource.data.reason.size() > 0 &&
+          request.resource.data.reason.size() <= 500;
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

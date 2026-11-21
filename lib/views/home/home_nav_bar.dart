@@ -57,6 +57,7 @@ class HomeNavBar extends StatelessWidget {
         onHomeTap();
         break;
 
+      case 'Kontak':
       case 'Contact':
         onContactTap();
         break;
@@ -120,10 +121,15 @@ class HomeNavBar extends StatelessWidget {
     return Row(
       children: [
         // LOGO
-        Image.asset(
-          'assets/images/solea_logo2.png',
-          height: 32,
-          fit: BoxFit.contain,
+        Semantics(
+          label: 'SOLEA',
+          image: true,
+          child: Image.asset(
+            'assets/images/solea_logo2.png',
+            height: 32,
+            fit: BoxFit.contain,
+            semanticLabel: 'SOLEA',
+          ),
         ),
 
         // AREA TENGAH: menu + kolom search yang memanjang di atasnya
@@ -141,7 +147,7 @@ class HomeNavBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _NavLink(label: 'Home', active: true, onTap: onHomeTap),
-                      _NavLink(label: 'Contact', onTap: onContactTap),
+                      _NavLink(label: 'Kontak', onTap: onContactTap),
                       _NavLink(label: 'Layanan', onTap: onServicesTap),
                       _NavLink(label: 'Tentang', onTap: onAboutTap),
                     ],
@@ -156,7 +162,7 @@ class HomeNavBar extends StatelessWidget {
                     onSelected: _onMenuSelected,
                     itemBuilder: (context) => const [
                       PopupMenuItem(value: 'Home', child: Text('Home')),
-                      PopupMenuItem(value: 'Contact', child: Text('Contact')),
+                      PopupMenuItem(value: 'Kontak', child: Text('Kontak')),
                       PopupMenuItem(value: 'Layanan', child: Text('Layanan')),
                       PopupMenuItem(value: 'Tentang', child: Text('Tentang')),
                     ],
