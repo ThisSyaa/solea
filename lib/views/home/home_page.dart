@@ -495,17 +495,19 @@ class _HeroBanner extends StatelessWidget {
           errorBuilder: (_) => Container(color: AppColors.forestDeep),
         ),
 
+        // Gradient scrim gelap dari kiri di belakang teks agar kontras teks putih terjaga (WCAG AAA)
         DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [
-                Colors.black.withValues(alpha: 0.72),
-                Colors.black.withValues(alpha: 0.30),
+                Colors.black.withValues(alpha: 0.88),
+                Colors.black.withValues(alpha: 0.68),
+                Colors.black.withValues(alpha: 0.26),
                 Colors.transparent,
               ],
-              stops: const [0.0, 0.58, 1.0],
+              stops: const [0.0, 0.42, 0.72, 1.0],
             ),
           ),
         ),
