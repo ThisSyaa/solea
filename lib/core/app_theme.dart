@@ -11,6 +11,7 @@ class AppColors {
   static const line = Color(0xFFE3DFD7); // garis / border
   static const muted = Color(0xFF6E736F); // teks sekunder
   static const danger = Color(0xFFB3261E);
+  static const warning = Color(0xFFE1A12B); // warna bintang rating & aksen hangat
 
   /// Menghasilkan warna nama pengirim dengan rasio kontras WCAG AA (>= 4.5:1)
   /// di atas latar bubble abu muda (`#F2F0EA`).
