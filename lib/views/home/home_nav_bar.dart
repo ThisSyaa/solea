@@ -77,15 +77,9 @@ class HomeNavBar extends StatelessWidget {
     final textScale = MediaQuery.textScalerOf(context).scale(1.0);
     final surfaceColor = Theme.of(context).colorScheme.surface;
 
-    // Standar breakpoint: mobile < 600, tablet 600-1024, desktop > 1024.
     final isMobile = width < 600;
     final compactSearch = searchOpen && width < 640;
-
-    // Lebar kolom search saat terbuka (layar lebar / sedang).
     final fieldWidth = width >= 1200 ? 320.0 : 240.0;
-
-    // Tinggi terikat (bounded) yang tetap beradaptasi terhadap textScaler hingga 1.6x
-    // sehingga Stack di _NavCenter selalu memiliki ukuran penuh (full width & height).
     final navHeight = math.max(64.0, 24.0 * textScale + 40.0);
 
     return Container(
@@ -444,6 +438,17 @@ class HomeMobileDrawer extends StatelessWidget {
                 Navigator.of(context).pushNamed(AppRoutes.profile);
               },
             ),
+            if (AuthController.isCurrentUserAdmin) ...[
+              const Divider(height: 16, color: AppColors.line),
+              _DrawerTile(
+                icon: Icons.admin_panel_settings_outlined,
+                label: 'Dashboard Admin',
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).pushNamed(AppRoutes.admin);
+                },
+              ),
+            ],
           ],
         ),
       ),
@@ -833,6 +838,11 @@ class _ProfileMenu extends StatelessWidget {
 
         if (value == 'profile') {
           Navigator.of(context).pushNamed<void>(AppRoutes.profile);
+          return;
+        }
+
+        if (value == 'admin') {
+          Navigator.of(context).pushNamed<void>(AppRoutes.admin);
         }
       },
       itemBuilder: (context) => [
@@ -873,6 +883,21 @@ class _ProfileMenu extends StatelessWidget {
             ],
           ),
         ),
+        if (AuthController.isCurrentUserAdmin)
+          const PopupMenuItem<String>(
+            value: 'admin',
+            child: Row(
+              children: [
+                Icon(
+                  Icons.admin_panel_settings_outlined,
+                  size: 18,
+                  color: AppColors.muted,
+                ),
+                SizedBox(width: 10),
+                Text('Dashboard Admin'),
+              ],
+            ),
+          ),
         const PopupMenuItem<String>(
           value: 'logout',
           child: Row(

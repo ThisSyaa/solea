@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +70,7 @@ class _ContactPageState extends State<ContactPage> {
 
     final user = AuthController.firebaseUser;
 
-    if (user == null || !user.emailVerified) {
+    if (user == null || !AuthController.isVerified(user)) {
       _showMessage(
         'Silakan login dengan email terverifikasi terlebih dahulu.',
       );

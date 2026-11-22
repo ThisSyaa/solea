@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
@@ -57,10 +56,10 @@ class CartController extends ChangeNotifier {
   }) async {
     final user = AuthController.firebaseUser;
 
-    if (user == null || !user.emailVerified) {
+    if (user == null || !AuthController.isVerified(user)) {
       resetForSignedOut();
 
-      if (user != null && !user.emailVerified) {
+      if (user != null && !AuthController.isVerified(user)) {
         _lastError = 'Verifikasi email terlebih dahulu.';
         notifyListeners();
       }
@@ -304,7 +303,7 @@ class CartController extends ChangeNotifier {
     // Jangan menimpa cart Firestore kalau data akun belum
     // berhasil dimuat atau belum ada sesi terverifikasi.
     if (user == null ||
-        !user.emailVerified ||
+        !AuthController.isVerified(user) ||
         uid == null ||
         uid != user.uid ||
         !_hasLoaded) {

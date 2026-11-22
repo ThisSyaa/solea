@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
@@ -47,10 +46,10 @@ class WishlistController extends ChangeNotifier {
   }) async {
     final user = AuthController.firebaseUser;
 
-    if (user == null || !user.emailVerified) {
+    if (user == null || !AuthController.isVerified(user)) {
       resetForSignedOut();
 
-      if (user != null && !user.emailVerified) {
+      if (user != null && !AuthController.isVerified(user)) {
         _lastError = 'Verifikasi email terlebih dahulu.';
         notifyListeners();
       }
@@ -171,7 +170,7 @@ class WishlistController extends ChangeNotifier {
     final uid = _loadedUid;
 
     if (user == null ||
-        !user.emailVerified ||
+        !AuthController.isVerified(user) ||
         uid == null ||
         uid != user.uid ||
         !_hasLoaded) {

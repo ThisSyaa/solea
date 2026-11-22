@@ -104,7 +104,7 @@ class _AuthGateState extends State<AuthGate> {
 
       if (!mounted || requestId != _requestId) return;
 
-      if (!user.emailVerified) {
+      if (!AuthController.isVerified(user)) {
         CartController.instance.resetForSignedOut();
         WishlistController.instance.resetForSignedOut();
 

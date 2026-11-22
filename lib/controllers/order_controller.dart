@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart' hide Order;
 import 'package:flutter/foundation.dart';
 
@@ -53,7 +52,7 @@ class OrderController extends ChangeNotifier {
       return;
     }
 
-    if (!user.emailVerified) {
+    if (!AuthController.isVerified(user)) {
       _orders.clear();
       _loadedUid = null;
       _hasLoaded = false;
@@ -145,7 +144,7 @@ class OrderController extends ChangeNotifier {
       return 'Sesi login tidak ditemukan. Silakan login kembali.';
     }
 
-    if (!user.emailVerified) {
+    if (!AuthController.isVerified(user)) {
       return 'Verifikasi email terlebih dahulu.';
     }
 

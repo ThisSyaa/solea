@@ -13,6 +13,21 @@ class AuthController {
   static String? currentEmail;
   static bool isCurrentUserAdmin = false;
 
+  // Email yang dikecualikan dari kewajiban verifikasi email.
+  // Hanya untuk akun admin yang dibuat manual (tanpa inbox).
+  // Catatan: ini hanya pengecekan di sisi aplikasi. Keamanan data
+  // tetap ditentukan oleh Firestore Rules.
+  static const Set<String> _verificationExemptEmails = {
+    'admin@solea.store',
+  };
+
+  static bool isVerified(User user) {
+    if (user.emailVerified) return true;
+    final email = user.email?.trim().toLowerCase();
+    return email != null &&
+        _verificationExemptEmails.contains(email);
+  }
+
   static final ValueNotifier<Uint8List?> photoNotifier =
       ValueNotifier<Uint8List?>(null);
 
@@ -226,7 +241,7 @@ class AuthController {
 
       await refreshedUser.getIdToken(true);
 
-      if (!refreshedUser.emailVerified) {
+      if (!AuthController.isVerified(refreshedUser)) {
         var resendSucceeded = false;
 
         try {
@@ -282,7 +297,7 @@ class AuthController {
       return;
     }
 
-    if (!user.emailVerified) {
+    if (!AuthController.isVerified(user)) {
       throw FirebaseAuthException(
         code: 'email-not-verified',
         message: 'Email belum diverifikasi.',
@@ -340,7 +355,7 @@ class AuthController {
       return 'Sesi login tidak ditemukan. Silakan login kembali.';
     }
 
-    if (!user.emailVerified) {
+    if (!AuthController.isVerified(user)) {
       return 'Verifikasi email terlebih dahulu.';
     }
 
@@ -419,7 +434,7 @@ class AuthController {
       throw StateError('Silakan login kembali.');
     }
 
-    if (!user.emailVerified) {
+    if (!AuthController.isVerified(user)) {
       throw StateError('Verifikasi email terlebih dahulu.');
     }
 
@@ -458,7 +473,7 @@ class AuthController {
       return 'Sesi login tidak ditemukan. Silakan login kembali.';
     }
 
-    if (!user.emailVerified) {
+    if (!AuthController.isVerified(user)) {
       return 'Verifikasi email terlebih dahulu.';
     }
 
@@ -554,7 +569,7 @@ class AuthController {
       return 'Silakan login terlebih dahulu.';
     }
 
-    if (!user.emailVerified) {
+    if (!AuthController.isVerified(user)) {
       return 'Verifikasi email terlebih dahulu.';
     }
 
