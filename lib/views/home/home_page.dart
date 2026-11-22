@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import '../../core/app_network_image.dart';
@@ -35,19 +36,22 @@ const List<_BannerData> _banners = [
     title: 'Step Into\nYour Style',
     subtitle: 'Koleksi sepatu terbaru untuk langkah yang lebih percaya diri.',
     cta: 'Belanja sekarang',
-    imageUrl: 'https://images.unsplash.com/photo-1512374382149-233c42b6a83b?auto=format&fit=crop&w=1600&q=90',
+    imageUrl:
+        'https://images.unsplash.com/photo-1512374382149-233c42b6a83b?auto=format&fit=crop&w=1600&q=90',
   ),
   _BannerData(
     title: 'Fresh Kicks,\nFresh Start',
     subtitle: 'Temukan sneakers pilihan dengan harga spesial minggu ini.',
     cta: 'Lihat koleksi',
-    imageUrl: 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=1600&q=90',
+    imageUrl:
+        'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=1600&q=90',
   ),
   _BannerData(
     title: 'Move\nWithout Limits',
     subtitle: 'Performa ringan, nyaman dipakai sepanjang hari.',
     cta: 'Jelajahi sepatu',
-    imageUrl: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1600&q=90',
+    imageUrl:
+        'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1600&q=90',
   ),
 ];
 
@@ -133,6 +137,15 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _openAboutPage() async {
     await Navigator.of(context).pushNamed<void>(AppRoutes.about);
+  }
+
+  // OPEN PROFILE
+
+  Future<void> _openProfilePage() async {
+    await Navigator.of(context).pushNamed<void>(AppRoutes.profile);
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   // OPEN CHAT HUB (BOT, ADMIN & USER)
@@ -242,12 +255,42 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isMobile = screenWidth < 600;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       backgroundColor: AppColors.sand,
+      drawer: isMobile
+          ? HomeMobileDrawer(
+              name: widget.name,
+              email: widget.email,
+              wishlistCount: WishlistController.instance.count,
+              cartCount: _cartTotalItems,
+              onHomeTap: _scrollHomeTop,
+              onContactTap: _openContactPage,
+              onServicesTap: _openServicesPage,
+              onAboutTap: _openAboutPage,
+              onChatTap: _openChatPage,
+              onWishlistTap: _openWishlistPage,
+              onCartTap: _openCartPage,
+            )
+          : null,
+      bottomNavigationBar: isMobile
+          ? HomeMobileBottomNav(
+              wishlistCount: WishlistController.instance.count,
+              cartCount: _cartTotalItems,
+              onHomeTap: _scrollHomeTop,
+              onServicesTap: _openServicesPage,
+              onWishlistTap: _openWishlistPage,
+              onCartTap: _openCartPage,
+              onProfileTap: _openProfilePage,
+            )
+          : null,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _openChatPage,
         backgroundColor: AppColors.forest,
-        foregroundColor: Colors.white,
+        foregroundColor: colorScheme.onPrimary,
         icon: const Icon(Icons.forum_rounded, size: 20),
         label: const Text(
           'Chat SOLEA',
@@ -276,7 +319,6 @@ class _HomePageState extends State<HomePage> {
               onSearchSubmit: _openSearchResults,
               onChatTap: _openChatPage,
             ),
-
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {
@@ -284,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                       ? 1180.0
                       : 1000.0;
 
-                  final horizontalPadding = constraints.maxWidth < 700
+                  final horizontalPadding = constraints.maxWidth < 600
                       ? 16.0
                       : 24.0;
 
@@ -293,9 +335,9 @@ class _HomePageState extends State<HomePage> {
                     physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.fromLTRB(
                       horizontalPadding,
-                      20,
+                      16,
                       horizontalPadding,
-                      36,
+                      32,
                     ),
                     child: Center(
                       child: ConstrainedBox(
@@ -306,7 +348,7 @@ class _HomePageState extends State<HomePage> {
                             // HERO BANNER
                             _HeroCarousel(onAction: _scrollToProducts),
 
-                            const SizedBox(height: 28),
+                            const SizedBox(height: 24),
 
                             // CATEGORY SECTION
                             _SectionHeader(
@@ -324,7 +366,7 @@ class _HomePageState extends State<HomePage> {
                               onSelected: _selectCategory,
                             ),
 
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 28),
 
                             // FEATURED PRODUCTS
                             _SectionHeader(
@@ -337,7 +379,7 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
 
-                            const SizedBox(height: 14),
+                            const SizedBox(height: 12),
 
                             ProductList(
                               products: _filteredProducts,
@@ -346,7 +388,7 @@ class _HomePageState extends State<HomePage> {
                               onProductTap: _openProductDetail,
                             ),
 
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 28),
 
                             // POPULAR PRODUCTS
                             _SectionHeader(
@@ -357,7 +399,7 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
 
-                            const SizedBox(height: 14),
+                            const SizedBox(height: 12),
 
                             ProductList(
                               products: ProductController.products,
@@ -425,10 +467,28 @@ class _HeroCarouselState extends State<_HeroCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+    final textScale = MediaQuery.textScalerOf(context).scale(1.0);
+
+    // Tinggi adaptif di mobile & tablet agar aman pada 360 dp dan textScaler 1.6x,
+    // sedangkan desktop tetap menggunakan proporsi lebar 2.25.
+    final double bannerHeight;
+    if (width < 600) {
+      bannerHeight = math.max(224.0, 196.0 * textScale.clamp(1.0, 1.65));
+    } else if (width < 960) {
+      bannerHeight = math.max(256.0, 224.0 * textScale.clamp(1.0, 1.5));
+    } else {
+      bannerHeight = math.max(
+        320.0,
+        math.min(1180.0, width - 48) / 2.25,
+      );
+    }
+
     return Column(
       children: [
-        AspectRatio(
-          aspectRatio: 2.25,
+        SizedBox(
+          height: bannerHeight,
+          width: double.infinity,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(22),
             child: PageView.builder(
@@ -448,9 +508,7 @@ class _HeroCarouselState extends State<_HeroCarousel> {
             ),
           ),
         ),
-
         const SizedBox(height: 12),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(_banners.length, (index) {
@@ -484,7 +542,8 @@ class _HeroBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
-    final isSmall = width < 560;
+    final isSmall = width < 600;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Stack(
       fit: StackFit.expand,
@@ -495,73 +554,82 @@ class _HeroBanner extends StatelessWidget {
           errorBuilder: (_) => Container(color: AppColors.forestDeep),
         ),
 
+        // Gradient scrim gelap dari kiri di belakang teks agar kontras teks putih terjaga (WCAG AAA)
         DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [
-                Colors.black.withValues(alpha: 0.72),
-                Colors.black.withValues(alpha: 0.30),
-                Colors.transparent,
+                AppColors.ink.withValues(alpha: 0.90),
+                AppColors.ink.withValues(alpha: 0.70),
+                AppColors.ink.withValues(alpha: 0.28),
+                AppColors.ink.withValues(alpha: 0.0),
               ],
-              stops: const [0.0, 0.58, 1.0],
+              stops: const [0.0, 0.45, 0.75, 1.0],
             ),
           ),
         ),
 
         Padding(
-          padding: EdgeInsets.all(isSmall ? 24 : 38),
+          padding: EdgeInsets.all(isSmall ? 20 : 36),
           child: Align(
             alignment: Alignment.centerLeft,
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: isSmall ? 250 : 430),
+              constraints: BoxConstraints(maxWidth: isSmall ? 280 : 430),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    data.title,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: isSmall ? 26 : 42,
-                      height: 1.02,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -1,
+                  Flexible(
+                    child: Text(
+                      data.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: colorScheme.onPrimary,
+                        fontSize: isSmall ? 23 : 40,
+                        height: 1.06,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.8,
+                      ),
                     ),
                   ),
-
-                  const SizedBox(height: 12),
-
-                  Text(
-                    data.subtitle,
-                    maxLines: isSmall ? 2 : 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.88),
-                      fontSize: isSmall ? 12 : 14.5,
-                      height: 1.45,
+                  const SizedBox(height: 8),
+                  Flexible(
+                    child: Text(
+                      data.subtitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: colorScheme.onPrimary.withValues(alpha: 0.90),
+                        fontSize: isSmall ? 12.5 : 14.5,
+                        height: 1.4,
+                      ),
                     ),
                   ),
-
-                  const SizedBox(height: 18),
-
+                  const SizedBox(height: 14),
                   ElevatedButton(
                     onPressed: onAction,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: colorScheme.surface,
                       foregroundColor: AppColors.ink,
                       elevation: 0,
-                      minimumSize: const Size(0, 44),
+                      minimumSize: const Size(48, 48),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
-                        vertical: 12,
+                        vertical: 10,
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: Text(data.cta),
+                    child: Text(
+                      data.cta,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
@@ -589,22 +657,26 @@ class _SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 21,
-            fontWeight: FontWeight.w800,
-            letterSpacing: -0.4,
-            color: AppColors.ink,
+        Expanded(
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontSize: 21,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.4,
+              color: AppColors.ink,
+            ),
           ),
         ),
-
+        const SizedBox(width: 8),
         TextButton(
           onPressed: onAction,
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            minimumSize: const Size(48, 48),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             foregroundColor: AppColors.forest,
           ),
           child: Text(action),
@@ -627,8 +699,12 @@ class _CategoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textScale = MediaQuery.textScalerOf(context).scale(1.0);
+    final barHeight = math.max(48.0, 34.0 * textScale + 14.0);
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
-      height: 44,
+      height: barHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         primary: false,
@@ -636,29 +712,31 @@ class _CategoryList extends StatelessWidget {
         itemCount: ProductController.categories.length,
         itemBuilder: (context, index) {
           final category = ProductController.categories[index];
-
           final isActive = category == selectedCategory;
 
           return Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: ChoiceChip(
-              selected: isActive,
-              onSelected: (_) {
-                onSelected(category);
-              },
-              label: Text(category),
-              selectedColor: AppColors.forest,
-              backgroundColor: Colors.white,
-              side: BorderSide(
-                color: isActive ? AppColors.forest : AppColors.line,
-              ),
-              labelStyle: TextStyle(
-                color: isActive ? Colors.white : AppColors.muted,
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
+            child: Center(
+              child: ChoiceChip(
+                selected: isActive,
+                materialTapTargetSize: MaterialTapTargetSize.padded,
+                onSelected: (_) {
+                  onSelected(category);
+                },
+                label: Text(category),
+                selectedColor: AppColors.forest,
+                backgroundColor: colorScheme.surface,
+                side: BorderSide(
+                  color: isActive ? AppColors.forest : AppColors.line,
+                ),
+                labelStyle: TextStyle(
+                  color: isActive ? colorScheme.onPrimary : AppColors.muted,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
               ),
             ),
           );
@@ -687,12 +765,13 @@ class ProductList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
+    final textScale = MediaQuery.textScalerOf(context).scale(1.0);
 
-    final cardWidth = width < 500
-        ? 168.0
-        : width < 800
-        ? 205.0
-        : 224.0;
+    final cardWidth = width < 600
+        ? 176.0
+        : width < 1024
+            ? 208.0
+            : 226.0;
 
     if (products.isEmpty) {
       return Container(
@@ -707,8 +786,13 @@ class ProductList extends StatelessWidget {
       );
     }
 
+    // Rasio gambar 1.08 (hampir persegi, sedikit landscape) agar seluruh siluet sepatu
+    // terlihat utuh dari ujung depan ke tumit tanpa terpotong kiri-kanan.
+    final imageHeight = (cardWidth - 20.0) / 1.08;
+    final textSectionHeight = 104.0 * textScale.clamp(1.0, 1.7);
+
     return SizedBox(
-      height: cardWidth + 150,
+      height: imageHeight + textSectionHeight,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         primary: false,
@@ -759,10 +843,12 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surfaceColor = Theme.of(context).colorScheme.surface;
+
     return SizedBox(
       width: width,
       child: Material(
-        color: Colors.white,
+        color: surfaceColor,
         borderRadius: BorderRadius.circular(18),
         child: InkWell(
           borderRadius: BorderRadius.circular(18),
@@ -772,7 +858,8 @@ class ProductCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
+                AspectRatio(
+                  aspectRatio: 1.08,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(14),
                     child: Stack(
@@ -782,26 +869,49 @@ class ProductCard extends StatelessWidget {
                           color: AppColors.sand,
                           child: AppNetworkImage(imageUrl: product.imageUrl),
                         ),
-
                         Positioned(
-                          top: 8,
-                          right: 8,
-                          child: Material(
-                            color: Colors.white.withValues(alpha: 0.94),
-                            shape: const CircleBorder(),
-                            child: InkWell(
-                              customBorder: const CircleBorder(),
-                              onTap: onFavoriteTap,
-                              child: Padding(
-                                padding: const EdgeInsets.all(7),
-                                child: Icon(
-                                  isFavorite
-                                      ? Icons.favorite_rounded
-                                      : Icons.favorite_border_rounded,
-                                  size: 17,
-                                  color: isFavorite
-                                      ? AppColors.danger
-                                      : AppColors.ink,
+                          top: 2,
+                          right: 2,
+                          child: Semantics(
+                            button: true,
+                            label: isFavorite
+                                ? 'Hapus ${product.name} dari wishlist'
+                                : 'Tambah ${product.name} ke wishlist',
+                            child: Tooltip(
+                              message: isFavorite
+                                  ? 'Hapus dari wishlist'
+                                  : 'Tambah ke wishlist',
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  customBorder: const CircleBorder(),
+                                  onTap: onFavoriteTap,
+                                  child: SizedBox(
+                                    width: 48,
+                                    height: 48,
+                                    child: Center(
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          color: surfaceColor.withValues(
+                                            alpha: 0.94,
+                                          ),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(7),
+                                          child: Icon(
+                                            isFavorite
+                                                ? Icons.favorite_rounded
+                                                : Icons.favorite_border_rounded,
+                                            size: 18,
+                                            color: isFavorite
+                                                ? AppColors.danger
+                                                : AppColors.ink,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -811,20 +921,18 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 11),
-
+                const SizedBox(height: 10),
                 Text(
                   product.category,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 11.5,
+                    fontSize: 12,
                     color: AppColors.muted,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-
                 const SizedBox(height: 3),
-
                 Text(
                   product.name,
                   maxLines: 1,
@@ -835,9 +943,7 @@ class ProductCard extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-
                 const SizedBox(height: 6),
-
                 Row(
                   children: [
                     Expanded(
@@ -852,21 +958,17 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    const SizedBox(width: 6),
-
+                    const SizedBox(width: 4),
                     const Icon(
                       Icons.star_rounded,
                       size: 15,
-                      color: Color(0xFFE1A12B),
+                      color: AppColors.warning,
                     ),
-
                     const SizedBox(width: 2),
-
                     Text(
                       product.rating.toString(),
                       style: const TextStyle(
-                        fontSize: 11.5,
+                        fontSize: 12,
                         color: AppColors.muted,
                         fontWeight: FontWeight.w600,
                       ),

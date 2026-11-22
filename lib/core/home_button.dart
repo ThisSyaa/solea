@@ -5,15 +5,23 @@ class HomeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      tooltip: 'Home',
-      onPressed: () {
-        Navigator.of(context).popUntil(
-          (route) => route.isFirst,
-        );
-      },
-      icon: const Icon(
-        Icons.home_outlined,
+    return Semantics(
+      button: true,
+      label: 'Kembali ke Beranda',
+      child: IconButton(
+        tooltip: 'Kembali ke Beranda',
+        constraints: const BoxConstraints(
+          minWidth: 48,
+          minHeight: 48,
+        ),
+        onPressed: () {
+          Navigator.of(context).popUntil(
+            (route) => route.isFirst,
+          );
+        },
+        icon: const Icon(
+          Icons.home_outlined,
+        ),
       ),
     );
   }

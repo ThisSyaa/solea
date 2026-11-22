@@ -47,6 +47,9 @@ class AppRoutes {
   static String product(Product p) =>
       '/product/${Uri.encodeComponent(p.name)}';
 
+  static String chatConversation(String conversationId) =>
+      '/chat/${Uri.encodeComponent(conversationId)}';
+
   static Widget? _pageFor(String routeName) {
     final uri = Uri.parse(routeName);
     final seg = uri.pathSegments;
@@ -102,6 +105,13 @@ class AppRoutes {
       }
     }
 
+    if (seg.length == 2 && seg[0] == 'chat') {
+      final convId = Uri.decodeComponent(seg[1]);
+      if (convId.isNotEmpty) {
+        return ChatPage(conversationId: convId);
+      }
+    }
+
     return null;
   }
 
@@ -109,6 +119,7 @@ class AppRoutes {
 
   static List<String> stackFor(String path) {
     if (path.startsWith('$profile/')) return [profile, path];
+    if (path.startsWith('$chat/')) return [chat, path];
     return [path];
   }
 

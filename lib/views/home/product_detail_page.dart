@@ -108,6 +108,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     final product = widget.product;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isWideScreen = screenWidth >= _kWideBreakpoint;
 
     return Scaffold(
       backgroundColor: AppColors.sand,
@@ -123,6 +125,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           const SizedBox(width: 8),
         ],
       ),
+      bottomNavigationBar: isWideScreen
+          ? null
+          : _MobileStickyCartBar(
+              product: product,
+              selectedSize: _selectedSize,
+              onAddToCart: _addToCart,
+            ),
       body: StreamBuilder<List<_Review>>(
         stream: _reviewStream,
         builder: (context, snapshot) {
@@ -157,7 +166,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               );
 
               return SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(pad, 8, pad, 48),
+                padding: EdgeInsets.fromLTRB(pad, 8, pad, wide ? 48 : 28),
                 child: Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 1100),
@@ -205,6 +214,62 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             },
           );
         },
+      ),
+    );
+  }
+}
+
+class _MobileStickyCartBar extends StatelessWidget {
+  final Product product;
+  final int? selectedSize;
+  final VoidCallback onAddToCart;
+
+  const _MobileStickyCartBar({
+    required this.product,
+    required this.selectedSize,
+    required this.onAddToCart,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final surfaceColor = Theme.of(context).colorScheme.surface;
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: surfaceColor,
+        border: const Border(top: BorderSide(color: AppColors.line)),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          child: Row(
+            children: [
+              _WishlistButton(product: product),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 52),
+                  child: ElevatedButton.icon(
+                    onPressed: onAddToCart,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.ink,
+                      minimumSize: const Size(double.infinity, 52),
+                    ),
+                    icon: const Icon(Icons.shopping_bag_outlined, size: 18),
+                    label: Text(
+                      selectedSize == null
+                          ? 'Tambah ke keranjang'
+                          : 'Tambah ke keranjang (EU $selectedSize)',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -487,6 +552,10 @@ class _InfoPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onPrimaryColor = Theme.of(context).colorScheme.onPrimary;
+    final showInlineCartButtons =
+        MediaQuery.sizeOf(context).width >= _kWideBreakpoint;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -500,10 +569,10 @@ class _InfoPanel extends StatelessWidget {
                 color: AppColors.forest,
                 shape: BoxShape.circle,
               ),
-              child: const Text(
+              child: Text(
                 'S',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: onPrimaryColor,
                   fontSize: 13,
                   fontWeight: FontWeight.w800,
                 ),
@@ -515,9 +584,13 @@ class _InfoPanel extends StatelessWidget {
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
             ),
             const Spacer(),
-            Text(
-              product.category,
-              style: const TextStyle(fontSize: 12, color: AppColors.muted),
+            Flexible(
+              child: Text(
+                product.category,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 12, color: AppColors.muted),
+              ),
             ),
           ],
         ),
@@ -538,17 +611,23 @@ class _InfoPanel extends StatelessWidget {
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: onReviewsTap,
-            child: Row(
-              children: [
-                _Stars(rating: rating, size: 16),
-                const SizedBox(width: 8),
-                Text(
-                  reviews.total == 0
-                      ? 'Belum ada ulasan'
-                      : '${reviews.total} ulasan',
-                  style: const TextStyle(fontSize: 12, color: AppColors.muted),
-                ),
-              ],
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 32),
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 8,
+                runSpacing: 4,
+                children: [
+                  _Stars(rating: rating, size: 16),
+                  Text(
+                    reviews.total == 0
+                        ? 'Belum ada ulasan'
+                        : '${reviews.total} ulasan',
+                    style:
+                        const TextStyle(fontSize: 12, color: AppColors.muted),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -593,34 +672,38 @@ class _InfoPanel extends StatelessWidget {
         TextButton(
           onPressed: onSizeGuide,
           style: TextButton.styleFrom(
-            padding: EdgeInsets.zero,
-            minimumSize: const Size(0, 32),
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+            minimumSize: const Size(48, 48),
+            tapTargetSize: MaterialTapTargetSize.padded,
             alignment: Alignment.centerLeft,
-            textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            textStyle:
+                const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
           ),
           child: const Text('Panduan ukuran'),
         ),
-        const SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(
-              child: SizedBox(
-                height: 52,
-                child: ElevatedButton.icon(
-                  onPressed: onAddToCart,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.ink,
+        if (showInlineCartButtons) ...[
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 52),
+                  child: ElevatedButton.icon(
+                    onPressed: onAddToCart,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.ink,
+                      minimumSize: const Size(double.infinity, 52),
+                    ),
+                    icon: const Icon(Icons.shopping_bag_outlined, size: 18),
+                    label: const Text('Tambah ke keranjang'),
                   ),
-                  icon: const Icon(Icons.shopping_bag_outlined, size: 18),
-                  label: const Text('Tambah ke keranjang'),
                 ),
               ),
-            ),
-            const SizedBox(width: 12),
-            _WishlistButton(product: product),
-          ],
-        ),
+              const SizedBox(width: 12),
+              _WishlistButton(product: product),
+            ],
+          ),
+        ],
         const SizedBox(height: 14),
         Row(
           children: [
@@ -630,9 +713,11 @@ class _InfoPanel extends StatelessWidget {
               color: AppColors.muted,
             ),
             const SizedBox(width: 8),
-            Text(
-              'Ongkir flat ${formatRupiah(_kShippingFlat)}',
-              style: const TextStyle(fontSize: 12, color: AppColors.muted),
+            Expanded(
+              child: Text(
+                'Ongkir flat ${formatRupiah(_kShippingFlat)}',
+                style: const TextStyle(fontSize: 12, color: AppColors.muted),
+              ),
             ),
           ],
         ),
@@ -654,6 +739,8 @@ class _SizeBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Semantics(
       button: true,
       selected: selected,
@@ -664,11 +751,11 @@ class _SizeBox extends StatelessWidget {
           onTap: onTap,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 150),
-            width: 60,
-            height: 44,
+            constraints: const BoxConstraints(minWidth: 60, minHeight: 48),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: selected ? AppColors.ink : Colors.white,
+              color: selected ? AppColors.ink : colorScheme.surface,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
                 color: selected ? AppColors.ink : AppColors.line,
@@ -678,8 +765,8 @@ class _SizeBox extends StatelessWidget {
               '$size',
               style: TextStyle(
                 fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: selected ? Colors.white : AppColors.ink,
+                fontWeight: FontWeight.w600,
+                color: selected ? colorScheme.onPrimary : AppColors.ink,
               ),
             ),
           ),
@@ -850,22 +937,26 @@ class _TabLabel extends StatelessWidget {
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: onTap,
-          child: Container(
-            padding: const EdgeInsets.only(top: 6, bottom: 10),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: selected ? AppColors.ink : Colors.transparent,
-                  width: 2,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.only(top: 6, bottom: 10),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: selected ? AppColors.ink : Colors.transparent,
+                    width: 2,
+                  ),
                 ),
               ),
-            ),
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                color: selected ? AppColors.ink : AppColors.muted,
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                  color: selected ? AppColors.ink : AppColors.muted,
+                ),
               ),
             ),
           ),
@@ -928,14 +1019,16 @@ class _InfoRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 140,
+          Expanded(
+            flex: 2,
             child: Text(
               label,
               style: const TextStyle(fontSize: 13, color: AppColors.muted),
             ),
           ),
+          const SizedBox(width: 12),
           Expanded(
+            flex: 3,
             child: Text(
               value,
               style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
@@ -1134,7 +1227,10 @@ class _ReviewFormState extends State<_ReviewForm> {
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 12),
-          Row(
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 6,
             children: [
               RatingBar.builder(
                 initialRating: _rating.toDouble(),
@@ -1153,15 +1249,12 @@ class _ReviewFormState extends State<_ReviewForm> {
                   _error = null;
                 }),
               ),
-              const SizedBox(width: 6),
               if (_rating > 0)
-                Flexible(
-                  child: Text(
-                    _labels[_rating - 1],
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.muted,
-                    ),
+                Text(
+                  _labels[_rating - 1],
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.muted,
                   ),
                 ),
             ],
@@ -1364,10 +1457,13 @@ class _RatingSummary extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 12,
+            runSpacing: 8,
             children: [
-              _Stars(rating: rating, size: 30, gap: 4),
+              _Stars(rating: rating, size: 28, gap: 4),
               Text(
                 rating.toStringAsFixed(1),
                 style: const TextStyle(

@@ -11,6 +11,7 @@ class AuthController {
   static String? currentName;
   static String? currentUsername;
   static String? currentEmail;
+  static bool isCurrentUserAdmin = false;
 
   static final ValueNotifier<Uint8List?> photoNotifier =
       ValueNotifier<Uint8List?>(null);
@@ -39,6 +40,7 @@ class AuthController {
     currentName = null;
     currentUsername = null;
     currentEmail = null;
+    isCurrentUserAdmin = false;
     photoNotifier.value = null;
   }
 
@@ -307,6 +309,15 @@ class AuthController {
 
     currentUsername = data['username'] as String?;
     currentEmail = user.email;
+    bool adminFromCollection = false;
+    try {
+      final adminDoc =
+          await _db.collection('admins').doc(user.uid).get();
+      adminFromCollection = adminDoc.exists;
+    } catch (_) {}
+    isCurrentUserAdmin = adminFromCollection ||
+        (data['isAdmin'] == true) ||
+        (data['role']?.toString().toLowerCase() == 'admin');
     _applyPhoto(data['photoBase64'] as String?);
   }
 

@@ -20,6 +20,39 @@ enum SoleaChatChannel {
   user,
 }
 
+enum ChatConversationSection {
+  bantuan,
+  komunitas,
+}
+
+enum DmPrivacyPermission {
+  everyone,
+  community,
+  none,
+}
+
+class ChatConversationItem {
+  final String id;
+  final String title;
+  final String subtitle;
+  final String? avatarUrl;
+  final ChatConversationSection section;
+  final SoleaChatChannel channel;
+  final bool isGroup;
+  final bool isOnline;
+
+  const ChatConversationItem({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+    required this.section,
+    required this.channel,
+    this.avatarUrl,
+    this.isGroup = false,
+    this.isOnline = true,
+  });
+}
+
 class PeerUserContact {
   final String id;
   final String name;
@@ -122,10 +155,37 @@ class ChatController extends ChangeNotifier {
       {};
 
   String _activeUserRoomId = peerContacts.first.id;
+  SoleaChatChannel? _activeChannel;
 
   bool _isBotTyping = false;
   bool _isAdminTyping = false;
   bool _isPeerTyping = false;
+  bool? _isAdminOnline;
+  bool? _showBotEscalateToAdmin;
+  String? _lastEscalatableQuery;
+
+  int? _unreadBotCount;
+  int? _unreadAdminCount;
+  Map<String, int>? _unreadUserRoomCounts;
+  Set<String>? _blockedUserIds;
+  DmPrivacyPermission? _dmPrivacy;
+
+  Set<String> get blockedUserIds =>
+      _blockedUserIds ??= <String>{};
+
+  DmPrivacyPermission get dmPrivacy =>
+      _dmPrivacy ?? DmPrivacyPermission.everyone;
+
+  bool isUserBlocked(String userId) =>
+      blockedUserIds.contains(userId);
+
+  Map<String, int> get _roomUnreadMap =>
+      _unreadUserRoomCounts ??= <String, int>{
+        'community_global': 2,
+        'peer_raka': 1,
+        'peer_nadia': 1,
+        'peer_dimas': 0,
+      };
 
   /// Jika aktif, pesan yang dikirim di tab Admin akan dikirim sebagai Admin SOLEA
   bool _replyAsAdminMode = false;
@@ -141,10 +201,17 @@ class ChatController extends ChangeNotifier {
   List<types.Message> get adminMessages =>
       List.unmodifiable(_adminMessages);
 
-  List<types.Message> get activeUserMessages =>
-      List.unmodifiable(
-        _userRoomMessages[_activeUserRoomId] ?? const [],
-      );
+  List<types.Message> get activeUserMessages {
+    final raw =
+        _userRoomMessages[_activeUserRoomId] ?? const [];
+    final blocked = blockedUserIds;
+    if (blocked.isEmpty) {
+      return List.unmodifiable(raw);
+    }
+    return List.unmodifiable(
+      raw.where((m) => !blocked.contains(m.author.id)),
+    );
+  }
 
   String get activeUserRoomId => _activeUserRoomId;
 
@@ -157,17 +224,219 @@ class ChatController extends ChangeNotifier {
   bool get isBotTyping => _isBotTyping;
   bool get isAdminTyping => _isAdminTyping;
   bool get isPeerTyping => _isPeerTyping;
-  bool get replyAsAdminMode => _replyAsAdminMode;
+  bool get isAdminOnline => _isAdminOnline ?? true;
+  bool get showBotEscalateToAdmin =>
+      _showBotEscalateToAdmin ?? false;
+  String get lastEscalatableQuery =>
+      _lastEscalatableQuery ?? '';
+  int get onlineCommunityCount => 18;
+  SoleaChatChannel get activeChannel =>
+      _activeChannel ?? SoleaChatChannel.bot;
+
+  int unreadCountForChannel(SoleaChatChannel channel) {
+    switch (channel) {
+      case SoleaChatChannel.bot:
+        return _unreadBotCount ?? 0;
+      case SoleaChatChannel.admin:
+        return _unreadAdminCount ?? 1;
+      case SoleaChatChannel.user:
+        return _roomUnreadMap.values.fold<int>(
+          0,
+          (sum, count) => sum + count,
+        );
+    }
+  }
+
+  int unreadCountForUserRoom(String roomId) =>
+      _roomUnreadMap[roomId] ?? 0;
+
+  String get activeConversationId {
+    switch (activeChannel) {
+      case SoleaChatChannel.bot:
+        return 'bot';
+      case SoleaChatChannel.admin:
+        return 'admin';
+      case SoleaChatChannel.user:
+        return _activeUserRoomId;
+    }
+  }
+
+  List<ChatConversationItem> get allConversations => [
+        ChatConversationItem(
+          id: 'bot',
+          title: 'SOLEA Assistant',
+          subtitle: 'Asisten AI 24/7 · Rekomendasi & Ukuran',
+          avatarUrl: botUser.imageUrl,
+          section: ChatConversationSection.bantuan,
+          channel: SoleaChatChannel.bot,
+          isOnline: true,
+        ),
+        ChatConversationItem(
+          id: 'admin',
+          title: 'Admin Support',
+          subtitle:
+              'Admin SOLEA · Biasanya membalas dalam ±10 menit',
+          avatarUrl: adminUser.imageUrl,
+          section: ChatConversationSection.bantuan,
+          channel: SoleaChatChannel.admin,
+          isOnline: isAdminOnline,
+        ),
+        for (final peer in peerContacts)
+          ChatConversationItem(
+            id: peer.id,
+            title: peer.name,
+            subtitle: peer.subtitle,
+            avatarUrl: peer.avatarUrl,
+            section: ChatConversationSection.komunitas,
+            channel: SoleaChatChannel.user,
+            isGroup: peer.isGroup,
+            isOnline: true,
+          ),
+      ];
+
+  ChatConversationItem get activeConversation {
+    final currentId = activeConversationId;
+    final list = allConversations;
+    return list.firstWhere(
+      (c) => c.id == currentId,
+      orElse: () => list.first,
+    );
+  }
+
+  int unreadCountForConversation(String conversationId) {
+    if (conversationId == 'bot') {
+      return _unreadBotCount ?? 0;
+    }
+    if (conversationId == 'admin') {
+      return _unreadAdminCount ?? 1;
+    }
+    return unreadCountForUserRoom(conversationId);
+  }
+
+  String lastMessagePreview(String conversationId) {
+    List<types.Message> list;
+    if (conversationId == 'bot') {
+      list = _botMessages;
+    } else if (conversationId == 'admin') {
+      list = _adminMessages;
+    } else {
+      list = _userRoomMessages[conversationId] ?? const [];
+    }
+
+    for (final msg in list) {
+      if (msg is types.TextMessage) {
+        return msg.text.replaceAll('\n', ' ').trim();
+      }
+      if (msg is types.ImageMessage) {
+        return '📷 Gambar: ${msg.name}';
+      }
+    }
+    return 'Mulai percakapan...';
+  }
+
+  void selectConversation(String conversationId) {
+    if (conversationId == 'bot') {
+      setActiveChannel(SoleaChatChannel.bot);
+      return;
+    }
+    if (conversationId == 'admin') {
+      setActiveChannel(SoleaChatChannel.admin);
+      return;
+    }
+    final exists =
+        peerContacts.any((c) => c.id == conversationId);
+    final targetRoomId = exists
+        ? conversationId
+        : peerContacts.first.id;
+    _activeUserRoomId = targetRoomId;
+    _roomUnreadMap[targetRoomId] = 0;
+    _activeChannel = SoleaChatChannel.user;
+    _subscribeUserRoomFirestore(targetRoomId);
+    notifyListeners();
+  }
+
+  void setActiveChannel(SoleaChatChannel channel) {
+    _activeChannel = channel;
+    switch (channel) {
+      case SoleaChatChannel.bot:
+        _unreadBotCount = 0;
+        break;
+      case SoleaChatChannel.admin:
+        _unreadAdminCount = 0;
+        break;
+      case SoleaChatChannel.user:
+        _roomUnreadMap[_activeUserRoomId] = 0;
+        break;
+    }
+    notifyListeners();
+  }
+
+  bool get isCurrentUserAdmin =>
+      AuthController.isCurrentUserAdmin;
+  bool get replyAsAdminMode =>
+      isCurrentUserAdmin && _replyAsAdminMode;
 
   void toggleReplyAsAdminMode() {
+    if (!isCurrentUserAdmin) {
+      _replyAsAdminMode = false;
+      return;
+    }
     _replyAsAdminMode = !_replyAsAdminMode;
     notifyListeners();
   }
 
   void selectUserRoom(String roomId) {
-    if (_activeUserRoomId == roomId) return;
     _activeUserRoomId = roomId;
+    _roomUnreadMap[roomId] = 0;
     _subscribeUserRoomFirestore(roomId);
+    notifyListeners();
+  }
+
+  /// Mendeteksi apakah pertanyaan user tentang masalah pesanan atau bot tidak yakin.
+  bool _shouldOfferAdminEscalation(
+    String userText,
+    String replyText,
+  ) {
+    final q = userText.toLowerCase();
+    final r = replyText.toLowerCase();
+
+    const orderOrIssueKeywords = [
+      'pesanan',
+      'order',
+      'status',
+      'komplain',
+      'retur',
+      'refund',
+      'rusak',
+      'lama',
+      'belum sampai',
+      'kendala',
+      'masalah',
+      'batal',
+      'tukar',
+      'admin',
+      'cs',
+      'bantuan',
+    ];
+
+    const botUncertainKeywords = [
+      'admin',
+      'tidak yakin',
+      'tidak tahu',
+      'belum tahu',
+      'maaf',
+      'hubungi',
+      'customer support',
+      'layanan pelanggan',
+    ];
+
+    return orderOrIssueKeywords.any(q.contains) ||
+        botUncertainKeywords.any(r.contains);
+  }
+
+  void clearBotEscalation() {
+    if (!showBotEscalateToAdmin) return;
+    _showBotEscalateToAdmin = false;
     notifyListeners();
   }
 
@@ -184,7 +453,7 @@ class ChatController extends ChangeNotifier {
         author: botUser,
         createdAt: now,
         text:
-            'Halo! 👋 Saya SOLEA AI Bot.\n\nSaya bisa bantu kamu:\n• Mencari rekomendasi sepatu (Running, Lifestyle, Basketball, Casual, Outdoor, Training)\n• Cek sepatu sesuai budget (misal: "di bawah 1 juta")\n• Panduan ukuran sepatu (Size Chart)\n• Cek isi Keranjang, Wishlist, dan Status Pesanan kamu.',
+            'Halo! 👋 Saya SOLEA AI Bot, asisten belanjamu. Tanyakan rekomendasi sepatu, ukuran, atau pilih topik cepat di bawah ya!',
       ),
     ]);
   }
@@ -288,6 +557,156 @@ class ChatController extends ChangeNotifier {
   void connectRealtimeStreams() {
     _subscribeAdminFirestore();
     _subscribeUserRoomFirestore(_activeUserRoomId);
+    _loadModerationAndPrivacyFromFirestore();
+  }
+
+  Future<void> _loadModerationAndPrivacyFromFirestore() async {
+    final user = AuthController.firebaseUser;
+    if (user == null) return;
+
+    try {
+      final blockedSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('blockedUsers')
+          .get();
+      final ids = blockedSnap.docs
+          .map((d) => d.id)
+          .where((id) => id.isNotEmpty)
+          .toSet();
+      _blockedUserIds = ids;
+
+      final privacyDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('chatSettings')
+          .doc('privacy')
+          .get();
+      final dmAllow =
+          privacyDoc.data()?['dmAllow']?.toString();
+      if (dmAllow == 'community') {
+        _dmPrivacy = DmPrivacyPermission.community;
+      } else if (dmAllow == 'none') {
+        _dmPrivacy = DmPrivacyPermission.none;
+      } else if (dmAllow == 'everyone') {
+        _dmPrivacy = DmPrivacyPermission.everyone;
+      }
+      notifyListeners();
+    } catch (_) {
+      // Tetap gunakan state lokal jika offline / rules belum aktif
+    }
+  }
+
+  Future<void> updateDmPrivacy(
+    DmPrivacyPermission permission,
+  ) async {
+    _dmPrivacy = permission;
+    notifyListeners();
+
+    final user = AuthController.firebaseUser;
+    if (user == null) return;
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('chatSettings')
+          .doc('privacy')
+          .set(
+        {
+          'uid': user.uid,
+          'dmAllow': permission.name,
+          'updatedAt': FieldValue.serverTimestamp(),
+        },
+        SetOptions(merge: true),
+      );
+    } catch (_) {}
+  }
+
+  Future<void> blockUser({
+    required String targetUserId,
+    required String targetUserName,
+    String? reason,
+  }) async {
+    final cleanId = targetUserId.trim();
+    if (cleanId.isEmpty ||
+        cleanId == 'solea_bot' ||
+        cleanId == 'solea_admin' ||
+        cleanId == currentUser.id) {
+      return;
+    }
+
+    blockedUserIds.add(cleanId);
+    notifyListeners();
+
+    final user = AuthController.firebaseUser;
+    if (user == null) return;
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('blockedUsers')
+          .doc(cleanId)
+          .set({
+        'blockedUid': cleanId,
+        'blockedName': targetUserName,
+        'reason': reason ?? '',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    } catch (_) {}
+  }
+
+  Future<void> unblockUser(String targetUserId) async {
+    final cleanId = targetUserId.trim();
+    if (cleanId.isEmpty) return;
+
+    blockedUserIds.remove(cleanId);
+    notifyListeners();
+
+    final user = AuthController.firebaseUser;
+    if (user == null) return;
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('blockedUsers')
+          .doc(cleanId)
+          .delete();
+    } catch (_) {}
+  }
+
+  Future<void> reportContent({
+    required String targetUserId,
+    required String targetUserName,
+    String? messageId,
+    String? messageText,
+    required String reason,
+  }) async {
+    final cleanReason = reason.trim();
+    if (cleanReason.isEmpty) return;
+
+    final user = AuthController.firebaseUser;
+    final reporterId = user?.uid ?? currentUser.id;
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('communityReports')
+          .add({
+        'reporterUid': reporterId,
+        'targetUserId': targetUserId,
+        'targetUserName': targetUserName,
+        'messageId': messageId ?? '',
+        'messageText': messageText ?? '',
+        'reason': cleanReason,
+        'roomId': activeConversationId,
+        'status': 'open',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    } catch (_) {
+      // Tetap sukses di UI jika offline / simulasi lokal
+    }
   }
 
   void _subscribeAdminFirestore() {
@@ -520,6 +939,13 @@ $catalog
       );
     }
 
+    final shouldEscalate =
+        _shouldOfferAdminEscalation(userText, replyText);
+    _showBotEscalateToAdmin = shouldEscalate;
+    if (shouldEscalate && userText.trim().isNotEmpty) {
+      _lastEscalatableQuery = userText.trim();
+    }
+
     _botMessages.insert(
       0,
       types.TextMessage(
@@ -527,8 +953,15 @@ $catalog
         author: botUser,
         createdAt: now + 1,
         text: replyText,
+        metadata: {
+          if (shouldEscalate) 'escalateToAdmin': true,
+        },
       ),
     );
+
+    if (activeChannel != SoleaChatChannel.bot) {
+      _unreadBotCount = (_unreadBotCount ?? 0) + 1;
+    }
 
     _isBotTyping = false;
     notifyListeners();
@@ -683,6 +1116,13 @@ $catalog
       );
     }
 
+    final shouldEscalate =
+        _shouldOfferAdminEscalation(query, replyText);
+    _showBotEscalateToAdmin = shouldEscalate;
+    if (shouldEscalate && query.trim().isNotEmpty) {
+      _lastEscalatableQuery = query.trim();
+    }
+
     _botMessages.insert(
       0,
       types.TextMessage(
@@ -690,8 +1130,15 @@ $catalog
         author: botUser,
         createdAt: now + 1,
         text: replyText,
+        metadata: {
+          if (shouldEscalate) 'escalateToAdmin': true,
+        },
       ),
     );
+
+    if (activeChannel != SoleaChatChannel.bot) {
+      _unreadBotCount = (_unreadBotCount ?? 0) + 1;
+    }
 
     _isBotTyping = false;
     notifyListeners();
@@ -705,8 +1152,8 @@ $catalog
     final text = rawText.trim();
     if (text.isEmpty) return;
 
-    final sender =
-        _replyAsAdminMode ? adminUser : currentUser;
+    final actAsAdmin = replyAsAdminMode;
+    final sender = actAsAdmin ? adminUser : currentUser;
     final now = DateTime.now().millisecondsSinceEpoch;
 
     final msg = types.TextMessage(
@@ -732,6 +1179,7 @@ $catalog
           'authorFirstName': sender.firstName ?? '',
           'authorLastName': sender.lastName ?? '',
           'authorAvatar': sender.imageUrl,
+          'isAdminSender': actAsAdmin,
           'text': text,
           'type': 'text',
           'createdAtMs': now,
@@ -743,7 +1191,7 @@ $catalog
     }
 
     // Jika dikirim oleh User (bukan sedang mode Admin), berikan balasan responsif Admin
-    if (!_replyAsAdminMode) {
+    if (!actAsAdmin) {
       _isAdminTyping = true;
       notifyListeners();
 
@@ -761,10 +1209,16 @@ $catalog
           );
 
           _adminMessages.insert(0, adminReply);
+          if (activeChannel != SoleaChatChannel.admin) {
+            _unreadAdminCount =
+                (_unreadAdminCount ?? 0) + 1;
+          }
           _isAdminTyping = false;
           notifyListeners();
 
-          if (fbUser != null) {
+          // Hanya simpan pesan ber-identitas Admin ke Firestore jika user benar-benar Admin
+          // sesuai Firestore Security Rules (mencegah spoofing authorId 'solea_admin').
+          if (fbUser != null && isCurrentUserAdmin) {
             try {
               await FirebaseFirestore.instance
                   .collection('users')
@@ -775,6 +1229,7 @@ $catalog
                 'authorFirstName': adminUser.firstName ?? '',
                 'authorLastName': adminUser.lastName ?? '',
                 'authorAvatar': adminUser.imageUrl,
+                'isAdminSender': true,
                 'text': replyText,
                 'type': 'text',
                 'createdAtMs': replyNow,
@@ -804,7 +1259,7 @@ $catalog
         lower.contains('komplain')) {
       return 'Tenang Kak, SOLEA memberikan garansi tukar ukuran & pengembalian 7 hari selama tag dan box sepatu masih utuh. Admin siap bantu prosesnya!';
     }
-    return 'Terima kasih Kak atas pesannya! Admin SOLEA sudah menerima pesan Kakak: "$userText". Ada lagi detail pesanan atau nomor sepatu yang bisa Admin bantu cek? (Tips: Kamu juga bisa menekan tombol **"Mode Admin"** di kanan atas untuk membalas langsung sebagai Admin).';
+    return 'Terima kasih Kak atas pesannya! Admin SOLEA sudah menerima pesan Kakak: "$userText". Ada lagi detail pesanan atau nomor sepatu yang bisa Admin bantu cek?';
   }
 
   // 3. LOGIKA CHAT USER (KOMUNITAS & ANTAR PENGGUNA)
@@ -871,6 +1326,11 @@ $catalog
         final list =
             _userRoomMessages.putIfAbsent(roomId, () => []);
         list.insert(0, replyMsg);
+        if (activeChannel != SoleaChatChannel.user ||
+            _activeUserRoomId != roomId) {
+          _roomUnreadMap[roomId] =
+              (_roomUnreadMap[roomId] ?? 0) + 1;
+        }
         _isPeerTyping = false;
         notifyListeners();
       },
@@ -938,7 +1398,7 @@ $catalog
     Product product,
   ) {
     final sender = (channel == SoleaChatChannel.admin &&
-            _replyAsAdminMode)
+            replyAsAdminMode)
         ? adminUser
         : currentUser;
     final now = DateTime.now().millisecondsSinceEpoch;
