@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../controllers/auth_controller.dart';
 import '../../core/app_theme.dart';
 import '../../core/auth_feedback_dialog.dart';
+import '../../core/google_sign_in_button.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -730,6 +731,26 @@ class _RegisterForm extends StatelessWidget {
                           ),
                   ),
                 ),
+                const SizedBox(height: 22),
+                const Row(
+                  children: [
+                    Expanded(child: Divider(color: Color(0xFFE0DDD6))),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        'OR',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFFA19C93),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Expanded(child: Divider(color: Color(0xFFE0DDD6))),
+                  ],
+                ),
+                const SizedBox(height: 22),
+                const GoogleSignInButton(),
                 const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

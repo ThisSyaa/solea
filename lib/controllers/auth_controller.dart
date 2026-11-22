@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
+import 'dart:math' show Random;
 import 'package:flutter/foundation.dart';
 
 class AuthController {
@@ -13,10 +14,6 @@ class AuthController {
   static String? currentEmail;
   static bool isCurrentUserAdmin = false;
 
-  // Email yang dikecualikan dari kewajiban verifikasi email.
-  // Hanya untuk akun admin yang dibuat manual (tanpa inbox).
-  // Catatan: ini hanya pengecekan di sisi aplikasi. Keamanan data
-  // tetap ditentukan oleh Firestore Rules.
   static const Set<String> _verificationExemptEmails = {
     'admin@solea.store',
   };
@@ -286,6 +283,182 @@ class AuthController {
   }
 
   // =========================================================
+  // LOGIN / DAFTAR DENGAN GOOGLE
+  // =========================================================
+
+  static final Map<String, Future<void>> _profileCreation = {};
+
+  static bool _isGoogleUser(User user) {
+    return user.providerData.any((p) => p.providerId == 'google.com');
+  }
+
+  static Future<String?> signInWithGoogle() async {
+    try {
+      final provider = GoogleAuthProvider()
+        ..addScope('email')
+        ..setCustomParameters({'prompt': 'select_account'});
+
+      final credential = kIsWeb
+          ? await _auth.signInWithPopup(provider)
+          : await _auth.signInWithProvider(provider);
+
+      final user = credential.user;
+
+      if (user == null) {
+        await _auth.signOut();
+        _clearSession();
+        return 'Login Google gagal. Silakan coba lagi.';
+      }
+
+      // Membuat profil bila akun ini baru, lalu memuat sesi.
+      await loadFirebaseProfile();
+
+      return null;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'popup-closed-by-user':
+        case 'cancelled-popup-request':
+        case 'user-cancelled':
+        case 'web-context-canceled':
+          return null; // dibatalkan user, bukan error
+
+        case 'popup-blocked':
+          return 'Popup login diblokir browser. Izinkan popup untuk situs ini lalu coba lagi.';
+
+        case 'account-exists-with-different-credential':
+          return 'Email ini sudah terdaftar dengan metode login lain. Masuk menggunakan email dan password.';
+
+        case 'unauthorized-domain':
+          return 'Domain ini belum diizinkan untuk login Google. Tambahkan di Firebase Console > Authentication > Settings > Authorized domains.';
+
+        case 'operation-not-allowed':
+          return 'Login Google belum diaktifkan di Firebase Console.';
+
+        default:
+          try {
+            await _auth.signOut();
+          } catch (_) {}
+          _clearSession();
+          return _authErrorMessage(e);
+      }
+    } on FirebaseException catch (e) {
+      try {
+        await _auth.signOut();
+      } catch (_) {}
+      _clearSession();
+
+      if (e.code == 'permission-denied') {
+        return 'Profil gagal disimpan karena akses ditolak oleh Firestore Rules.';
+      }
+
+      return 'Gagal menyimpan profil (${e.code}). Coba lagi.';
+    } catch (_) {
+      try {
+        await _auth.signOut();
+      } catch (_) {}
+      _clearSession();
+      return 'Login Google gagal. Periksa internetmu lalu coba lagi.';
+    }
+  }
+
+  static Future<void> _ensureGoogleProfile(User user) {
+    return _profileCreation.putIfAbsent(user.uid, () async {
+      try {
+        await _createGoogleProfile(user);
+      } finally {
+        _profileCreation.remove(user.uid);
+      }
+    });
+  }
+
+  static Future<void> _createGoogleProfile(User user) async {
+    final email = user.email;
+
+    if (email == null || email.isEmpty) {
+      throw FirebaseException(
+        plugin: 'solea',
+        code: 'google-no-email',
+        message: 'Akun Google tidak memiliki alamat email.',
+      );
+    }
+
+    final userRef = _db.collection('users').doc(user.uid);
+
+    // Jangan menimpa profil yang sudah ada.
+    if ((await userRef.get()).exists) return;
+
+    final base = _usernameFromEmail(email);
+    final displayName = user.displayName?.trim() ?? '';
+
+    const maxAttempts = 6;
+
+    for (var attempt = 0; attempt < maxAttempts; attempt++) {
+      final username = attempt == 0 ? base : _usernameWithSuffix(base);
+      final usernameLower = _usernameKey(username);
+      final name = displayName.length >= 3 ? displayName : username;
+
+      final usernameRef =
+          _db.collection('usernames').doc(usernameLower);
+
+      final batch = _db.batch();
+
+      batch.set(userRef, {
+        'uid': user.uid,
+        'name': name,
+        'username': username,
+        'usernameLower': usernameLower,
+        'email': email,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
+      batch.set(usernameRef, {
+        'uid': user.uid,
+        'username': username,
+        'usernameLower': usernameLower,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
+      try {
+        await batch.commit();
+        return;
+      } on FirebaseException catch (e) {
+        // Rules menolak kalau username sudah dipakai orang lain,
+        // jadi coba lagi dengan angka tambahan.
+        final canRetry =
+            e.code == 'permission-denied' && attempt < maxAttempts - 1;
+        if (!canRetry) rethrow;
+      }
+    }
+  }
+
+  static String _usernameFromEmail(String email) {
+    final local = email.split('@').first.toLowerCase();
+
+    final parts = local
+        .split(RegExp(r'[._+\-]'))
+        .where((p) => p.isNotEmpty)
+        .toList();
+
+    var cleaned = (parts.isNotEmpty ? parts.first : local)
+        .replaceAll(RegExp(r'[^a-z0-9]'), '');
+
+    if (cleaned.length > 14) cleaned = cleaned.substring(0, 14);
+
+    final random = Random();
+    while (cleaned.length < 3) {
+      cleaned += random.nextInt(10).toString();
+    }
+
+    return cleaned;
+  }
+
+  static String _usernameWithSuffix(String base) {
+    final suffix = (100 + Random().nextInt(900)).toString();
+    final trimmed = base.length > 14 ? base.substring(0, 14) : base;
+    return '$trimmed$suffix';
+  }
+
+  // =========================================================
   // MEMUAT PROFIL DARI FIRESTORE
   // =========================================================
 
@@ -304,8 +477,15 @@ class AuthController {
       );
     }
 
-    final snapshot =
+    var snapshot =
         await _db.collection('users').doc(user.uid).get();
+
+    // Pengguna Google yang baru pertama kali masuk belum punya profil.
+    // Profil dibuat otomatis (username dari bagian depan email).
+    if (!snapshot.exists && _isGoogleUser(user)) {
+      await _ensureGoogleProfile(user);
+      snapshot = await _db.collection('users').doc(user.uid).get();
+    }
 
     final data = snapshot.data();
 

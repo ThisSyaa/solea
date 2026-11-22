@@ -4,6 +4,7 @@ import '../../controllers/auth_controller.dart';
 import '../../core/app_theme.dart';
 import 'register_page.dart';
 import '../../core/auth_feedback_dialog.dart';
+import '../../core/google_sign_in_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -525,7 +526,9 @@ class _LoginForm extends StatelessWidget {
                     const Expanded(child: Divider(color: Color(0xFFE0DDD6))),
                   ],
                 ),
-                const SizedBox(height: 26),
+                const SizedBox(height: 22),
+                const GoogleSignInButton(),
+                const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
