@@ -10,10 +10,10 @@ class FaqPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-          AppColors.sand,
+          context.sand,
       appBar: AppBar(
         backgroundColor:
-            AppColors.sand,
+            context.sand,
         elevation: 0,
         title: const Text(
           'Bantuan & FAQ',
@@ -92,7 +92,7 @@ class _FaqItem
       decoration:
           BoxDecoration(
         color:
-            Colors.white,
+            context.card,
         borderRadius:
             BorderRadius.circular(
           16,
@@ -128,9 +128,9 @@ class _FaqItem
                 Text(
               answer,
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
-                    AppColors.muted,
+                    context.muted,
                 height: 1.5,
               ),
             ),

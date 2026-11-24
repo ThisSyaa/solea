@@ -82,9 +82,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
-        backgroundColor: AppColors.sand,
+        backgroundColor: context.sand,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         title: const Text(
@@ -106,7 +106,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: context.card,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(

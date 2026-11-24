@@ -5,6 +5,7 @@ import '../../core/app_theme.dart';
 import 'register_page.dart';
 import '../../core/auth_feedback_dialog.dart';
 import '../../core/google_sign_in_button.dart';
+import '../../core/themed_logo.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -132,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F6F2),
+      backgroundColor: context.pick(const Color(0xFFF7F6F2), const Color(0xFF111412)),
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -241,7 +242,7 @@ class _ShoeVisual extends StatelessWidget {
       margin: const EdgeInsets.all(18),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: const Color(0xFFE9E5DD),
+        color: context.pick(const Color(0xFFE9E5DD), const Color(0xFF2B312E)),
         borderRadius: BorderRadius.circular(28),
       ),
       child: Stack(
@@ -251,11 +252,11 @@ class _ShoeVisual extends StatelessWidget {
             imageUrl,
             fit: BoxFit.cover,
             errorBuilder: (_, _, _) {
-              return const Center(
+              return Center(
                 child: Icon(
                   Icons.shopping_bag_outlined,
                   size: 80,
-                  color: Color(0xFF77736B),
+                  color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                 ),
               );
             },
@@ -376,22 +377,22 @@ class _LoginForm extends StatelessWidget {
               children: [
                 const _DesktopMiniLogo(),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'Welcome back',
                   style: TextStyle(
                     fontSize: 38,
                     fontWeight: FontWeight.w700,
                     letterSpacing: -1.2,
-                    color: Color(0xFF111111),
+                    color: context.pick(const Color(0xFF111111), const Color(0xFFECEFED)),
                   ),
                 ),
                 const SizedBox(height: 9),
-                const Text(
+                Text(
                   'Sign in to continue shopping your favorite sneakers.',
                   style: TextStyle(
                     fontSize: 14,
                     height: 1.55,
-                    color: Color(0xFF77736B),
+                    color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                   ),
                 ),
                 const SizedBox(height: 38),
@@ -424,7 +425,7 @@ class _LoginForm extends StatelessWidget {
                           : Icons.visibility_outlined,
                       size: 20,
                     ),
-                    color: const Color(0xFF77736B),
+                    color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                   ),
                 ),
                 const SizedBox(height: 11),
@@ -441,17 +442,17 @@ class _LoginForm extends StatelessWidget {
                             onChanged: (value) {
                               onRememberChanged(value ?? false);
                             },
-                            side: const BorderSide(color: Color(0xFFBDB8AE)),
-                            activeColor: Colors.black,
-                            checkColor: Colors.white,
+                            side: BorderSide(color: context.pick(const Color(0xFFBDB8AE), const Color(0xFF4B524F))),
+                            activeColor: context.strongInk,
+                            checkColor: context.onStrongInk,
                           ),
                         ),
                         const SizedBox(width: 8),
-                        const Text(
+                        Text(
                           'Remember me',
                           style: TextStyle(
                             fontSize: 13,
-                            color: Color(0xFF66625C),
+                            color: context.pick(const Color(0xFF66625C), const Color(0xFF9CA3A0)),
                           ),
                         ),
                       ],
@@ -461,7 +462,7 @@ class _LoginForm extends StatelessWidget {
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                         minimumSize: const Size(0, 36),
-                        foregroundColor: Colors.black,
+                        foregroundColor: context.strongInk,
                       ),
                       child: const Text(
                         'Forgot password?',
@@ -511,19 +512,19 @@ class _LoginForm extends StatelessWidget {
                 const SizedBox(height: 28),
                 Row(
                   children: [
-                    const Expanded(child: Divider(color: Color(0xFFE0DDD6))),
-                    const Padding(
+                    Expanded(child: Divider(color: context.pick(const Color(0xFFE0DDD6), const Color(0xFF2B312E)))),
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Text(
                         'OR',
                         style: TextStyle(
                           fontSize: 11,
-                          color: Color(0xFFA19C93),
+                          color: context.pick(const Color(0xFFA19C93), const Color(0xFF828886)),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                    const Expanded(child: Divider(color: Color(0xFFE0DDD6))),
+                    Expanded(child: Divider(color: context.pick(const Color(0xFFE0DDD6), const Color(0xFF2B312E)))),
                   ],
                 ),
                 const SizedBox(height: 22),
@@ -532,14 +533,14 @@ class _LoginForm extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Don't have an account?",
-                      style: TextStyle(fontSize: 13, color: Color(0xFF77736B)),
+                      style: TextStyle(fontSize: 13, color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0))),
                     ),
                     TextButton(
                       onPressed: isLoading ? null : onRegister,
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.black,
+                        foregroundColor: context.strongInk,
                         padding: const EdgeInsets.only(left: 5),
                       ),
                       child: const Text(
@@ -561,13 +562,13 @@ class _LoginForm extends StatelessWidget {
                     vertical: 12,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEFEEE9),
+                    color: context.pick(const Color(0xFFEFEEE9), const Color(0xFF2B312E)),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Gunakan email dan password akun SOLEA yang sudah diverifikasi.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 11.5, color: Color(0xFF77736B)),
+                    style: TextStyle(fontSize: 11.5, color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0))),
                   ),
                 ),
               ],
@@ -609,11 +610,7 @@ class _Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      'assets/images/solea_logo2.png',
-      height: 35,
-      fit: BoxFit.contain,
-    );
+    return const ThemedLogo(height: 35);
   }
 }
 
@@ -629,18 +626,18 @@ class _MobileShoeImage extends StatelessWidget {
       width: double.infinity,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: const Color(0xFFE8E4DC),
+        color: context.pick(const Color(0xFFE8E4DC), const Color(0xFF2B312E)),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Image.network(
         imageUrl,
         fit: BoxFit.cover,
         errorBuilder: (_, _, _) {
-          return const Center(
+          return Center(
             child: Icon(
               Icons.shopping_bag_outlined,
               size: 70,
-              color: Color(0xFF77736B),
+              color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
             ),
           );
         },
@@ -658,10 +655,10 @@ class _CleanLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 13,
         fontWeight: FontWeight.w700,
-        color: Color(0xFF1C1C1C),
+        color: context.pick(const Color(0xFF1C1C1C), const Color(0xFFECEFED)),
       ),
     );
   }
@@ -698,36 +695,36 @@ class _CleanTextField extends StatelessWidget {
       textInputAction: textInputAction,
       validator: validator,
       onFieldSubmitted: onSubmitted,
-      style: const TextStyle(fontSize: 14, color: Colors.black),
+      style: TextStyle(fontSize: 14, color: context.strongInk),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(fontSize: 14, color: Color(0xFFA09B92)),
+        hintStyle: TextStyle(fontSize: 14, color: context.pick(const Color(0xFFA09B92), const Color(0xFF828886))),
         suffixIcon: suffix,
         filled: true,
-        fillColor: Colors.white,
+        fillColor: context.card,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 17,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color(0xFFD8D4CC)),
+          borderSide: BorderSide(color: context.pick(const Color(0xFFD8D4CC), const Color(0xFF2B312E))),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color(0xFFD8D4CC)),
+          borderSide: BorderSide(color: context.pick(const Color(0xFFD8D4CC), const Color(0xFF2B312E))),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.black, width: 1.3),
+          borderSide: BorderSide(color: context.strongInk, width: 1.3),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.danger),
+          borderSide: BorderSide(color: context.danger),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.danger, width: 1.2),
+          borderSide: BorderSide(color: context.danger, width: 1.2),
         ),
       ),
     );

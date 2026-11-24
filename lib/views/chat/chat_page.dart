@@ -603,7 +603,10 @@ class ChatRoomView extends StatelessWidget {
                 style: theme.textTheme.labelMedium?.copyWith(
                   fontSize: ChatLayoutTokens.fontCaption,
                   fontWeight: FontWeight.w800,
-                  color: senderNameColor(message.author.id),
+                  color: senderNameColor(
+                    message.author.id,
+                    brightness: theme.brightness,
+                  ),
                 ),
               ),
             ),

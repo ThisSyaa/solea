@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: context.card,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
@@ -91,9 +91,9 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 Navigator.pop(dialogContext);
               },
-              child: const Text(
+              child: Text(
                 'Batal',
-                style: TextStyle(color: AppColors.ink),
+                style: TextStyle(color: context.ink),
               ),
             ),
             ElevatedButton(
@@ -117,8 +117,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.danger,
-                foregroundColor: Colors.white,
+                backgroundColor: context.danger,
+                foregroundColor: context.onDanger,
                 elevation: 0,
               ),
               child: const Text('Logout'),
@@ -150,23 +150,23 @@ class _ProfilePageState extends State<ProfilePage> {
         final wishlistCount = WishlistController.instance.count;
 
         return Scaffold(
-          backgroundColor: AppColors.sand,
+          backgroundColor: context.sand,
           appBar: AppBar(
-            backgroundColor: AppColors.sand,
+            backgroundColor: context.sand,
             surfaceTintColor: Colors.transparent,
             elevation: 0,
             centerTitle: false,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
-              color: AppColors.ink,
+              color: context.ink,
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
-            title: const Text(
+            title: Text(
               'Profile',
               style: TextStyle(
-                color: AppColors.ink,
+                color: context.ink,
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 letterSpacing: -0.2,
@@ -416,9 +416,9 @@ class _DesktopProfile extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.w700),
                             ),
                             style: OutlinedButton.styleFrom(
-                              foregroundColor: AppColors.danger,
+                              foregroundColor: context.danger,
                               side: BorderSide(
-                                color: AppColors.danger.withValues(alpha: 0.25),
+                                color: context.danger.withValues(alpha: 0.25),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(9),
@@ -593,9 +593,9 @@ class _MobileProfile extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.w700),
                   ),
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: AppColors.danger,
+                    foregroundColor: context.danger,
                     side: BorderSide(
-                      color: AppColors.danger.withValues(alpha: 0.25),
+                      color: context.danger.withValues(alpha: 0.25),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(9),
@@ -635,9 +635,9 @@ class _ProfileHeader extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(desktop ? 26 : 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.card,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.line),
+        border: Border.all(color: context.line),
       ),
       child: Row(
         children: [
@@ -657,7 +657,7 @@ class _ProfileHeader extends StatelessWidget {
                         style: TextStyle(
                           fontSize: desktop ? 26 : 20,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.ink,
+                          color: context.ink,
                           letterSpacing: -0.5,
                         ),
                       ),
@@ -671,12 +671,12 @@ class _ProfileHeader extends StatelessWidget {
                   email,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 13, color: AppColors.muted),
+                  style: TextStyle(fontSize: 13, color: context.muted),
                 ),
                 const SizedBox(height: 9),
-                const Text(
+                Text(
                   'Kelola akun dan aktivitas belanja kamu.',
-                  style: TextStyle(fontSize: 12, color: AppColors.muted),
+                  style: TextStyle(fontSize: 12, color: context.muted),
                 ),
               ],
             ),
@@ -688,8 +688,8 @@ class _ProfileHeader extends StatelessWidget {
               icon: const Icon(Icons.edit_outlined, size: 17),
               label: const Text('Edit Profile'),
               style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.ink,
-                side: const BorderSide(color: AppColors.line),
+                foregroundColor: context.ink,
+                side: BorderSide(color: context.line),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 13,
@@ -703,7 +703,7 @@ class _ProfileHeader extends StatelessWidget {
             IconButton(
               onPressed: onEdit,
               icon: const Icon(Icons.edit_outlined),
-              color: AppColors.ink,
+              color: context.ink,
             ),
         ],
       ),
@@ -726,7 +726,7 @@ class _ProfileAvatar extends StatelessWidget {
       padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: AppColors.line, width: 1.4),
+        border: Border.all(color: context.line, width: 1.4),
       ),
       child: EditableUserAvatar(radius: radius),
     );
@@ -745,16 +745,16 @@ class _MemberBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFFF0EEE8),
+        color: context.pick(const Color(0xFFF0EEE8), const Color(0xFF2B312E)),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: const Row(
+      child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             Icons.workspace_premium_outlined,
             size: 14,
-            color: AppColors.ink,
+            color: context.ink,
           ),
           SizedBox(width: 5),
           Text(
@@ -762,7 +762,7 @@ class _MemberBadge extends StatelessWidget {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
-              color: AppColors.ink,
+              color: context.ink,
             ),
           ),
         ],
@@ -786,9 +786,9 @@ class _StatsCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 19, horizontal: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.card,
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: AppColors.line),
+        border: Border.all(color: context.line),
       ),
       child: Row(
         children: [
@@ -824,16 +824,16 @@ class _StatItem extends StatelessWidget {
       children: [
         Text(
           number,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 21,
             fontWeight: FontWeight.w800,
-            color: AppColors.ink,
+            color: context.ink,
           ),
         ),
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(fontSize: 12, color: AppColors.muted),
+          style: TextStyle(fontSize: 12, color: context.muted),
         ),
       ],
     );
@@ -845,7 +845,7 @@ class _StatDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(height: 34, width: 1, color: AppColors.line);
+    return Container(height: 34, width: 1, color: context.line);
   }
 }
 
@@ -862,10 +862,10 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w800,
-        color: AppColors.ink,
+        color: context.ink,
       ),
     );
   }
@@ -884,9 +884,9 @@ class _MenuCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.card,
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: AppColors.line),
+        border: Border.all(color: context.line),
       ),
       child: Column(children: children),
     );
@@ -925,10 +925,10 @@ class _MenuTile extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF3F1EC),
+                  color: context.pick(const Color(0xFFF3F1EC), const Color(0xFF2B312E)),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(icon, size: 19, color: AppColors.ink),
+                child: Icon(icon, size: 19, color: context.ink),
               ),
               const SizedBox(width: 13),
               Expanded(
@@ -939,10 +939,10 @@ class _MenuTile extends StatelessWidget {
                       title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13.5,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.ink,
+                        color: context.ink,
                       ),
                     ),
                     const SizedBox(height: 3),
@@ -950,18 +950,18 @@ class _MenuTile extends StatelessWidget {
                       subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 11.5,
-                        color: AppColors.muted,
+                        color: context.muted,
                       ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 10),
-              const Icon(
+              Icon(
                 Icons.chevron_right_rounded,
-                color: Color(0xFFAAA69E),
+                color: context.pick(const Color(0xFFAAA69E), const Color(0xFF828886)),
                 size: 20,
               ),
             ],
@@ -981,9 +981,9 @@ class _MenuDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.only(left: 70),
-      child: Divider(height: 1, thickness: 1, color: AppColors.line),
+      child: Divider(height: 1, thickness: 1, color: context.line),
     );
   }
 }

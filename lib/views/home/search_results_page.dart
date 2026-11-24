@@ -96,7 +96,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     final wishlist = WishlistController.instance;
 
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       body: SafeArea(
         child: Column(
           children: [
@@ -104,18 +104,18 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             Container(
               height: 64,
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                border: Border(bottom: BorderSide(color: AppColors.line)),
+              decoration: BoxDecoration(
+                color: context.card,
+                border: Border(bottom: BorderSide(color: context.line)),
               ),
               child: Row(
                 children: [
                   IconButton(
                     tooltip: 'Kembali',
                     onPressed: () => Navigator.of(context).maybePop(),
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.arrow_back_rounded,
-                      color: AppColors.ink,
+                      color: context.ink,
                     ),
                   ),
                   const SizedBox(width: 4),
@@ -166,25 +166,25 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                   children: [
                                     TextSpan(
                                       text: "'${widget.query}'",
-                                      style: const TextStyle(
-                                        color: AppColors.forest,
+                                      style: TextStyle(
+                                        color: context.forest,
                                         fontWeight: FontWeight.w800,
                                       ),
                                     ),
                                   ],
                                 ),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 18,
-                                  color: AppColors.ink,
+                                  color: context.ink,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               const SizedBox(height: 6),
                               Text(
                                 '${results.length} produk ditemukan',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 13,
-                                  color: AppColors.muted,
+                                  color: context.muted,
                                 ),
                               ),
                               const SizedBox(height: 16),
@@ -193,11 +193,11 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                 runSpacing: 8,
                                 crossAxisAlignment: WrapCrossAlignment.center,
                                 children: [
-                                  const Text(
+                                  Text(
                                     'Urutkan',
                                     style: TextStyle(
                                       fontSize: 13,
-                                      color: AppColors.muted,
+                                      color: context.muted,
                                     ),
                                   ),
                                   for (final sort in _ResultSort.values)
@@ -207,17 +207,17 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                         setState(() => _sort = sort);
                                       },
                                       label: Text(_sortLabel(sort)),
-                                      selectedColor: AppColors.forest,
-                                      backgroundColor: Colors.white,
+                                      selectedColor: context.forest,
+                                      backgroundColor: context.card,
                                       side: BorderSide(
                                         color: _sort == sort
-                                            ? AppColors.forest
-                                            : AppColors.line,
+                                            ? context.forest
+                                            : context.line,
                                       ),
                                       labelStyle: TextStyle(
                                         color: _sort == sort
-                                            ? Colors.white
-                                            : AppColors.muted,
+                                            ? context.onForest
+                                            : context.muted,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 13,
                                       ),
@@ -243,27 +243,27 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                           sliver: SliverToBoxAdapter(
                             child: Column(
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.search_off_rounded,
                                   size: 54,
-                                  color: AppColors.muted,
+                                  color: context.muted,
                                 ),
                                 const SizedBox(height: 12),
                                 Text(
                                   "Tidak ada hasil untuk '${widget.query}'.",
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,
-                                    color: AppColors.ink,
+                                    color: context.ink,
                                   ),
                                 ),
                                 const SizedBox(height: 6),
-                                const Text(
+                                Text(
                                   'Coba kata kunci lain, misalnya nama kategori '
                                   'seperti Running atau Casual.',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(color: AppColors.muted),
+                                  style: TextStyle(color: context.muted),
                                 ),
                               ],
                             ),
@@ -332,7 +332,7 @@ class _ResultCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: context.card,
       borderRadius: BorderRadius.circular(18),
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
@@ -349,14 +349,14 @@ class _ResultCard extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       Container(
-                        color: AppColors.sand,
+                        color: context.sand,
                         child: AppNetworkImage(imageUrl: product.imageUrl),
                       ),
                       Positioned(
                         top: 8,
                         right: 8,
                         child: Material(
-                          color: Colors.white.withValues(alpha: 0.94),
+                          color: context.card.withValues(alpha: 0.94),
                           shape: const CircleBorder(),
                           child: InkWell(
                             customBorder: const CircleBorder(),
@@ -369,8 +369,8 @@ class _ResultCard extends StatelessWidget {
                                     : Icons.favorite_border_rounded,
                                 size: 17,
                                 color: isFavorite
-                                    ? AppColors.danger
-                                    : AppColors.ink,
+                                    ? context.danger
+                                    : context.ink,
                               ),
                             ),
                           ),
@@ -383,9 +383,9 @@ class _ResultCard extends StatelessWidget {
               const SizedBox(height: 11),
               Text(
                 product.category,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 11.5,
-                  color: AppColors.muted,
+                  color: context.muted,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -394,9 +394,9 @@ class _ResultCard extends StatelessWidget {
                 product.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
-                  color: AppColors.ink,
+                  color: context.ink,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -408,9 +408,9 @@ class _ResultCard extends StatelessWidget {
                       formatRupiah(product.price),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 13.5,
-                        color: AppColors.forestDeep,
+                        color: context.forestDeep,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -424,9 +424,9 @@ class _ResultCard extends StatelessWidget {
                   const SizedBox(width: 2),
                   Text(
                     product.rating.toString(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 11.5,
-                      color: AppColors.muted,
+                      color: context.muted,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

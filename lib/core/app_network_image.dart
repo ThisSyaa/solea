@@ -63,10 +63,10 @@ class AppNetworkImage extends StatelessWidget {
           dark ? const ShimmerBox.dark() : const ShimmerBox(),
       errorWidget: (context, _, _) {
         if (errorBuilder != null) return errorBuilder!(context);
-        return const Center(
+        return Center(
           child: Icon(
             Icons.image_not_supported_outlined,
-            color: AppColors.muted,
+            color: context.muted,
             size: 34,
           ),
         );

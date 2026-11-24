@@ -182,7 +182,7 @@ class _SectionHeader extends StatelessWidget {
               fontSize: ChatLayoutTokens.fontCaption,
               fontWeight: FontWeight.w800,
               letterSpacing: 0.4,
-              color: AppColors.forestDeep,
+              color: context.forestDeep,
             ),
           ),
         ],

@@ -24,10 +24,10 @@ class _PaymentMethodPageState
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-          AppColors.sand,
+          context.sand,
       appBar: AppBar(
         backgroundColor:
-            AppColors.sand,
+            context.sand,
         elevation: 0,
         title: const Text(
           'Metode Pembayaran',
@@ -54,7 +54,7 @@ class _PaymentMethodPageState
             decoration:
                 BoxDecoration(
               color:
-                  Colors.white,
+                  context.card,
               borderRadius:
                   BorderRadius.circular(
                 20,

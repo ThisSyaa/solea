@@ -80,24 +80,24 @@ class _NavSearchFieldState extends State<NavSearchField> {
               autofocus: widget.autofocus,
               textInputAction: TextInputAction.search,
               onSubmitted: (_) => onFieldSubmitted(),
-              style: const TextStyle(fontSize: 14, color: AppColors.ink),
+              style: TextStyle(fontSize: 14, color: context.ink),
               decoration: InputDecoration(
                 hintText: 'Cari sepatu atau kategori',
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                   fontSize: 14,
-                  color: AppColors.muted,
+                  color: context.muted,
                 ),
                 isDense: true,
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: context.card,
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 12,
                   vertical: 13,
                 ),
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.search_rounded,
                   size: 20,
-                  color: AppColors.muted,
+                  color: context.muted,
                 ),
                 suffixIcon: ValueListenableBuilder<TextEditingValue>(
                   valueListenable: controller,
@@ -107,14 +107,14 @@ class _NavSearchFieldState extends State<NavSearchField> {
                     return IconButton(
                       tooltip: 'Hapus',
                       icon: const Icon(Icons.close_rounded, size: 18),
-                      color: AppColors.muted,
+                      color: context.muted,
                       onPressed: controller.clear,
                     );
                   },
                 ),
-                border: _border(AppColors.line),
-                enabledBorder: _border(AppColors.line),
-                focusedBorder: _border(AppColors.forest, 1.4),
+                border: _border(context.line),
+                enabledBorder: _border(context.line),
+                focusedBorder: _border(context.forest, 1.4),
               ),
             );
           },
@@ -127,7 +127,7 @@ class _NavSearchFieldState extends State<NavSearchField> {
                 padding: const EdgeInsets.only(top: 6),
                 child: Material(
                   elevation: 6,
-                  color: Colors.white,
+                  color: context.card,
                   borderRadius: BorderRadius.circular(12),
                   clipBehavior: Clip.antiAlias,
                   child: ConstrainedBox(
@@ -147,7 +147,7 @@ class _NavSearchFieldState extends State<NavSearchField> {
                           return InkWell(
                             onTap: () => onSelected(option),
                             child: Container(
-                              color: highlighted ? AppColors.sand : null,
+                              color: highlighted ? context.sand : null,
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 14,
                                 vertical: 12,
@@ -159,7 +159,7 @@ class _NavSearchFieldState extends State<NavSearchField> {
                                         ? Icons.search_rounded
                                         : Icons.north_west_rounded,
                                     size: 18,
-                                    color: AppColors.muted,
+                                    color: context.muted,
                                   ),
                                   const SizedBox(width: 10),
                                   Expanded(
@@ -169,7 +169,7 @@ class _NavSearchFieldState extends State<NavSearchField> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontSize: 14,
-                                        color: AppColors.ink,
+                                        color: context.ink,
                                         fontWeight: index == 0
                                             ? FontWeight.w700
                                             : FontWeight.w500,

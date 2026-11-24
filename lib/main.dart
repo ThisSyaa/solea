@@ -6,6 +6,7 @@ import 'controllers/product_controller.dart';
 import 'core/app_routes.dart';
 import 'core/app_theme.dart';
 import 'core/auth_gate.dart';
+import 'core/theme_controller.dart';
 import 'firebase_options.dart';
 import 'views/landing/landing_page.dart';
 
@@ -17,6 +18,7 @@ Future<void> main() async {
   );
 
   await ProductController.load();
+  await ThemeController.instance.load();
   await initializeDateFormatting('id_ID');
   final restoredUser = await FirebaseAuth.instance.authStateChanges().first;
   final isLoggedIn = restoredUser != null;
@@ -35,17 +37,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SOLEA',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      onGenerateRoute: AppRoutes.onGenerateRoute,
-      onGenerateInitialRoutes: (_) => [
-        MaterialPageRoute<void>(
-          settings: const RouteSettings(name: '/'),
-          builder: (_) => isLoggedIn ? const AuthGate() : const LandingPage(),
-        ),
-      ],
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: ThemeController.instance,
+      builder: (context, themeMode, _) {
+        return MaterialApp(
+          title: 'SOLEA',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          themeMode: themeMode,
+          onGenerateRoute: AppRoutes.onGenerateRoute,
+          onGenerateInitialRoutes: (_) => [
+            MaterialPageRoute<void>(
+              settings: const RouteSettings(name: '/'),
+              builder: (_) =>
+                  isLoggedIn ? const AuthGate() : const LandingPage(),
+            ),
+          ],
+        );
+      },
     );
   }
 }

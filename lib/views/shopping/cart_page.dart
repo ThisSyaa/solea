@@ -14,9 +14,9 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
-        backgroundColor: AppColors.sand,
+        backgroundColor: context.sand,
         elevation: 0,
         title: const Text(
           'Keranjang',
@@ -88,7 +88,7 @@ class _CartItemTile extends StatelessWidget {
     final cart = CartController.instance;
     return Container(
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18)),
+      decoration: BoxDecoration(color: context.card, borderRadius: BorderRadius.circular(18)),
       child: Row(
         children: [
           ClipRRect(
@@ -124,7 +124,7 @@ class _CartItemTile extends StatelessWidget {
           IconButton(
             tooltip: 'Hapus',
             onPressed: () => cart.remove(item),
-            icon: const Icon(Icons.delete_outline_rounded, color: AppColors.danger),
+            icon: Icon(Icons.delete_outline_rounded, color: context.danger),
           ),
         ],
       ),
@@ -140,7 +140,7 @@ class _QtyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.sand,
+      color: context.sand,
       borderRadius: BorderRadius.circular(9),
       child: InkWell(
         onTap: onTap,
@@ -163,7 +163,7 @@ class _CartSummary extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: context.card, borderRadius: BorderRadius.circular(20)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -260,28 +260,34 @@ class _CartEmptyState extends State<_CartEmpty>
                 SizedBox(
                   width: 230,
                   height: 170,
-                  child: CustomPaint(painter: _EmptyCartPainter(_loop)),
+                  child: CustomPaint(painter: _EmptyCartPainter(
+                    _loop,
+                    inkColor: context.ink,
+                    forestColor: context.forest,
+                    fillColor: context.card,
+                  ),
+                ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Keranjangmu masih kosong',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
-                    color: AppColors.ink,
+                    color: context.ink,
                     letterSpacing: -0.2,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Sepatu impianmu menunggu di katalog.\n'
                   'Pilih satu, lalu masukkan ke keranjang.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
                     height: 1.55,
-                    color: AppColors.muted,
+                    color: context.muted,
                   ),
                 ),
                 const SizedBox(height: 26),
@@ -291,8 +297,8 @@ class _CartEmptyState extends State<_CartEmpty>
                   child: FilledButton.icon(
                     onPressed: () => Navigator.pop(context),
                     style: FilledButton.styleFrom(
-                      backgroundColor: AppColors.forest,
-                      foregroundColor: Colors.white,
+                      backgroundColor: context.forest,
+                      foregroundColor: context.onForest,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
@@ -319,10 +325,16 @@ class _CartEmptyState extends State<_CartEmpty>
 class _EmptyCartPainter extends CustomPainter {
   final Animation<double> loop;
 
-  _EmptyCartPainter(this.loop) : super(repaint: loop);
+  _EmptyCartPainter(
+    this.loop, {
+    required this.inkColor,
+    required this.forestColor,
+    required this.fillColor,
+  }) : super(repaint: loop);
 
-  static const _ink = AppColors.ink;
-  static const _forest = AppColors.forest;
+  final Color inkColor;
+  final Color forestColor;
+  final Color fillColor; // warna isi putih/kartu
   static const _amber = Color(0xFFE1A12B);
 
   @override
@@ -345,9 +357,9 @@ class _EmptyCartPainter extends CustomPainter {
 
     // Kilauan di sekitar keranjang.
     _sparkle(canvas, Offset(cx - 84, 44), 9, _amber, t, 0.00);
-    _sparkle(canvas, Offset(cx + 88, 60), 7, _forest, t, 0.33);
+    _sparkle(canvas, Offset(cx + 88, 60), 7, forestColor, t, 0.33);
     _sparkle(canvas, Offset(cx + 66, 20), 5, _amber, t, 0.62);
-    _sparkle(canvas, Offset(cx - 62, 112), 5, _forest, t, 0.80);
+    _sparkle(canvas, Offset(cx - 62, 112), 5, forestColor, t, 0.80);
   }
 
   void _paintBackdrop(Canvas canvas, Size size) {
@@ -355,12 +367,12 @@ class _EmptyCartPainter extends CustomPainter {
     canvas.drawCircle(
       center,
       74,
-      Paint()..color = _forest.withValues(alpha: 0.07),
+      Paint()..color = forestColor.withValues(alpha: 0.07),
     );
     canvas.drawCircle(
       center,
       52,
-      Paint()..color = _forest.withValues(alpha: 0.07),
+      Paint()..color = forestColor.withValues(alpha: 0.07),
     );
   }
 
@@ -373,14 +385,14 @@ class _EmptyCartPainter extends CustomPainter {
         width: width,
         height: 12,
       ),
-      Paint()..color = _ink.withValues(alpha: alpha),
+      Paint()..color = inkColor.withValues(alpha: alpha),
     );
   }
 
   /// Digambar pada kotak lokal 120 x 100.
   void _paintCart(Canvas canvas, double t) {
     final stroke = Paint()
-      ..color = _ink
+      ..color = inkColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5
       ..strokeCap = StrokeCap.round
@@ -394,11 +406,11 @@ class _EmptyCartPainter extends CustomPainter {
       ..lineTo(40, 66)
       ..close();
 
-    canvas.drawPath(basket, Paint()..color = Colors.white);
+    canvas.drawPath(basket, Paint()..color = fillColor);
 
     // Kisi-kisi di dalam keranjang.
     final slat = Paint()
-      ..color = _ink.withValues(alpha: 0.16)
+      ..color = inkColor.withValues(alpha: 0.16)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.5
       ..strokeCap = StrokeCap.round;
@@ -423,7 +435,7 @@ class _EmptyCartPainter extends CustomPainter {
 
     // Penyangga roda.
     final strut = Paint()
-      ..color = _ink
+      ..color = inkColor
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round;
     canvas.drawLine(const Offset(50, 66), const Offset(50, 80), strut);
@@ -435,11 +447,11 @@ class _EmptyCartPainter extends CustomPainter {
   }
 
   void _wheel(Canvas canvas, Offset c, double t) {
-    canvas.drawCircle(c, 8, Paint()..color = _forest);
+    canvas.drawCircle(c, 8, Paint()..color = forestColor);
 
     final angle = t * 2 * math.pi * 3;
     final spoke = Paint()
-      ..color = Colors.white
+      ..color = fillColor
       ..strokeWidth = 2
       ..strokeCap = StrokeCap.round;
 
@@ -451,7 +463,7 @@ class _EmptyCartPainter extends CustomPainter {
         spoke,
       );
     }
-    canvas.drawCircle(c, 2, Paint()..color = Colors.white);
+    canvas.drawCircle(c, 2, Paint()..color = fillColor);
   }
 
   void _sparkle(
@@ -482,5 +494,8 @@ class _EmptyCartPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _EmptyCartPainter oldDelegate) =>
-      oldDelegate.loop != loop;
+      oldDelegate.loop != loop ||
+      oldDelegate.inkColor != inkColor ||
+      oldDelegate.forestColor != forestColor ||
+      oldDelegate.fillColor != fillColor;
 }

@@ -125,8 +125,11 @@ class ChatKindConfig {
 }
 
 /// Menghasilkan warna nama pengirim dengan rasio kontras WCAG AA (>= 4.5:1).
-Color senderNameColor(String userId) =>
-    AppColors.senderNameColor(userId);
+Color senderNameColor(
+  String userId, {
+  Brightness brightness = Brightness.light,
+}) =>
+    AppColors.senderNameColor(userId, brightness: brightness);
 
 /// Membangun tema `flutter_chat_ui` v1.6.15 dengan input bar terang,
 /// kolom teks berbentuk pill, dan tipografi yang konsisten dengan ThemeData.

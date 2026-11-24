@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../controllers/auth_controller.dart';
+import 'app_theme.dart';
 import '../controllers/product_controller.dart';
 import '../views/admin/admin_shell.dart';
 import '../models/product.dart';
@@ -56,7 +57,8 @@ class AppRoutes {
 
     switch (uri.path) {
       case admin:
-        return const AdminShell();
+        // Panel admin punya palet terang sendiri: dipaksa tetap mode terang.
+        return Theme(data: AppTheme.light, child: const AdminShell());
       case cart:
         return const CartPage();
       case wishlist:

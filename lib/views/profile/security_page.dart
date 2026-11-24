@@ -60,10 +60,10 @@ class _SecurityPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
         backgroundColor:
-            AppColors.sand,
+            context.sand,
         elevation: 0,
         title: const Text(
           'Keamanan Akun',
@@ -102,7 +102,7 @@ class _SecurityPageState
                     decoration:
                         BoxDecoration(
                       color:
-                          Colors.white,
+                          context.card,
                       borderRadius:
                           BorderRadius.circular(
                         20,

@@ -49,7 +49,7 @@ class ConversationTile extends StatelessWidget {
     // Warna teks pratinjau dengan kontras >= 4.5:1 di atas surface putih
     final previewColor = unreadCount > 0
         ? colorScheme.onSurface
-        : AppColors.ink.withValues(alpha: 0.78);
+        : context.ink.withValues(alpha: 0.78);
 
     final unreadSemantics = unreadCount > 0
         ? ', $unreadCount pesan belum dibaca'
@@ -133,7 +133,7 @@ class ConversationTile extends StatelessWidget {
                                     : FontWeight.w600,
                                 color: unreadCount > 0
                                     ? colorScheme.primary
-                                    : AppColors.ink
+                                    : context.ink
                                         .withValues(
                                             alpha: 0.72),
                               ),

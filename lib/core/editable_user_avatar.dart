@@ -70,7 +70,7 @@ class EditableUserAvatar extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.black,
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 3),
+                  border: Border.all(color: context.card, width: 3),
                 ),
                 child: const Icon(
                   Icons.camera_alt_outlined,
@@ -95,7 +95,7 @@ class _PhotoSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.white,
+      backgroundColor: context.card,
       surfaceTintColor: Colors.transparent,
       insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
@@ -110,7 +110,7 @@ class _PhotoSheet extends StatelessWidget {
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.line, width: 1.4),
+                  border: Border.all(color: context.line, width: 1.4),
                 ),
                 child: const UserAvatar(radius: 44),
               ),
@@ -120,10 +120,10 @@ class _PhotoSheet extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 4),
-              const Text(
+              Text(
                 'Foto akan tampil di akun dan pojok kanan atas.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 13, color: AppColors.muted),
+                style: TextStyle(fontSize: 13, color: context.muted),
               ),
               const SizedBox(height: 20),
               _PhotoOptionTile(
@@ -138,7 +138,7 @@ class _PhotoSheet extends StatelessWidget {
                   icon: Icons.delete_outline_rounded,
                   title: 'Hapus foto',
                   subtitle: 'Kembali ke ikon bawaan',
-                  color: const Color(0xFFB3261E),
+                  color: context.pick(const Color(0xFFB3261E), const Color(0xFFF28B82)),
                   onTap: () => Navigator.pop(context, 'remove'),
                 ),
               ],
@@ -175,7 +175,7 @@ class _PhotoOptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tint = color ?? AppColors.forest;
+    final tint = color ?? context.forest;
 
     return Material(
       color: Colors.transparent,
@@ -186,7 +186,7 @@ class _PhotoOptionTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.line),
+            border: Border.all(color: context.line),
           ),
           child: Row(
             children: [
@@ -215,15 +215,15 @@ class _PhotoOptionTile extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       subtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12.5,
-                        color: AppColors.muted,
+                        color: context.muted,
                       ),
                     ),
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_right_rounded, color: AppColors.muted),
+              Icon(Icons.chevron_right_rounded, color: context.muted),
             ],
           ),
         ),

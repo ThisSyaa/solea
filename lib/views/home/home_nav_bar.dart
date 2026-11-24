@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import '../../controllers/auth_controller.dart';
 import '../../core/app_routes.dart';
 import '../../core/app_theme.dart';
+import '../../core/theme_toggle_button.dart';
+import '../../core/themed_logo.dart';
 import '../../core/user_avatar.dart';
 import 'nav_search_field.dart';
 
@@ -90,15 +92,15 @@ class HomeNavBar extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: surfaceColor,
-        border: const Border(
-          bottom: BorderSide(color: AppColors.line),
+        border: Border(
+          bottom: BorderSide(color: context.line),
         ),
       ),
       child: compactSearch
-          ? _buildCompactSearch()
+          ? _buildCompactSearch(context)
           : isMobile
               ? _buildMobileBar(context)
-              : _buildDesktopOrTablet(fieldWidth),
+              : _buildDesktopOrTablet(context, fieldWidth),
     );
   }
 
@@ -106,7 +108,7 @@ class HomeNavBar extends StatelessWidget {
   // LAYAR HP + SEARCH TERBUKA
   // ---------------------------------------------------------
 
-  Widget _buildCompactSearch() {
+  Widget _buildCompactSearch(BuildContext context) {
     return Row(
       children: [
         Expanded(child: NavSearchField(onSubmit: onSearchSubmit)),
@@ -114,7 +116,7 @@ class HomeNavBar extends StatelessWidget {
           tooltip: 'Tutup pencarian',
           constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
           onPressed: onSearchTap,
-          icon: const Icon(Icons.close_rounded, color: AppColors.ink),
+          icon: Icon(Icons.close_rounded, color: context.ink),
         ),
       ],
     );
@@ -134,7 +136,7 @@ class HomeNavBar extends StatelessWidget {
           onPressed: () {
             Scaffold.maybeOf(context)?.openDrawer();
           },
-          icon: const Icon(Icons.menu_rounded, color: AppColors.ink),
+          icon: Icon(Icons.menu_rounded, color: context.ink),
         ),
         Expanded(
           child: Align(
@@ -142,12 +144,7 @@ class HomeNavBar extends StatelessWidget {
             child: Semantics(
               label: 'SOLEA',
               image: true,
-              child: Image.asset(
-                'assets/images/solea_logo2.png',
-                height: 28,
-                fit: BoxFit.contain,
-                semanticLabel: 'SOLEA',
-              ),
+              child: const ThemedLogo(height: 28, semanticLabel: 'SOLEA'),
             ),
           ),
         ),
@@ -157,7 +154,7 @@ class HomeNavBar extends StatelessWidget {
           onPressed: onSearchTap,
           icon: Icon(
             searchOpen ? Icons.close_rounded : Icons.search_rounded,
-            color: AppColors.ink,
+            color: context.ink,
           ),
         ),
         _CounterIcon(
@@ -182,19 +179,14 @@ class HomeNavBar extends StatelessWidget {
   // Menu horizontal tetap di tempatnya; kolom search memanjang di atas area menu.
   // ---------------------------------------------------------
 
-  Widget _buildDesktopOrTablet(double fieldWidth) {
+  Widget _buildDesktopOrTablet(BuildContext context, double fieldWidth) {
     return Row(
       children: [
         // LOGO
         Semantics(
           label: 'SOLEA',
           image: true,
-          child: Image.asset(
-            'assets/images/solea_logo2.png',
-            height: 32,
-            fit: BoxFit.contain,
-            semanticLabel: 'SOLEA',
-          ),
+          child: const ThemedLogo(height: 32, semanticLabel: 'SOLEA'),
         ),
 
         // AREA TENGAH: menu + kolom search yang memanjang di atasnya
@@ -223,7 +215,7 @@ class HomeNavBar extends StatelessWidget {
                   alignment: Alignment.center,
                   child: PopupMenuButton<String>(
                     tooltip: 'Menu navigasi',
-                    icon: const Icon(Icons.menu, color: AppColors.ink),
+                    icon: Icon(Icons.menu, color: context.ink),
                     onSelected: _onMenuSelected,
                     itemBuilder: (context) => const [
                       PopupMenuItem(value: 'Home', child: Text('Home')),
@@ -238,16 +230,21 @@ class HomeNavBar extends StatelessWidget {
           ),
         ),
 
-        // IKON SEARCH (posisinya tetap; klik = buka, klik lagi = tutup)
+        // IKON SEARCH (posisinya tetap; klik = buka, klik lagi = tutup).
+        // Diletakkan tepat di kanan kolom search agar kolom dan tombol
+        // penutupnya bersebelahan.
         IconButton(
           tooltip: searchOpen ? 'Tutup pencarian' : 'Cari sepatu',
           constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
           onPressed: onSearchTap,
           icon: Icon(
             searchOpen ? Icons.close_rounded : Icons.search_rounded,
-            color: AppColors.ink,
+            color: context.ink,
           ),
         ),
+
+        // TOMBOL MODE GELAP / TERANG
+        const ThemeToggleButton(),
 
         _CounterIcon(
           tooltip: 'Wishlist',
@@ -319,10 +316,12 @@ class HomeMobileDrawer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    'assets/images/solea_logo2.png',
-                    height: 30,
-                    fit: BoxFit.contain,
+                  Row(
+                    children: [
+                      const ThemedLogo(height: 30),
+                      const Spacer(),
+                      const ThemeToggleButton(),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   Row(
@@ -339,7 +338,7 @@ class HomeMobileDrawer extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: theme.textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.w800,
-                                color: AppColors.ink,
+                                color: context.ink,
                               ),
                             ),
                             if (email.isNotEmpty) ...[
@@ -349,7 +348,7 @@ class HomeMobileDrawer extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: theme.textTheme.bodySmall?.copyWith(
-                                  color: AppColors.muted,
+                                  color: context.muted,
                                 ),
                               ),
                             ],
@@ -361,7 +360,7 @@ class HomeMobileDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(height: 1, color: AppColors.line),
+            Divider(height: 1, color: context.line),
             _DrawerTile(
               icon: Icons.home_outlined,
               label: 'Home',
@@ -413,7 +412,7 @@ class HomeMobileDrawer extends StatelessWidget {
                 Navigator.of(context).pushNamed(AppRoutes.orders);
               },
             ),
-            const Divider(height: 16, color: AppColors.line),
+            Divider(height: 16, color: context.line),
             _DrawerTile(
               icon: Icons.support_agent_rounded,
               label: 'Kontak',
@@ -439,7 +438,7 @@ class HomeMobileDrawer extends StatelessWidget {
               },
             ),
             if (AuthController.isCurrentUserAdmin) ...[
-              const Divider(height: 16, color: AppColors.line),
+              Divider(height: 16, color: context.line),
               _DrawerTile(
                 icon: Icons.admin_panel_settings_outlined,
                 label: 'Dashboard Admin',
@@ -477,21 +476,21 @@ class _DrawerTile extends StatelessWidget {
       minVerticalPadding: 12,
       leading: Icon(
         icon,
-        color: selected ? AppColors.forest : AppColors.ink,
+        color: selected ? context.forest : context.ink,
       ),
       title: Text(
         label,
         style: TextStyle(
           fontSize: 14,
           fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
-          color: selected ? AppColors.forest : AppColors.ink,
+          color: selected ? context.forest : context.ink,
         ),
       ),
       trailing: badgeCount > 0
           ? Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: AppColors.forest,
+                color: context.forest,
                 borderRadius: BorderRadius.circular(999),
               ),
               child: Text(
@@ -536,14 +535,14 @@ class HomeMobileBottomNav extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: surfaceColor,
-        border: const Border(top: BorderSide(color: AppColors.line)),
+        border: Border(top: BorderSide(color: context.line)),
       ),
       child: BottomNavigationBar(
         currentIndex: 0,
         type: BottomNavigationBarType.fixed,
         backgroundColor: surfaceColor,
-        selectedItemColor: AppColors.forest,
-        unselectedItemColor: AppColors.muted,
+        selectedItemColor: context.forest,
+        unselectedItemColor: context.muted,
         selectedFontSize: 12,
         unselectedFontSize: 12,
         elevation: 0,
@@ -738,7 +737,7 @@ class _NavLink extends StatelessWidget {
         onPressed: onTap,
         style: TextButton.styleFrom(
           minimumSize: const Size(48, 48),
-          foregroundColor: active ? AppColors.forest : AppColors.muted,
+          foregroundColor: active ? context.forest : context.muted,
           textStyle: TextStyle(
             fontSize: 14,
             fontWeight: active ? FontWeight.w700 : FontWeight.w500,
@@ -778,7 +777,7 @@ class _CounterIcon extends StatelessWidget {
           tooltip: tooltip,
           constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
           onPressed: onTap,
-          icon: Icon(icon, color: AppColors.ink),
+          icon: Icon(icon, color: context.ink),
         ),
         if (count > 0)
           Positioned(
@@ -788,8 +787,8 @@ class _CounterIcon extends StatelessWidget {
               child: Container(
                 constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                decoration: const BoxDecoration(
-                  color: AppColors.danger,
+                decoration: BoxDecoration(
+                  color: context.danger,
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -854,29 +853,29 @@ class _ProfileMenu extends StatelessWidget {
             children: [
               Text(
                 name,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 14,
-                  color: AppColors.ink,
+                  color: context.ink,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
                 email,
-                style: const TextStyle(fontSize: 12, color: AppColors.muted),
+                style: TextStyle(fontSize: 12, color: context.muted),
               ),
             ],
           ),
         ),
         const PopupMenuDivider(),
-        const PopupMenuItem<String>(
+        PopupMenuItem<String>(
           value: 'profile',
           child: Row(
             children: [
               Icon(
                 Icons.person_outline_rounded,
                 size: 18,
-                color: AppColors.muted,
+                color: context.muted,
               ),
               SizedBox(width: 10),
               Text('Profile'),
@@ -884,34 +883,34 @@ class _ProfileMenu extends StatelessWidget {
           ),
         ),
         if (AuthController.isCurrentUserAdmin)
-          const PopupMenuItem<String>(
+          PopupMenuItem<String>(
             value: 'admin',
             child: Row(
               children: [
                 Icon(
                   Icons.admin_panel_settings_outlined,
                   size: 18,
-                  color: AppColors.muted,
+                  color: context.muted,
                 ),
                 SizedBox(width: 10),
                 Text('Dashboard Admin'),
               ],
             ),
           ),
-        const PopupMenuItem<String>(
+        PopupMenuItem<String>(
           value: 'logout',
           child: Row(
             children: [
-              Icon(Icons.logout_rounded, size: 18, color: AppColors.danger),
+              Icon(Icons.logout_rounded, size: 18, color: context.danger),
               SizedBox(width: 10),
-              Text('Logout', style: TextStyle(color: AppColors.danger)),
+              Text('Logout', style: TextStyle(color: context.danger)),
             ],
           ),
         ),
       ],
       child: ConstrainedBox(
         constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 4),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -921,7 +920,7 @@ class _ProfileMenu extends StatelessWidget {
               Icon(
                 Icons.keyboard_arrow_down_rounded,
                 size: 18,
-                color: AppColors.muted,
+                color: context.muted,
               ),
             ],
           ),

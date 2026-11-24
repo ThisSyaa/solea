@@ -8,6 +8,7 @@ import '../controllers/cart_controller.dart';
 import '../controllers/wishlist_controller.dart';
 import '../views/auth/login_page.dart';
 import '../views/home/home_page.dart';
+import 'app_theme.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
@@ -276,7 +277,7 @@ class _AuthLoadingScreenState extends State<_AuthLoadingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F6F2),
+      backgroundColor: context.pick(const Color(0xFFF7F6F2), const Color(0xFF111412)),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -292,47 +293,27 @@ class _AuthLoadingScreenState extends State<_AuthLoadingScreen>
                   ),
                 );
               },
-              // Logo punya latar putih; multiply dengan warna halaman
-              // supaya latarnya menyatu, sedangkan bagian gelap tetap.
-              child: Image.asset(
-                'assets/images/solea_logo.png',
-                width: 190,
-                fit: BoxFit.contain,
-                filterQuality: FilterQuality.high,
-                color: const Color(0xFFF7F6F2),
-                colorBlendMode: BlendMode.multiply,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Text(
-                    'SOLEA',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 6,
-                      color: Color(0xFF14201B),
-                    ),
-                  );
-                },
-              ),
+              child: const _LoadingLogo(),
             ),
             const SizedBox(height: 22),
             ClipRRect(
               borderRadius: BorderRadius.circular(2),
-              child: const SizedBox(
+              child: SizedBox(
                 width: 120,
                 height: 3,
                 child: LinearProgressIndicator(
-                  backgroundColor: Color(0xFFE3DFD7),
-                  color: Color(0xFF2D5F4F),
+                  backgroundColor: context.pick(const Color(0xFFE3DFD7), const Color(0xFF2B312E)),
+                  color: context.pick(const Color(0xFF2D5F4F), const Color(0xFF6FB89C)),
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Menyiapkan SOLEA...',
               style: TextStyle(
                 fontSize: 13,
                 letterSpacing: 0.3,
-                color: Color(0xFF77736B),
+                color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
               ),
             ),
           ],
@@ -356,7 +337,7 @@ class _VerificationRequiredScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F6F2),
+      backgroundColor: context.pick(const Color(0xFFF7F6F2), const Color(0xFF111412)),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -365,10 +346,10 @@ class _VerificationRequiredScreen extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: context.card,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: const Color(0xFFECE8E0),
+                  color: context.pick(const Color(0xFFECE8E0), const Color(0xFF2B312E)),
                 ),
               ),
               child: Column(
@@ -377,35 +358,35 @@ class _VerificationRequiredScreen extends StatelessWidget {
                   Container(
                     width: 76,
                     height: 76,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFFFF0D8),
+                    decoration: BoxDecoration(
+                      color: context.pick(const Color(0xFFFFF0D8), const Color(0xFF2B2A22)),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.mark_email_unread_outlined,
                       size: 36,
-                      color: Color(0xFF9B7429),
+                      color: context.pick(const Color(0xFF9B7429), const Color(0xFFE5C071)),
                     ),
                   ),
                   const SizedBox(height: 22),
-                  const Text(
+                  Text(
                     'Verifikasi email dulu',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
-                      color: Color(0xFF191919),
+                      color: context.pick(const Color(0xFF191919), const Color(0xFFECEFED)),
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
+                  Text(
                     'Akunmu belum dapat masuk ke SOLEA sebelum '
                     'alamat email terverifikasi.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 13.5,
                       height: 1.6,
-                      color: Color(0xFF77736B),
+                      color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                     ),
                   ),
                   if (email.isNotEmpty) ...[
@@ -455,10 +436,10 @@ class _VerificationRequiredScreen extends StatelessWidget {
                     onPressed: () async {
                       await onLogout();
                     },
-                    child: const Text(
+                    child: Text(
                       'Kembali ke Login',
                       style: TextStyle(
-                        color: Color(0xFF77736B),
+                        color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -489,7 +470,7 @@ class _AuthErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F6F2),
+      backgroundColor: context.pick(const Color(0xFFF7F6F2), const Color(0xFF111412)),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -498,19 +479,19 @@ class _AuthErrorScreen extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(26),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: context.card,
                 borderRadius: BorderRadius.circular(22),
                 border: Border.all(
-                  color: const Color(0xFFECE8E0),
+                  color: context.pick(const Color(0xFFECE8E0), const Color(0xFF2B312E)),
                 ),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.cloud_off_outlined,
                     size: 44,
-                    color: Color(0xFF77736B),
+                    color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                   ),
                   const SizedBox(height: 16),
                   const Text(
@@ -525,10 +506,10 @@ class _AuthErrorScreen extends StatelessWidget {
                   Text(
                     message,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 13.5,
                       height: 1.6,
-                      color: Color(0xFF77736B),
+                      color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                     ),
                   ),
                   const SizedBox(height: 22),
@@ -557,6 +538,57 @@ class _AuthErrorScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Logo di layar loading. Gambarnya punya latar putih.
+/// - Mode terang: multiply dengan warna halaman supaya latarnya menyatu.
+/// - Mode gelap: kecerahan dibalik (latar putih -> hitam, tulisan -> terang),
+///   lalu di-screen dengan warna halaman sehingga latar hitamnya menghilang.
+class _LoadingLogo extends StatelessWidget {
+  const _LoadingLogo();
+
+  static const ColorFilter _invertKeepHue = ColorFilter.matrix(<double>[
+    0.574, -1.430, -0.144, 0, 255, //
+    -0.426, -0.430, -0.144, 0, 255, //
+    -0.426, -1.430, 0.856, 0, 255, //
+    0, 0, 0, 1, 0, //
+  ]);
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = context.isDarkMode;
+
+    final logo = Image.asset(
+      'assets/images/solea_logo.png',
+      width: 190,
+      fit: BoxFit.contain,
+      filterQuality: FilterQuality.high,
+      color: isDark ? null : const Color(0xFFF7F6F2),
+      colorBlendMode: isDark ? null : BlendMode.multiply,
+      errorBuilder: (context, error, stackTrace) {
+        // Warna ini ikut dibalik filter di mode gelap, jadi tetap terbaca.
+        return const Text(
+          'SOLEA',
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 6,
+            color: Color(0xFF14201B),
+          ),
+        );
+      },
+    );
+
+    if (!isDark) return logo;
+
+    return ColorFiltered(
+      colorFilter: const ColorFilter.mode(
+        AppColors.darkBackground,
+        BlendMode.screen,
+      ),
+      child: ColorFiltered(colorFilter: _invertKeepHue, child: logo),
     );
   }
 }

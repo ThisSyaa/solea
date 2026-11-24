@@ -18,7 +18,7 @@ import '../../models/product.dart';
 // warna utama aplikasi.
 // ============================================================
 
-Color _categoryColor(String category) {
+Color _categoryColor(BuildContext context, String category) {
   switch (category.toLowerCase()) {
     case 'running':
       return const Color(0xFF3F7D20);
@@ -33,7 +33,7 @@ Color _categoryColor(String category) {
     case 'lifestyle':
       return const Color(0xFF9A6410);
     default:
-      return AppColors.forest;
+      return context.forest;
   }
 }
 
@@ -97,7 +97,7 @@ class _WishlistPageState extends State<WishlistPage> {
               child: const Text('Batal'),
             ),
             FilledButton(
-              style: FilledButton.styleFrom(backgroundColor: AppColors.danger),
+              style: FilledButton.styleFrom(backgroundColor: context.danger),
               onPressed: () => Navigator.pop(dialogContext, true),
               child: const Text('Hapus semua'),
             ),
@@ -117,7 +117,7 @@ class _WishlistPageState extends State<WishlistPage> {
   Future<void> _addToCart(Product product) async {
     final size = await showModalBottomSheet<int>(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: context.card,
       constraints: const BoxConstraints(maxWidth: 520),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
@@ -151,9 +151,9 @@ class _WishlistPageState extends State<WishlistPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
-        backgroundColor: AppColors.sand,
+        backgroundColor: context.sand,
         surfaceTintColor: Colors.transparent,
         scrolledUnderElevation: 0,
         elevation: 0,
@@ -228,19 +228,19 @@ class _WishlistPageState extends State<WishlistPage> {
                                   child: Text(
                                     '${products.length} sepatu tersimpan',
                                     key: ValueKey<int>(products.length),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w800,
-                                      color: AppColors.ink,
+                                      color: context.ink,
                                     ),
                                   ),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   'Estimasi total ${formatRupiah(total)}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 13,
-                                    color: AppColors.muted,
+                                    color: context.muted,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -250,7 +250,7 @@ class _WishlistPageState extends State<WishlistPage> {
                           TextButton.icon(
                             onPressed: _confirmClearAll,
                             style: TextButton.styleFrom(
-                              foregroundColor: AppColors.danger,
+                              foregroundColor: context.danger,
                             ),
                             icon: const Icon(
                               Icons.delete_outline_rounded,
@@ -278,7 +278,7 @@ class _WishlistPageState extends State<WishlistPage> {
                               return _FilterChip(
                                 label: 'Semua',
                                 count: products.length,
-                                color: AppColors.forest,
+                                color: context.forest,
                                 selected: active == null,
                                 onTap: () => setState(() => _filter = null),
                               );
@@ -287,7 +287,7 @@ class _WishlistPageState extends State<WishlistPage> {
                             return _FilterChip(
                               label: category,
                               count: counts[category] ?? 0,
-                              color: _categoryColor(category),
+                              color: _categoryColor(context, category),
                               selected: active == category,
                               onTap: () => setState(() => _filter = category),
                             );
@@ -371,9 +371,9 @@ class _FilterChip extends StatelessWidget {
       duration: const Duration(milliseconds: 220),
       curve: Curves.easeOutCubic,
       decoration: BoxDecoration(
-        color: selected ? color : Colors.white,
+        color: selected ? color : context.card,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: selected ? color : AppColors.line),
+        border: Border.all(color: selected ? color : context.line),
       ),
       child: Material(
         color: Colors.transparent,
@@ -401,7 +401,7 @@ class _FilterChip extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: selected ? Colors.white : AppColors.ink,
+                    color: selected ? Colors.white : context.ink,
                   ),
                 ),
                 const SizedBox(width: 6),
@@ -412,7 +412,7 @@ class _FilterChip extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: selected
                         ? Colors.white.withValues(alpha: 0.8)
-                        : AppColors.muted,
+                        : context.muted,
                   ),
                 ),
               ],
@@ -506,7 +506,7 @@ class _WishlistCardState extends State<_WishlistCard>
   @override
   Widget build(BuildContext context) {
     final product = widget.product;
-    final accent = _categoryColor(product.category);
+    final accent = _categoryColor(context, product.category);
     final lifted = _hover && !_removing;
 
     return FadeTransition(
@@ -528,12 +528,12 @@ class _WishlistCardState extends State<_WishlistCard>
                 curve: Curves.easeOutCubic,
                 transform: Matrix4.translationValues(0, lifted ? -6 : 0, 0),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: context.card,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: lifted
                         ? accent.withValues(alpha: 0.6)
-                        : AppColors.line,
+                        : context.line,
                     width: 1.2,
                   ),
                   boxShadow: [
@@ -563,7 +563,7 @@ class _WishlistCardState extends State<_WishlistCard>
                                   fit: StackFit.expand,
                                   children: [
                                     Container(
-                                      color: AppColors.sand,
+                                      color: context.sand,
                                       child: AnimatedScale(
                                         scale: lifted ? 1.07 : 1.0,
                                         duration: const Duration(
@@ -623,9 +623,9 @@ class _WishlistCardState extends State<_WishlistCard>
                               product.name,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 14.5,
-                                color: AppColors.ink,
+                                color: context.ink,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -639,9 +639,9 @@ class _WishlistCardState extends State<_WishlistCard>
                                     formatRupiah(product.price),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 13.5,
-                                      color: AppColors.forestDeep,
+                                      color: context.forestDeep,
                                       fontWeight: FontWeight.w800,
                                     ),
                                   ),
@@ -653,7 +653,7 @@ class _WishlistCardState extends State<_WishlistCard>
                                     vertical: 3,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFFFF4DC),
+                                    color: context.pick(const Color(0xFFFFF4DC), const Color(0xFF2B2A22)),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Row(
@@ -667,9 +667,9 @@ class _WishlistCardState extends State<_WishlistCard>
                                       const SizedBox(width: 2),
                                       Text(
                                         product.rating.toString(),
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 11.5,
-                                          color: Color(0xFF7A5A12),
+                                          color: context.pick(const Color(0xFF7A5A12), const Color(0xFFE5C071)),
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -690,8 +690,9 @@ class _WishlistCardState extends State<_WishlistCard>
                                   // Saat kartu di-hover, tombol ikut warna kategori.
                                   backgroundColor: lifted
                                       ? accent
-                                      : AppColors.forest,
-                                  foregroundColor: Colors.white,
+                                      : context.forest,
+                                  foregroundColor:
+                                      lifted ? Colors.white : context.onForest,
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 8,
                                   ),
@@ -796,15 +797,15 @@ class _HeartButtonState extends State<_HeartButton> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: _hover
-                    ? AppColors.danger
-                    : Colors.white.withValues(alpha: 0.94),
+                    ? context.danger
+                    : context.card.withValues(alpha: 0.94),
               ),
               child: Icon(
                 _hover
                     ? Icons.heart_broken_rounded
                     : Icons.favorite_rounded,
                 size: 17,
-                color: _hover ? Colors.white : AppColors.danger,
+                color: _hover ? context.onDanger : context.danger,
               ),
             ),
           ),
@@ -838,19 +839,19 @@ class _SizePickerSheet extends StatelessWidget {
           children: [
             Text(
               product.name,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w800,
-                color: AppColors.ink,
+                color: context.ink,
               ),
             ),
             const SizedBox(height: 4),
             Text(
               formatRupiah(product.price),
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
-                color: AppColors.forestDeep,
+                color: context.forestDeep,
               ),
             ),
             const SizedBox(height: 18),
@@ -868,8 +869,8 @@ class _SizePickerSheet extends StatelessWidget {
                     onPressed: () => Navigator.pop(context, size),
                     style: OutlinedButton.styleFrom(
                       minimumSize: const Size(56, 44),
-                      foregroundColor: AppColors.ink,
-                      side: const BorderSide(color: AppColors.line),
+                      foregroundColor: context.ink,
+                      side: BorderSide(color: context.line),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -957,30 +958,37 @@ class _WishlistEmptyState extends State<_WishlistEmpty>
                     child: SizedBox(
                       width: 230,
                       height: 170,
-                      child: CustomPaint(painter: _EmptyWishlistPainter(_loop)),
+                      child: CustomPaint(painter: _EmptyWishlistPainter(
+                        _loop,
+                        inkColor: context.ink,
+                        forestColor: context.forest,
+                        roseColor: context.danger,
+                        fillColor: context.card,
+                      ),
+                    ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Wishlist masih kosong',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
-                    color: AppColors.ink,
+                    color: context.ink,
                     letterSpacing: -0.2,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Simpan sepatu yang kamu suka untuk dibeli nanti.\n'
                   'Tap ikon hati di katalog untuk menambahkannya.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
                     height: 1.55,
-                    color: AppColors.muted,
+                    color: context.muted,
                   ),
                 ),
                 const SizedBox(height: 26),
@@ -990,8 +998,8 @@ class _WishlistEmptyState extends State<_WishlistEmpty>
                   child: FilledButton.icon(
                     onPressed: () => Navigator.maybePop(context),
                     style: FilledButton.styleFrom(
-                      backgroundColor: AppColors.forest,
-                      foregroundColor: Colors.white,
+                      backgroundColor: context.forest,
+                      foregroundColor: context.onForest,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
@@ -1019,11 +1027,18 @@ class _WishlistEmptyState extends State<_WishlistEmpty>
 class _EmptyWishlistPainter extends CustomPainter {
   final Animation<double> loop;
 
-  _EmptyWishlistPainter(this.loop) : super(repaint: loop);
+  _EmptyWishlistPainter(
+    this.loop, {
+    required this.inkColor,
+    required this.forestColor,
+    required this.roseColor,
+    required this.fillColor,
+  }) : super(repaint: loop);
 
-  static const _ink = AppColors.ink;
-  static const _forest = AppColors.forest;
-  static const _rose = AppColors.danger;
+  final Color inkColor;
+  final Color forestColor;
+  final Color roseColor;
+  final Color fillColor; // warna isi putih/kartu
   static const _amber = Color(0xFFE1A12B);
 
   @override
@@ -1037,8 +1052,8 @@ class _EmptyWishlistPainter extends CustomPainter {
     _paintShadow(canvas, size, lift);
 
     // Hati kecil yang melayang naik di kiri dan kanan hati besar.
-    _floatingHeart(canvas, Offset(cx - 76, 0), 0.20, _rose, t, 0.00);
-    _floatingHeart(canvas, Offset(cx + 78, 0), 0.16, _forest, t, 0.50);
+    _floatingHeart(canvas, Offset(cx - 76, 0), 0.20, roseColor, t, 0.00);
+    _floatingHeart(canvas, Offset(cx + 78, 0), 0.16, forestColor, t, 0.50);
 
     // Hati besar: melayang + miring sedikit + berdetak dua kali per putaran.
     final beat = math.pow(math.max(0.0, math.sin(t * 4 * math.pi)), 4);
@@ -1054,9 +1069,9 @@ class _EmptyWishlistPainter extends CustomPainter {
 
     // Kilauan di sekitar hati.
     _sparkle(canvas, Offset(cx - 90, 40), 9, _amber, t, 0.00);
-    _sparkle(canvas, Offset(cx + 92, 48), 7, _forest, t, 0.33);
+    _sparkle(canvas, Offset(cx + 92, 48), 7, forestColor, t, 0.33);
     _sparkle(canvas, Offset(cx + 60, 14), 5, _amber, t, 0.62);
-    _sparkle(canvas, Offset(cx - 56, 12), 5, _forest, t, 0.80);
+    _sparkle(canvas, Offset(cx - 56, 12), 5, forestColor, t, 0.80);
   }
 
   void _paintBackdrop(Canvas canvas, Size size) {
@@ -1064,12 +1079,12 @@ class _EmptyWishlistPainter extends CustomPainter {
     canvas.drawCircle(
       center,
       74,
-      Paint()..color = _forest.withValues(alpha: 0.07),
+      Paint()..color = forestColor.withValues(alpha: 0.07),
     );
     canvas.drawCircle(
       center,
       52,
-      Paint()..color = _forest.withValues(alpha: 0.07),
+      Paint()..color = forestColor.withValues(alpha: 0.07),
     );
   }
 
@@ -1082,7 +1097,7 @@ class _EmptyWishlistPainter extends CustomPainter {
         width: width,
         height: 12,
       ),
-      Paint()..color = _ink.withValues(alpha: alpha),
+      Paint()..color = inkColor.withValues(alpha: alpha),
     );
   }
 
@@ -1102,11 +1117,11 @@ class _EmptyWishlistPainter extends CustomPainter {
   void _paintHeart(Canvas canvas) {
     final heart = _heartPath();
 
-    canvas.drawPath(heart, Paint()..color = Colors.white);
+    canvas.drawPath(heart, Paint()..color = fillColor);
 
     // Garis kilap di lengkungan kiri atas, seperti kisi-kisi pada keranjang.
     final shine = Paint()
-      ..color = _ink.withValues(alpha: 0.16)
+      ..color = inkColor.withValues(alpha: 0.16)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.5
       ..strokeCap = StrokeCap.round;
@@ -1123,13 +1138,13 @@ class _EmptyWishlistPainter extends CustomPainter {
     canvas.translate(55, 44);
     canvas.scale(0.34);
     canvas.translate(-55, -46);
-    canvas.drawPath(_heartPath(), Paint()..color = _forest);
+    canvas.drawPath(_heartPath(), Paint()..color = forestColor);
     canvas.restore();
 
     canvas.drawPath(
       heart,
       Paint()
-        ..color = _ink
+        ..color = inkColor
         ..style = PaintingStyle.stroke
         ..strokeWidth = 5
         ..strokeCap = StrokeCap.round
@@ -1192,5 +1207,9 @@ class _EmptyWishlistPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _EmptyWishlistPainter oldDelegate) =>
-      oldDelegate.loop != loop;
+      oldDelegate.loop != loop ||
+      oldDelegate.inkColor != inkColor ||
+      oldDelegate.forestColor != forestColor ||
+      oldDelegate.roseColor != roseColor ||
+      oldDelegate.fillColor != fillColor;
 }

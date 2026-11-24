@@ -135,15 +135,15 @@ class _ContactPageState extends State<ContactPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
-        backgroundColor: AppColors.sand,
+        backgroundColor: context.sand,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
+        title: Text(
           'Contact SOLEA',
           style: TextStyle(
-            color: AppColors.ink,
+            color: context.ink,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -173,31 +173,31 @@ class _ContactPageState extends State<ContactPage> {
                       width: 56,
                       height: 56,
                       decoration: BoxDecoration(
-                        color: AppColors.forest,
+                        color: context.forest,
                         borderRadius: BorderRadius.circular(17),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.mark_email_unread_outlined,
-                        color: Colors.white,
+                        color: context.onForest,
                         size: 28,
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const Text(
+                    Text(
                       'Ada yang bisa kami bantu?',
                       style: TextStyle(
-                        color: AppColors.ink,
+                        color: context.ink,
                         fontSize: 28,
                         fontWeight: FontWeight.w900,
                         letterSpacing: -0.7,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
+                    Text(
                       'Kirim pertanyaan atau sampaikan kendala '
                       'yang kamu alami saat menggunakan SOLEA.',
                       style: TextStyle(
-                        color: AppColors.muted,
+                        color: context.muted,
                         fontSize: 14,
                         height: 1.7,
                       ),
@@ -207,21 +207,21 @@ class _ContactPageState extends State<ContactPage> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFE8F0EC),
+                        color: context.pick(const Color(0xFFE8F0EC), const Color(0xFF202B26)),
                         borderRadius: BorderRadius.circular(18),
                       ),
                       child: Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.forum_rounded,
-                            color: AppColors.forest,
+                            color: context.forest,
                           ),
                           const SizedBox(width: 12),
-                          const Expanded(
+                          Expanded(
                             child: Text(
                               'Butuh respon cepat? Gunakan Live Chat Admin, Chat Bot AI, atau Komunitas User.',
                               style: TextStyle(
-                                color: AppColors.forestDeep,
+                                color: context.forestDeep,
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -257,10 +257,10 @@ class _ContactPageState extends State<ContactPage> {
                     Container(
                       padding: const EdgeInsets.all(22),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: context.card,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: AppColors.line,
+                          color: context.line,
                         ),
                       ),
                       child: Form(
@@ -268,10 +268,10 @@ class _ContactPageState extends State<ContactPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Kirim pesan',
                               style: TextStyle(
-                                color: AppColors.ink,
+                                color: context.ink,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -395,13 +395,13 @@ class _ContactPageState extends State<ContactPage> {
 
                             const SizedBox(height: 12),
 
-                            const Text(
+                            Text(
                               'Pesan tersimpan di sistem SOLEA. '
                               'Halaman ini belum mengirim email atau '
                               'notifikasi balasan secara otomatis.',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: AppColors.muted,
+                                color: context.muted,
                                 fontSize: 11,
                                 height: 1.6,
                               ),

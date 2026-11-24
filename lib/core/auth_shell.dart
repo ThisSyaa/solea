@@ -73,7 +73,7 @@ class _BrandPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.forestDeep,
+      color: context.forestDeep,
       child: Stack(
         children: [
           // Lingkaran dekoratif samar di latar
@@ -126,7 +126,7 @@ class _CompactBrandBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: AppColors.forestDeep,
+      color: context.forestDeep,
       padding: const EdgeInsets.symmetric(vertical: 28),
       child: const Center(child: _Logo()),
     );
@@ -148,10 +148,10 @@ class _Logo extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(9),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.bolt_rounded,
             size: 20,
-            color: AppColors.forestDeep,
+            color: context.forestDeep,
           ),
         ),
         const SizedBox(width: 12),

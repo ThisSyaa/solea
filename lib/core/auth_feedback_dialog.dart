@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_theme.dart';
 
 enum AuthFeedbackType { error, success, warning, info }
 
@@ -75,9 +76,9 @@ Future<void> showAuthFeedbackDialog({
           child: Container(
             padding: const EdgeInsets.fromLTRB(24, 18, 24, 22),
             decoration: BoxDecoration(
-              color: const Color(0xFFFFFEFC),
+              color: context.pick(const Color(0xFFFFFEFC), const Color(0xFF191D1B)),
               borderRadius: BorderRadius.circular(28),
-              border: Border.all(color: const Color(0xFFF0EDE6)),
+              border: Border.all(color: context.pick(const Color(0xFFF0EDE6), const Color(0xFF2F3532))),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.08),
@@ -99,8 +100,8 @@ Future<void> showAuthFeedbackDialog({
                         Navigator.of(dialogContext).pop();
                       },
                       style: IconButton.styleFrom(
-                        backgroundColor: const Color(0xFFF5F3EE),
-                        foregroundColor: const Color(0xFF77736B),
+                        backgroundColor: context.pick(const Color(0xFFF5F3EE), const Color(0xFF232826)),
+                        foregroundColor: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                       ),
                       icon: const Icon(Icons.close_rounded, size: 19),
                     ),
@@ -117,12 +118,12 @@ Future<void> showAuthFeedbackDialog({
                   Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 22,
                       height: 1.25,
                       fontWeight: FontWeight.w800,
                       letterSpacing: -0.5,
-                      color: Color(0xFF191919),
+                      color: context.pick(const Color(0xFF191919), const Color(0xFFECEFED)),
                     ),
                   ),
 
@@ -132,10 +133,10 @@ Future<void> showAuthFeedbackDialog({
                   Text(
                     message,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 13.5,
                       height: 1.65,
-                      color: Color(0xFF77736B),
+                      color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                     ),
                   ),
 
@@ -150,7 +151,7 @@ Future<void> showAuthFeedbackDialog({
                         Navigator.of(dialogContext).pop();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF171717),
+                        backgroundColor: context.pick(const Color(0xFF171717), const Color(0xFF2D6A4F)),
                         foregroundColor: Colors.white,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
@@ -176,7 +177,7 @@ Future<void> showAuthFeedbackDialog({
                         Navigator.of(dialogContext).pop();
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor: const Color(0xFF77736B),
+                        foregroundColor: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                         minimumSize: const Size(double.infinity, 42),
                       ),
                       child: Text(
@@ -260,7 +261,7 @@ class _FeedbackIllustration extends StatelessWidget {
               width: 34,
               height: 34,
               decoration: BoxDecoration(
-                color: const Color(0xFFFFFEFC),
+                color: context.pick(const Color(0xFFFFFEFC), const Color(0xFF191D1B)),
                 shape: BoxShape.circle,
                 border: Border.all(color: style.background, width: 2),
                 boxShadow: [

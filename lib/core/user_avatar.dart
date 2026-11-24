@@ -25,7 +25,7 @@ class UserAvatar extends StatelessWidget {
               ? Icon(
                   Icons.person_rounded,
                   size: radius * 1.1,
-                  color: AppColors.forest,
+                  color: context.forest,
                 )
               : null,
         );

@@ -23,10 +23,10 @@ class _NotificationPageState
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-          AppColors.sand,
+          context.sand,
       appBar: AppBar(
         backgroundColor:
-            AppColors.sand,
+            context.sand,
         elevation: 0,
         title: const Text(
           'Notifikasi',
@@ -53,7 +53,7 @@ class _NotificationPageState
             decoration:
                 BoxDecoration(
               color:
-                  Colors.white,
+                  context.card,
               borderRadius:
                   BorderRadius.circular(
                 20,

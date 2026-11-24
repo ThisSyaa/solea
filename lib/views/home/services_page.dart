@@ -97,14 +97,14 @@ class ServicesPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
-        backgroundColor: AppColors.sand,
+        backgroundColor: context.sand,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
-          color: AppColors.ink,
+          color: context.ink,
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -112,7 +112,7 @@ class ServicesPage extends StatelessWidget {
           style: GoogleFonts.poppins(
             fontSize: 19,
             fontWeight: FontWeight.w600,
-            color: AppColors.ink,
+            color: context.ink,
           ),
         ),
         actions: [
@@ -120,7 +120,7 @@ class ServicesPage extends StatelessWidget {
             padding: const EdgeInsets.only(right: 18),
             child: Icon(
               Icons.notifications_none_rounded,
-              color: AppColors.ink,
+              color: context.ink,
               size: 25,
             ),
           ),
@@ -138,7 +138,7 @@ class ServicesPage extends StatelessWidget {
                 Text(
                   'Semua kebutuhanmu, dalam satu tempat.',
                   style: GoogleFonts.poppins(
-                    color: AppColors.ink,
+                    color: context.ink,
                     fontSize: width < 600 ? 23 : 30,
                     fontWeight: FontWeight.w700,
                     height: 1.35,
@@ -150,7 +150,7 @@ class ServicesPage extends StatelessWidget {
                 Text(
                   'Pilih layanan yang ingin kamu akses.',
                   style: GoogleFonts.poppins(
-                    color: AppColors.muted,
+                    color: context.muted,
                     fontSize: 14,
                   ),
                 ),
@@ -236,7 +236,7 @@ class _ServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-          color: Colors.white,
+          color: context.card,
           borderRadius: BorderRadius.circular(24),
           child: InkWell(
             onTap: data.onTap,
@@ -245,7 +245,7 @@ class _ServiceCard extends StatelessWidget {
               padding: const EdgeInsets.all(19),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: const Color(0xFFBDB8AD), width: 1.5),
+                border: Border.all(color: context.pick(const Color(0xFFBDB8AD), const Color(0xFF4B524F)), width: 1.5),
                 boxShadow: const [
                   BoxShadow(
                     color: Color.fromRGBO(0, 0, 0, 0.09),
@@ -308,7 +308,7 @@ class _ServiceCard extends StatelessWidget {
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.poppins(
-                                      color: AppColors.ink,
+                                      color: context.ink,
                                       fontSize: 13,
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -319,7 +319,7 @@ class _ServiceCard extends StatelessWidget {
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.poppins(
-                                      color: AppColors.muted,
+                                      color: context.muted,
                                       fontSize: 11,
                                       height: 1.5,
                                     ),
@@ -337,7 +337,7 @@ class _ServiceCard extends StatelessWidget {
                               Text(
                                 data.action,
                                 style: GoogleFonts.poppins(
-                                  color: AppColors.ink,
+                                  color: context.ink,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -346,7 +346,7 @@ class _ServiceCard extends StatelessWidget {
                               Icon(
                                 Icons.arrow_forward_rounded,
                                 size: 16,
-                                color: AppColors.forest,
+                                color: context.forest,
                               ),
                             ],
                           ),

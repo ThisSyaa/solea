@@ -88,7 +88,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: Colors.white,
+        backgroundColor: context.card,
         title: const Text('Panduan ukuran'),
         content: const Text(
           'Ukuran memakai standar EU. Ukur panjang kaki dari tumit sampai '
@@ -112,9 +112,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     final isWideScreen = screenWidth >= _kWideBreakpoint;
 
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
-        backgroundColor: AppColors.sand,
+        backgroundColor: context.sand,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         title: const SoleaLogo(iconSize: 30),
@@ -237,7 +237,7 @@ class _MobileStickyCartBar extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: surfaceColor,
-        border: const Border(top: BorderSide(color: AppColors.line)),
+        border: Border(top: BorderSide(color: context.line)),
       ),
       child: SafeArea(
         top: false,
@@ -253,7 +253,7 @@ class _MobileStickyCartBar extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: onAddToCart,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.ink,
+                      backgroundColor: context.ink,
                       minimumSize: const Size(double.infinity, 52),
                     ),
                     icon: const Icon(Icons.shopping_bag_outlined, size: 18),
@@ -311,13 +311,13 @@ class _Breadcrumb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const style = TextStyle(fontSize: 12, color: AppColors.muted);
-    const chevron =
-        Icon(Icons.chevron_right_rounded, size: 15, color: AppColors.muted);
+    final style = TextStyle(fontSize: 12, color: context.muted);
+    final chevron =
+        Icon(Icons.chevron_right_rounded, size: 15, color: context.muted);
 
     return Row(
       children: [
-        const Text('Beranda', style: style),
+        Text('Beranda', style: style),
         chevron,
         Text(product.category, style: style),
         chevron,
@@ -326,7 +326,7 @@ class _Breadcrumb extends StatelessWidget {
             product.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: style.copyWith(color: AppColors.ink),
+            style: style.copyWith(color: context.ink),
           ),
         ),
       ],
@@ -361,11 +361,11 @@ class _Gallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const emptyIcon = Center(
+    final emptyIcon = Center(
       child: Icon(
         Icons.image_not_supported_outlined,
         size: 60,
-        color: AppColors.muted,
+        color: context.muted,
       ),
     );
 
@@ -468,7 +468,7 @@ class _Thumb extends StatelessWidget {
               color: _kImageBg,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: selected ? AppColors.ink : Colors.transparent,
+                color: selected ? context.ink : Colors.transparent,
                 width: 1.5,
               ),
             ),
@@ -505,17 +505,17 @@ class _MoreThumb extends StatelessWidget {
             height: size,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: context.card,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.line),
+              border: Border.all(color: context.line),
             ),
             child: Text(
               '+$count lagi',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: AppColors.ink,
+                color: context.ink,
               ),
             ),
           ),
@@ -565,8 +565,8 @@ class _InfoPanel extends StatelessWidget {
               width: 28,
               height: 28,
               alignment: Alignment.center,
-              decoration: const BoxDecoration(
-                color: AppColors.forest,
+              decoration: BoxDecoration(
+                color: context.forest,
                 shape: BoxShape.circle,
               ),
               child: Text(
@@ -589,7 +589,7 @@ class _InfoPanel extends StatelessWidget {
                 product.category,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 12, color: AppColors.muted),
+                style: TextStyle(fontSize: 12, color: context.muted),
               ),
             ),
           ],
@@ -597,12 +597,12 @@ class _InfoPanel extends StatelessWidget {
         const SizedBox(height: 16),
         Text(
           product.name,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 28,
             height: 1.15,
             fontWeight: FontWeight.w700,
             letterSpacing: -0.5,
-            color: AppColors.ink,
+            color: context.ink,
           ),
         ),
         const SizedBox(height: 10),
@@ -624,7 +624,7 @@ class _InfoPanel extends StatelessWidget {
                         ? 'Belum ada ulasan'
                         : '${reviews.total} ulasan',
                     style:
-                        const TextStyle(fontSize: 12, color: AppColors.muted),
+                        TextStyle(fontSize: 12, color: context.muted),
                   ),
                 ],
               ),
@@ -634,15 +634,15 @@ class _InfoPanel extends StatelessWidget {
         const SizedBox(height: 20),
         Text(
           formatRupiah(product.price),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w800,
             letterSpacing: -0.5,
-            color: AppColors.ink,
+            color: context.ink,
           ),
         ),
         const SizedBox(height: 28),
-        const Row(
+        Row(
           children: [
             Text(
               'Ukuran',
@@ -651,7 +651,7 @@ class _InfoPanel extends StatelessWidget {
             SizedBox(width: 6),
             Text(
               'EU',
-              style: TextStyle(fontSize: 12, color: AppColors.muted),
+              style: TextStyle(fontSize: 12, color: context.muted),
             ),
           ],
         ),
@@ -691,7 +691,7 @@ class _InfoPanel extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: onAddToCart,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.ink,
+                      backgroundColor: context.ink,
                       minimumSize: const Size(double.infinity, 52),
                     ),
                     icon: const Icon(Icons.shopping_bag_outlined, size: 18),
@@ -707,16 +707,16 @@ class _InfoPanel extends StatelessWidget {
         const SizedBox(height: 14),
         Row(
           children: [
-            const Icon(
+            Icon(
               Icons.local_shipping_outlined,
               size: 18,
-              color: AppColors.muted,
+              color: context.muted,
             ),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
                 'Ongkir flat ${formatRupiah(_kShippingFlat)}',
-                style: const TextStyle(fontSize: 12, color: AppColors.muted),
+                style: TextStyle(fontSize: 12, color: context.muted),
               ),
             ),
           ],
@@ -755,10 +755,10 @@ class _SizeBox extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: selected ? AppColors.ink : colorScheme.surface,
+              color: selected ? context.ink : colorScheme.surface,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                color: selected ? AppColors.ink : AppColors.line,
+                color: selected ? context.ink : context.line,
               ),
             ),
             child: Text(
@@ -766,7 +766,7 @@ class _SizeBox extends StatelessWidget {
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
-                color: selected ? colorScheme.onPrimary : AppColors.ink,
+                color: selected ? colorScheme.onPrimary : context.ink,
               ),
             ),
           ),
@@ -789,7 +789,7 @@ class _WishlistButton extends StatelessWidget {
         return Tooltip(
           message: liked ? 'Hapus dari favorit' : 'Simpan ke favorit',
           child: Material(
-            color: const Color(0xFFE9E7E1),
+            color: context.pick(const Color(0xFFE9E7E1), const Color(0xFF2B312E)),
             borderRadius: BorderRadius.circular(10),
             child: InkWell(
               borderRadius: BorderRadius.circular(10),
@@ -801,7 +801,7 @@ class _WishlistButton extends StatelessWidget {
                   liked
                       ? Icons.favorite_rounded
                       : Icons.favorite_border_rounded,
-                  color: liked ? AppColors.danger : AppColors.ink,
+                  color: liked ? context.danger : context.ink,
                 ),
               ),
             ),
@@ -877,8 +877,8 @@ class _TabsSection extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: AppColors.line)),
+          decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: context.line)),
           ),
           child: Row(
             children: [
@@ -945,7 +945,7 @@ class _TabLabel extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: selected ? AppColors.ink : Colors.transparent,
+                    color: selected ? context.ink : Colors.transparent,
                     width: 2,
                   ),
                 ),
@@ -955,7 +955,7 @@ class _TabLabel extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                  color: selected ? AppColors.ink : AppColors.muted,
+                  color: selected ? context.ink : context.muted,
                 ),
               ),
             ),
@@ -981,10 +981,10 @@ class _DetailsContent extends StatelessWidget {
         children: [
           Text(
             product.description,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               height: 1.7,
-              color: AppColors.ink,
+              color: context.ink,
             ),
           ),
           const SizedBox(height: 24),
@@ -1013,8 +1013,8 @@ class _InfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: AppColors.line)),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: context.line)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1023,7 +1023,7 @@ class _InfoRow extends StatelessWidget {
             flex: 2,
             child: Text(
               label,
-              style: const TextStyle(fontSize: 13, color: AppColors.muted),
+              style: TextStyle(fontSize: 13, color: context.muted),
             ),
           ),
           const SizedBox(width: 12),
@@ -1086,15 +1086,15 @@ class _ReviewsContent extends StatelessWidget {
 
     final Widget list;
     if (failed) {
-      list = const Text(
+      list = Text(
         'Ulasan belum bisa dimuat. Periksa koneksi internet atau aturan '
         'Firestore untuk koleksi "reviews".',
-        style: TextStyle(color: AppColors.danger, height: 1.5),
+        style: TextStyle(color: context.danger, height: 1.5),
       );
     } else if (reviews.total == 0) {
-      list = const Text(
+      list = Text(
         'Belum ada ulasan. Jadilah yang pertama memberi rating.',
-        style: TextStyle(color: AppColors.muted),
+        style: TextStyle(color: context.muted),
       );
     } else {
       list = Column(
@@ -1215,9 +1215,9 @@ class _ReviewFormState extends State<_ReviewForm> {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.card,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.line),
+        border: Border.all(color: context.line),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1252,9 +1252,9 @@ class _ReviewFormState extends State<_ReviewForm> {
               if (_rating > 0)
                 Text(
                   _labels[_rating - 1],
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
-                    color: AppColors.muted,
+                    color: context.muted,
                   ),
                 ),
             ],
@@ -1274,7 +1274,7 @@ class _ReviewFormState extends State<_ReviewForm> {
             const SizedBox(height: 6),
             Text(
               _error!,
-              style: const TextStyle(fontSize: 12, color: AppColors.danger),
+              style: TextStyle(fontSize: 12, color: context.danger),
             ),
           ],
           const SizedBox(height: 12),
@@ -1284,8 +1284,8 @@ class _ReviewFormState extends State<_ReviewForm> {
             child: ElevatedButton(
               onPressed: _saving ? null : _submit,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.ink,
-                disabledBackgroundColor: AppColors.ink,
+                backgroundColor: context.ink,
+                disabledBackgroundColor: context.ink,
               ),
               child: _saving
                   ? const SizedBox(
@@ -1322,21 +1322,21 @@ class _SortDropdown extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.card,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.line),
+        border: Border.all(color: context.line),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<_ReviewSort>(
           value: value,
           isDense: true,
-          dropdownColor: Colors.white,
+          dropdownColor: context.card,
           borderRadius: BorderRadius.circular(10),
           icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 18),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w500,
-            color: AppColors.ink,
+            color: context.ink,
           ),
           items: [
             for (final entry in _labels.entries)
@@ -1382,8 +1382,8 @@ class _ReviewTile extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 18),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppColors.line)),
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: context.line)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1393,10 +1393,10 @@ class _ReviewTile extends StatelessWidget {
             backgroundColor: color,
             child: Text(
               name.substring(0, 1).toUpperCase(),
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w700,
-                color: AppColors.ink,
+                color: context.ink,
               ),
             ),
           ),
@@ -1418,9 +1418,9 @@ class _ReviewTile extends StatelessWidget {
                     ),
                     Text(
                       _ago,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
-                        color: AppColors.muted,
+                        color: context.muted,
                       ),
                     ),
                   ],
@@ -1475,7 +1475,7 @@ class _RatingSummary extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          const Divider(height: 1, color: AppColors.line),
+          Divider(height: 1, color: context.line),
           const SizedBox(height: 16),
           for (var star = 5; star >= 1; star--)
             _DistributionRow(
@@ -1510,7 +1510,7 @@ class _DistributionRow extends StatelessWidget {
             width: 14,
             child: Text(
               '$star',
-              style: const TextStyle(fontSize: 13, color: AppColors.muted),
+              style: TextStyle(fontSize: 13, color: context.muted),
             ),
           ),
           const SizedBox(width: 10),

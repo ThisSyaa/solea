@@ -172,20 +172,20 @@ class _AllProductsPageState extends State<AllProductsPage> {
         : 32.0;
 
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
-        backgroundColor: AppColors.sand,
+        backgroundColor: context.sand,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           onPressed: _backAction,
           tooltip: 'Kembali',
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.ink),
+          icon: Icon(Icons.arrow_back_rounded, color: context.ink),
         ),
         title: Text(
           _pageTitle,
-          style: const TextStyle(
-            color: AppColors.ink,
+          style: TextStyle(
+            color: context.ink,
             fontSize: 19,
             fontWeight: FontWeight.w800,
           ),
@@ -265,8 +265,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
       children: [
         Text(
           eyebrow,
-          style: const TextStyle(
-            color: AppColors.forest,
+          style: TextStyle(
+            color: context.forest,
             fontSize: 10,
             fontWeight: FontWeight.w800,
             letterSpacing: 1.8,
@@ -275,8 +275,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
         const SizedBox(height: 8),
         Text(
           heading,
-          style: const TextStyle(
-            color: AppColors.ink,
+          style: TextStyle(
+            color: context.ink,
             fontSize: 29,
             fontWeight: FontWeight.w900,
             letterSpacing: -0.8,
@@ -285,8 +285,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
         const SizedBox(height: 7),
         Text(
           subtitle,
-          style: const TextStyle(
-            color: AppColors.muted,
+          style: TextStyle(
+            color: context.muted,
             fontSize: 13,
             height: 1.6,
           ),
@@ -362,13 +362,13 @@ class _AllProductsPageState extends State<AllProductsPage> {
               });
             },
             label: Text(category),
-            selectedColor: AppColors.forest,
-            backgroundColor: Colors.white,
+            selectedColor: context.forest,
+            backgroundColor: context.card,
             side: BorderSide(
-              color: isActive ? AppColors.forest : AppColors.line,
+              color: isActive ? context.forest : context.line,
             ),
             labelStyle: TextStyle(
-              color: isActive ? Colors.white : AppColors.muted,
+              color: isActive ? context.onForest : context.muted,
               fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
@@ -393,8 +393,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
         Expanded(
           child: Text(
             '${_products.length} produk',
-            style: const TextStyle(
-              color: AppColors.ink,
+            style: TextStyle(
+              color: context.ink,
               fontSize: 14,
               fontWeight: FontWeight.w800,
             ),
@@ -404,8 +404,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
           Container(
             padding: const EdgeInsets.only(left: 10, right: 7),
             decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: AppColors.line),
+              color: context.card,
+              border: Border.all(color: context.line),
               borderRadius: BorderRadius.circular(11),
             ),
             child: DropdownButtonHideUnderline(
@@ -414,8 +414,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
                 isDense: true,
                 borderRadius: BorderRadius.circular(11),
                 icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 18),
-                style: const TextStyle(
-                  color: AppColors.ink,
+                style: TextStyle(
+                  color: context.ink,
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
                 ),
@@ -483,16 +483,16 @@ class _AllProductsPageState extends State<AllProductsPage> {
         padding: const EdgeInsets.symmetric(vertical: 42),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: context.card,
           borderRadius: BorderRadius.circular(18),
         ),
-        child: const Column(
+        child: Column(
           children: [
-            Icon(Icons.inventory_2_outlined, size: 36, color: AppColors.muted),
+            Icon(Icons.inventory_2_outlined, size: 36, color: context.muted),
             SizedBox(height: 10),
             Text(
               'Belum ada produk di kategori ini.',
-              style: TextStyle(color: AppColors.muted, fontSize: 13),
+              style: TextStyle(color: context.muted, fontSize: 13),
             ),
           ],
         ),
@@ -543,7 +543,7 @@ class _CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: context.card,
       borderRadius: BorderRadius.circular(18),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -598,14 +598,14 @@ class _CategoryCard extends StatelessWidget {
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: context.card,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.arrow_outward_rounded,
                         size: 16,
-                        color: AppColors.ink,
+                        color: context.ink,
                       ),
                     ),
                   ),
@@ -620,16 +620,16 @@ class _CategoryCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       '$productCount produk',
-                      style: const TextStyle(
-                        color: AppColors.muted,
+                      style: TextStyle(
+                        color: context.muted,
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.arrow_forward_rounded,
-                    color: AppColors.forest,
+                    color: context.forest,
                     size: 16,
                   ),
                 ],
@@ -648,12 +648,12 @@ class _CategoryImageFallback extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFECE9E1),
+      color: context.pick(const Color(0xFFECE9E1), const Color(0xFF2B312E)),
       alignment: Alignment.center,
-      child: const Icon(
+      child: Icon(
         Icons.directions_run_rounded,
         size: 44,
-        color: AppColors.forest,
+        color: context.forest,
       ),
     );
   }
@@ -679,7 +679,7 @@ class _CompactProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: context.card,
       borderRadius: BorderRadius.circular(17),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -699,7 +699,7 @@ class _CompactProductCard extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       Container(
-                        color: const Color(0xFFECE9E1),
+                        color: context.pick(const Color(0xFFECE9E1), const Color(0xFF2B312E)),
                         child: AppNetworkImage(imageUrl: product.imageUrl),
                       ),
 
@@ -713,7 +713,7 @@ class _CompactProductCard extends StatelessWidget {
                                 .contains(product);
 
                             return Material(
-                              color: Colors.white.withValues(alpha: 0.95),
+                              color: context.card.withValues(alpha: 0.95),
                               shape: const CircleBorder(),
                               child: InkWell(
                                 customBorder: const CircleBorder(),
@@ -726,8 +726,8 @@ class _CompactProductCard extends StatelessWidget {
                                         : Icons.favorite_border_rounded,
                                     size: 17,
                                     color: isFavorite
-                                        ? AppColors.danger
-                                        : AppColors.ink,
+                                        ? context.danger
+                                        : context.ink,
                                   ),
                                 ),
                               ),
@@ -747,8 +747,8 @@ class _CompactProductCard extends StatelessWidget {
                 product.category,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: AppColors.muted,
+                style: TextStyle(
+                  color: context.muted,
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
                   height: 1.15,
@@ -762,8 +762,8 @@ class _CompactProductCard extends StatelessWidget {
                 product.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: AppColors.ink,
+                style: TextStyle(
+                  color: context.ink,
                   fontSize: 14,
                   fontWeight: FontWeight.w800,
                   height: 1.2,
@@ -780,8 +780,8 @@ class _CompactProductCard extends StatelessWidget {
                       formatRupiah(product.price),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.forestDeep,
+                      style: TextStyle(
+                        color: context.forestDeep,
                         fontSize: 12,
                         fontWeight: FontWeight.w800,
                       ),
@@ -796,8 +796,8 @@ class _CompactProductCard extends StatelessWidget {
                   const SizedBox(width: 2),
                   Text(
                     product.rating.toStringAsFixed(1),
-                    style: const TextStyle(
-                      color: AppColors.muted,
+                    style: TextStyle(
+                      color: context.muted,
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
                     ),

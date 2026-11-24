@@ -177,9 +177,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
     final cart = CartController.instance;
 
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
-        backgroundColor: AppColors.sand,
+        backgroundColor: context.sand,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         title: const Text(
@@ -331,10 +331,10 @@ class _AddressForm extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.card,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: AppColors.line,
+              color: context.line,
             ),
           ),
           child: Column(
@@ -350,15 +350,15 @@ class _AddressForm extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF5F0E4),
+                    color: context.pick(const Color(0xFFF5F0E4), const Color(0xFF2B2A22)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
                     addressLoadWarning!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       height: 1.5,
-                      color: AppColors.ink,
+                      color: context.ink,
                     ),
                   ),
                 ),
@@ -451,10 +451,10 @@ class _AddressForm extends StatelessWidget {
 
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.card,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: AppColors.line,
+              color: context.line,
             ),
           ),
           child: RadioGroup<String>(
@@ -468,7 +468,7 @@ class _AddressForm extends StatelessWidget {
             children: [
               RadioListTile<String>(
                 value: 'Transfer Bank',
-                activeColor: AppColors.forest,
+                activeColor: context.forest,
                 title: const Text(
                   'Transfer Bank',
                   style: TextStyle(
@@ -477,13 +477,13 @@ class _AddressForm extends StatelessWidget {
                 ),
                 subtitle: const Text('BCA / BRI / Mandiri'),
               ),
-              const Divider(
+              Divider(
                 height: 1,
-                color: AppColors.line,
+                color: context.line,
               ),
               RadioListTile<String>(
                 value: 'E-Wallet',
-                activeColor: AppColors.forest,
+                activeColor: context.forest,
                 title: const Text(
                   'E-Wallet',
                   style: TextStyle(
@@ -527,10 +527,10 @@ class _CheckoutSummary extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.card,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppColors.line,
+          color: context.line,
         ),
       ),
       child: Column(
@@ -546,9 +546,9 @@ class _CheckoutSummary extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             '$itemCount item dalam keranjang',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
-              color: AppColors.muted,
+              color: context.muted,
             ),
           ),
           const SizedBox(height: 18),
@@ -592,13 +592,13 @@ class _CheckoutSummary extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          const Row(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(
                 Icons.info_outline_rounded,
                 size: 15,
-                color: AppColors.muted,
+                color: context.muted,
               ),
               SizedBox(width: 7),
               Expanded(
@@ -609,7 +609,7 @@ class _CheckoutSummary extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 11,
                     height: 1.5,
-                    color: AppColors.muted,
+                    color: context.muted,
                   ),
                 ),
               ),
@@ -638,7 +638,7 @@ class _Line extends StatelessWidget {
       fontWeight:
           bold ? FontWeight.w900 : FontWeight.w500,
       fontSize: bold ? 17 : 14,
-      color: AppColors.ink,
+      color: context.ink,
     );
 
     return Row(
@@ -674,30 +674,30 @@ class _EmptyCheckout extends StatelessWidget {
               width: 78,
               height: 78,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: context.card,
                 borderRadius: BorderRadius.circular(22),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.shopping_bag_outlined,
                 size: 35,
-                color: AppColors.forest,
+                color: context.forest,
               ),
             ),
             const SizedBox(height: 18),
-            const Text(
+            Text(
               'Keranjang masih kosong',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
-                color: AppColors.ink,
+                color: context.ink,
               ),
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Tambahkan sepatu ke keranjang sebelum checkout.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColors.muted,
+                color: context.muted,
                 height: 1.5,
               ),
             ),

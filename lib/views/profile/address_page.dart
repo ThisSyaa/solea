@@ -163,16 +163,16 @@ class _AddressPageState extends State<AddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       appBar: AppBar(
-        backgroundColor: AppColors.sand,
+        backgroundColor: context.sand,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: false,
-        title: const Text(
+        title: Text(
           'Alamat Saya',
           style: TextStyle(
-            color: AppColors.ink,
+            color: context.ink,
             fontSize: 18,
             fontWeight: FontWeight.w800,
             letterSpacing: -0.3,
@@ -191,9 +191,9 @@ class _AddressPageState extends State<AddressPage> {
 
   Widget _buildBody() {
     if (_isLoading) {
-      return const Center(
+      return Center(
         child: CircularProgressIndicator(
-          color: AppColors.forest,
+          color: context.forest,
         ),
       );
     }
@@ -252,16 +252,16 @@ class _AddressPageState extends State<AddressPage> {
             vertical: 7,
           ),
           decoration: BoxDecoration(
-            color: const Color(0xFFE8E4DA),
+            color: context.pick(const Color(0xFFE8E4DA), const Color(0xFF2B312E)),
             borderRadius: BorderRadius.circular(999),
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 Icons.local_shipping_outlined,
                 size: 14,
-                color: AppColors.forestDeep,
+                color: context.forestDeep,
               ),
               SizedBox(width: 6),
               Text(
@@ -270,7 +270,7 @@ class _AddressPageState extends State<AddressPage> {
                   fontSize: 10,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1.1,
-                  color: AppColors.forestDeep,
+                  color: context.forestDeep,
                 ),
               ),
             ],
@@ -283,10 +283,10 @@ class _AddressPageState extends State<AddressPage> {
                   ? 'Edit alamat'
                   : 'Tambah alamat')
                   : 'Alamat Saya',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 27,
             fontWeight: FontWeight.w800,
-            color: AppColors.ink,
+            color: context.ink,
             letterSpacing: -0.8,
           ),
         ),
@@ -295,10 +295,10 @@ class _AddressPageState extends State<AddressPage> {
           _isEditing
               ? 'Pastikan detail alamat dan kontak kamu benar.'
               : 'Alamat yang kamu gunakan untuk menerima pesanan SOLEA.',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 13,
             height: 1.6,
-            color: AppColors.muted,
+            color: context.muted,
           ),
         ),
       ],
@@ -318,10 +318,10 @@ class _AddressPageState extends State<AddressPage> {
       width: double.infinity,
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.card,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppColors.line,
+          color: context.line,
         ),
       ),
       child: Column(
@@ -333,17 +333,17 @@ class _AddressPageState extends State<AddressPage> {
                 width: 46,
                 height: 46,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF0EEE8),
+                  color: context.pick(const Color(0xFFF0EEE8), const Color(0xFF2B312E)),
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.location_on_outlined,
-                  color: AppColors.forest,
+                  color: context.forest,
                   size: 23,
                 ),
               ),
               const SizedBox(width: 12),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -352,7 +352,7 @@ class _AddressPageState extends State<AddressPage> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
-                        color: AppColors.ink,
+                        color: context.ink,
                       ),
                     ),
                     SizedBox(height: 4),
@@ -360,7 +360,7 @@ class _AddressPageState extends State<AddressPage> {
                       'Alamat utama akun kamu',
                       style: TextStyle(
                         fontSize: 12,
-                        color: AppColors.muted,
+                        color: context.muted,
                       ),
                     ),
                   ],
@@ -372,13 +372,13 @@ class _AddressPageState extends State<AddressPage> {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE5EFE9),
+                  color: context.pick(const Color(0xFFE5EFE9), const Color(0xFF202B26)),
                   borderRadius: BorderRadius.circular(999),
                 ),
-                child: const Text(
+                child: Text(
                   'UTAMA',
                   style: TextStyle(
-                    color: AppColors.forestDeep,
+                    color: context.forestDeep,
                     fontSize: 10,
                     fontWeight: FontWeight.w800,
                     letterSpacing: 0.4,
@@ -387,37 +387,37 @@ class _AddressPageState extends State<AddressPage> {
               ),
             ],
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Divider(
-              color: AppColors.line,
+              color: context.line,
               height: 1,
             ),
           ),
           Text(
             _nameController.text,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w800,
-              color: AppColors.ink,
+              color: context.ink,
             ),
           ),
           const SizedBox(height: 7),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
+              Icon(
                 Icons.phone_outlined,
                 size: 17,
-                color: AppColors.muted,
+                color: context.muted,
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   _phoneController.text,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 13,
-                    color: AppColors.muted,
+                    color: context.muted,
                   ),
                 ),
               ),
@@ -427,19 +427,19 @@ class _AddressPageState extends State<AddressPage> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
+              Icon(
                 Icons.home_outlined,
                 size: 18,
-                color: AppColors.muted,
+                color: context.muted,
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   _addressController.text,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 13,
                     height: 1.7,
-                    color: AppColors.ink,
+                    color: context.ink,
                   ),
                 ),
               ),
@@ -457,9 +457,9 @@ class _AddressPageState extends State<AddressPage> {
               ),
               label: const Text('Edit alamat'),
               style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.forestDeep,
-                side: const BorderSide(
-                  color: AppColors.line,
+                foregroundColor: context.forestDeep,
+                side: BorderSide(
+                  color: context.line,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -480,10 +480,10 @@ class _AddressPageState extends State<AddressPage> {
         vertical: 38,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.card,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppColors.line,
+          color: context.line,
         ),
       ),
       child: Column(
@@ -491,34 +491,34 @@ class _AddressPageState extends State<AddressPage> {
           Container(
             width: 76,
             height: 76,
-            decoration: const BoxDecoration(
-              color: Color(0xFFF0EEE8),
+            decoration: BoxDecoration(
+              color: context.pick(const Color(0xFFF0EEE8), const Color(0xFF2B312E)),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.location_on_outlined,
               size: 35,
-              color: AppColors.forest,
+              color: context.forest,
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
+          Text(
             'Belum ada alamat tersimpan',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w800,
-              color: AppColors.ink,
+              color: context.ink,
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'Tambahkan alamat pengiriman agar pesanan sepatu kamu bisa sampai ke tujuan.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 13,
               height: 1.6,
-              color: AppColors.muted,
+              color: context.muted,
             ),
           ),
           const SizedBox(height: 23),
@@ -545,10 +545,10 @@ class _AddressPageState extends State<AddressPage> {
       width: double.infinity,
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.card,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppColors.line,
+          color: context.line,
         ),
       ),
       child: Form(
@@ -556,12 +556,12 @@ class _AddressPageState extends State<AddressPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
                 Icon(
                   Icons.contact_page_outlined,
                   size: 21,
-                  color: AppColors.forest,
+                  color: context.forest,
                 ),
                 SizedBox(width: 9),
                 Text(
@@ -569,7 +569,7 @@ class _AddressPageState extends State<AddressPage> {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w800,
-                    color: AppColors.ink,
+                    color: context.ink,
                   ),
                 ),
               ],
@@ -630,20 +630,20 @@ class _AddressPageState extends State<AddressPage> {
               },
             ),
 
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 24),
               child: Divider(
-                color: AppColors.line,
+                color: context.line,
                 height: 1,
               ),
             ),
 
-            const Row(
+            Row(
               children: [
                 Icon(
                   Icons.location_on_outlined,
                   size: 21,
-                  color: AppColors.forest,
+                  color: context.forest,
                 ),
                 SizedBox(width: 9),
                 Text(
@@ -651,18 +651,18 @@ class _AddressPageState extends State<AddressPage> {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w800,
-                    color: AppColors.ink,
+                    color: context.ink,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 9),
-            const Text(
+            Text(
               'Cantumkan jalan, nomor rumah, RT/RW, kelurahan, kecamatan, kota, provinsi, dan kode pos jika tersedia.',
               style: TextStyle(
                 fontSize: 12,
                 height: 1.6,
-                color: AppColors.muted,
+                color: context.muted,
               ),
             ),
             const SizedBox(height: 18),
@@ -738,15 +738,15 @@ class _AddressPageState extends State<AddressPage> {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDEAE2),
+        color: context.pick(const Color(0xFFEDEAE2), const Color(0xFF2B312E)),
         borderRadius: BorderRadius.circular(14),
       ),
-      child: const Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(
             Icons.info_outline_rounded,
-            color: AppColors.forestDeep,
+            color: context.forestDeep,
             size: 19,
           ),
           SizedBox(width: 11),
@@ -756,7 +756,7 @@ class _AddressPageState extends State<AddressPage> {
               style: TextStyle(
                 fontSize: 12,
                 height: 1.6,
-                color: AppColors.ink,
+                color: context.ink,
               ),
             ),
           ),
@@ -783,34 +783,34 @@ class _AddressPageState extends State<AddressPage> {
               Container(
                 width: 72,
                 height: 72,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFEDEAE2),
+                decoration: BoxDecoration(
+                  color: context.pick(const Color(0xFFEDEAE2), const Color(0xFF2B312E)),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.cloud_off_outlined,
                   size: 32,
-                  color: AppColors.forest,
+                  color: context.forest,
                 ),
               ),
               const SizedBox(height: 18),
-              const Text(
+              Text(
                 'Alamat belum bisa dimuat',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w800,
-                  color: AppColors.ink,
+                  color: context.ink,
                 ),
               ),
               const SizedBox(height: 9),
-              const Text(
+              Text(
                 'Periksa koneksi internet dan sesi akun kamu, lalu coba lagi.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 13,
                   height: 1.6,
-                  color: AppColors.muted,
+                  color: context.muted,
                 ),
               ),
               const SizedBox(height: 22),

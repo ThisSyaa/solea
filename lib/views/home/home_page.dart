@@ -260,7 +260,7 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: AppColors.sand,
+      backgroundColor: context.sand,
       drawer: isMobile
           ? HomeMobileDrawer(
               name: widget.name,
@@ -289,7 +289,7 @@ class _HomePageState extends State<HomePage> {
           : null,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _openChatPage,
-        backgroundColor: AppColors.forest,
+        backgroundColor: context.forest,
         foregroundColor: colorScheme.onPrimary,
         icon: const Icon(Icons.forum_rounded, size: 20),
         label: const Text(
@@ -520,7 +520,7 @@ class _HeroCarouselState extends State<_HeroCarousel> {
               width: active ? 22 : 7,
               height: 7,
               decoration: BoxDecoration(
-                color: active ? AppColors.forest : AppColors.line,
+                color: active ? context.forest : context.line,
                 borderRadius: BorderRadius.circular(20),
               ),
             );
@@ -543,7 +543,6 @@ class _HeroBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final isSmall = width < 600;
-    final colorScheme = Theme.of(context).colorScheme;
 
     return Stack(
       fit: StackFit.expand,
@@ -551,7 +550,7 @@ class _HeroBanner extends StatelessWidget {
         AppNetworkImage(
           imageUrl: data.imageUrl,
           dark: true,
-          errorBuilder: (_) => Container(color: AppColors.forestDeep),
+          errorBuilder: (_) => Container(color: context.forestDeep),
         ),
 
         // Gradient scrim gelap dari kiri di belakang teks agar kontras teks putih terjaga (WCAG AAA)
@@ -588,7 +587,7 @@ class _HeroBanner extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: colorScheme.onPrimary,
+                        color: Colors.white,
                         fontSize: isSmall ? 23 : 40,
                         height: 1.06,
                         fontWeight: FontWeight.w800,
@@ -603,7 +602,7 @@ class _HeroBanner extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: colorScheme.onPrimary.withValues(alpha: 0.90),
+                        color: Colors.white.withValues(alpha: 0.90),
                         fontSize: isSmall ? 12.5 : 14.5,
                         height: 1.4,
                       ),
@@ -613,7 +612,8 @@ class _HeroBanner extends StatelessWidget {
                   ElevatedButton(
                     onPressed: onAction,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: colorScheme.surface,
+                      // Tombol di atas foto banner: tetap putih di kedua mode.
+                      backgroundColor: Colors.white,
                       foregroundColor: AppColors.ink,
                       elevation: 0,
                       minimumSize: const Size(48, 48),
@@ -663,11 +663,11 @@ class _SectionHeader extends StatelessWidget {
             title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 21,
               fontWeight: FontWeight.w800,
               letterSpacing: -0.4,
-              color: AppColors.ink,
+              color: context.ink,
             ),
           ),
         ),
@@ -677,7 +677,7 @@ class _SectionHeader extends StatelessWidget {
           style: TextButton.styleFrom(
             minimumSize: const Size(48, 48),
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            foregroundColor: AppColors.forest,
+            foregroundColor: context.forest,
           ),
           child: Text(action),
         ),
@@ -724,13 +724,13 @@ class _CategoryList extends StatelessWidget {
                   onSelected(category);
                 },
                 label: Text(category),
-                selectedColor: AppColors.forest,
+                selectedColor: context.forest,
                 backgroundColor: colorScheme.surface,
                 side: BorderSide(
-                  color: isActive ? AppColors.forest : AppColors.line,
+                  color: isActive ? context.forest : context.line,
                 ),
                 labelStyle: TextStyle(
-                  color: isActive ? colorScheme.onPrimary : AppColors.muted,
+                  color: isActive ? colorScheme.onPrimary : context.muted,
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
                 ),
@@ -777,10 +777,10 @@ class ProductList extends StatelessWidget {
       return Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 35),
-        child: const Center(
+        child: Center(
           child: Text(
             'Belum ada produk di kategori ini.',
-            style: TextStyle(color: AppColors.muted),
+            style: TextStyle(color: context.muted),
           ),
         ),
       );
@@ -866,7 +866,7 @@ class ProductCard extends StatelessWidget {
                       fit: StackFit.expand,
                       children: [
                         Container(
-                          color: AppColors.sand,
+                          color: context.sand,
                           child: AppNetworkImage(imageUrl: product.imageUrl),
                         ),
                         Positioned(
@@ -905,8 +905,8 @@ class ProductCard extends StatelessWidget {
                                                 : Icons.favorite_border_rounded,
                                             size: 18,
                                             color: isFavorite
-                                                ? AppColors.danger
-                                                : AppColors.ink,
+                                                ? context.danger
+                                                : context.ink,
                                           ),
                                         ),
                                       ),
@@ -926,9 +926,9 @@ class ProductCard extends StatelessWidget {
                   product.category,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
-                    color: AppColors.muted,
+                    color: context.muted,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -937,9 +937,9 @@ class ProductCard extends StatelessWidget {
                   product.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
-                    color: AppColors.ink,
+                    color: context.ink,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -951,9 +951,9 @@ class ProductCard extends StatelessWidget {
                         formatRupiah(product.price),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13.5,
-                          color: AppColors.forestDeep,
+                          color: context.forestDeep,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -967,9 +967,9 @@ class ProductCard extends StatelessWidget {
                     const SizedBox(width: 2),
                     Text(
                       product.rating.toString(),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
-                        color: AppColors.muted,
+                        color: context.muted,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

@@ -186,7 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F6F2),
+      backgroundColor: context.pick(const Color(0xFFF7F6F2), const Color(0xFF111412)),
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -278,18 +278,18 @@ class _RegisterPageState extends State<RegisterPage> {
                     width: double.infinity,
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE8E4DC),
+                      color: context.pick(const Color(0xFFE8E4DC), const Color(0xFF2B312E)),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Image.network(
                       _shoeImage,
                       fit: BoxFit.cover,
                       errorBuilder: (_, _, _) {
-                        return const Center(
+                        return Center(
                           child: Icon(
                             Icons.shopping_bag_outlined,
                             size: 65,
-                            color: Color(0xFF77736B),
+                            color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                           ),
                         );
                       },
@@ -364,7 +364,7 @@ class _RegisterVisual extends StatelessWidget {
       margin: const EdgeInsets.all(18),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: const Color(0xFFE8E4DC),
+        color: context.pick(const Color(0xFFE8E4DC), const Color(0xFF2B312E)),
         borderRadius: BorderRadius.circular(28),
       ),
       child: Stack(
@@ -374,11 +374,11 @@ class _RegisterVisual extends StatelessWidget {
             imageUrl,
             fit: BoxFit.cover,
             errorBuilder: (_, _, _) {
-              return const Center(
+              return Center(
                 child: Icon(
                   Icons.shopping_bag_outlined,
                   size: 80,
-                  color: Color(0xFF77736B),
+                  color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                 ),
               );
             },
@@ -551,33 +551,33 @@ class _RegisterForm extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Text(
+                      Text(
                         'Back to sign in',
                         style: TextStyle(
                           fontSize: 13,
-                          color: Color(0xFF77736B),
+                          color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                         ),
                       ),
                     ],
                   ),
                 ],
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'Create account',
                   style: TextStyle(
                     fontSize: 38,
                     fontWeight: FontWeight.w700,
                     letterSpacing: -1.2,
-                    color: Color(0xFF111111),
+                    color: context.pick(const Color(0xFF111111), const Color(0xFFECEFED)),
                   ),
                 ),
                 const SizedBox(height: 9),
-                const Text(
+                Text(
                   'Create your account and start discovering your next pair.',
                   style: TextStyle(
                     fontSize: 14,
                     height: 1.55,
-                    color: Color(0xFF77736B),
+                    color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                   ),
                 ),
                 const SizedBox(height: 36),
@@ -627,7 +627,7 @@ class _RegisterForm extends StatelessWidget {
                           : Icons.visibility_outlined,
                       size: 20,
                     ),
-                    color: const Color(0xFF77736B),
+                    color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -647,7 +647,7 @@ class _RegisterForm extends StatelessWidget {
                           : Icons.visibility_outlined,
                       size: 20,
                     ),
-                    color: const Color(0xFF77736B),
+                    color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                   ),
                   onSubmitted: (_) {
                     if (!isLoading) onRegister();
@@ -674,21 +674,21 @@ class _RegisterForm extends StatelessWidget {
                             onChanged: (value) {
                               onAgreeTerms(value ?? false);
                             },
-                            activeColor: Colors.black,
-                            checkColor: Colors.white,
-                            side: const BorderSide(
-                              color: Color(0xFFBDB8AE),
+                            activeColor: context.strongInk,
+                            checkColor: context.onStrongInk,
+                            side: BorderSide(
+                              color: context.pick(const Color(0xFFBDB8AE), const Color(0xFF4B524F)),
                             ),
                           ),
                         ),
                         const SizedBox(width: 9),
-                        const Expanded(
+                        Expanded(
                           child: Text(
                             'I agree to the terms and conditions.',
                             style: TextStyle(
                               fontSize: 12.5,
                               height: 1.45,
-                              color: Color(0xFF77736B),
+                              color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                             ),
                           ),
                         ),
@@ -732,21 +732,21 @@ class _RegisterForm extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 22),
-                const Row(
+                Row(
                   children: [
-                    Expanded(child: Divider(color: Color(0xFFE0DDD6))),
+                    Expanded(child: Divider(color: context.pick(const Color(0xFFE0DDD6), const Color(0xFF2B312E)))),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Text(
                         'OR',
                         style: TextStyle(
                           fontSize: 11,
-                          color: Color(0xFFA19C93),
+                          color: context.pick(const Color(0xFFA19C93), const Color(0xFF828886)),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                    Expanded(child: Divider(color: Color(0xFFE0DDD6))),
+                    Expanded(child: Divider(color: context.pick(const Color(0xFFE0DDD6), const Color(0xFF2B312E)))),
                   ],
                 ),
                 const SizedBox(height: 22),
@@ -755,17 +755,17 @@ class _RegisterForm extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       'Already have an account?',
                       style: TextStyle(
                         fontSize: 13,
-                        color: Color(0xFF77736B),
+                        color: context.pick(const Color(0xFF77736B), const Color(0xFF9CA3A0)),
                       ),
                     ),
                     TextButton(
                       onPressed: isLoading ? null : onBack,
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.black,
+                        foregroundColor: context.strongInk,
                         padding: const EdgeInsets.only(left: 5),
                       ),
                       child: const Text(
@@ -801,10 +801,10 @@ class _CleanLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 13,
         fontWeight: FontWeight.w700,
-        color: Color(0xFF1C1C1C),
+        color: context.pick(const Color(0xFF1C1C1C), const Color(0xFFECEFED)),
       ),
     );
   }
@@ -840,52 +840,52 @@ class _RegisterTextField extends StatelessWidget {
       textInputAction: textInputAction,
       validator: validator,
       onFieldSubmitted: onSubmitted,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 14,
-        color: Colors.black,
+        color: context.strongInk,
       ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           fontSize: 14,
-          color: Color(0xFFA09B92),
+          color: context.pick(const Color(0xFFA09B92), const Color(0xFF828886)),
         ),
         suffixIcon: suffix,
         filled: true,
-        fillColor: Colors.white,
+        fillColor: context.card,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 17,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: Color(0xFFD8D4CC),
+          borderSide: BorderSide(
+            color: context.pick(const Color(0xFFD8D4CC), const Color(0xFF2B312E)),
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: Color(0xFFD8D4CC),
+          borderSide: BorderSide(
+            color: context.pick(const Color(0xFFD8D4CC), const Color(0xFF2B312E)),
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: Colors.black,
+          borderSide: BorderSide(
+            color: context.strongInk,
             width: 1.3,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.danger,
+          borderSide: BorderSide(
+            color: context.danger,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.danger,
+          borderSide: BorderSide(
+            color: context.danger,
             width: 1.2,
           ),
         ),
@@ -916,13 +916,13 @@ class _Logo extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        const Text(
+        Text(
           'SOLEA',
           style: TextStyle(
             fontSize: 17,
             letterSpacing: 2.2,
             fontWeight: FontWeight.w800,
-            color: Colors.black,
+            color: context.strongInk,
           ),
         ),
       ],
