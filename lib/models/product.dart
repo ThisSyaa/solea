@@ -46,6 +46,34 @@ class Product {
     );
   }
 
+  /// Mengubah dokumen koleksi `products` di Firestore (dikelola dari panel
+  /// admin) menjadi Product. Field yang kosong diberi nilai bawaan.
+  factory Product.fromFirestore(Map<String, dynamic> d) {
+    int toInt(Object? v) =>
+        v is num ? v.toInt() : (int.tryParse('${v ?? ''}') ?? 0);
+
+    final sizes = ((d['sizes'] as List?) ?? const [])
+        .whereType<num>()
+        .map((e) => e.toInt())
+        .toList();
+    final desc = d['description']?.toString().trim() ?? '';
+
+    return Product(
+      name: d['name']?.toString() ?? '',
+      category: d['category']?.toString() ?? '',
+      price: toInt(d['price']),
+      imageUrl: d['imageUrl']?.toString() ?? '',
+      rating: d['rating'] is num ? (d['rating'] as num).toDouble() : 0,
+      description: desc.isEmpty
+          ? 'Sepatu nyaman dengan desain modern untuk menemani aktivitas sehari-hari.'
+          : desc,
+      sizes: sizes.isEmpty ? const [39, 40, 41, 42, 43] : sizes,
+      images: ((d['images'] as List?) ?? const [])
+          .map((e) => e.toString())
+          .toList(),
+    );
+  }
+
   /// Mengubah JSON dari DummyJSON (https://dummyjson.com) menjadi Product.
   factory Product.fromDummyJson(Map<String, dynamic> json) {
     final title = (json['title'] ?? 'Sepatu') as String;
