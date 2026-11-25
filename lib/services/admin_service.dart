@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../controllers/product_controller.dart';
 import '../models/admin_models.dart';
 import '../models/product.dart';
 
@@ -60,10 +63,12 @@ class AdminService {
     } else {
       await col.doc(p.id).set(p.toMap(), SetOptions(merge: true));
     }
+    _refreshStore();
   }
 
-  static Future<void> deleteProduct(String id) {
-    return _db.collection('products').doc(id).delete();
+  static Future<void> deleteProduct(String id) async {
+    await _db.collection('products').doc(id).delete();
+    _refreshStore();
   }
 
   /// Isi awal koleksi `products` dari DummyJSON (sekali jalan).
@@ -105,7 +110,46 @@ class AdminService {
       });
     }
     await batch.commit();
+    _refreshStore();
     return raws.length;
+  }
+
+  /// Menyalin katalog yang sedang tampil di toko ke koleksi `products`,
+  /// supaya panel admin dan toko memakai data yang sama. Urutan toko dijaga
+  /// lewat field `sortIndex`.
+  static Future<int> importStoreCatalog(List<Product> products) async {
+    const chunk = 400; // batas Firestore: 500 operasi per batch
+    for (var start = 0; start < products.length; start += chunk) {
+      final end =
+          start + chunk < products.length ? start + chunk : products.length;
+      final batch = _db.batch();
+      for (var i = start; i < end; i++) {
+        final p = products[i];
+        batch.set(_db.collection('products').doc(_slug(p.name)), {
+          'name': p.name,
+          'category': p.category,
+          'price': p.price,
+          'stock': 20,
+          'imageUrl': p.imageUrl,
+          'images': p.images,
+          'description': p.description,
+          'sizes': p.sizes,
+          'rating': p.rating,
+          'sortIndex': i,
+          'createdAt': FieldValue.serverTimestamp(),
+          'updatedAt': FieldValue.serverTimestamp(),
+        });
+      }
+      await batch.commit();
+    }
+    _refreshStore();
+    return products.length;
+  }
+
+  /// Muat ulang katalog toko agar perubahan dari admin langsung terlihat
+  /// (tanpa harus menutup aplikasi).
+  static void _refreshStore() {
+    unawaited(ProductController.load());
   }
 
   static String _slug(String s) {

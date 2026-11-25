@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../controllers/product_controller.dart';
 import '../../models/admin_models.dart';
 import '../../services/admin_service.dart';
 import 'admin_product_form.dart';
@@ -70,8 +71,10 @@ class _AdminProductsPageState extends State<AdminProductsPage> {
   Future<void> _import() async {
     setState(() => _importing = true);
     try {
-      final n = await AdminService.importFromDummyJson();
-      if (mounted) _snack('$n produk diimpor dari DummyJSON');
+      final n = await AdminService.importStoreCatalog(
+        ProductController.products,
+      );
+      if (mounted) _snack('$n produk diimpor dari katalog toko');
     } catch (_) {
       if (mounted) {
         _snack('Gagal impor. Periksa koneksi dan Firestore Rules.');
@@ -197,7 +200,7 @@ class _AdminProductsPageState extends State<AdminProductsPage> {
           ),
           const SizedBox(height: 6),
           const Text(
-            'Impor produk awal dari DummyJSON, atau tambah manual.',
+            'Impor katalog toko saat ini ke Firestore, atau tambah manual.',
             textAlign: TextAlign.center,
             style: kMutedText,
           ),
@@ -219,7 +222,7 @@ class _AdminProductsPageState extends State<AdminProductsPage> {
                           color: Colors.white,
                         ),
                       )
-                    : const Text('Impor dari DummyJSON'),
+                    : const Text('Impor katalog toko'),
               ),
               OutlinedButton(
                 onPressed: () => _openForm(),

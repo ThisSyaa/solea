@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/product.dart';
@@ -24,10 +25,19 @@ class ProductController {
 
   /// Panggil sekali di main() sebelum runApp().
   /// Urutan sumber data:
+  ///   0. Firestore `products`       (dikelola dari panel admin)
   ///   1. assets/data/products.json  (katalog hasil generate dari Pexels)
   ///   2. DummyJSON API              (kalau file di atas tidak ada)
   ///   3. Data lokal                 (cadangan terakhir)
+  /// Sumber 0 dilewati kalau koleksinya kosong atau tidak bisa dibaca.
   static Future<void> load() async {
+    final fromDb = await _loadFromFirestore();
+    if (fromDb.isNotEmpty) {
+      products = fromDb;
+      loadedFromApi = true;
+      return;
+    }
+
     try {
       final raw = await rootBundle.loadString('assets/data/products.json');
       final list = (jsonDecode(raw) as List)
@@ -52,6 +62,37 @@ class ProductController {
       // API gagal -> tetap pakai data lokal.
       products = _fallbackProducts;
       loadedFromApi = false;
+    }
+  }
+
+  /// Membaca katalog dari Firestore. Mengembalikan daftar kosong kalau
+  /// koleksi kosong, jaringan gagal, atau Firestore Rules menolak baca.
+  static Future<List<Product>> _loadFromFirestore() async {
+    try {
+      final snap = await FirebaseFirestore.instance
+          .collection('products')
+          .get()
+          .timeout(const Duration(seconds: 6));
+
+      int order(Map<String, dynamic> d) =>
+          (d['sortIndex'] as num?)?.toInt() ?? 1 << 30;
+
+      final docs = snap.docs
+          .map((d) => d.data())
+          .where((d) => (d['name']?.toString() ?? '').trim().isNotEmpty)
+          .toList()
+        ..sort((a, b) {
+          final byOrder = order(a).compareTo(order(b));
+          if (byOrder != 0) return byOrder;
+          return a['name']
+              .toString()
+              .toLowerCase()
+              .compareTo(b['name'].toString().toLowerCase());
+        });
+
+      return docs.map(Product.fromFirestore).toList();
+    } catch (_) {
+      return const [];
     }
   }
 
