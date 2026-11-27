@@ -157,6 +157,8 @@ class _ProfilePageState extends State<ProfilePage> {
             elevation: 0,
             centerTitle: false,
             leading: IconButton(
+              tooltip: 'Kembali',
+              constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
               icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
               color: AppColors.ink,
               onPressed: () {
@@ -647,22 +649,22 @@ class _ProfileHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 10,
+                  runSpacing: 4,
                   children: [
-                    Flexible(
-                      child: Text(
-                        name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: desktop ? 26 : 20,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.ink,
-                          letterSpacing: -0.5,
-                        ),
+                    Text(
+                      name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: desktop ? 26 : 20,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.ink,
+                        letterSpacing: -0.5,
                       ),
                     ),
-                    const SizedBox(width: 10),
                     const _MemberBadge(),
                   ],
                 ),
@@ -701,6 +703,8 @@ class _ProfileHeader extends StatelessWidget {
             )
           else
             IconButton(
+              tooltip: 'Edit profil',
+              constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
               onPressed: onEdit,
               icon: const Icon(Icons.edit_outlined),
               color: AppColors.ink,

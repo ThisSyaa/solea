@@ -56,12 +56,23 @@ class CartPage extends StatelessWidget {
               );
 
               if (wide) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: list),
-                    SizedBox(width: 360, child: SingleChildScrollView(padding: const EdgeInsets.fromLTRB(0, 10, 20, 24), child: summary)),
-                  ],
+                return Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1180),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: list),
+                        SizedBox(
+                          width: 360,
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.fromLTRB(0, 10, 20, 24),
+                            child: summary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               }
 
@@ -86,45 +97,123 @@ class _CartItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = CartController.instance;
+    final isCompact = MediaQuery.sizeOf(context).width < 390;
+    final thumbSize = isCompact ? 76.0 : 92.0;
+    final surfaceColor = Theme.of(context).colorScheme.surface;
+
     return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18)),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: surfaceColor,
+        borderRadius: BorderRadius.circular(18),
+      ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(14),
             child: SizedBox(
-              width: 92,
-              height: 92,
-              child: Image.network(item.product.imageUrl, fit: BoxFit.cover),
+              width: thumbSize,
+              height: thumbSize,
+              child: Image.network(
+                item.product.imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (_, _, _) => Container(
+                  color: AppColors.sand,
+                  alignment: Alignment.center,
+                  child: const Icon(
+                    Icons.directions_run_rounded,
+                    color: AppColors.muted,
+                  ),
+                ),
+              ),
             ),
           ),
-          const SizedBox(width: 14),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(item.product.name, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15)),
-                const SizedBox(height: 4),
-                Text('Ukuran ${item.size} • ${formatRupiah(item.product.price)}', style: Theme.of(context).textTheme.bodySmall),
-                const SizedBox(height: 12),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _QtyButton(icon: Icons.remove_rounded, onTap: () => cart.decrement(item)),
-                    SizedBox(width: 40, child: Center(child: Text('${item.quantity}', style: const TextStyle(fontWeight: FontWeight.w800)))),
-                    _QtyButton(icon: Icons.add_rounded, onTap: () => cart.increment(item)),
-                    const Spacer(),
-                    Text(formatRupiah(item.subtotal), style: const TextStyle(fontWeight: FontWeight.w900)),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.product.name,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 15,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Ukuran ${item.size} • ${formatRupiah(item.product.price)}',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      tooltip: 'Hapus',
+                      constraints: const BoxConstraints(
+                        minWidth: 48,
+                        minHeight: 48,
+                      ),
+                      onPressed: () => cart.remove(item),
+                      icon: const Icon(
+                        Icons.delete_outline_rounded,
+                        color: AppColors.danger,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 10,
+                  runSpacing: 8,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _QtyButton(
+                          icon: Icons.remove_rounded,
+                          onTap: () => cart.decrement(item),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(minWidth: 36),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: Center(
+                              child: Text(
+                                '${item.quantity}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        _QtyButton(
+                          icon: Icons.add_rounded,
+                          onTap: () => cart.increment(item),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      formatRupiah(item.subtotal),
+                      style: const TextStyle(fontWeight: FontWeight.w900),
+                    ),
                   ],
                 ),
               ],
             ),
-          ),
-          const SizedBox(width: 4),
-          IconButton(
-            tooltip: 'Hapus',
-            onPressed: () => cart.remove(item),
-            icon: const Icon(Icons.delete_outline_rounded, color: AppColors.danger),
           ),
         ],
       ),
@@ -139,13 +228,38 @@ class _QtyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.sand,
-      borderRadius: BorderRadius.circular(9),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(9),
-        child: SizedBox(width: 30, height: 30, child: Icon(icon, size: 16)),
+    final isAdd = icon == Icons.add_rounded;
+    return Semantics(
+      button: true,
+      label: isAdd ? 'Tambah jumlah' : 'Kurangi jumlah',
+      child: Tooltip(
+        message: isAdd ? 'Tambah jumlah' : 'Kurangi jumlah',
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(10),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minWidth: 48,
+                minHeight: 48,
+              ),
+              child: Center(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: AppColors.sand,
+                    borderRadius: BorderRadius.circular(9),
+                  ),
+                  child: SizedBox(
+                    width: 32,
+                    height: 32,
+                    child: Icon(icon, size: 16),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -160,14 +274,21 @@ class _CartSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     const shipping = 15000;
     final total = subtotal + shipping;
+    final surfaceColor = Theme.of(context).colorScheme.surface;
     return Container(
       margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(
+        color: surfaceColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Ringkasan', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+          const Text(
+            'Ringkasan',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+          ),
           const SizedBox(height: 18),
           _SummaryRow(label: 'Subtotal', value: formatRupiah(subtotal)),
           const SizedBox(height: 10),
@@ -175,7 +296,13 @@ class _CartSummary extends StatelessWidget {
           const Divider(height: 28),
           _SummaryRow(label: 'Total', value: formatRupiah(total), bold: true),
           const SizedBox(height: 18),
-          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: onCheckout, child: const Text('Checkout'))),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: onCheckout,
+              child: const Text('Checkout'),
+            ),
+          ),
         ],
       ),
     );
@@ -186,12 +313,31 @@ class _SummaryRow extends StatelessWidget {
   final String label;
   final String value;
   final bool bold;
-  const _SummaryRow({required this.label, required this.value, this.bold = false});
+  const _SummaryRow({
+    required this.label,
+    required this.value,
+    this.bold = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final style = TextStyle(fontWeight: bold ? FontWeight.w900 : FontWeight.w500, fontSize: bold ? 17 : 14);
-    return Row(children: [Text(label, style: style), const Spacer(), Text(value, style: style)]);
+    final style = TextStyle(
+      fontWeight: bold ? FontWeight.w900 : FontWeight.w500,
+      fontSize: bold ? 17 : 14,
+    );
+    return Row(
+      children: [
+        Expanded(child: Text(label, style: style)),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            value,
+            textAlign: TextAlign.right,
+            style: style,
+          ),
+        ),
+      ],
+    );
   }
 }
 

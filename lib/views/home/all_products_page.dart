@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import '../../core/app_network_image.dart';
 import '../../controllers/product_controller.dart';
@@ -301,22 +303,18 @@ class _AllProductsPageState extends State<AllProductsPage> {
 
   Widget _buildCategoryGrid() {
     final width = MediaQuery.sizeOf(context).width;
-
-    final columns = width >= 1100
-        ? 4
-        : width >= 700
-        ? 3
-        : 2;
+    final textScale = MediaQuery.textScalerOf(context).scale(1.0);
 
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: _categories.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: columns,
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: width < 600 ? 220 : 280,
         crossAxisSpacing: 14,
         mainAxisSpacing: 14,
-        childAspectRatio: width < 500 ? 0.82 : 0.95,
+        childAspectRatio: (width < 500 ? 0.82 : 0.95) /
+            textScale.clamp(1.0, 1.25),
       ),
       itemBuilder: (context, index) {
         final category = _categories[index];
@@ -340,11 +338,13 @@ class _AllProductsPageState extends State<AllProductsPage> {
 
   Widget _buildCategoryFilters() {
     final categories = <String>['Semua', ..._categories];
-
     final selected = _selectedCategory ?? 'Semua';
+    final textScale = MediaQuery.textScalerOf(context).scale(1.0);
+    final barHeight = math.max(48.0, 32.0 * textScale + 16.0);
+    final colorScheme = Theme.of(context).colorScheme;
 
     return SizedBox(
-      height: 42,
+      height: barHeight,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
@@ -354,29 +354,31 @@ class _AllProductsPageState extends State<AllProductsPage> {
           final category = categories[index];
           final isActive = category == selected;
 
-          return ChoiceChip(
-            selected: isActive,
-            onSelected: (_) {
-              setState(() {
-                _selectedCategory = category == 'Semua' ? null : category;
-              });
-            },
-            label: Text(category),
-            selectedColor: AppColors.forest,
-            backgroundColor: Colors.white,
-            side: BorderSide(
-              color: isActive ? AppColors.forest : AppColors.line,
+          return Center(
+            child: ChoiceChip(
+              selected: isActive,
+              materialTapTargetSize: MaterialTapTargetSize.padded,
+              onSelected: (_) {
+                setState(() {
+                  _selectedCategory = category == 'Semua' ? null : category;
+                });
+              },
+              label: Text(category),
+              selectedColor: AppColors.forest,
+              backgroundColor: colorScheme.surface,
+              side: BorderSide(
+                color: isActive ? AppColors.forest : AppColors.line,
+              ),
+              labelStyle: TextStyle(
+                color: isActive ? colorScheme.onPrimary : AppColors.muted,
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             ),
-            labelStyle: TextStyle(
-              color: isActive ? Colors.white : AppColors.muted,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
-            visualDensity: VisualDensity.compact,
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           );
         },
       ),
@@ -458,24 +460,17 @@ class _AllProductsPageState extends State<AllProductsPage> {
   Widget _buildProductsGrid() {
     final products = _products;
     final width = MediaQuery.sizeOf(context).width;
+    final textScale =
+        MediaQuery.textScalerOf(context).scale(1.0).clamp(1.0, 1.75);
 
-    final columns = width >= 1200
-        ? 4
-        : width >= 850
-        ? 3
-        : 2;
+    final imageHeight = width < 600
+        ? 145.0
+        : width < 1024
+            ? 175.0
+            : 205.0;
 
-    final imageHeight = width < 500
-        ? 140.0
-        : width < 850
-        ? 170.0
-        : width < 1200
-        ? 190.0
-        : 215.0;
-
-    // Tinggi kartu disesuaikan dengan gambar dan teks.
-    // Tidak ada Spacer yang mendorong harga ke bawah.
-    final cardHeight = imageHeight + 112.0;
+    // Tinggi kartu beradaptasi terhadap textScaler hingga 1.6x agar bebas overflow.
+    final cardHeight = imageHeight + 98.0 * textScale + 18.0;
 
     if (products.isEmpty) {
       return Container(
@@ -483,7 +478,7 @@ class _AllProductsPageState extends State<AllProductsPage> {
         padding: const EdgeInsets.symmetric(vertical: 42),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(18),
         ),
         child: const Column(
@@ -503,8 +498,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: products.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: columns,
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: width < 600 ? 220 : 285,
         crossAxisSpacing: 14,
         mainAxisSpacing: 14,
         mainAxisExtent: cardHeight,
@@ -704,30 +699,57 @@ class _CompactProductCard extends StatelessWidget {
                       ),
 
                       Positioned(
-                        top: 7,
-                        right: 7,
+                        top: 2,
+                        right: 2,
                         child: AnimatedBuilder(
                           animation: WishlistController.instance,
                           builder: (context, _) {
                             final isFavorite = WishlistController.instance
                                 .contains(product);
+                            final surfaceColor =
+                                Theme.of(context).colorScheme.surface;
 
-                            return Material(
-                              color: Colors.white.withValues(alpha: 0.95),
-                              shape: const CircleBorder(),
-                              child: InkWell(
-                                customBorder: const CircleBorder(),
-                                onTap: onWishlistTap,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(7),
-                                  child: Icon(
-                                    isFavorite
-                                        ? Icons.favorite_rounded
-                                        : Icons.favorite_border_rounded,
-                                    size: 17,
-                                    color: isFavorite
-                                        ? AppColors.danger
-                                        : AppColors.ink,
+                            return Semantics(
+                              button: true,
+                              label: isFavorite
+                                  ? 'Hapus ${product.name} dari wishlist'
+                                  : 'Tambah ${product.name} ke wishlist',
+                              child: Tooltip(
+                                message: isFavorite
+                                    ? 'Hapus dari wishlist'
+                                    : 'Tambah ke wishlist',
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    customBorder: const CircleBorder(),
+                                    onTap: onWishlistTap,
+                                    child: SizedBox(
+                                      width: 48,
+                                      height: 48,
+                                      child: Center(
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(
+                                            color: surfaceColor.withValues(
+                                              alpha: 0.95,
+                                            ),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(7),
+                                            child: Icon(
+                                              isFavorite
+                                                  ? Icons.favorite_rounded
+                                                  : Icons
+                                                      .favorite_border_rounded,
+                                              size: 17,
+                                              color: isFavorite
+                                                  ? AppColors.danger
+                                                  : AppColors.ink,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

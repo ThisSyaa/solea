@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,13 +16,18 @@ class ServicesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
+    final textScale =
+        MediaQuery.textScalerOf(context).scale(1.0).clamp(1.0, 1.65);
     final columns = width >= 1050
         ? 3
         : width >= 650
-        ? 2
-        : 1;
-    final padding = width < 600 ? 18.0 : 30.0;
+            ? 2
+            : 1;
+    final padding = width < 600 ? 16.0 : 30.0;
+    final promoHeight = math.max(110.0, 96.0 * textScale);
+    final baseServiceExtent = width < 600 ? 196.0 : 216.0;
+    final serviceCardExtent = baseServiceExtent * textScale.clamp(1.0, 1.5);
 
     // Hubungkan nilai ini dengan jumlah data dari database.
     // Nilai awal 0 agar tidak menampilkan angka palsu.
@@ -103,6 +110,7 @@ class ServicesPage extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
+          tooltip: 'Kembali',
           icon: const Icon(Icons.arrow_back_rounded),
           color: AppColors.ink,
           onPressed: () => Navigator.pop(context),
@@ -158,12 +166,14 @@ class ServicesPage extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 SizedBox(
-                  height: 105,
+                  height: promoHeight,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
                       _PromoBanner(
-                        width: width < 600 ? 320 : 760,
+                        width: width < 600
+                            ? math.max(260, width - 48)
+                            : 760,
                         icon: Icons.directions_run_rounded,
                         title: '✨ SOLEA Privilege',
                         description:
@@ -172,7 +182,9 @@ class ServicesPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 16),
                       _PromoBanner(
-                        width: width < 600 ? 280 : 390,
+                        width: width < 600
+                            ? math.max(250, width - 64)
+                            : 390,
                         icon: Icons.confirmation_number_outlined,
                         title: 'Klaim Voucher Diskon',
                         description: 'Temukan penawaran menarik dari SOLEA.',
@@ -182,7 +194,7 @@ class ServicesPage extends StatelessWidget {
                   ),
                 ).animate().fadeIn(delay: 150.ms),
 
-                const SizedBox(height: 65),
+                const SizedBox(height: 40),
 
                 GridView.builder(
                   shrinkWrap: true,
@@ -192,7 +204,7 @@ class ServicesPage extends StatelessWidget {
                     crossAxisCount: columns,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
-                    mainAxisExtent: width < 600 ? 190 : 212,
+                    mainAxisExtent: serviceCardExtent,
                   ),
                   itemBuilder: (context, index) {
                     return _ServiceCard(data: services[index], index: index);

@@ -642,10 +642,17 @@ class _Line extends StatelessWidget {
     );
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: style),
-        const Spacer(),
-        Text(value, style: style),
+        Flexible(child: Text(label, style: style)),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            value,
+            style: style,
+            textAlign: TextAlign.end,
+          ),
+        ),
       ],
     );
   }

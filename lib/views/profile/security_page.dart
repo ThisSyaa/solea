@@ -142,6 +142,14 @@ class _SecurityPageState
                             ),
                             suffixIcon:
                                 IconButton(
+                              tooltip: _hideOld
+                                  ? 'Tampilkan password'
+                                  : 'Sembunyikan password',
+                              constraints:
+                                  const BoxConstraints(
+                                minWidth: 48,
+                                minHeight: 48,
+                              ),
                               onPressed:
                                   () {
                                 setState(
@@ -190,6 +198,14 @@ class _SecurityPageState
                             ),
                             suffixIcon:
                                 IconButton(
+                              tooltip: _hideNew
+                                  ? 'Tampilkan password'
+                                  : 'Sembunyikan password',
+                              constraints:
+                                  const BoxConstraints(
+                                minWidth: 48,
+                                minHeight: 48,
+                              ),
                               onPressed:
                                   () {
                                 setState(
@@ -239,6 +255,14 @@ class _SecurityPageState
                             ),
                             suffixIcon:
                                 IconButton(
+                              tooltip: _hideConfirm
+                                  ? 'Tampilkan password'
+                                  : 'Sembunyikan password',
+                              constraints:
+                                  const BoxConstraints(
+                                minWidth: 48,
+                                minHeight: 48,
+                              ),
                               onPressed:
                                   () {
                                 setState(

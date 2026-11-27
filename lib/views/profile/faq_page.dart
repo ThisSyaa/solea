@@ -27,46 +27,45 @@ class FaqPage extends StatelessWidget {
           SizedBox(width: 4),
         ],
       ),
-      body: ListView(
-        padding:
-            const EdgeInsets.fromLTRB(
-          20,
-          10,
-          20,
-          30,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 650),
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+              20,
+              10,
+              20,
+              30,
+            ),
+            children: const [
+              _FaqItem(
+                question: 'Bagaimana cara membeli sepatu?',
+                answer:
+                    'Pilih produk dari Home, buka detail produk, pilih ukuran, lalu tambahkan ke keranjang dan lanjutkan checkout.',
+              ),
+              _FaqItem(
+                question: 'Apakah produk bisa dimasukkan ke wishlist?',
+                answer:
+                    'Bisa. Tekan ikon hati pada produk untuk menyimpannya ke wishlist.',
+              ),
+              _FaqItem(
+                question: 'Bagaimana cara melihat pesanan?',
+                answer:
+                    'Buka menu Profil lalu pilih Pesanan Saya untuk melihat riwayat pesanan.',
+              ),
+              _FaqItem(
+                question: 'Apakah pembayaran sudah terhubung ke bank?',
+                answer:
+                    'Belum. Saat ini pembayaran masih berupa simulasi untuk kebutuhan aplikasi.',
+              ),
+              _FaqItem(
+                question: 'Apakah data akan tetap tersimpan setelah aplikasi ditutup?',
+                answer:
+                    'Saat ini data masih disimpan selama sesi aplikasi berjalan. Persistence akan ditambahkan kemudian.',
+              ),
+            ],
+          ),
         ),
-        children: [
-          _FaqItem(
-            question:
-                'Bagaimana cara membeli sepatu?',
-            answer:
-                'Pilih produk dari Home, buka detail produk, pilih ukuran, lalu tambahkan ke keranjang dan lanjutkan checkout.',
-          ),
-          _FaqItem(
-            question:
-                'Apakah produk bisa dimasukkan ke wishlist?',
-            answer:
-                'Bisa. Tekan ikon hati pada produk untuk menyimpannya ke wishlist.',
-          ),
-          _FaqItem(
-            question:
-                'Bagaimana cara melihat pesanan?',
-            answer:
-                'Buka menu Profil lalu pilih Pesanan Saya untuk melihat riwayat pesanan.',
-          ),
-          _FaqItem(
-            question:
-                'Apakah pembayaran sudah terhubung ke bank?',
-            answer:
-                'Belum. Saat ini pembayaran masih berupa simulasi untuk kebutuhan aplikasi.',
-          ),
-          _FaqItem(
-            question:
-                'Apakah data akan tetap tersimpan setelah aplikasi ditutup?',
-            answer:
-                'Saat ini data masih disimpan selama sesi aplikasi berjalan. Persistence akan ditambahkan kemudian.',
-          ),
-        ],
       ),
     );
   }

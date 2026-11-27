@@ -40,109 +40,89 @@ class _NotificationPageState
           SizedBox(width: 4),
         ],
       ),
-      body: ListView(
-        padding:
-            const EdgeInsets.fromLTRB(
-          20,
-          10,
-          20,
-          30,
-        ),
-        children: [
-          Container(
-            decoration:
-                BoxDecoration(
-              color:
-                  Colors.white,
-              borderRadius:
-                  BorderRadius.circular(
-                20,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 650),
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+              20,
+              10,
+              20,
+              30,
+            ),
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    20,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    SwitchListTile(
+                      value: _orderNotification,
+                      onChanged: (value) {
+                        setState(() {
+                          _orderNotification = value;
+                        });
+                      },
+                      title: const Text(
+                        'Status pesanan',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'Dapatkan update mengenai pesanan.',
+                      ),
+                    ),
+                    const Divider(
+                      height: 1,
+                    ),
+                    SwitchListTile(
+                      value: _promoNotification,
+                      onChanged: (value) {
+                        setState(() {
+                          _promoNotification = value;
+                        });
+                      },
+                      title: const Text(
+                        'Promo & diskon',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'Info promo dan penawaran terbaru.',
+                      ),
+                    ),
+                    const Divider(
+                      height: 1,
+                    ),
+                    SwitchListTile(
+                      value: _wishlistNotification,
+                      onChanged: (value) {
+                        setState(() {
+                          _wishlistNotification = value;
+                        });
+                      },
+                      title: const Text(
+                        'Wishlist',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'Update terkait produk wishlist.',
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            child: Column(
-              children: [
-                SwitchListTile(
-                  value:
-                      _orderNotification,
-                  onChanged:
-                      (value) {
-                    setState(() {
-                      _orderNotification =
-                          value;
-                    });
-                  },
-                  title:
-                      const Text(
-                    'Status pesanan',
-                    style:
-                        TextStyle(
-                      fontWeight:
-                          FontWeight.w700,
-                    ),
-                  ),
-                  subtitle:
-                      const Text(
-                    'Dapatkan update mengenai pesanan.',
-                  ),
-                ),
-                const Divider(
-                  height: 1,
-                ),
-                SwitchListTile(
-                  value:
-                      _promoNotification,
-                  onChanged:
-                      (value) {
-                    setState(() {
-                      _promoNotification =
-                          value;
-                    });
-                  },
-                  title:
-                      const Text(
-                    'Promo & diskon',
-                    style:
-                        TextStyle(
-                      fontWeight:
-                          FontWeight.w700,
-                    ),
-                  ),
-                  subtitle:
-                      const Text(
-                    'Info promo dan penawaran terbaru.',
-                  ),
-                ),
-                const Divider(
-                  height: 1,
-                ),
-                SwitchListTile(
-                  value:
-                      _wishlistNotification,
-                  onChanged:
-                      (value) {
-                    setState(() {
-                      _wishlistNotification =
-                          value;
-                    });
-                  },
-                  title:
-                      const Text(
-                    'Wishlist',
-                    style:
-                        TextStyle(
-                      fontWeight:
-                          FontWeight.w700,
-                    ),
-                  ),
-                  subtitle:
-                      const Text(
-                    'Update terkait produk wishlist.',
-                  ),
-                ),
-              ],
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

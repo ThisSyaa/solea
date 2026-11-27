@@ -211,46 +211,94 @@ class _ContactPageState extends State<ContactPage> {
                         color: const Color(0xFFE8F0EC),
                         borderRadius: BorderRadius.circular(18),
                       ),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.forum_rounded,
-                            color: AppColors.forest,
-                          ),
-                          const SizedBox(width: 12),
-                          const Expanded(
-                            child: Text(
-                              'Butuh respon cepat? Gunakan Live Chat Admin, Chat Bot AI, atau Komunitas User.',
-                              style: TextStyle(
-                                color: AppColors.forestDeep,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (_) => const ChatPage(
-                                    initialChannel:
-                                        SoleaChatChannel.admin,
+                      child: constraints.maxWidth < 520
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Icons.forum_rounded,
+                                      color: AppColors.forest,
+                                    ),
+                                    SizedBox(width: 12),
+                                    Expanded(
+                                      child: Text(
+                                        'Butuh respon cepat? Gunakan Live Chat Admin, Chat Bot AI, atau Komunitas User.',
+                                        style: TextStyle(
+                                          color: AppColors.forestDeep,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute<void>(
+                                          builder: (_) => const ChatPage(
+                                            initialChannel:
+                                                SoleaChatChannel.admin,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: const Size(48, 48),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                      ),
+                                    ),
+                                    child: const Text('Buka Chat'),
                                   ),
                                 ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(0, 40),
-                              padding:
-                                  const EdgeInsets.symmetric(
-                                horizontal: 16,
-                              ),
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                const Icon(
+                                  Icons.forum_rounded,
+                                  color: AppColors.forest,
+                                ),
+                                const SizedBox(width: 12),
+                                const Expanded(
+                                  child: Text(
+                                    'Butuh respon cepat? Gunakan Live Chat Admin, Chat Bot AI, atau Komunitas User.',
+                                    style: TextStyle(
+                                      color: AppColors.forestDeep,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => const ChatPage(
+                                          initialChannel:
+                                              SoleaChatChannel.admin,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(48, 48),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                    ),
+                                  ),
+                                  child: const Text('Buka Chat'),
+                                ),
+                              ],
                             ),
-                            child: const Text('Buka Chat'),
-                          ),
-                        ],
-                      ),
                     ),
 
                     const SizedBox(height: 18),

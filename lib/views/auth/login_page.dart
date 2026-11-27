@@ -363,9 +363,12 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenW = MediaQuery.sizeOf(context).width;
+    final hPadding = screenW < 400 ? 18.0 : (screenW < 600 ? 28.0 : 44.0);
+
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 32),
+        padding: EdgeInsets.symmetric(horizontal: hPadding, vertical: 28),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 430),
           child: Form(
@@ -417,6 +420,8 @@ class _LoginForm extends StatelessWidget {
                   },
                   suffix: IconButton(
                     onPressed: onTogglePassword,
+                    tooltip: obscurePassword ? 'Tampilkan password' : 'Sembunyikan password',
+                    constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
                     icon: Icon(
                       obscurePassword
                           ? Icons.visibility_off_outlined
@@ -427,39 +432,50 @@ class _LoginForm extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 11),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 8,
+                  runSpacing: 4,
                   children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: Checkbox(
-                            value: rememberMe,
-                            onChanged: (value) {
-                              onRememberChanged(value ?? false);
-                            },
-                            side: const BorderSide(color: Color(0xFFBDB8AE)),
-                            activeColor: Colors.black,
-                            checkColor: Colors.white,
-                          ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(6),
+                      onTap: () => onRememberChanged(!rememberMe),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: Checkbox(
+                                value: rememberMe,
+                                onChanged: (value) {
+                                  onRememberChanged(value ?? false);
+                                },
+                                side: const BorderSide(color: Color(0xFFBDB8AE)),
+                                activeColor: Colors.black,
+                                checkColor: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              'Remember me',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Color(0xFF66625C),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 8),
-                        const Text(
-                          'Remember me',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Color(0xFF66625C),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                     TextButton(
                       onPressed: onForgotPassword,
                       style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: const Size(0, 36),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                        minimumSize: const Size(48, 48),
                         foregroundColor: Colors.black,
                       ),
                       child: const Text(
@@ -526,8 +542,9 @@ class _LoginForm extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 26),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     const Text(
                       "Don't have an account?",
@@ -537,7 +554,8 @@ class _LoginForm extends StatelessWidget {
                       onPressed: isLoading ? null : onRegister,
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.black,
-                        padding: const EdgeInsets.only(left: 5),
+                        minimumSize: const Size(48, 48),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                       ),
                       child: const Text(
                         'Sign up',
@@ -621,27 +639,32 @@ class _MobileShoeImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 215,
-      width: double.infinity,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: const Color(0xFFE8E4DC),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        errorBuilder: (_, _, _) {
-          return const Center(
-            child: Icon(
-              Icons.shopping_bag_outlined,
-              size: 70,
-              color: Color(0xFF77736B),
-            ),
-          );
-        },
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final height = (constraints.maxWidth * 0.52).clamp(160.0, 220.0);
+        return Container(
+          height: height,
+          width: double.infinity,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: const Color(0xFFE8E4DC),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (_, _, _) {
+              return const Center(
+                child: Icon(
+                  Icons.shopping_bag_outlined,
+                  size: 70,
+                  color: Color(0xFF77736B),
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

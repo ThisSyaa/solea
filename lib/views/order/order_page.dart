@@ -134,14 +134,19 @@ class _OrderPageState extends State<OrderPage> {
             onRefresh: () {
               return controller.loadOrders(forceRefresh: true);
             },
-            child: ListView.separated(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 30),
-              itemCount: orders.length,
-              separatorBuilder: (_, _) => const SizedBox(height: 12),
-              itemBuilder: (_, index) {
-                return _OrderCard(order: orders[index]);
-              },
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 880),
+                child: ListView.separated(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 30),
+                  itemCount: orders.length,
+                  separatorBuilder: (_, _) => const SizedBox(height: 12),
+                  itemBuilder: (_, index) {
+                    return _OrderCard(order: orders[index]);
+                  },
+                ),
+              ),
             ),
           );
         },
@@ -315,17 +320,23 @@ class _OrderCard extends StatelessWidget {
           const Divider(height: 24),
 
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Pembayaran',
-                style: TextStyle(color: AppColors.muted, fontSize: 12),
+              const Flexible(
+                child: Text(
+                  'Pembayaran',
+                  style: TextStyle(color: AppColors.muted, fontSize: 12),
+                ),
               ),
-              const Spacer(),
-              Text(
-                order.paymentMethod,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  order.paymentMethod,
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ],
@@ -334,18 +345,24 @@ class _OrderCard extends StatelessWidget {
           const SizedBox(height: 10),
 
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Total',
-                style: TextStyle(fontWeight: FontWeight.w900),
+              const Flexible(
+                child: Text(
+                  'Total',
+                  style: TextStyle(fontWeight: FontWeight.w900),
+                ),
               ),
-              const Spacer(),
-              Text(
-                formatRupiah(order.total),
-                style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.ink,
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  formatRupiah(order.total),
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w900,
+                    color: AppColors.ink,
+                  ),
                 ),
               ),
             ],

@@ -432,6 +432,10 @@ class _AboutPageState extends State<AboutPage>
         children: [
           IconButton(
             tooltip: 'Kembali',
+            constraints: const BoxConstraints(
+              minWidth: 48,
+              minHeight: 48,
+            ),
             onPressed: () {
               Navigator.of(context).maybePop();
             },
@@ -445,40 +449,47 @@ class _AboutPageState extends State<AboutPage>
               size: 17,
             ),
           ),
-          const SizedBox(width: 12),
-          const Text(
-            'SOLEA',
-            style: TextStyle(
-              color: _ivory,
-              fontSize: 15,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 2.2,
-            ),
-          ),
           const SizedBox(width: 8),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 9,
-              vertical: 4,
-            ),
-            decoration: BoxDecoration(
-              color: _olive.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(999),
-              border: Border.all(
-                color: _olive.withValues(alpha: 0.28),
-              ),
-            ),
-            child: const Text(
-              'ABOUT US',
-              style: TextStyle(
-                color: _olive,
-                fontSize: 9.5,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1.4,
-              ),
+          Expanded(
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 8,
+              runSpacing: 4,
+              children: [
+                const Text(
+                  'SOLEA',
+                  style: TextStyle(
+                    color: _ivory,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 2.2,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 9,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _olive.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(
+                      color: _olive.withValues(alpha: 0.28),
+                    ),
+                  ),
+                  child: const Text(
+                    'ABOUT US',
+                    style: TextStyle(
+                      color: _olive,
+                      fontSize: 9.5,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 1.4,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          const Spacer(),
           Theme(
             data: Theme.of(context).copyWith(
               iconTheme:
@@ -703,6 +714,7 @@ class _AboutPageState extends State<AboutPage>
       children: [
         IconButton(
           tooltip: 'Anggota sebelumnya (←)',
+          constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
           onPressed: _selectedIndex > 0
               ? () => _stepSelection(-1)
               : null,
@@ -749,6 +761,7 @@ class _AboutPageState extends State<AboutPage>
         const SizedBox(width: 6),
         IconButton(
           tooltip: 'Anggota berikutnya (→)',
+          constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
           onPressed:
               _selectedIndex < _members.length - 1
                   ? () => _stepSelection(1)
@@ -1270,9 +1283,10 @@ class _SocialPillButtonState
           borderRadius: BorderRadius.circular(999),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 160),
+            constraints: const BoxConstraints(minHeight: 48),
             padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 9,
+              horizontal: 16,
+              vertical: 10,
             ),
             decoration: BoxDecoration(
               color: highlighted

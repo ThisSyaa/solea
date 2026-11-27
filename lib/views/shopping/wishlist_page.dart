@@ -210,46 +210,55 @@ class _WishlistPageState extends State<WishlistPage> {
                       : 2;
               final cardWidth = (inner - gap * (columns - 1)) / columns;
 
+              final textScale = MediaQuery.textScalerOf(context)
+                  .scale(1.0)
+                  .clamp(1.0, 1.75);
+              final filterBarHeight = math.max(48.0, 32.0 * textScale + 16.0);
+              final imageHeight = (cardWidth - 20.0) / 1.08;
+              final cardMainExtent = imageHeight + 132.0 * textScale + 18.0;
+
               return CustomScrollView(
                 slivers: [
                   // HEADER: jumlah item, estimasi total, hapus semua
                   SliverPadding(
                     padding: EdgeInsets.fromLTRB(side, 8, side, 14),
                     sliver: SliverToBoxAdapter(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                      child: Wrap(
+                        alignment: WrapAlignment.spaceBetween,
+                        crossAxisAlignment: WrapCrossAlignment.end,
+                        spacing: 12,
+                        runSpacing: 8,
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AnimatedSwitcher(
-                                  duration: const Duration(milliseconds: 250),
-                                  child: Text(
-                                    '${products.length} sepatu tersimpan',
-                                    key: ValueKey<int>(products.length),
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w800,
-                                      color: AppColors.ink,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Estimasi total ${formatRupiah(total)}',
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 250),
+                                child: Text(
+                                  '${products.length} sepatu tersimpan',
+                                  key: ValueKey<int>(products.length),
                                   style: const TextStyle(
-                                    fontSize: 13,
-                                    color: AppColors.muted,
-                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.ink,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Estimasi total ${formatRupiah(total)}',
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: AppColors.muted,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
                           TextButton.icon(
                             onPressed: _confirmClearAll,
                             style: TextButton.styleFrom(
+                              minimumSize: const Size(48, 48),
                               foregroundColor: AppColors.danger,
                             ),
                             icon: const Icon(
@@ -267,29 +276,33 @@ class _WishlistPageState extends State<WishlistPage> {
                   if (categories.length > 1)
                     SliverToBoxAdapter(
                       child: SizedBox(
-                        height: 40,
+                        height: filterBarHeight,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           padding: EdgeInsets.symmetric(horizontal: side),
                           itemCount: categories.length + 1,
-                          separatorBuilder: (_, __) => const SizedBox(width: 8),
+                          separatorBuilder: (_, _) => const SizedBox(width: 8),
                           itemBuilder: (context, i) {
                             if (i == 0) {
-                              return _FilterChip(
-                                label: 'Semua',
-                                count: products.length,
-                                color: AppColors.forest,
-                                selected: active == null,
-                                onTap: () => setState(() => _filter = null),
+                              return Center(
+                                child: _FilterChip(
+                                  label: 'Semua',
+                                  count: products.length,
+                                  color: AppColors.forest,
+                                  selected: active == null,
+                                  onTap: () => setState(() => _filter = null),
+                                ),
                               );
                             }
                             final category = categories[i - 1];
-                            return _FilterChip(
-                              label: category,
-                              count: counts[category] ?? 0,
-                              color: _categoryColor(category),
-                              selected: active == category,
-                              onTap: () => setState(() => _filter = category),
+                            return Center(
+                              child: _FilterChip(
+                                label: category,
+                                count: counts[category] ?? 0,
+                                color: _categoryColor(category),
+                                selected: active == category,
+                                onTap: () => setState(() => _filter = category),
+                              ),
                             );
                           },
                         ),
@@ -306,7 +319,7 @@ class _WishlistPageState extends State<WishlistPage> {
                         crossAxisCount: columns,
                         crossAxisSpacing: gap,
                         mainAxisSpacing: gap,
-                        mainAxisExtent: cardWidth + 142,
+                        mainAxisExtent: cardMainExtent,
                       ),
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
@@ -681,9 +694,11 @@ class _WishlistCardState extends State<_WishlistCard>
 
                             const SizedBox(height: 12),
 
-                            SizedBox(
-                              width: double.infinity,
-                              height: 40,
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                minWidth: double.infinity,
+                                minHeight: 44,
+                              ),
                               child: FilledButton.icon(
                                 onPressed: widget.onAddToCart,
                                 style: FilledButton.styleFrom(
@@ -691,9 +706,12 @@ class _WishlistCardState extends State<_WishlistCard>
                                   backgroundColor: lifted
                                       ? accent
                                       : AppColors.forest,
-                                  foregroundColor: Colors.white,
+                                  foregroundColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  minimumSize: const Size(double.infinity, 44),
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 8,
+                                    vertical: 8,
                                   ),
                                   textStyle: const TextStyle(
                                     fontSize: 12.5,

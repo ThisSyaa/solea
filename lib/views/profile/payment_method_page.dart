@@ -41,140 +41,113 @@ class _PaymentMethodPageState
           SizedBox(width: 4),
         ],
       ),
-      body: ListView(
-        padding:
-            const EdgeInsets.fromLTRB(
-          20,
-          10,
-          20,
-          30,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 650),
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(
+              20,
+              10,
+              20,
+              30,
+            ),
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    20,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    RadioListTile<String>(
+                      value: 'Transfer Bank',
+                      groupValue: _selected,
+                      onChanged: (value) {
+                        setState(() {
+                          _selected = value!;
+                        });
+                      },
+                      title: const Text(
+                        'Transfer Bank',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'BCA / BRI / Mandiri',
+                      ),
+                    ),
+                    const Divider(
+                      height: 1,
+                    ),
+                    RadioListTile<String>(
+                      value: 'E-Wallet',
+                      groupValue: _selected,
+                      onChanged: (value) {
+                        setState(() {
+                          _selected = value!;
+                        });
+                      },
+                      title: const Text(
+                        'E-Wallet',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'OVO / DANA / GoPay',
+                      ),
+                    ),
+                    const Divider(
+                      height: 1,
+                    ),
+                    RadioListTile<String>(
+                      value: 'COD',
+                      groupValue: _selected,
+                      onChanged: (value) {
+                        setState(() {
+                          _selected = value!;
+                        });
+                      },
+                      title: const Text(
+                        'Cash on Delivery',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'Bayar saat barang diterima',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 18),
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Metode "$_selected" dipilih.',
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Simpan Metode',
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-        children: [
-          Container(
-            decoration:
-                BoxDecoration(
-              color:
-                  Colors.white,
-              borderRadius:
-                  BorderRadius.circular(
-                20,
-              ),
-            ),
-            child: Column(
-              children: [
-                RadioListTile<String>(
-                  value:
-                      'Transfer Bank',
-                  groupValue:
-                      _selected,
-                  onChanged:
-                      (value) {
-                    setState(() {
-                      _selected =
-                          value!;
-                    });
-                  },
-                  title:
-                      const Text(
-                    'Transfer Bank',
-                    style:
-                        TextStyle(
-                      fontWeight:
-                          FontWeight.w700,
-                    ),
-                  ),
-                  subtitle:
-                      const Text(
-                    'BCA / BRI / Mandiri',
-                  ),
-                ),
-                const Divider(
-                  height: 1,
-                ),
-                RadioListTile<String>(
-                  value:
-                      'E-Wallet',
-                  groupValue:
-                      _selected,
-                  onChanged:
-                      (value) {
-                    setState(() {
-                      _selected =
-                          value!;
-                    });
-                  },
-                  title:
-                      const Text(
-                    'E-Wallet',
-                    style:
-                        TextStyle(
-                      fontWeight:
-                          FontWeight.w700,
-                    ),
-                  ),
-                  subtitle:
-                      const Text(
-                    'OVO / DANA / GoPay',
-                  ),
-                ),
-                const Divider(
-                  height: 1,
-                ),
-                RadioListTile<String>(
-                  value:
-                      'COD',
-                  groupValue:
-                      _selected,
-                  onChanged:
-                      (value) {
-                    setState(() {
-                      _selected =
-                          value!;
-                    });
-                  },
-                  title:
-                      const Text(
-                    'Cash on Delivery',
-                    style:
-                        TextStyle(
-                      fontWeight:
-                          FontWeight.w700,
-                    ),
-                  ),
-                  subtitle:
-                      const Text(
-                    'Bayar saat barang diterima',
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 18),
-          SizedBox(
-            width:
-                double.infinity,
-            height: 52,
-            child:
-                ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(
-                  context,
-                )
-                    .showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Metode "$_selected" dipilih.',
-                    ),
-                  ),
-                );
-              },
-              child:
-                  const Text(
-                'Simpan Metode',
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

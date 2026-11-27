@@ -255,6 +255,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   Row(
                     children: [
                       IconButton(
+                        tooltip: 'Kembali',
+                        constraints: const BoxConstraints(
+                          minWidth: 48,
+                          minHeight: 48,
+                        ),
                         onPressed: _isLoading
                             ? null
                             : () {
@@ -272,27 +277,32 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Container(
-                    height: 190,
-                    width: double.infinity,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE8E4DC),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Image.network(
-                      _shoeImage,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, _, _) {
-                        return const Center(
-                          child: Icon(
-                            Icons.shopping_bag_outlined,
-                            size: 65,
-                            color: Color(0xFF77736B),
-                          ),
-                        );
-                      },
-                    ),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final imgHeight = (constraints.maxWidth * 0.48).clamp(140.0, 200.0);
+                      return Container(
+                        height: imgHeight,
+                        width: double.infinity,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE8E4DC),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Image.network(
+                          _shoeImage,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) {
+                            return const Center(
+                              child: Icon(
+                                Icons.shopping_bag_outlined,
+                                size: 65,
+                                color: Color(0xFF77736B),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 26),
                   _RegisterForm(
@@ -520,11 +530,14 @@ class _RegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenW = MediaQuery.sizeOf(context).width;
+    final hPadding = screenW < 400 ? 18.0 : (screenW < 600 ? 28.0 : 44.0);
+
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 44,
-          vertical: 30,
+        padding: EdgeInsets.symmetric(
+          horizontal: hPadding,
+          vertical: 26,
         ),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 430),
@@ -538,6 +551,7 @@ class _RegisterForm extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
+                        tooltip: 'Kembali ke Login',
                         onPressed: isLoading ? null : onBack,
                         icon: const Icon(
                           Icons.arrow_back_ios_new_rounded,
@@ -545,8 +559,8 @@ class _RegisterForm extends StatelessWidget {
                         ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(
-                          minWidth: 34,
-                          minHeight: 34,
+                          minWidth: 48,
+                          minHeight: 48,
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -620,6 +634,8 @@ class _RegisterForm extends StatelessWidget {
                   validator: validatePassword,
                   suffix: IconButton(
                     onPressed: onTogglePassword,
+                    tooltip: obscurePassword ? 'Tampilkan password' : 'Sembunyikan password',
+                    constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
                     icon: Icon(
                       obscurePassword
                           ? Icons.visibility_off_outlined
@@ -640,6 +656,8 @@ class _RegisterForm extends StatelessWidget {
                   validator: validateConfirmPassword,
                   suffix: IconButton(
                     onPressed: onToggleConfirmPassword,
+                    tooltip: obscureConfirmPassword ? 'Tampilkan password' : 'Sembunyikan password',
+                    constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
                     icon: Icon(
                       obscureConfirmPassword
                           ? Icons.visibility_off_outlined
@@ -731,8 +749,9 @@ class _RegisterForm extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 25),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     const Text(
                       'Already have an account?',
@@ -745,7 +764,8 @@ class _RegisterForm extends StatelessWidget {
                       onPressed: isLoading ? null : onBack,
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.black,
-                        padding: const EdgeInsets.only(left: 5),
+                        minimumSize: const Size(48, 48),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                       ),
                       child: const Text(
                         'Sign in',

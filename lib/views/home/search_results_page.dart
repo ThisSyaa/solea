@@ -94,6 +94,10 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   Widget build(BuildContext context) {
     final results = _results;
     final wishlist = WishlistController.instance;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final textScale =
+        MediaQuery.textScalerOf(context).scale(1.0).clamp(1.0, 1.75);
+    final surfaceColor = Theme.of(context).colorScheme.surface;
 
     return Scaffold(
       backgroundColor: AppColors.sand,
@@ -102,16 +106,22 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
           children: [
             // HEADER: tombol kembali + kolom search
             Container(
-              height: 64,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                border: Border(bottom: BorderSide(color: AppColors.line)),
+              constraints: const BoxConstraints(minHeight: 64),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: surfaceColor,
+                border: const Border(
+                  bottom: BorderSide(color: AppColors.line),
+                ),
               ),
               child: Row(
                 children: [
                   IconButton(
                     tooltip: 'Kembali',
+                    constraints: const BoxConstraints(
+                      minWidth: 48,
+                      minHeight: 48,
+                    ),
                     onPressed: () => Navigator.of(context).maybePop(),
                     icon: const Icon(
                       Icons.arrow_back_rounded,
@@ -132,7 +142,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 48),
+                  SizedBox(width: screenWidth < 600 ? 8 : 48),
                 ],
               ),
             ),
@@ -279,9 +289,12 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                           ),
                           sliver: SliverGrid(
                             gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                SliverGridDelegateWithMaxCrossAxisExtent(
                                   maxCrossAxisExtent: 230,
-                                  childAspectRatio: 0.64,
+                                  mainAxisExtent:
+                                      (screenWidth < 600 ? 148.0 : 175.0) +
+                                          98.0 * textScale +
+                                          16.0,
                                   crossAxisSpacing: 14,
                                   mainAxisSpacing: 14,
                                 ),
@@ -353,24 +366,49 @@ class _ResultCard extends StatelessWidget {
                         child: AppNetworkImage(imageUrl: product.imageUrl),
                       ),
                       Positioned(
-                        top: 8,
-                        right: 8,
-                        child: Material(
-                          color: Colors.white.withValues(alpha: 0.94),
-                          shape: const CircleBorder(),
-                          child: InkWell(
-                            customBorder: const CircleBorder(),
-                            onTap: onFavoriteTap,
-                            child: Padding(
-                              padding: const EdgeInsets.all(7),
-                              child: Icon(
-                                isFavorite
-                                    ? Icons.favorite_rounded
-                                    : Icons.favorite_border_rounded,
-                                size: 17,
-                                color: isFavorite
-                                    ? AppColors.danger
-                                    : AppColors.ink,
+                        top: 2,
+                        right: 2,
+                        child: Semantics(
+                          button: true,
+                          label: isFavorite
+                              ? 'Hapus ${product.name} dari wishlist'
+                              : 'Tambah ${product.name} ke wishlist',
+                          child: Tooltip(
+                            message: isFavorite
+                                ? 'Hapus dari wishlist'
+                                : 'Tambah ke wishlist',
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                customBorder: const CircleBorder(),
+                                onTap: onFavoriteTap,
+                                child: SizedBox(
+                                  width: 48,
+                                  height: 48,
+                                  child: Center(
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface
+                                            .withValues(alpha: 0.94),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(7),
+                                        child: Icon(
+                                          isFavorite
+                                              ? Icons.favorite_rounded
+                                              : Icons.favorite_border_rounded,
+                                          size: 17,
+                                          color: isFavorite
+                                              ? AppColors.danger
+                                              : AppColors.ink,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
